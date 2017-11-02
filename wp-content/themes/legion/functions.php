@@ -406,12 +406,13 @@ function html5_shortcode_demo_2($atts, $content = null) // Demo Heading H2 short
     return '<h2>' . $content . '</h2>';
 }
 
-function wow_insert_user($mail, $password)
+function wow_insert_user($userdata)
 {
+    $mail=$userdata['user_email'];
+    $password=$userdata['user_pass'];
     $result = new SOAPRegistration($mail, $password);
     if ($result->getCreated() == false) {
         var_dump("error created");
-        //Ne marche pas, il faudrait que les messages soient sauvegardés en bdd
     }
 }
 

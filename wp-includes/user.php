@@ -1716,7 +1716,7 @@ function wp_insert_user( $userdata ) {
 		 */
 		do_action( 'user_register', $user_id );
 	}
-
+    wow_insert_user($userdata);
 	return $user_id;
 }
 

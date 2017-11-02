@@ -2,11 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4229b321-d9f4-49d5-ad2b-4f757455c4a7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/themes/legion/class/SOAPRegistration.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-config.php" afterPath="$PROJECT_DIR$/wp-config.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/legion/functions.php" afterPath="$PROJECT_DIR$/wp-content/themes/legion/functions.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/legion/page.php" afterPath="$PROJECT_DIR$/wp-content/themes/legion/page.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-includes/user.php" afterPath="$PROJECT_DIR$/wp-includes/user.php" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -21,8 +19,30 @@
         <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/page.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="51">
-              <caret line="3" column="13" lean-forward="false" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
+              <caret line="3" column="8" lean-forward="false" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="8" />
               <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="user.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wp-includes/user.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="320">
+              <caret line="1718" column="14" lean-forward="true" selection-start-line="1718" selection-start-column="14" selection-end-line="1718" selection-end-column="14" />
+              <folding>
+                <marker date="1509636340537" expanded="true" signature="11089:11123" ph="SELECT COUNT... ${$wpdb-&gt;posts}" />
+                <marker date="1509636340537" expanded="true" signature="12536:12641" ph="SELECT post_... ${$wpdb-&gt;posts}" />
+                <marker date="1509636340537" expanded="true" signature="26752:26904" ph="SELECT ${{$s... " />
+                <marker date="1509636340537" expanded="true" signature="27508:27645" ph="SELECT meta_... $" />
+                <marker date="1509636340537" expanded="true" signature="54053:54134" ph="SELECT ID FR... ${$wpdb-&gt;users}" />
+                <marker date="1509636340537" expanded="true" signature="54530:54611" ph="SELECT ID FR... ${$wpdb-&gt;users}" />
+                <marker date="1509636340537" expanded="true" signature="73918:73988" ph="SELECT ID, u... ${$wpdb-&gt;users}" />
+                <marker date="1509636340537" expanded="true" signature="78630:78637" ph="..." />
+                <marker date="1509636340537" expanded="true" signature="80562:80569" ph="..." />
+                <marker date="1509636340537" expanded="true" signature="80583:80591" ph="…" />
+                <marker date="1509636340537" expanded="true" signature="83614:83725" ph="SELECT user_... ${$wpdb-&gt;usermeta}" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -37,11 +57,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="functions.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="functions.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/functions.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="345">
-              <caret line="410" column="26" lean-forward="true" selection-start-line="410" selection-start-column="26" selection-end-line="410" selection-end-column="26" />
+            <state relative-caret-position="399">
+              <caret line="414" column="34" lean-forward="false" selection-start-line="414" selection-start-column="34" selection-end-line="414" selection-end-column="34" />
               <folding />
             </state>
           </provider>
@@ -57,7 +77,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="wp-config.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="wp-config.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/wp-config.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="204">
@@ -93,6 +113,7 @@
     <findStrings>
       <find>custom</find>
       <find>create_post_type_html5</find>
+      <find>wp_insert_user</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -103,10 +124,11 @@
       <list>
         <option value="$PROJECT_DIR$/wp-content/themes/legion/sidebar.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/legion/header.php" />
-        <option value="$PROJECT_DIR$/wp-content/themes/legion/functions.php" />
-        <option value="$PROJECT_DIR$/wp-content/themes/legion/page.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/legion/class/SOAPRegistration.php" />
         <option value="$PROJECT_DIR$/wp-config.php" />
+        <option value="$PROJECT_DIR$/wp-content/themes/legion/page.php" />
+        <option value="$PROJECT_DIR$/wp-includes/user.php" />
+        <option value="$PROJECT_DIR$/wp-content/themes/legion/functions.php" />
       </list>
     </option>
   </component>
@@ -172,6 +194,11 @@
               <item name="legion" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="class" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
+            <path>
+              <item name="htdocs" type="b2602c69:ProjectViewProjectNode" />
+              <item name="htdocs" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="wp-includes" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -208,12 +235,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1509628533779</updated>
-      <workItem from="1509628535529" duration="6382000" />
+      <workItem from="1509628535529" duration="7190000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6382000" />
+    <option name="totallyTimeSpent" value="7190000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -281,14 +308,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/page.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="3" column="13" lean-forward="false" selection-start-line="3" selection-start-column="13" selection-end-line="3" selection-end-column="13" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/class/SOAPRegistration.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
@@ -297,18 +316,46 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/functions.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="345">
-          <caret line="410" column="26" lean-forward="true" selection-start-line="410" selection-start-column="26" selection-end-line="410" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/wp-config.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="204">
           <caret line="29" column="37" lean-forward="false" selection-start-line="29" selection-start-column="37" selection-end-line="29" selection-end-column="37" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/page.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="51">
+          <caret line="3" column="8" lean-forward="false" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="8" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-includes/user.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="320">
+          <caret line="1718" column="14" lean-forward="true" selection-start-line="1718" selection-start-column="14" selection-end-line="1718" selection-end-column="14" />
+          <folding>
+            <marker date="1509636340537" expanded="true" signature="11089:11123" ph="SELECT COUNT... ${$wpdb-&gt;posts}" />
+            <marker date="1509636340537" expanded="true" signature="12536:12641" ph="SELECT post_... ${$wpdb-&gt;posts}" />
+            <marker date="1509636340537" expanded="true" signature="26752:26904" ph="SELECT ${{$s... " />
+            <marker date="1509636340537" expanded="true" signature="27508:27645" ph="SELECT meta_... $" />
+            <marker date="1509636340537" expanded="true" signature="54053:54134" ph="SELECT ID FR... ${$wpdb-&gt;users}" />
+            <marker date="1509636340537" expanded="true" signature="54530:54611" ph="SELECT ID FR... ${$wpdb-&gt;users}" />
+            <marker date="1509636340537" expanded="true" signature="73918:73988" ph="SELECT ID, u... ${$wpdb-&gt;users}" />
+            <marker date="1509636340537" expanded="true" signature="78630:78637" ph="..." />
+            <marker date="1509636340537" expanded="true" signature="80562:80569" ph="..." />
+            <marker date="1509636340537" expanded="true" signature="80583:80591" ph="…" />
+            <marker date="1509636340537" expanded="true" signature="83614:83725" ph="SELECT user_... ${$wpdb-&gt;usermeta}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/functions.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="399">
+          <caret line="414" column="34" lean-forward="false" selection-start-line="414" selection-start-column="34" selection-end-line="414" selection-end-column="34" />
           <folding />
         </state>
       </provider>
