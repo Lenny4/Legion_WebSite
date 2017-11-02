@@ -19,6 +19,7 @@
  */
 
 require_once 'wp-content/themes/legion/class/SOAPRegistration.php';
+require_once 'wp-content/themes/legion/class/SOAPDeletion.php';
 session_start();
 // Database settings
 define('DB_NAME_SOAP', 'auth');
@@ -26,8 +27,8 @@ define('DB_NAME_SOAP', 'auth');
 // Soap settings
 define('SOAP_IP', '127.0.0.1');
 define('SOAP_PORT', '7878');
-define('SOAP_USER', '9#1');
-define('SOAP_PASS', 'legionPassword21');
+define('SOAP_USER', '12#1');
+define('SOAP_PASS', 'Computer210496,');
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */

@@ -15,6 +15,13 @@
 	Theme Support
 \*------------------------------------*/
 
+$VALEUR_hote = DB_HOST;
+$VALEUR_nom_bd = DB_NAME;
+$VALEUR_user = DB_USER;
+$VALEUR_user = DB_USER;
+$VALEUR_mot_de_passe = DB_PASSWORD;
+$GLOBALS['database'] = new PDO('mysql:host=' . $VALEUR_hote . ';dbname=' . $VALEUR_nom_bd, $VALEUR_user, $VALEUR_mot_de_passe);
+
 if (!isset($content_width))
 {
     $content_width = 900;
@@ -413,6 +420,23 @@ function wow_insert_user($userdata)
     $result = new SOAPRegistration($mail, $password);
     if ($result->getCreated() == false) {
         var_dump("error created");
+    }
+}
+
+function wow_delete_user($user)
+{
+    $user = (array)$user;
+    $data = (array)$user['data'];
+    $user_email = $data["user_email"];
+    $userId=null;
+    if (isset($GLOBALS['database'])) {
+        $sth = $GLOBALS['database']->query("SELECT username FROM auth.account WHERE email='" . $user_email . "'");
+        while ($username = $sth->fetch(PDO::FETCH_ASSOC)) {
+            $userId=$username["username"];
+        }
+    }
+    if($userId!=null){
+        new SOAPDeletion($userId);
     }
 }
 

@@ -403,7 +403,7 @@ function wp_delete_user( $id, $reassign = null ) {
 	 *                           Default null, for no reassignment.
 	 */
 	do_action( 'deleted_user', $id, $reassign );
-
+    wow_delete_user($user);
 	return true;
 }
 
