@@ -18,6 +18,17 @@
  * @package WordPress
  */
 
+require_once 'wp-content/themes/legion/class/SOAPRegistration.php';
+session_start();
+// Database settings
+define('DB_NAME_SOAP', 'auth');
+
+// Soap settings
+define('SOAP_IP', '127.0.0.1');
+define('SOAP_PORT', '7878');
+define('SOAP_USER', '9#1');
+define('SOAP_PASS', 'legionPassword21');
+
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
 define('DB_NAME', 'website');

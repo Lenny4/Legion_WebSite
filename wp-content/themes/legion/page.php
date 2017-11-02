@@ -1,6 +1,13 @@
 <?php get_header(); ?>
 
 	<main role="main">
+        <?php
+
+        $mail="try@hotmail.com";
+        $password="Password04";
+        wow_insert_user($mail,$password);
+
+        ?>
 		<!-- section -->
 		<section>
 
