@@ -45,6 +45,6 @@
 						<?php html5blank_nav(); ?>
 					</nav>
 					<!-- /nav -->
-
+                <div><?php qtranxf_generateLanguageSelectCode('dropdown'); //‘image’, ‘text’, ‘both’, and ‘dropdown’  ?></div>
 			</header>
 			<!-- /header -->
