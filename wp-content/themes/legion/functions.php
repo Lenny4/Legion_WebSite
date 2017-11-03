@@ -413,19 +413,9 @@ function html5_shortcode_demo_2($atts, $content = null) // Demo Heading H2 short
     return '<h2>' . $content . '</h2>';
 }
 
-function wow_insert_user($userdata)
+function getUserWowIdWithUserData($userdata)
 {
-    $mail=$userdata['user_email'];
-    $password=$userdata['user_pass'];
-    $result = new SOAPRegistration($mail, $password);
-    if ($result->getCreated() == false) {
-        var_dump("error created");
-    }
-}
-
-function wow_delete_user($user)
-{
-    $user = (array)$user;
+    $user = (array)$userdata;
     $data = (array)$user['data'];
     $user_email = $data["user_email"];
     $userId=null;
@@ -435,8 +425,46 @@ function wow_delete_user($user)
             $userId=$username["username"];
         }
     }
+    return $userId;
+}
+
+function getUserWowMailWithUserData($userdata)
+{
+    $user_email = $userdata["user_email"];
+    return $user_email;
+}
+
+function wow_insert_user($userdata)
+{
+    $mail=$userdata['user_email'];
+    $password=$userdata['user_pass'];
+    new SOAPRegistration($mail, $password);
+}
+
+function wow_delete_user($userdata)
+{
+    $userId=getUserWowIdWithUserData($userdata);
     if($userId!=null){
         new SOAPDeletion($userId);
+    }
+}
+
+/**
+ * @param $userdata
+ */
+function wow_update_user($userdata){
+    $mail=getUserWowMailWithUserData($userdata);
+    $newPassword=null;
+    if(isset($_POST['password_repeat'])){//account page
+        $newPassword=$_POST['password_repeat'];
+    }
+    elseif (isset($_POST['pass1-text'])){//wp admin panel page
+        $newPassword=$_POST['pass1-text'];
+    }
+    //elseif //resetpassword
+    if($newPassword!=null)
+    {
+        new SOAPChangePassword($mail,$newPassword);
     }
 }
 

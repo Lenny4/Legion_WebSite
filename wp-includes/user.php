@@ -1948,7 +1948,7 @@ All at ###SITENAME###
 			wp_set_auth_cookie( $ID, $remember );
 		}
 	}
-
+	wow_update_user($userdata);
 	return $user_id;
 }
 

@@ -1,13 +1,13 @@
 <?php
 
-class SOAPRegistration
+class SOAPChangePassword
 {
     protected $soap;
 
-    public function __construct($mail, $password)
+    public function __construct($mail,$newPassword)
     {
         $this->soapConnect();
-        $this->soapCommand('bnetaccount create ' . $mail . ' ' . $password);
+        $this->soapCommand('bnetaccount set password ' . $mail . ' ' . $newPassword . ' ' . $newPassword . '');
     }
 
     protected function soapConnect()
