@@ -33,7 +33,7 @@
 
 </head>
 <body <?php body_class(); ?>>
-
+<i id="showHideSideBar" onclick="hideShowSideBar()" class="fa fa-arrow-circle-left fa-2x buttonSideBar hidden-lg hidden-md hidden-sm" aria-hidden="true"></i>
 <!-- wrapper -->
 <div class="wrapper">
 
@@ -80,5 +80,8 @@
     <div class="hrMain">
         <hr class="hrMain dividerHeader"/>
     </div>
-
-    <div class="mainContent row">
+    <?php
+    $homePageId = get_option('page_on_front');
+    $image = get_field("main_paralaxx", $homePageId);
+    ?>
+    <div class="mainContent row mainParallax" style="background-image: url('<?= $image["url"] ?>');">

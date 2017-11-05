@@ -5,6 +5,7 @@
 
 body {
     overflow-x: hidden;
+    background-color: black;
 }
 
 li, p, span, h1, h2, h3, h4, h5, h6 {
@@ -109,10 +110,10 @@ header img.smallLogo {
     position: absolute;
     z-index: -1;
     width: 2000px;
-    left: -340px;
+    left: -320px;
 }
 
-main,aside {
+main {
     padding-top: 25px;
     padding-bottom: 25px;
 }
@@ -236,4 +237,34 @@ div.footer_nav ul li a:hover{
 
 div.mainContent{
     background-color: black;
+}
+
+div.mainParallax{
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.buttonSideBar{
+    position: fixed;
+    right: 0px;
+    top: 50%;
+    z-index: 10001;
+    color: white;
+}
+
+aside{
+    padding-top: 25px;
+    padding-bottom: 25px;
+}
+
+@media (max-width: 768px) {
+    aside{
+        background-color: rgb(28, 36, 23);
+        z-index: 10000;
+        position: fixed!important;
+        top: 0px;
+        right: 0px;
+    }
 }
