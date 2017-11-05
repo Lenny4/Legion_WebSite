@@ -13,6 +13,16 @@
             <!-- article -->
             <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
+                <div class="col-xs-6">
+                    <p class="h3">Last Post</p>
+                </div>
+                <div class="col-xs-6">
+                    <p class="h3">Register</p>
+                    <?= do_shortcode('[wpum_register form_id="" login_link="yes" psw_link="yes" register_link="no" ]') ?>
+                </div>
+
+                <?php get_template_part('searchform'); ?>
+
                 <?php the_content(); ?>
 
                 <?php comments_template( '', true ); // Remove if you don't want comments ?>

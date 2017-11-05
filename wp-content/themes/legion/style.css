@@ -8,11 +8,11 @@ body {
     background-color: black;
 }
 
-li, p, span, h1, h2, h3, h4, h5, h6 {
+li, p, span, h1, h2, h3, h4, h5, h6, label, .h1, .h2, .h3, .h4, .h5, .h6 {
     color: white;
 }
 
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     font-family: LifeCraft_Font;
 }
 
@@ -210,23 +210,24 @@ a.socialIcon:hover, .socialHoverClass {
     transition: all 0.8s;
 }
 
-div.footer_nav ul{
-    display: flex;
+div.footer_nav ul {
+    display: inline-flex;
     list-style: none;
     padding-top: 40px;
+    float: right;
 }
 
-div.footer_nav ul li{
+div.footer_nav ul li {
     display: flex;
     list-style: none;
     padding-right: 20px;
 }
 
-div.footer_nav ul li a{
+div.footer_nav ul li a {
     color: white;
 }
 
-div.footer_nav ul li a:hover{
+div.footer_nav ul li a:hover {
     text-decoration: none;
     color: #8e983e;
     -webkit-transition: color 0.5s ease-out;
@@ -235,36 +236,99 @@ div.footer_nav ul li a:hover{
     transition: color 0.5s ease-out;
 }
 
-div.mainContent{
+div.mainContent {
     background-color: black;
 }
 
-div.mainParallax{
+div.mainParallax {
     background-attachment: fixed;
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
 }
 
-.buttonSideBar{
+.buttonSideBar {
     position: fixed;
     right: 0px;
     top: 50%;
     z-index: 10001;
     color: white;
+    cursor: pointer;
 }
 
-aside{
+aside {
     padding-top: 25px;
     padding-bottom: 25px;
 }
 
 @media (max-width: 768px) {
-    aside{
+    aside {
         background-color: rgb(28, 36, 23);
         z-index: 10000;
-        position: fixed!important;
+        position: fixed !important;
         top: 0px;
         right: 0px;
+        height: 100%;
     }
+}
+
+.wpum-login-form form input[type=email], .wpum-login-form form input[type=password], .wpum-login-form form input[type=text], .wpum-login-form form select, .wpum-login-form form textarea {
+    width: 100%;
+}
+
+.wpum-password-form fieldset label, .wpum-profile-form fieldset label, .wpum-registration-form fieldset label, .wpum-update-password-form fieldset label {
+    width: initial;
+    padding-right: 5px;
+}
+
+.wpum-login-form form label {
+    width: initial;
+}
+
+.wpum-password-form fieldset, .wpum-profile-form fieldset, .wpum-registration-form fieldset, .wpum-update-password-form fieldset, .wpum-login-form form p.login-password, .wpum-login-form form p.login-remember, .wpum-login-form form p.login-username {
+    border-bottom: none;
+    margin: 0;
+}
+
+.search-submit{
+    display: inline-block;
+    padding: 6px 12px;
+    margin-bottom: 0;
+    font-size: 14px;
+    font-weight: 400;
+    line-height: 1.42857143;
+    text-align: center;
+    white-space: nowrap;
+    vertical-align: middle;
+    -ms-touch-action: manipulation;
+    touch-action: manipulation;
+    cursor: pointer;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    background-image: none;
+    border: 1px solid transparent;
+    border-radius: 4px;
+    color: #333;
+    background-color: #fff;
+    border-color: #ccc;
+}
+
+.search-input{
+    display: block;
+    width: 100%;
+    padding: 6px 12px;
+    font-size: 14px;
+    line-height: 1.42857143;
+    color: #555;
+    background-color: #fff;
+    background-image: none;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
+    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
 }
