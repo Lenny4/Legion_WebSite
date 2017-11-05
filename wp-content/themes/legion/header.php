@@ -58,8 +58,6 @@
                     <?php header_right_nav(); ?>
                 </div>
             </div>
-            <div id="qtransSelector"
-                 class="hidden"><?php qtranxf_generateLanguageSelectCode('image'); //‘image’, ‘text’, ‘both’, and ‘dropdown’  ?></div>
         </nav>
         <!-- /nav -->
         <?php

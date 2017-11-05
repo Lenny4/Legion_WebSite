@@ -8,7 +8,7 @@ body {
     background-color: black;
 }
 
-li, p, span, h1, h2, h3, h4, h5, h6, label, .h1, .h2, .h3, .h4, .h5, .h6 {
+li, p, span, h1, h2, h3, h4, h5, h6, label, .h1, .h2, .h3, .h4, .h5, .h6, td {
     color: white;
 }
 
@@ -23,6 +23,10 @@ h1 {
 
 button.navbar-toggle span {
     background-color: white;
+}
+
+.clickable{
+    cursor: pointer;
 }
 
 .mainLogoHomePage {
@@ -114,13 +118,15 @@ header img.smallLogo {
 }
 
 main {
-    padding-top: 25px;
-    padding-bottom: 25px;
-    background-color: rgba(28, 36, 23, 0.9);
-    border-radius: 10px 10px 10px 10px;
+    background-color: transparent;
     margin-top: 10px;
     margin-bottom: 20px;
     margin-right: 5px;
+    padding: 0!important;
+}
+
+section{
+    width: 100%;
 }
 
 hr.hrMain {
@@ -135,11 +141,11 @@ hr.hrMain {
 }
 
 hr.dividerHeader {
-    background-image: url('http://localhost/wp-content/uploads/2017/11/divider.png');
+    background-image: url('/wp-content/uploads/2017/11/divider.png');
 }
 
 hr.dividerFooter {
-    background-image: url('http://localhost/wp-content/uploads/2017/11/divider2.png');
+    background-image: url('/wp-content/uploads/2017/11/divider2.png');
 }
 
 div.hrMain {
@@ -265,8 +271,8 @@ div.mainParallax {
 aside {
     padding-top: 25px;
     padding-bottom: 25px;
-    padding-right: 0px!important;
-    padding-left: 0px!important;
+    padding-right: 15px!important;
+    padding-left: 15px!important;
     background-color: rgba(28, 36, 23, 0.9);
     border-radius: 10px 10px 10px 10px;
     margin-top: 10px;
@@ -442,4 +448,58 @@ div.item p.h3 {
     filter: alpha(opacity=100);
     -webkit-transform: translate3d(0, 0, 0);
     transform: translate3d(0, 0, 0);
+}
+
+#qtranslate-chooser{
+    display: flex;
+}
+
+#qtransSelector ul{
+    list-style: none;
+}
+
+#qtranslate-chooser li{
+    padding-right: 10px;
+}
+
+#qtranslate-chooser img{
+    width: 25px;
+}
+
+.modal-content{
+    background-color: rgba(28, 36, 23, 0.9);
+    background-image: url("/wp-content/uploads/2017/11/repeat-bg.jpg");
+}
+
+.modal-header{
+    border: none;
+}
+
+.modal-header button{
+    color: white;
+    opacity: 1;
+}
+
+.modal-footer{
+    border: none;
+    display: none;
+}
+
+#onlinePlayer div{
+    float: left;
+    height: 20px;
+}
+
+.background{
+    background-image: url("/wp-content/uploads/2017/11/repeat-bg.jpg");
+    border-radius: 10px 10px 10px 10px;
+}
+
+table{
+    width: 100%;
+}
+
+td{
+    padding-top: 5px;
+    padding-bottom: 5px;
 }

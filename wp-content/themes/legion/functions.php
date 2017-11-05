@@ -539,4 +539,27 @@ function wow_update_user($userdata){
     }
 }
 
+function getOnlinePlayer()
+{
+    $tab=array();
+    $tab["blue"]=12;
+    $tab["red"]=15;
+    $tab["total"]=$tab["blue"]+$tab["red"];
+    $tab["pBlue"]=intval(($tab["blue"]/$tab["total"])*100);
+    $tab["pRed"]=100-$tab["pBlue"];
+    return $tab;
+}
+
+function getLadder()
+{
+    $tab=array();
+    for($i=0;$i<5;$i++){
+        $tab[$i]["name"]="Name";
+        $tab[$i]["win"]="1000";
+        $tab[$i]["losses"]="10";
+        $tab[$i]["ranking"]="2009";
+    }
+    return $tab;
+}
+
 ?>

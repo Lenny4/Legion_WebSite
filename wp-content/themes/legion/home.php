@@ -4,9 +4,7 @@
 
 <main class="col-md-8 col-md-offset-1" role="main">
     <!-- section -->
-    <section style="display: inline-block;">
-
-        <h1><?php the_title(); ?></h1>
+    <section class="background" style="display: inline-block;">
 
         <?php if (have_posts()): while (have_posts()) : the_post(); ?>
 
@@ -80,8 +78,15 @@
                         </div>
                     </div>
                     <div class="col-xs-5">
-                        <p class="h3">Register</p>
-                        <?= do_shortcode('[wpum_register form_id="" login_link="yes" psw_link="yes" register_link="no" ]') ?>
+                        <?php
+                        if(is_user_logged_in()){ ?>
+                            <p class="h3">Facebook</p>
+                            <?= do_shortcode('[sfp-page-plugin url=http://www.facebook.com/facebook/]') ?>
+                        <?php }else{ ?>
+                            <p class="h3">Register</p>
+                            <?= do_shortcode('[wpum_register form_id="" login_link="yes" psw_link="yes" register_link="no" ]') ?>
+                        <?php }
+                        ?>
                     </div>
 
                     <?php the_content(); ?>
@@ -89,8 +94,6 @@
                     <?php comments_template('', true); // Remove if you don't want comments ?>
 
                     <br class="clear">
-
-                    <?php edit_post_link(); ?>
 
             </article>
             <!-- /article -->
@@ -111,6 +114,49 @@
 
     </section>
     <!-- /section -->
+    <a href="#"><div class="col-md-6 col-xs-12" style="margin-top: 20px">
+        <div class="col-xs-12 background">
+            <p class="h1">Shop</p>
+            <div class="col-xs-12">
+                <?php
+                $homePageId = get_option('page_on_front');
+                $image = get_field("shop", $homePageId);
+                echo wp_get_attachment_image($image["id"], 'full', "", ["class" => ""]);
+                ?>
+            </div>
+        </div>
+    </div></a>
+    <div class="col-md-6 col-xs-12" style="margin-top: 20px">
+        <div class="col-xs-12 background">
+            <p class="h1">Royaume</p>
+            <hr/>
+            <p class="h2">Nom du Royaume : <span class="h3" style="color: green">Online</span></p>
+            <p style="font-size: 20px">Rate XP | Loot | Gold : x10</p>
+            <p style="font-size: 20px">Free first lvl 110</p>
+        </div>
+        <div class="col-xs-12 background" style="margin-top: 20px">
+            <p class="h1">Classement</p>
+            <table>
+                <tr style="border-bottom: solid white 1px;">
+                    <td>Name</td>
+                    <td>Wins</td>
+                    <td>Losses</td>
+                    <td>Ranking</td>
+                </tr>
+            <?php
+            $tabLadder=getLadder();
+            foreach ($tabLadder as $row){
+                echo"<tr>";
+                echo"<td>".$row["name"]."</td>";
+                echo"<td>".$row["win"]."</td>";
+                echo"<td>".$row["losses"]."</td>";
+                echo"<td>".$row["ranking"]."</td>";
+                echo"</tr>";
+            }
+            ?>
+            </table>
+        </div>
+    </div>
 </main>
 
 <?php get_sidebar(); ?>
