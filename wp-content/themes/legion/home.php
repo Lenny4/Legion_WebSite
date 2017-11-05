@@ -4,7 +4,7 @@
 
 <main class="col-md-8 col-md-offset-1" role="main">
     <!-- section -->
-    <section>
+    <section style="display: inline-block;">
 
         <h1><?php the_title(); ?></h1>
 
