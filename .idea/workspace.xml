@@ -2,12 +2,16 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4229b321-d9f4-49d5-ad2b-4f757455c4a7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/themes/legion/class/SOAPChangePassword.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/themes/legion/fonts/LifeCraft_Font.ttf" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/themes/legion/class/wp_bootstrap_navwalker.php" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/themes/legion/fonts/jquery-3.2.1/jquery.min.js" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/wp-content/themes/legion/fonts/readme.txt" afterPath="" />
+      <change type="MOVED" beforePath="$PROJECT_DIR$/wp-content/themes/legion/template-demo.php" afterPath="$PROJECT_DIR$/wp-content/themes/legion/home.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-config.php" afterPath="$PROJECT_DIR$/wp-config.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/legion/class/SOAPRegistration.php" afterPath="$PROJECT_DIR$/wp-content/themes/legion/class/SOAPRegistration.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/legion/functions.php" afterPath="$PROJECT_DIR$/wp-content/themes/legion/functions.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-includes/user.php" afterPath="$PROJECT_DIR$/wp-includes/user.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/legion/header.php" afterPath="$PROJECT_DIR$/wp-content/themes/legion/header.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/legion/js/scripts.js" afterPath="$PROJECT_DIR$/wp-content/themes/legion/js/scripts.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/legion/style.css" afterPath="$PROJECT_DIR$/wp-content/themes/legion/style.css" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -17,124 +21,57 @@
     <option name="LAST_RESOLUTION" value="IGNORE" />
   </component>
   <component name="FileEditorManager">
-    <leaf>
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
       <file leaf-file-name="page.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/page.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="3" column="8" lean-forward="false" selection-start-line="3" selection-start-column="8" selection-end-line="3" selection-end-column="8" />
+            <state relative-caret-position="391">
+              <caret line="23" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="user.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/wp-includes/user.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="218">
-              <caret line="1952" column="1" lean-forward="true" selection-start-line="1952" selection-start-column="1" selection-end-line="1952" selection-end-column="1" />
-              <folding>
-                <element signature="n#wp_signon#0;n#!!top" expanded="false" />
-                <element signature="n#wp_authenticate_username_password#0;n#!!top" expanded="false" />
-                <element signature="n#wp_authenticate_email_password#0;n#!!top" expanded="false" />
-                <element signature="n#wp_authenticate_cookie#0;n#!!top" expanded="false" />
-                <element signature="n#wp_authenticate_spam_check#0;n#!!top" expanded="false" />
-                <element signature="n#wp_validate_logged_in_cookie#0;n#!!top" expanded="false" />
-                <element signature="n#count_user_posts#0;n#!!top" expanded="false" />
-                <element signature="n#count_many_users_posts#0;n#!!top" expanded="false" />
-                <element signature="n#get_current_user_id#0;n#!!top" expanded="false" />
-                <element signature="n#get_user_option#0;n#!!top" expanded="false" />
-                <element signature="n#update_user_option#0;n#!!top" expanded="false" />
-                <element signature="n#delete_user_option#0;n#!!top" expanded="false" />
-                <element signature="n#get_users#0;n#!!top" expanded="false" />
-                <element signature="n#get_blogs_of_user#0;n#!!top" expanded="false" />
-                <element signature="n#is_user_member_of_blog#0;n#!!top" expanded="false" />
-                <element signature="n#add_user_meta#0;n#!!top" expanded="false" />
-                <element signature="n#delete_user_meta#0;n#!!top" expanded="false" />
-                <element signature="n#get_user_meta#0;n#!!top" expanded="false" />
-                <element signature="n#update_user_meta#0;n#!!top" expanded="false" />
-                <element signature="n#count_users#0;n#!!top" expanded="false" />
-                <element signature="n#setup_userdata#0;n#!!top" expanded="false" />
-                <element signature="n#wp_dropdown_users#0;n#!!top" expanded="false" />
-                <element signature="n#sanitize_user_field#0;n#!!top" expanded="false" />
-                <element signature="n#update_user_caches#0;n#!!top" expanded="false" />
-                <element signature="n#username_exists#0;n#!!top" expanded="false" />
-                <element signature="n#email_exists#0;n#!!top" expanded="false" />
-                <element signature="n#validate_username#0;n#!!top" expanded="false" />
-                <element signature="n#_get_additional_user_keys#0;n#!!top" expanded="false" />
-                <element signature="n#wp_get_user_contact_methods#0;n#!!top" expanded="false" />
-                <element signature="n#_wp_get_user_contactmethods#0;n#!!top" expanded="false" />
-                <element signature="n#wp_get_password_hint#0;n#!!top" expanded="false" />
-                <element signature="n#get_password_reset_key#0;n#!!top" expanded="false" />
-                <element signature="n#check_password_reset_key#0;n#!!top" expanded="false" />
-                <element signature="n#reset_password#0;n#!!top" expanded="false" />
-                <element signature="n#register_new_user#0;n#!!top" expanded="false" />
-                <element signature="n#wp_send_new_user_notifications#0;n#!!top" expanded="false" />
-                <element signature="n#wp_get_session_token#0;n#!!top" expanded="false" />
-                <element signature="n#wp_get_all_sessions#0;n#!!top" expanded="false" />
-                <element signature="n#wp_destroy_current_session#0;n#!!top" expanded="false" />
-                <element signature="n#wp_destroy_other_sessions#0;n#!!top" expanded="false" />
-                <element signature="n#wp_destroy_all_sessions#0;n#!!top" expanded="false" />
-                <element signature="n#wp_get_users_with_no_role#0;n#!!top" expanded="false" />
-                <element signature="n#_wp_get_current_user#0;n#!!top" expanded="false" />
-                <marker date="1509658953301" expanded="true" signature="11089:11123" ph="SELECT COUNT... ${$wpdb-&gt;posts}" />
-                <marker date="1509658953301" expanded="true" signature="12536:12641" ph="SELECT post_... ${$wpdb-&gt;posts}" />
-                <marker date="1509658953301" expanded="true" signature="26752:26904" ph="SELECT ${{$s... " />
-                <marker date="1509658953301" expanded="true" signature="27508:27645" ph="SELECT meta_... $" />
-                <marker date="1509658953301" expanded="true" signature="54053:54134" ph="SELECT ID FR... ${$wpdb-&gt;users}" />
-                <marker date="1509658953301" expanded="true" signature="54530:54611" ph="SELECT ID FR... ${$wpdb-&gt;users}" />
-                <marker date="1509658953301" expanded="true" signature="73946:74016" ph="SELECT ID, u... ${$wpdb-&gt;users}" />
-                <marker date="1509658953301" expanded="true" signature="78658:78665" ph="..." />
-                <marker date="1509658953301" expanded="true" signature="80590:80597" ph="..." />
-                <marker date="1509658953301" expanded="true" signature="80611:80619" ph="…" />
-                <marker date="1509658953301" expanded="true" signature="83642:83753" ph="SELECT user_... ${$wpdb-&gt;usermeta}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="user.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/wp-admin/includes/user.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="262">
-              <caret line="409" column="3" lean-forward="false" selection-start-line="409" selection-start-column="3" selection-end-line="409" selection-end-column="3" />
-              <folding>
-                <marker date="1509637712227" expanded="true" signature="6700:6707" ph="..." />
-                <marker date="1509637712227" expanded="true" signature="9452:9591" ph="SELECT ID, p... ${$wpdb-&gt;posts}" />
-                <marker date="1509637712227" expanded="true" signature="12026:12119" ph="SELECT ID FR... ${$wpdb-&gt;posts}" />
-                <marker date="1509637712227" expanded="true" signature="12289:12343" ph="SELECT link_... ${$wpdb-&gt;links}" />
-                <marker date="1509637712227" expanded="true" signature="12504:12554" ph="SELECT ID FR... ${$wpdb-&gt;posts}" />
-                <marker date="1509637712227" expanded="true" signature="12816:12870" ph="SELECT link_... ${$wpdb-&gt;links}" />
-                <marker date="1509637712227" expanded="true" signature="13249:13304" ph="SELECT umeta... ${$wpdb-&gt;usermeta}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="functions.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="functions.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/functions.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="422">
-              <caret line="468" column="1" lean-forward="true" selection-start-line="468" selection-start-column="1" selection-end-line="468" selection-end-column="1" />
+            <state relative-caret-position="456">
+              <caret line="141" column="9" lean-forward="true" selection-start-line="141" selection-start-column="9" selection-end-line="141" selection-end-column="9" />
               <folding>
-                <marker date="1509659018194" expanded="true" signature="15819:15886" ph="SELECT usern... account" />
+                <marker date="1509827626632" expanded="true" signature="18358:18425" ph="SELECT usern... account" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SOAPChangePassword.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/class/SOAPChangePassword.php">
+      <file leaf-file-name="header.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/header.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="136">
-              <caret line="8" column="29" lean-forward="true" selection-start-line="8" selection-start-column="29" selection-end-line="8" selection-end-column="29" />
-              <folding />
+            <state relative-caret-position="498">
+              <caret line="80" column="25" lean-forward="false" selection-start-line="80" selection-start-column="19" selection-end-line="80" selection-end-column="25" />
+              <folding>
+                <element signature="n#style#0;n#div#0;n#header#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+                <marker date="1509841267690" expanded="true" signature="3097:3219" ph="..." />
+                <marker date="1509841267690" expanded="true" signature="3097:3386" ph="..." />
+              </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="wp-comments-post.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/wp-comments-post.php">
+      <file leaf-file-name="jquery.min.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/fonts/jquery-3.2.1/jquery.min.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+              <folding>
+                <element signature="n#!!doc" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="normalize.min.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/normalize.min.css">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="0">
               <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
@@ -143,50 +80,64 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="wp-config.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/wp-config.php">
+      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="22" column="63" lean-forward="false" selection-start-line="22" selection-start-column="63" selection-end-line="22" selection-end-column="63" />
+            <state relative-caret-position="481">
+              <caret line="74" column="32" lean-forward="false" selection-start-line="74" selection-start-column="32" selection-end-line="74" selection-end-column="32" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SOAPRegistration.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/class/SOAPRegistration.php">
+      <file leaf-file-name="scripts.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/js/scripts.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
-              <caret line="29" column="25" lean-forward="false" selection-start-line="29" selection-start-column="25" selection-end-line="29" selection-end-column="25" />
+            <state relative-caret-position="221">
+              <caret line="16" column="25" lean-forward="true" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SOAPDeletion.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/class/SOAPDeletion.php">
+      <file leaf-file-name="single.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/single.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="204">
-              <caret line="12" column="36" lean-forward="false" selection-start-line="12" selection-start-column="36" selection-end-line="12" selection-end-column="36" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="pluggable.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/wp-includes/pluggable.php">
+      <file leaf-file-name="home.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/home.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="279">
-              <caret line="2302" column="0" lean-forward="true" selection-start-line="2302" selection-start-column="0" selection-end-line="2302" selection-end-column="0" />
-              <folding>
-                <marker date="1509642056500" expanded="true" signature="3278:3324" ph="SELECT * FRO... ${$wpdb-&gt;users}" />
-                <marker date="1509642056500" expanded="true" signature="52821:52895" ph="SELECT count... ${$wpdb-&gt;comments}" />
-              </folding>
+            <state relative-caret-position="68">
+              <caret line="4" column="4" lean-forward="true" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="wp_bootstrap_navwalker.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/class/wp_bootstrap_navwalker.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
     </leaf>
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="JavaScript File" />
+      </list>
+    </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
@@ -203,7 +154,14 @@
       <find>DB_NAME</find>
       <find>wp_set_password</find>
       <find>wp_update_user</find>
+      <find>create_post_vote</find>
+      <find>$pageID</find>
+      <find>body</find>
+      <find>nav</find>
     </findStrings>
+    <replaceStrings>
+      <replace>$homePageId</replace>
+    </replaceStrings>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -212,7 +170,6 @@
     <option name="CHANGED_PATHS">
       <list>
         <option value="$PROJECT_DIR$/wp-content/themes/legion/sidebar.php" />
-        <option value="$PROJECT_DIR$/wp-content/themes/legion/header.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/legion/page.php" />
         <option value="$PROJECT_DIR$/wp-admin/includes/user.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/legion/class/SOAPDeletion.php" />
@@ -221,7 +178,13 @@
         <option value="$PROJECT_DIR$/wp-config.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/legion/class/SOAPChangePassword.php" />
         <option value="$PROJECT_DIR$/wp-includes/user.php" />
+        <option value="$PROJECT_DIR$/wp-content/themes/legion/template-demo.php" />
+        <option value="$PROJECT_DIR$/wp-content/themes/legion/fonts/jquery-3.2.1/jquery.min.js" />
         <option value="$PROJECT_DIR$/wp-content/themes/legion/functions.php" />
+        <option value="$PROJECT_DIR$/wp-content/themes/legion/home.php" />
+        <option value="$PROJECT_DIR$/wp-content/themes/legion/header.php" />
+        <option value="$PROJECT_DIR$/wp-content/themes/legion/style.css" />
+        <option value="$PROJECT_DIR$/wp-content/themes/legion/js/scripts.js" />
       </list>
     </option>
   </component>
@@ -252,8 +215,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scratches" />
       <pane id="Scope" />
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -287,6 +250,22 @@
               <item name="legion" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="class" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
+            <path>
+              <item name="htdocs" type="b2602c69:ProjectViewProjectNode" />
+              <item name="htdocs" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="wp-content" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="themes" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="legion" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="fonts" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
+            <path>
+              <item name="htdocs" type="b2602c69:ProjectViewProjectNode" />
+              <item name="htdocs" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="wp-content" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="themes" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="legion" type="2a2b976b:PhpTreeStructureProvider$1" />
+              <item name="js" type="2a2b976b:PhpTreeStructureProvider$1" />
+            </path>
           </expand>
           <select />
         </subPane>
@@ -298,6 +277,7 @@
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="C:\xampp\htdocs\wp-content\themes\legion\fonts" />
       <recent name="C:\xampp\htdocs\wp-content\themes\legion\class" />
       <recent name="C:\xampp\htdocs\wp-content\themes\legion" />
     </key>
@@ -324,12 +304,13 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1509628533779</updated>
-      <workItem from="1509628535529" duration="17374000" />
+      <workItem from="1509628535529" duration="17962000" />
+      <workItem from="1509823615113" duration="19246000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="17374000" />
+    <option name="totallyTimeSpent" value="37208000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -337,20 +318,20 @@
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.24963397" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.0" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3296355" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="-1" side_tool="true" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
   </component>
@@ -365,62 +346,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/sidebar.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="238">
-          <caret line="14" column="17" lean-forward="true" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/header.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="467">
-          <caret line="50" column="0" lean-forward="true" selection-start-line="50" selection-start-column="0" selection-end-line="50" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/class/vote.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/soap/soap.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4403">
-          <caret line="259" column="20" lean-forward="false" selection-start-line="259" selection-start-column="20" selection-end-line="259" selection-end-column="20" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-admin/includes/user.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="262">
-          <caret line="409" column="3" lean-forward="false" selection-start-line="409" selection-start-column="3" selection-end-line="409" selection-end-column="3" />
-          <folding>
-            <marker date="1509637712227" expanded="true" signature="6700:6707" ph="..." />
-            <marker date="1509637712227" expanded="true" signature="9452:9591" ph="SELECT ID, p... ${$wpdb-&gt;posts}" />
-            <marker date="1509637712227" expanded="true" signature="12026:12119" ph="SELECT ID FR... ${$wpdb-&gt;posts}" />
-            <marker date="1509637712227" expanded="true" signature="12289:12343" ph="SELECT link_... ${$wpdb-&gt;links}" />
-            <marker date="1509637712227" expanded="true" signature="12504:12554" ph="SELECT ID FR... ${$wpdb-&gt;posts}" />
-            <marker date="1509637712227" expanded="true" signature="12816:12870" ph="SELECT link_... ${$wpdb-&gt;links}" />
-            <marker date="1509637712227" expanded="true" signature="13249:13304" ph="SELECT umeta... ${$wpdb-&gt;usermeta}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-comments-post.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/page.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -429,52 +354,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wp-includes/pluggable.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="279">
-          <caret line="2302" column="0" lean-forward="true" selection-start-line="2302" selection-start-column="0" selection-end-line="2302" selection-end-column="0" />
-          <folding>
-            <marker date="1509642056500" expanded="true" signature="3278:3324" ph="SELECT * FRO... ${$wpdb-&gt;users}" />
-            <marker date="1509642056500" expanded="true" signature="52821:52895" ph="SELECT count... ${$wpdb-&gt;comments}" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-config.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="22" column="63" lean-forward="false" selection-start-line="22" selection-start-column="63" selection-end-line="22" selection-end-column="63" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/class/SOAPRegistration.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
-          <caret line="29" column="25" lean-forward="false" selection-start-line="29" selection-start-column="25" selection-end-line="29" selection-end-column="25" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/class/SOAPDeletion.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="36" lean-forward="false" selection-start-line="12" selection-start-column="36" selection-end-line="12" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/class/SOAPChangePassword.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="29" lean-forward="true" selection-start-line="8" selection-start-column="29" selection-end-line="8" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/wp-includes/user.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="218">
+        <state relative-caret-position="18581">
           <caret line="1952" column="1" lean-forward="true" selection-start-line="1952" selection-start-column="1" selection-end-line="1952" selection-end-column="1" />
           <folding>
             <element signature="n#wp_signon#0;n#!!top" expanded="false" />
@@ -535,13 +417,322 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/wp-admin/includes/user.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6868">
+          <caret line="409" column="3" lean-forward="false" selection-start-line="409" selection-start-column="3" selection-end-line="409" selection-end-column="3" />
+          <folding>
+            <marker date="1509637712227" expanded="true" signature="6700:6707" ph="..." />
+            <marker date="1509637712227" expanded="true" signature="9452:9591" ph="SELECT ID, p... ${$wpdb-&gt;posts}" />
+            <marker date="1509637712227" expanded="true" signature="12026:12119" ph="SELECT ID FR... ${$wpdb-&gt;posts}" />
+            <marker date="1509637712227" expanded="true" signature="12289:12343" ph="SELECT link_... ${$wpdb-&gt;links}" />
+            <marker date="1509637712227" expanded="true" signature="12504:12554" ph="SELECT ID FR... ${$wpdb-&gt;posts}" />
+            <marker date="1509637712227" expanded="true" signature="12816:12870" ph="SELECT link_... ${$wpdb-&gt;links}" />
+            <marker date="1509637712227" expanded="true" signature="13249:13304" ph="SELECT umeta... ${$wpdb-&gt;usermeta}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/class/SOAPChangePassword.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="29" lean-forward="true" selection-start-line="8" selection-start-column="29" selection-end-line="8" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-comments-post.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="22" column="63" lean-forward="false" selection-start-line="22" selection-start-column="63" selection-end-line="22" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/class/SOAPRegistration.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="29" column="25" lean-forward="false" selection-start-line="29" selection-start-column="25" selection-end-line="29" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/class/SOAPDeletion.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="36" lean-forward="false" selection-start-line="12" selection-start-column="36" selection-end-line="12" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-includes/pluggable.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="39049">
+          <caret line="2302" column="0" lean-forward="true" selection-start-line="2302" selection-start-column="0" selection-end-line="2302" selection-end-column="0" />
+          <folding>
+            <marker date="1509642056500" expanded="true" signature="3278:3324" ph="SELECT * FRO... ${$wpdb-&gt;users}" />
+            <marker date="1509642056500" expanded="true" signature="52821:52895" ph="SELECT count... ${$wpdb-&gt;comments}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/functions.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="422">
+        <state relative-caret-position="7888">
           <caret line="468" column="1" lean-forward="true" selection-start-line="468" selection-start-column="1" selection-end-line="468" selection-end-column="1" />
           <folding>
-            <marker date="1509659018194" expanded="true" signature="15819:15886" ph="SELECT usern... account" />
+            <marker date="1509827626632" expanded="true" signature="18358:18425" ph="SELECT usern... account" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/sidebar.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="14" column="17" lean-forward="true" selection-start-line="14" selection-start-column="17" selection-end-line="14" selection-end-column="17" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/class/vote.php" />
+    <entry file="jar://$APPLICATION_HOME_DIR$/plugins/php/lib/php.jar!/stubs/soap/soap.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4403">
+          <caret line="259" column="20" lean-forward="false" selection-start-line="259" selection-start-column="20" selection-end-line="259" selection-end-column="20" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-admin/includes/user.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6868">
+          <caret line="409" column="3" lean-forward="false" selection-start-line="409" selection-start-column="3" selection-end-line="409" selection-end-column="3" />
+          <folding>
+            <marker date="1509637712227" expanded="true" signature="6700:6707" ph="..." />
+            <marker date="1509637712227" expanded="true" signature="9452:9591" ph="SELECT ID, p... ${$wpdb-&gt;posts}" />
+            <marker date="1509637712227" expanded="true" signature="12026:12119" ph="SELECT ID FR... ${$wpdb-&gt;posts}" />
+            <marker date="1509637712227" expanded="true" signature="12289:12343" ph="SELECT link_... ${$wpdb-&gt;links}" />
+            <marker date="1509637712227" expanded="true" signature="12504:12554" ph="SELECT ID FR... ${$wpdb-&gt;posts}" />
+            <marker date="1509637712227" expanded="true" signature="12816:12870" ph="SELECT link_... ${$wpdb-&gt;links}" />
+            <marker date="1509637712227" expanded="true" signature="13249:13304" ph="SELECT umeta... ${$wpdb-&gt;usermeta}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-comments-post.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-includes/pluggable.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="39049">
+          <caret line="2302" column="0" lean-forward="false" selection-start-line="2302" selection-start-column="0" selection-end-line="2302" selection-end-column="0" />
+          <folding>
+            <marker date="1509642056500" expanded="true" signature="3278:3324" ph="SELECT * FRO... ${$wpdb-&gt;users}" />
+            <marker date="1509642056500" expanded="true" signature="52821:52895" ph="SELECT count... ${$wpdb-&gt;comments}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="85">
+          <caret line="22" column="63" lean-forward="false" selection-start-line="22" selection-start-column="63" selection-end-line="22" selection-end-column="63" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/class/SOAPRegistration.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="493">
+          <caret line="29" column="25" lean-forward="false" selection-start-line="29" selection-start-column="25" selection-end-line="29" selection-end-column="25" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/class/SOAPDeletion.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="204">
+          <caret line="12" column="36" lean-forward="false" selection-start-line="12" selection-start-column="36" selection-end-line="12" selection-end-column="36" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/class/SOAPChangePassword.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="29" lean-forward="false" selection-start-line="8" selection-start-column="29" selection-end-line="8" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-includes/user.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="18581">
+          <caret line="1952" column="1" lean-forward="false" selection-start-line="1952" selection-start-column="1" selection-end-line="1952" selection-end-column="1" />
+          <folding>
+            <element signature="n#wp_signon#0;n#!!top" expanded="false" />
+            <element signature="n#wp_authenticate_username_password#0;n#!!top" expanded="false" />
+            <element signature="n#wp_authenticate_email_password#0;n#!!top" expanded="false" />
+            <element signature="n#wp_authenticate_cookie#0;n#!!top" expanded="false" />
+            <element signature="n#wp_authenticate_spam_check#0;n#!!top" expanded="false" />
+            <element signature="n#wp_validate_logged_in_cookie#0;n#!!top" expanded="false" />
+            <element signature="n#count_user_posts#0;n#!!top" expanded="false" />
+            <element signature="n#count_many_users_posts#0;n#!!top" expanded="false" />
+            <element signature="n#get_current_user_id#0;n#!!top" expanded="false" />
+            <element signature="n#get_user_option#0;n#!!top" expanded="false" />
+            <element signature="n#update_user_option#0;n#!!top" expanded="false" />
+            <element signature="n#delete_user_option#0;n#!!top" expanded="false" />
+            <element signature="n#get_users#0;n#!!top" expanded="false" />
+            <element signature="n#get_blogs_of_user#0;n#!!top" expanded="false" />
+            <element signature="n#is_user_member_of_blog#0;n#!!top" expanded="false" />
+            <element signature="n#add_user_meta#0;n#!!top" expanded="false" />
+            <element signature="n#delete_user_meta#0;n#!!top" expanded="false" />
+            <element signature="n#get_user_meta#0;n#!!top" expanded="false" />
+            <element signature="n#update_user_meta#0;n#!!top" expanded="false" />
+            <element signature="n#count_users#0;n#!!top" expanded="false" />
+            <element signature="n#setup_userdata#0;n#!!top" expanded="false" />
+            <element signature="n#wp_dropdown_users#0;n#!!top" expanded="false" />
+            <element signature="n#sanitize_user_field#0;n#!!top" expanded="false" />
+            <element signature="n#update_user_caches#0;n#!!top" expanded="false" />
+            <element signature="n#username_exists#0;n#!!top" expanded="false" />
+            <element signature="n#email_exists#0;n#!!top" expanded="false" />
+            <element signature="n#validate_username#0;n#!!top" expanded="false" />
+            <element signature="n#_get_additional_user_keys#0;n#!!top" expanded="false" />
+            <element signature="n#wp_get_user_contact_methods#0;n#!!top" expanded="false" />
+            <element signature="n#_wp_get_user_contactmethods#0;n#!!top" expanded="false" />
+            <element signature="n#wp_get_password_hint#0;n#!!top" expanded="false" />
+            <element signature="n#get_password_reset_key#0;n#!!top" expanded="false" />
+            <element signature="n#check_password_reset_key#0;n#!!top" expanded="false" />
+            <element signature="n#reset_password#0;n#!!top" expanded="false" />
+            <element signature="n#register_new_user#0;n#!!top" expanded="false" />
+            <element signature="n#wp_send_new_user_notifications#0;n#!!top" expanded="false" />
+            <element signature="n#wp_get_session_token#0;n#!!top" expanded="false" />
+            <element signature="n#wp_get_all_sessions#0;n#!!top" expanded="false" />
+            <element signature="n#wp_destroy_current_session#0;n#!!top" expanded="false" />
+            <element signature="n#wp_destroy_other_sessions#0;n#!!top" expanded="false" />
+            <element signature="n#wp_destroy_all_sessions#0;n#!!top" expanded="false" />
+            <element signature="n#wp_get_users_with_no_role#0;n#!!top" expanded="false" />
+            <element signature="n#_wp_get_current_user#0;n#!!top" expanded="false" />
+            <marker date="1509658953301" expanded="true" signature="11089:11123" ph="SELECT COUNT... ${$wpdb-&gt;posts}" />
+            <marker date="1509658953301" expanded="true" signature="12536:12641" ph="SELECT post_... ${$wpdb-&gt;posts}" />
+            <marker date="1509658953301" expanded="true" signature="26752:26904" ph="SELECT ${{$s... " />
+            <marker date="1509658953301" expanded="true" signature="27508:27645" ph="SELECT meta_... $" />
+            <marker date="1509658953301" expanded="true" signature="54053:54134" ph="SELECT ID FR... ${$wpdb-&gt;users}" />
+            <marker date="1509658953301" expanded="true" signature="54530:54611" ph="SELECT ID FR... ${$wpdb-&gt;users}" />
+            <marker date="1509658953301" expanded="true" signature="73946:74016" ph="SELECT ID, u... ${$wpdb-&gt;users}" />
+            <marker date="1509658953301" expanded="true" signature="78658:78665" ph="..." />
+            <marker date="1509658953301" expanded="true" signature="80590:80597" ph="..." />
+            <marker date="1509658953301" expanded="true" signature="80611:80619" ph="…" />
+            <marker date="1509658953301" expanded="true" signature="83642:83753" ph="SELECT user_... ${$wpdb-&gt;usermeta}" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/class/wp_bootstrap_navwalker.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/page.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="391">
+          <caret line="23" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/normalize.min.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/fonts/readme.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/fonts/jquery-3.2.1/jquery.min.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="0" lean-forward="false" selection-start-line="4" selection-start-column="0" selection-end-line="4" selection-end-column="0" />
+          <folding>
+            <element signature="n#!!doc" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/functions.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="456">
+          <caret line="141" column="9" lean-forward="true" selection-start-line="141" selection-start-column="9" selection-end-line="141" selection-end-column="9" />
+          <folding>
+            <marker date="1509827626632" expanded="true" signature="18358:18425" ph="SELECT usern... account" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/single.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/home.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="4" lean-forward="true" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/header.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="498">
+          <caret line="80" column="25" lean-forward="false" selection-start-line="80" selection-start-column="19" selection-end-line="80" selection-end-column="25" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#header#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
+            <marker date="1509841267690" expanded="true" signature="3097:3219" ph="..." />
+            <marker date="1509841267690" expanded="true" signature="3097:3386" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="481">
+          <caret line="74" column="32" lean-forward="false" selection-start-line="74" selection-start-column="32" selection-end-line="74" selection-end-column="32" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/js/scripts.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="16" column="25" lean-forward="true" selection-start-line="16" selection-start-column="25" selection-end-line="16" selection-end-column="25" />
+          <folding />
         </state>
       </provider>
     </entry>
