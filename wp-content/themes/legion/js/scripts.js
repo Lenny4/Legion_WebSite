@@ -39,19 +39,19 @@ function hideShowSideBar() {
             left: '50%'
         }, 500);
         $(sideBar).removeClass("active");
-        $(sideBar).addClass("hidden-xs");
-        $(mainContent).removeClass("col-sm-8");
-        $(mainContent).addClass("col-sm-10");
+        $(sideBar).addClass("hidden-xs hidden-sm");
+        $(mainContent).removeClass("col-md-8");
+        $(mainContent).addClass("col-md-10");
         $(button).removeClass("fa-arrow-circle-right");
         $(button).addClass("fa-arrow-circle-left");
     } else {
         $(sideBar).animate({
             left: '0%'
         }, 500);
-        $(sideBar).removeClass("hidden-xs");
+        $(sideBar).removeClass("hidden-xs hidden-sm");
         $(sideBar).addClass("active");
-        $(mainContent).removeClass("col-sm-10");
-        $(mainContent).addClass("col-sm-8");
+        $(mainContent).removeClass("col-md-10");
+        $(mainContent).addClass("col-md-8");
         $(button).removeClass("fa-arrow-circle-left");
         $(button).addClass("fa-arrow-circle-right");
     }
