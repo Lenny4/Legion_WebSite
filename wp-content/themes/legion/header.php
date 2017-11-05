@@ -78,5 +78,7 @@
     </header>
     <!-- /header -->
     <div class="hrMain">
-        <hr class="hrMain"/>
+        <hr class="hrMain dividerHeader"/>
     </div>
+
+    <div class="mainContent row">

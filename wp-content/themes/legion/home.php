@@ -2,7 +2,7 @@
 
 <?php get_header(); ?>
 
-<main role="main">
+<main class="col-sm-8 col-sm-offset-1" role="main">
     <!-- section -->
     <section>
 
@@ -14,10 +14,6 @@
             <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
 
                 <?php the_content(); ?>
-                <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
-                <br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/><br/>
 
                 <?php comments_template( '', true ); // Remove if you don't want comments ?>
 
@@ -49,3 +45,4 @@
 <?php get_sidebar(); ?>
 
 <?php get_footer(); ?>
+

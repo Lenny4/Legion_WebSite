@@ -3,19 +3,28 @@
     src: url('/wp-content/themes/legion/fonts/LifeCraft_Font.ttf'); /*URL to font*/
 }
 
-body{
+body {
     overflow-x: hidden;
 }
 
-h1{
-    margin-top:0px;
+li, p, span, h1, h2, h3, h4, h5, h6 {
+    color: white;
 }
 
-button.navbar-toggle span{
+h1, h2, h3, h4, h5, h6 {
+    font-family: LifeCraft_Font;
+}
+
+h1 {
+    margin-top: 0px;
+    margin-bottom: 0px;
+}
+
+button.navbar-toggle span {
     background-color: white;
 }
 
-.mainLogoHomePage{
+.mainLogoHomePage {
     position: absolute;
     margin-left: auto;
     margin-right: auto;
@@ -35,89 +44,196 @@ header .parallax {
     background-size: cover;
 }
 
-header nav{
+header nav {
     border: none !important;
-    background-color: rgba(0,0,0,0.4);
+    background-color: rgba(0, 0, 0, 0.4);
     -o-transition: .3s background ease;
     transition: .3s background ease;
 }
 
-header .navbar-nav > li > a{
+header .navbar-nav > li > a {
     padding-top: 40px;
     padding-bottom: 40px;
     font-family: LifeCraft_Font;
     font-size: 20px;
-    color: white!important;
+    color: white !important;
 }
 
-header .navbar-nav > li > a:hover{
-    background-color: rgba(0,0,0,0.7);
+header .navbar-nav > li > a:hover {
+    background-color: rgba(0, 0, 0, 0.7);
 }
 
-header .navbar-nav > li > a:active{
-    background-color: rgba(0,0,0,0.7)!important;
+header .navbar-nav > li > a:active {
+    background-color: rgba(0, 0, 0, 0.7) !important;
 }
 
-header .navbar-nav > li > a:visited{
-    background-color: rgba(0,0,0,0.7)!important;
+header .navbar-nav > li > a:visited {
+    background-color: rgba(0, 0, 0, 0.7) !important;
 }
 
-header .navbar-nav > li.active{
-    background-color: rgba(0,0,0,0.7);
+header .navbar-nav > li.active {
+    background-color: rgba(0, 0, 0, 0.7);
 }
 
-header ul.dropdown-menu{
-    background-color: rgba(0,0,0,0.7);
+header ul.dropdown-menu {
+    background-color: rgba(0, 0, 0, 0.7);
 }
 
-header ul.dropdown-menu a{
+header ul.dropdown-menu a {
     color: white;
     font-family: LifeCraft_Font;
 }
 
 @media (max-width: 768px) {
-    header .navbar-nav > li > a{
+    header .navbar-nav > li > a {
         padding-top: 15px;
         padding-bottom: 15px;
     }
-    header ul.navbar-nav{
+
+    header ul.navbar-nav {
         margin: 0;
     }
-    header div.container{
+
+    header div.container {
         padding: 0;
     }
 }
 
-header img.smallLogo{
+header img.smallLogo {
     width: 125px;
     height: 100px;
-    top:-40px;
+    top: -40px;
 }
 
-.videoMainParallax{
+.videoMainParallax {
     position: absolute;
     z-index: -1;
     width: 2000px;
     left: -340px;
 }
 
-main{
-    background-color: black;
+main,aside {
+    padding-top: 25px;
+    padding-bottom: 25px;
 }
 
-hr.hrMain
-{
-    display:block;
-    border:none;
-    height:50px;
-    background-image:url('http://localhost/wp-content/uploads/2017/11/divider.png');
+hr.hrMain {
+    display: block;
+    border: none;
+    height: 50px;
     background-repeat: no-repeat;
     background-size: 100% 100%;
     position: absolute;
     width: 100%;
 }
 
-div.hrMain{
+hr.dividerHeader {
+    background-image: url('http://localhost/wp-content/uploads/2017/11/divider.png');
+}
+
+hr.dividerFooter {
+    background-image: url('http://localhost/wp-content/uploads/2017/11/divider2.png');
+}
+
+div.hrMain {
     bottom: 50px;
     position: relative;
+}
+
+footer {
+    background-color: rgb(28, 36, 23);
+}
+
+ul.social-network {
+    display: flex;
+}
+
+ul.social-network li {
+    padding: 0px 5px 0px 5px;
+}
+
+.social-network a.icoFacebook:hover {
+    background-color: #3B5998;
+}
+
+.social-network a.icoYoutube:hover {
+    background-color: red;
+}
+
+.social-network a.icoRss:hover i, .social-network a.icoFacebook:hover i, .social-network a.icoTwitter:hover i,
+.social-network a.icoYoutube:hover i, .social-network a.icoVimeo:hover i, .social-network a.icoLinkedin:hover i {
+    color: #fff;
+}
+
+a.socialIcon:hover, .socialHoverClass {
+    color: #44BCDD;
+}
+
+.social-circle li a {
+    display: inline-block;
+    position: relative;
+    margin: 0 auto 0 auto;
+    -moz-border-radius: 50%;
+    -webkit-border-radius: 50%;
+    border-radius: 50%;
+    text-align: center;
+    width: 50px;
+    height: 50px;
+    font-size: 20px;
+}
+
+.social-circle li i {
+    margin: 0;
+    line-height: 50px;
+    text-align: center;
+}
+
+.social-circle li a:hover i, .triggeredHover {
+    -moz-transform: rotate(360deg);
+    -webkit-transform: rotate(360deg);
+    -ms--transform: rotate(360deg);
+    transform: rotate(360deg);
+    -webkit-transition: all 0.2s;
+    -moz-transition: all 0.2s;
+    -o-transition: all 0.2s;
+    -ms-transition: all 0.2s;
+    transition: all 0.2s;
+}
+
+.social-circle i {
+    color: #fff;
+    -webkit-transition: all 0.8s;
+    -moz-transition: all 0.8s;
+    -o-transition: all 0.8s;
+    -ms-transition: all 0.8s;
+    transition: all 0.8s;
+}
+
+div.footer_nav ul{
+    display: flex;
+    list-style: none;
+    padding-top: 40px;
+}
+
+div.footer_nav ul li{
+    display: flex;
+    list-style: none;
+    padding-right: 20px;
+}
+
+div.footer_nav ul li a{
+    color: white;
+}
+
+div.footer_nav ul li a:hover{
+    text-decoration: none;
+    color: #8e983e;
+    -webkit-transition: color 0.5s ease-out;
+    -moz-transition: color 0.5s ease-out;
+    -o-transition: color 0.5s ease-out;
+    transition: color 0.5s ease-out;
+}
+
+div.mainContent{
+    background-color: black;
 }
