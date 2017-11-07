@@ -562,4 +562,11 @@ function getLadder()
     return $tab;
 }
 
+function serverOnline()
+{
+    $serverStatus=new SOAPOnline();
+    $serverStatus->isOnline();
+    return $serverStatus->isOnline();
+}
+
 ?>
