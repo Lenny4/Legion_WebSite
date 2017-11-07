@@ -16,8 +16,8 @@
         <div style="width: <?= $tabOnline["pBlue"] ?>%"><p class="text-center h4"><?= $tabOnline["blue"] ?></p></div>
         <div style="width: <?= $tabOnline["pRed"] ?>%"><p class="text-center h4"><?= $tabOnline["red"] ?></p></div>
         <div style="height: 10px; width: 100%"></div>
-        <div style="border-radius: 5px 0px 0px 5px;background-color:blue; width: <?= $tabOnline["pBlue"] ?>%"><span><?= $tabOnline["pBlue"] ?>%</span></div>
-        <div style="border-radius: 0px 5px 5px 0px;background-color:red; width: <?= $tabOnline["pRed"] ?>%"><span><?= $tabOnline["pRed"] ?>%</span></div>
+        <div style="border-radius: 5px 0px 0px 5px;background-color:darkblue; width: <?= $tabOnline["pBlue"] ?>%"><span><?= $tabOnline["pBlue"] ?>%</span></div>
+        <div style="border-radius: 0px 5px 5px 0px;background-color:darkred; width: <?= $tabOnline["pRed"] ?>%"><span><?= $tabOnline["pRed"] ?>%</span></div>
     </div>
         <br/>
     </div>
@@ -31,7 +31,7 @@
             <div class="modal-content">
                 <div class="modal-header">
                     <button type="button" class="close" data-dismiss="modal">&times;</button>
-                    <h4 class="modal-title">Modal Header</h4>
+                    <h4 class="modal-title">Change Language</h4>
                 </div>
                 <div class="modal-body">
                     <div id="qtransSelector"

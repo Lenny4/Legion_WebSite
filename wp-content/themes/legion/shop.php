@@ -29,10 +29,6 @@
         font-size: 1em;
     }
 
-    .white-panel p a {
-        color: white;
-    }
-
     .white-panel:hover {
         box-shadow: 1px 1px 10px rgba(0, 0, 0, 0.5);
         margin-top: -5px;
@@ -142,48 +138,40 @@
     <!-- section -->
     <section class="background" id="blog-landing">
         <article class="white-panel">
-            <a href="#">
-                <div class="hovereffect">
-                    <img class="product" src="http://www.mediademon.com/wp-content/uploads/2013/07/Blog-Post-Imagery5.png"
-                         alt="ALT">
-                    <div class="overlay">
-                        <h2>Hover effect 9</h2>
-                    </div>
+            <div class="hovereffect">
+                <img class="product" src="http://www.mediademon.com/wp-content/uploads/2013/07/Blog-Post-Imagery5.png"
+                     alt="ALT">
+                <div class="overlay">
+                    <h2>Hover effect 9</h2>
                 </div>
-            </a>
+            </div>
         </article>
         <article class="white-panel">
-            <a href="#">
-                <div class="hovereffect">
-                    <img class="product" src="http://www.mediademon.com/wp-content/uploads/2014/04/food-drink-expo.png"
-                         alt="ALT">
-                    <div class="overlay">
-                        <h2>Hover effect 9</h2>
-                    </div>
+            <div class="hovereffect">
+                <img class="product" src="http://www.mediademon.com/wp-content/uploads/2014/04/food-drink-expo.png"
+                     alt="ALT">
+                <div class="overlay">
+                    <h2>Hover effect 9</h2>
                 </div>
-            </a>
+            </div>
         </article>
         <article class="white-panel">
-            <a href="#">
-                <div class="hovereffect">
-                    <img class="product" src="http://www.mediademon.com/wp-content/uploads/2014/03/tile-app-2.jpg"
-                         alt="ALT">
-                    <div class="overlay">
-                        <h2>Hover effect 9</h2>
-                    </div>
+            <div class="hovereffect">
+                <img class="product" src="http://www.mediademon.com/wp-content/uploads/2014/03/tile-app-2.jpg"
+                     alt="ALT">
+                <div class="overlay">
+                    <h2>Hover effect 9</h2>
                 </div>
-            </a>
+            </div>
         </article>
         <article class="white-panel">
-            <a href="#">
-                <div class="hovereffect">
-                    <img class="product" src="http://www.mediademon.com/wp-content/uploads/2014/03/tile-app-2.jpg"
-                         alt="ALT">
-                    <div class="overlay">
-                        <h2>Hover effect 9</h2>
-                    </div>
+            <div class="hovereffect">
+                <img class="product" src="http://www.mediademon.com/wp-content/uploads/2014/03/tile-app-2.jpg"
+                     alt="ALT">
+                <div class="overlay">
+                    <h2>Hover effect 9</h2>
                 </div>
-            </a>
+            </div>
         </article>
     </section>
     <!-- /section -->

@@ -2,15 +2,11 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="4229b321-d9f4-49d5-ad2b-4f757455c4a7" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/themes/legion/class/SOAPOnline.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/themes/legion/js/pinterest_grid.js" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/themes/legion/shop.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.gitignore" afterPath="$PROJECT_DIR$/.gitignore" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/wp-content/themes/legion/shopadmin.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-config.php" afterPath="$PROJECT_DIR$/wp-config.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/legion/functions.php" afterPath="$PROJECT_DIR$/wp-content/themes/legion/functions.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/legion/home.php" afterPath="$PROJECT_DIR$/wp-content/themes/legion/home.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/legion/js/scripts.js" afterPath="$PROJECT_DIR$/wp-content/themes/legion/js/scripts.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/legion/header.php" afterPath="$PROJECT_DIR$/wp-content/themes/legion/header.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/legion/shop.php" afterPath="$PROJECT_DIR$/wp-content/themes/legion/shop.php" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/legion/sidebar.php" afterPath="$PROJECT_DIR$/wp-content/themes/legion/sidebar.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/legion/style.css" afterPath="$PROJECT_DIR$/wp-content/themes/legion/style.css" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -22,49 +18,48 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="functions.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/functions.php">
+      <file leaf-file-name="sidebar.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/sidebar.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="348">
-              <caret line="564" column="21" lean-forward="false" selection-start-line="564" selection-start-column="9" selection-end-line="564" selection-end-column="21" />
+            <state relative-caret-position="269">
+              <caret line="33" column="59" lean-forward="false" selection-start-line="33" selection-start-column="59" selection-end-line="33" selection-end-column="59" />
               <folding>
-                <marker date="1510024008369" expanded="true" signature="18358:18425" ph="SELECT usern... account" />
+                <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#aside#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#aside#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#aside#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#3;n#div#0;n#div#0;n#aside#0;n#!!top" expanded="true" />
+                <element signature="n#style#0;n#div#4;n#div#0;n#div#0;n#aside#0;n#!!top" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SOAPOnline.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/class/SOAPOnline.php">
+      <file leaf-file-name="SOAPChangePassword.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/class/SOAPChangePassword.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="136">
+              <caret line="8" column="29" lean-forward="false" selection-start-line="8" selection-start-column="29" selection-end-line="8" selection-end-column="29" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="wp-config.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wp-config.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="425">
-              <caret line="34" column="0" lean-forward="true" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+              <caret line="42" column="41" lean-forward="false" selection-start-line="42" selection-start-column="23" selection-end-line="42" selection-end-column="41" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="SOAPRegistration.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/class/SOAPRegistration.php">
+      <file leaf-file-name="SOAPDeletion.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/class/SOAPDeletion.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
-              <caret line="29" column="25" lean-forward="false" selection-start-line="29" selection-start-column="25" selection-end-line="29" selection-end-column="25" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
               <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="home.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/home.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="396">
-              <caret line="89" column="5" lean-forward="false" selection-start-line="89" selection-start-column="5" selection-end-line="89" selection-end-column="5" />
-              <folding>
-                <element signature="e#1259#1570#2#HTML" expanded="true" />
-                <element signature="n#style#0;n#span#0;n#p#1;n#div#0;n#div#0;n#main#0;n#!!top" expanded="true" />
-                <element signature="n#style#0;n#span#1;n#p#1;n#div#0;n#div#0;n#main#0;n#!!top" expanded="true" />
-                <marker date="1510027416448" expanded="true" signature="8915:8942" ph="..." />
-              </folding>
             </state>
           </provider>
         </entry>
@@ -72,8 +67,8 @@
       <file leaf-file-name="shop.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/shop.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="272">
-              <caret line="175" column="18" lean-forward="true" selection-start-line="175" selection-start-column="18" selection-end-line="175" selection-end-column="18" />
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="39" />
               <folding>
                 <element signature="n#style#0;n#!!top" expanded="false" />
                 <element signature="n#script#1;n#!!top" expanded="false" />
@@ -82,11 +77,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="true">
+      <file leaf-file-name=".gitignore" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/.gitignore">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="17">
-              <caret line="1" column="7" lean-forward="true" selection-start-line="1" selection-start-column="7" selection-end-line="1" selection-end-column="7" />
+              <caret line="1" column="7" lean-forward="false" selection-start-line="1" selection-start-column="7" selection-end-line="1" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -104,23 +99,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="scripts.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/js/scripts.js">
+      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="549">
-              <caret line="236" column="29" lean-forward="false" selection-start-line="236" selection-start-column="29" selection-end-line="236" selection-end-column="29" />
-              <folding>
-                <element signature="e#2612#2844#0" expanded="false" />
-              </folding>
+            <state relative-caret-position="400">
+              <caret line="415" column="0" lean-forward="false" selection-start-line="415" selection-start-column="0" selection-end-line="415" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/style.css">
+      <file leaf-file-name="shopadmin.php" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/shopadmin.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="213">
-              <caret line="365" column="1" lean-forward="false" selection-start-line="365" selection-start-column="1" selection-end-line="365" selection-end-column="1" />
+            <state relative-caret-position="243">
+              <caret line="36" column="49" lean-forward="true" selection-start-line="36" selection-start-column="49" selection-end-line="36" selection-end-column="49" />
               <folding />
             </state>
           </provider>
@@ -129,10 +122,10 @@
       <file leaf-file-name="header.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/header.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="25">
-              <caret line="59" column="18" lean-forward="false" selection-start-line="59" selection-start-column="18" selection-end-line="59" selection-end-column="18" />
+            <state relative-caret-position="430">
+              <caret line="58" column="47" lean-forward="false" selection-start-line="58" selection-start-column="47" selection-end-line="58" selection-end-column="47" />
               <folding>
-                <marker date="1509923794782" expanded="true" signature="3072:3194" ph="..." />
+                <marker date="1510028463444" expanded="true" signature="3151:3273" ph="..." />
               </folding>
             </state>
           </provider>
@@ -149,8 +142,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>Login</find>
-      <find>Register</find>
       <find>submit_wpum_password</find>
       <find>wpum_loginformwp-submit</find>
       <find>search</find>
@@ -175,13 +166,16 @@
       <find>onlin</find>
       <find>back</find>
       <find>color</find>
-      <find>h1</find>
       <find>impor</find>
       <find>main</find>
       <find>overlay</find>
+      <find>h1</find>
+      <find>class=&quot;h4&quot;</find>
+      <find>onlinePlayer</find>
     </findStrings>
     <replaceStrings>
       <replace>$homePageId</replace>
+      <replace>class=&quot;h3&quot;</replace>
       <replace>p</replace>
     </replaceStrings>
   </component>
@@ -217,19 +211,21 @@
         <option value="$PROJECT_DIR$/wp-content/themes/legion/wpum/forms/group-form.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/legion/wpum/forms/account-form.php" />
         <option value="$PROJECT_DIR$/wp-includes/general-template.php" />
-        <option value="$PROJECT_DIR$/wp-content/themes/legion/sidebar.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/legion/page.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/legion/footer.php" />
-        <option value="$PROJECT_DIR$/wp-content/themes/legion/header.php" />
         <option value="$PROJECT_DIR$/wp-config.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/legion/class/SOAPOnline.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/legion/functions.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/legion/js/scripts.js" />
-        <option value="$PROJECT_DIR$/wp-content/themes/legion/style.css" />
         <option value="$PROJECT_DIR$/wp-content/themes/legion/home.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/legion/js/pinterest_grid.js" />
-        <option value="$PROJECT_DIR$/wp-content/themes/legion/shop.php" />
         <option value="$PROJECT_DIR$/.gitignore" />
+        <option value="$PROJECT_DIR$/wp-content/themes/legion/header.php" />
+        <option value="$PROJECT_DIR$/wp-content/themes/legion/class/SOAPSendItem.php" />
+        <option value="$PROJECT_DIR$/wp-content/themes/legion/shop.php" />
+        <option value="$PROJECT_DIR$/wp-content/themes/legion/style.css" />
+        <option value="$PROJECT_DIR$/wp-content/themes/legion/shopadmin.php" />
+        <option value="$PROJECT_DIR$/wp-content/themes/legion/sidebar.php" />
       </list>
     </option>
   </component>
@@ -285,22 +281,6 @@
               <item name="themes" type="2a2b976b:PhpTreeStructureProvider$1" />
               <item name="legion" type="2a2b976b:PhpTreeStructureProvider$1" />
             </path>
-            <path>
-              <item name="htdocs" type="b2602c69:ProjectViewProjectNode" />
-              <item name="htdocs" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="wp-content" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="themes" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="legion" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="class" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
-            <path>
-              <item name="htdocs" type="b2602c69:ProjectViewProjectNode" />
-              <item name="htdocs" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="wp-content" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="themes" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="legion" type="2a2b976b:PhpTreeStructureProvider$1" />
-              <item name="js" type="2a2b976b:PhpTreeStructureProvider$1" />
-            </path>
           </expand>
           <select />
         </subPane>
@@ -317,9 +297,9 @@
       <recent name="C:\xampp\htdocs\wp-content\themes\legion\wpum" />
     </key>
     <key name="CopyFile.RECENT_KEYS">
-      <recent name="C:\xampp\htdocs\wp-content\themes\legion\js" />
-      <recent name="C:\xampp\htdocs\wp-content\themes\legion\class" />
       <recent name="C:\xampp\htdocs\wp-content\themes\legion" />
+      <recent name="C:\xampp\htdocs\wp-content\themes\legion\class" />
+      <recent name="C:\xampp\htdocs\wp-content\themes\legion\js" />
       <recent name="C:\xampp\htdocs\wp-content\themes\legion\wpum" />
       <recent name="C:\xampp\htdocs\wp-content\themes\legion\fonts" />
     </key>
@@ -349,12 +329,12 @@
       <workItem from="1509628535529" duration="17962000" />
       <workItem from="1509823615113" duration="40119000" />
       <workItem from="1509912625708" duration="10989000" />
-      <workItem from="1510022755448" duration="5420000" />
+      <workItem from="1510022755448" duration="12418000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="74490000" />
+    <option name="totallyTimeSpent" value="81488000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -390,36 +370,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/class/SOAPDeletion.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="204">
-          <caret line="12" column="36" lean-forward="false" selection-start-line="12" selection-start-column="36" selection-end-line="12" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/class/SOAPChangePassword.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="8" column="29" lean-forward="false" selection-start-line="8" selection-start-column="29" selection-end-line="8" selection-end-column="29" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-includes/user.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="18581">
-          <caret line="1952" column="1" lean-forward="false" selection-start-line="1952" selection-start-column="1" selection-end-line="1952" selection-end-column="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/class/wp_bootstrap_navwalker.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/normalize.min.css">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
@@ -659,28 +609,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/sidebar.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="93" lean-forward="false" selection-start-line="1" selection-start-column="93" selection-end-line="1" selection-end-column="93" />
-          <folding>
-            <element signature="e#1641#1648#1#HTML" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/footer.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="629">
           <caret line="37" column="9" lean-forward="false" selection-start-line="37" selection-start-column="9" selection-end-line="37" selection-end-column="9" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-config.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="26" column="31" lean-forward="true" selection-start-line="26" selection-start-column="31" selection-end-line="26" selection-end-column="31" />
           <folding />
         </state>
       </provider>
@@ -698,16 +630,6 @@
         <state relative-caret-position="425">
           <caret line="34" column="0" lean-forward="true" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/header.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="25">
-          <caret line="59" column="18" lean-forward="false" selection-start-line="59" selection-start-column="18" selection-end-line="59" selection-end-column="18" />
-          <folding>
-            <marker date="1509923794782" expanded="true" signature="3072:3194" ph="..." />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -744,14 +666,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="213">
-          <caret line="365" column="1" lean-forward="false" selection-start-line="365" selection-start-column="1" selection-end-line="365" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/js/pinterest_grid.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="51">
@@ -762,10 +676,60 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/.gitignore">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="17">
+          <caret line="1" column="7" lean-forward="false" selection-start-line="1" selection-start-column="7" selection-end-line="1" selection-end-column="7" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/header.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="430">
+          <caret line="58" column="47" lean-forward="false" selection-start-line="58" selection-start-column="47" selection-end-line="58" selection-end-column="47" />
+          <folding>
+            <marker date="1510028463444" expanded="true" signature="3151:3273" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/class/SOAPChangePassword.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="8" column="29" lean-forward="false" selection-start-line="8" selection-start-column="29" selection-end-line="8" selection-end-column="29" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/class/SOAPDeletion.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/class/SOAPSendItem.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="187">
+          <caret line="11" column="0" lean-forward="true" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="425">
+          <caret line="42" column="41" lean-forward="false" selection-start-line="42" selection-start-column="23" selection-end-line="42" selection-end-column="41" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/shop.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="272">
-          <caret line="175" column="18" lean-forward="true" selection-start-line="175" selection-start-column="18" selection-end-line="175" selection-end-column="18" />
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="39" />
           <folding>
             <element signature="n#style#0;n#!!top" expanded="false" />
             <element signature="n#script#1;n#!!top" expanded="false" />
@@ -773,10 +737,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/.gitignore">
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="17">
-          <caret line="1" column="7" lean-forward="true" selection-start-line="1" selection-start-column="7" selection-end-line="1" selection-end-column="7" />
+        <state relative-caret-position="400">
+          <caret line="415" column="0" lean-forward="false" selection-start-line="415" selection-start-column="0" selection-end-line="415" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/sidebar.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="269">
+          <caret line="33" column="59" lean-forward="false" selection-start-line="33" selection-start-column="59" selection-end-line="33" selection-end-column="59" />
+          <folding>
+            <element signature="n#style#0;n#div#0;n#div#0;n#div#0;n#aside#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#1;n#div#0;n#div#0;n#aside#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#2;n#div#0;n#div#0;n#aside#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#3;n#div#0;n#div#0;n#aside#0;n#!!top" expanded="true" />
+            <element signature="n#style#0;n#div#4;n#div#0;n#div#0;n#aside#0;n#!!top" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/shopadmin.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="243">
+          <caret line="36" column="49" lean-forward="true" selection-start-line="36" selection-start-column="49" selection-end-line="36" selection-end-column="49" />
           <folding />
         </state>
       </provider>

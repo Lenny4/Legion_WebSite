@@ -47,11 +47,13 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
+                    <a href="<?= get_home_url(); ?>">
                     <?php
                     $homePageId = get_option('page_on_front');
                     $image = get_field("logo", $homePageId);
                     echo wp_get_attachment_image($image["id"], 'medium', "", ["class" => "mainLogoHomePage hidden-xs"]);
                     ?>
+                    </a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <?php header_left_nav(); ?>

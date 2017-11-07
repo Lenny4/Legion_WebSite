@@ -17,8 +17,10 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 }
 
 h1 {
-    margin-top: 0px;
+    margin-top: 10px;
     margin-bottom: 0px;
+    padding-left: 10px;
+    padding-right: 10px;
 }
 
 button.navbar-toggle span {
@@ -403,6 +405,13 @@ div.item p.h3 {
 #onlinePlayer div{
     float: left;
     height: 20px;
+}
+
+#onlinePlayer{
+    width: 100%;
+    display: inline-block;
+    margin-left: auto;
+    margin-right: auto;
 }
 
 .background{
