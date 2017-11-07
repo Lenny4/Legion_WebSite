@@ -17,8 +17,23 @@
                     <?php the_content(); ?>
                 </div>
 
-                <div class="col-md-6 col-xs-12">
+                <div class="col-md-6 col-xs-12 borderWhite">
                     <p class="h3">Add Item(s)</p>
+                    <form id="previewItem">
+                        <div class="form-group">
+                            <input placeholder="Item id" type="number" class="form-control" name="item_id">
+                        </div>
+                        <div class="form-group">
+                            <input placeholder="Price (Optionnal)" type="number" min="1" class="form-control"
+                                   name="item_price">
+                        </div>
+                        <div class="form-group">
+                            <div class="checkbox">
+                                <label><input type="checkbox" name="item_free">Free</label>
+                            </div>
+                        </div>
+                        <button type="submit" class="btn btn-default">Preview</button>
+                    </form>
                 </div>
 
                 <div class="col-md-6 col-xs-12">
@@ -32,7 +47,7 @@
                 <div class="col-md-6 col-xs-12">
                     <p class="h3">Add Custom Item</p>
                 </div>
-                
+
                 <div class="col-md-6 col-xs-12">
                     <p class="h3">Delete item</p>
                 </div>
@@ -70,6 +85,77 @@
     <!-- /section -->
 </main>
 
+<div id="shopAdminModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 <?php get_sidebar(); ?>
+
+<script>
+
+    function previewItem(json) {
+        var modal = $('#shopAdminModal');
+        var data = JSON.parse(json);
+        $(modal).modal('show');
+        var modalHeader = $(modal).find('.modal-title');
+        var modalContent = $(modal).find('.modal-body');
+        $(modalHeader).html(data.name);
+        $(modalContent).html("" +
+            "<img src='https://wow.zamimg.com/images/wow/icons/large/" + data.icon + ".jpg' alt='" + data.icon + "'>" +
+            "<p>" + data.description + "</p>" +
+            "<p>Price : " + data.price + "</p>" +
+            "<p>itemLevel : " + data.itemLevel + "</p>");
+        data.itemSpells.forEach(function (element) {
+            $(modalContent).append("<p>- " + element.spell.description + "</p>")
+        });
+        data.bonusStats.forEach(function (element) {
+            $(modalContent).append("<p>- " + element.stat + " : " + element.amount + "</p>")
+        });
+        $(modalContent).append("<button onclick='addItem(this)' id='addItem' class='btn btn-default'>Add to the shop</button>");
+    }
+
+    function addItem(button) {
+        var form = 'id=' + $(button).attr("id") + "&" + $("#previewItem").serialize();
+        $.post("/api/shop/admin.php", form, function (data, status) {
+            if (status === "success") {
+                var modal = $('#shopAdminModal');
+                var modalContent = $(modal).find('.modal-body');
+                $(modalContent).prepend('<div class="alert alert-warning alert-dismissable">\n' +
+                    '  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>\n' +
+                    '  <strong>' + data + '</strong>' +
+                    '</div>');
+            }
+        });
+    }
+
+    $("form").submit(function (event) {
+        event.preventDefault();
+        var form = 'id=' + $(event.target).attr("id") + "&" + $(event.target).serialize();
+        $.post("/api/shop/admin.php", form, function (data, status) {
+            if (status === "success") {
+                if ($(event.target).attr("id") === "previewItem") {
+                    previewItem(data);
+                }
+            }
+        });
+    });
+
+</script>
 
 <?php get_footer(); ?>

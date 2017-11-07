@@ -30,7 +30,6 @@
             tests: {}
         });
     </script>
-
 </head>
 <body <?php body_class(); ?>>
 <i id="showHideSideBar" onclick="hideShowSideBar()" class="fa fa-arrow-circle-left fa-2x buttonSideBar hidden-lg hidden-md" aria-hidden="true"></i>
