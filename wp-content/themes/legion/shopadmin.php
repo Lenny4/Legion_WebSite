@@ -18,7 +18,7 @@
                 </div>
 
                 <div class="col-md-6 col-xs-12 borderWhite">
-                    <p class="h3">Add Item(s)</p>
+                    <p class="h3">Add Item</p>
                     <form id="previewItem">
                         <div class="form-group">
                             <input placeholder="Item id" type="number" class="form-control" name="item_id">
@@ -31,27 +31,27 @@
                     </form>
                 </div>
 
-                <div class="col-md-6 col-xs-12">
-                    <p class="h3">Add Item(s) Set</p>
+                <div class="col-md-6 col-xs-12 borderWhite">
+                    <p class="h3">Add Item Set</p>
                 </div>
 
-                <div class="col-md-6 col-xs-12">
+                <div class="col-md-6 col-xs-12 borderWhite">
                     <p class="h3">Add Custom Cat</p>
                 </div>
 
-                <div class="col-md-6 col-xs-12">
+                <div class="col-md-6 col-xs-12 borderWhite">
                     <p class="h3">Add Custom Item</p>
                 </div>
 
-                <div class="col-md-6 col-xs-12">
+                <div class="col-md-6 col-xs-12 borderWhite">
                     <p class="h3">Delete item</p>
                 </div>
 
-                <div class="col-md-6 col-xs-12">
+                <div class="col-md-6 col-xs-12 borderWhite">
                     <p class="h3">Delete item set</p>
                 </div>
 
-                <div class="col-md-6 col-xs-12">
+                <div class="col-md-6 col-xs-12 borderWhite">
                     <p class="h3">Delete cat</p>
                 </div>
 

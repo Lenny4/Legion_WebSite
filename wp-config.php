@@ -23,6 +23,7 @@ require_once 'wp-content/themes/legion/class/SOAPDeletion.php';
 require_once 'wp-content/themes/legion/class/SOAPChangePassword.php';
 require_once 'wp-content/themes/legion/class/SOAPOnline.php';
 require_once 'wp-content/themes/legion/class/item.php';
+require_once 'wp-content/themes/legion/class/item_classes.php';
 session_start();
 // Database settings
 define('DB_NAME_SOAP', 'auth');

@@ -231,14 +231,18 @@ class item
         return $req;
     }
 
-    public function display()
+    public function display($itemClass)
     {
         $return = '
         <div class="display_item">
             <img src="https://wow.zamimg.com/images/wow/icons/large/' . $this->icon . '.jpg" alt="' . $this->name . '" />
         ';
         foreach ($this as $key => $value) {
-            if ($key == "itemSpells") {
+            if ($key == "itemClass") {
+                $return = $return . '<p class="' . $key . '">' . $key . ':' . $itemClass->name . '</p>';
+            } elseif ($key == "itemSubClass") {
+                $return = $return . '<p class="' . $key . '">' . $key . ':' . $itemClass->getSubClassName($this) . '</p>';
+            } elseif ($key == "itemSpells") {
                 foreach ($value as $newValue) {
                     if (isset($newValue->spell->description)) {
                         $return = $return . '<p class="' . $key . '">' . $newValue->spell->description . '</p>';
@@ -253,7 +257,7 @@ class item
                     if (is_array($tabValue)) {
                         $return = $this->displayArray($return, $tabValue);
                     } else {
-                        $return = $return . '<span class="' . $key . '">[ ' . $tabValue . ']</span>';
+                        $return = $return . '<span class="' . $key . '">[ ' . $tabValue . ' ]</span>';
                     }
                 }
                 $return = $return . '</p>';
