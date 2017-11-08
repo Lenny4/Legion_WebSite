@@ -6,8 +6,8 @@
 class item
 {
     public $item_id = null;
-    public $description = null;
     public $name = null;
+    public $description = null;
     public $icon = null;
     public $stackable = null;
     public $allowableClasses = null;
@@ -22,6 +22,8 @@ class item
     public $isAuctionable = null;
     public $containerSlots = null;
     public $price = null;
+    public $maxDurability = null;
+    public $armor = null;
 
     public function hydrateAPI($data)
     {
@@ -167,6 +169,12 @@ class item
         if (isset($data->containerSlots)) {
             $this->containerSlots = $data->containerSlots;
         }
+        if (isset($data->maxDurability)) {
+            $this->maxDurability = $data->maxDurability;
+        }
+        if (isset($data->armor)) {
+            $this->armor = $data->armor;
+        }
     }
 
     public function hydrateBDD($data)
@@ -225,6 +233,69 @@ class item
 
     public function display()
     {
+        $return = '
+        <div class="display_item">
+            <img src="https://wow.zamimg.com/images/wow/icons/large/' . $this->icon . '.jpg" alt="' . $this->name . '" />
+        ';
+        foreach ($this as $key => $value) {
+            if ($key == "itemSpells") {
+                foreach ($value as $newValue) {
+                    if (isset($newValue->spell->description)) {
+                        $return = $return . '<p class="' . $key . '">' . $newValue->spell->description . '</p>';
+                    }
+                }
+            } elseif (is_array($value)) {
+                $return = $return . '<p class="' . $key . '">';
+                foreach ($value as $key => $tabValue) {
+                    if (is_object($tabValue)) {
+                        $tabValue = $this->objectToArray($tabValue);
+                    }
+                    if (is_array($tabValue)) {
+                        $return = $this->displayArray($return, $tabValue);
+                    } else {
+                        $return = $return . '<span class="' . $key . '">[ ' . $tabValue . ']</span>';
+                    }
+                }
+                $return = $return . '</p>';
+            } else {
+                if (is_bool($value)) {
+                    if ($value == true) {
+                        $value = 'true';
+                    } else {
+                        $value = 'false';
+                    }
+                }
+                if ($value != '') {
+                    $return = $return . '<p class="' . $key . '">' . $key . ':' . $value . '</p>';
+                }
+            }
+        }
+        $return = $return . "</div>";
+        return $return;
+    }
 
+    private function objectToArray($d)
+    {
+        if (is_object($d))
+            $d = get_object_vars($d);
+        return is_array($d) ? array_map(__METHOD__, $d) : $d;
+    }
+
+    private function displayArray($return, $tabValue)
+    {
+        $i = 0;
+        foreach ($tabValue as $newKey => $newValue) {
+            if (is_array($newValue)) {
+                $this->displayArray($return, $newValue);
+            } else {
+                if ($i % 2 == 0) {
+                    $return = $return . '<span class="' . $newKey . '">[ ' . $newValue . ' => ';
+                } else {
+                    $return = $return . $newValue . ' ]</span><br/>';
+                }
+                $i++;
+            }
+        }
+        return $return;
     }
 }

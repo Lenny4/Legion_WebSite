@@ -24,13 +24,8 @@
                             <input placeholder="Item id" type="number" class="form-control" name="item_id">
                         </div>
                         <div class="form-group">
-                            <input placeholder="Price (Optionnal)" type="number" min="1" class="form-control"
+                            <input placeholder="Price (Optionnal)" type="number" min="0" class="form-control"
                                    name="item_price">
-                        </div>
-                        <div class="form-group">
-                            <div class="checkbox">
-                                <label><input type="checkbox" name="item_free">Free</label>
-                            </div>
                         </div>
                         <button type="submit" class="btn btn-default">Preview</button>
                     </form>
@@ -109,24 +104,13 @@
 
 <script>
 
-    function previewItem(json) {
+    function previewItem(data) {
         var modal = $('#shopAdminModal');
-        var data = JSON.parse(json);
         $(modal).modal('show');
         var modalHeader = $(modal).find('.modal-title');
         var modalContent = $(modal).find('.modal-body');
-        $(modalHeader).html(data.name);
-        $(modalContent).html("" +
-            "<img src='https://wow.zamimg.com/images/wow/icons/large/" + data.icon + ".jpg' alt='" + data.icon + "'>" +
-            "<p>" + data.description + "</p>" +
-            "<p>Price : " + data.price + "</p>" +
-            "<p>itemLevel : " + data.itemLevel + "</p>");
-        data.itemSpells.forEach(function (element) {
-            $(modalContent).append("<p>- " + element.spell.description + "</p>")
-        });
-        data.bonusStats.forEach(function (element) {
-            $(modalContent).append("<p>- " + element.stat + " : " + element.amount + "</p>")
-        });
+        $(modalHeader).html("Add item");
+        $(modalContent).html(data);
         $(modalContent).append("<button onclick='addItem(this)' id='addItem' class='btn btn-default'>Add to the shop</button>");
     }
 

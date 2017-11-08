@@ -6,19 +6,18 @@ if (!isset($_POST)) {
     throw new Exception("No data");
 }
 
-function createItem($POSTitem_id, $POSTitem_price, $POSTitem_free)
+function createItem($POSTitem_id, $POSTitem_price)
 {
     $item_id = intval($POSTitem_id);
-    $item_price = intval($POSTitem_price);
-    $item_free = $POSTitem_free;
+    $item_price = null;
+    if ($POSTitem_price != '') {
+        $item_price = intval($POSTitem_price);
+    }
     $result = json_decode(file_get_contents('https://us.api.battle.net/wow/item/' . $item_id . '?locale=en_US&apikey=' . API_KEY));
     $item = new item();
     $item->hydrateAPI($result);
-    if ($item_price > 0) {
+    if ($item_price != null) {
         $item->price = $item_price;
-    }
-    if ($item_free == true) {
-        $item->price = 0;
     }
     return $item;
 }
@@ -30,7 +29,7 @@ function insertItemInBdd($item, $dbh)
         echo "An error occur";
         return;
     }
-    if($searchItem->item_id==$item->item_id){
+    if ($searchItem->item_id == $item->item_id) {
         echo "Already in database -> " . $item->item_id . ':' . $item->name;
         return;
     }
@@ -59,19 +58,11 @@ function getItemInBdd($itemID, $dbh)
 }
 
 if ($_POST['id'] == 'previewItem') {
-    if (isset($_POST['item_free'])) {
-        $item = createItem($_POST['item_id'], $_POST['item_price'], true);
-    } else {
-        $item = createItem($_POST['item_id'], $_POST['item_price'], false);
-    }
-    echo json_encode($item);
+    $item = createItem($_POST['item_id'], $_POST['item_price']);
+    echo($item->display());
 }
 
 if ($_POST['id'] == 'addItem') {
-    if (isset($_POST['item_free'])) {
-        $item = createItem($_POST['item_id'], $_POST['item_price'], true);
-    } else {
-        $item = createItem($_POST['item_id'], $_POST['item_price'], false);
-    }
+    $item = createItem($_POST['item_id'], $_POST['item_price']);
     insertItemInBdd($item, $dbh);
 }
