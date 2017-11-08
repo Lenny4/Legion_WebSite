@@ -180,7 +180,7 @@ class item
     public function hydrateBDD($data)
     {
         foreach ($data as $key => $value) {
-            if (is_numeric($value)) {
+            if (is_int($value)) {
                 $this->$key = intval($value);
             } else {
                 $newValue = json_decode($value);
@@ -212,17 +212,17 @@ class item
                 if (is_int($value) OR is_bool($value)) {
                     $req = $req . intval($value);
                 } elseif (is_array($value)) {
-                    $req = $req . "'" . json_encode($value) . "'";
+                    $req = $req . "'" . addslashes(json_encode($value)) . "'";
                 } else {
-                    $req = $req . "'" . $value . "'";
+                    $req = $req . "'" . addslashes($value) . "'";
                 }
             } else {
                 if (is_int($value) OR is_bool($value)) {
                     $req = $req . ", " . intval($value);
                 } elseif (is_array($value)) {
-                    $req = $req . ", '" . json_encode($value) . "'";
+                    $req = $req . ", '" . addslashes(json_encode($value)) . "'";
                 } else {
-                    $req = $req . ", '" . $value . "'";
+                    $req = $req . ", '" . addslashes($value) . "'";
                 }
             }
             $i++;
@@ -270,7 +270,17 @@ class item
                     }
                 }
                 if ($value != '') {
-                    $return = $return . '<p class="' . $key . '">' . $key . ':' . $value . '</p>';
+                    if (($key == "maxDurability" OR $key == "armor" OR $key == "containerSlots" OR $key == "equippable") AND $value == 0) {
+                    } else {
+                        if ($key == "isAuctionable") {
+                            if ($value == 1 OR true) {
+                                $value = "true";
+                            } else {
+                                $value = "false";
+                            }
+                        }
+                        $return = $return . '<p class="' . $key . '">' . $key . ':' . $value . '</p>';
+                    }
                 }
             }
         }

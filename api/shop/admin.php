@@ -6,25 +6,32 @@ if (!isset($_POST)) {
     throw new Exception("No data");
 }
 
-function createItemClass($item)
+function createItemClass($item, $dbh)
 {
-    $allItemClass = json_decode(file_get_contents('https://us.api.battle.net/wow/data/item/classes?locale=en_US&apikey=' . API_KEY));
-    $itemClass = new item_classes($item, $allItemClass);
+    $itemClassID = $item->itemClass;
+    $itemClass = getItemClassInBdd($itemClassID, $dbh);
+    if ($itemClass->class_id == null) {
+        $allItemClass = json_decode(file_get_contents('https://us.api.battle.net/wow/data/item/classes?locale=en_US&apikey=' . API_KEY));
+        $itemClass = new item_classes($item, $allItemClass);
+    }
     return $itemClass;
 }
 
-function createItem($POSTitem_id, $POSTitem_price)
+function createItem($POSTitem_id, $POSTitem_price, $dbh)
 {
     $item_id = intval($POSTitem_id);
-    $item_price = null;
-    if ($POSTitem_price != '') {
-        $item_price = intval($POSTitem_price);
-    }
-    $result = json_decode(file_get_contents('https://us.api.battle.net/wow/item/' . $item_id . '?locale=en_US&apikey=' . API_KEY));
-    $item = new item();
-    $item->hydrateAPI($result);
-    if ($item_price != null) {
-        $item->price = $item_price;
+    $item = getItemInBdd($item_id, $dbh);
+    if ($item->item_id == null) {
+        $item_price = null;
+        if ($POSTitem_price != '') {
+            $item_price = intval($POSTitem_price);
+        }
+        $result = json_decode(file_get_contents('https://us.api.battle.net/wow/item/' . $item_id . '?locale=en_US&apikey=' . API_KEY));
+        $item = new item();
+        $item->hydrateAPI($result);
+        if ($item_price != null) {
+            $item->price = $item_price;
+        }
     }
     return $item;
 }
@@ -41,6 +48,7 @@ function insertItemInBdd($item, $dbh)
         return;
     }
     $req = $item->generateInsertRequest();
+    var_dump($req);
     $dbh->query($req);
     $item = getItemInBdd($item->item_id, $dbh);
     if ($item != null) {
@@ -50,9 +58,9 @@ function insertItemInBdd($item, $dbh)
     }
 }
 
-function insertItemClassInBdd($itemClass, $item, $dbh)
+function insertItemClassInBdd($itemClass, $dbh)
 {
-    $searchItemClass = getItemClassInBdd($itemClass->class_id, $dbh, $item);
+    $searchItemClass = getItemClassInBdd($itemClass->class_id, $dbh);
     if ($searchItemClass == null) {
         echo "An error occur";
         return;
@@ -72,21 +80,21 @@ function getItemInBdd($itemID, $dbh)
     if ($req == false) {
         return null;
     } else {
-        while ($data = $req->fetch()) {
+        while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
             $item->hydrateBDD($data);
         }
         return $item;
     }
 }
 
-function getItemClassInBdd($itemClassID, $dbh, $item)
+function getItemClassInBdd($itemClassID, $dbh)
 {
     $itemClass = new item_classes();
     $req = $dbh->query('SELECT * FROM `item_classes` WHERE `class_id`=' . $itemClassID);
     if ($req == false) {
         return null;
     } else {
-        while ($data = $req->fetch()) {
+        while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
             $itemClass->hydrateBDD($data);
         }
         return $itemClass;
@@ -94,14 +102,14 @@ function getItemClassInBdd($itemClassID, $dbh, $item)
 }
 
 if ($_POST['id'] == 'previewItem') {
-    $item = createItem($_POST['item_id'], $_POST['item_price']);
-    $itemClass = createItemClass($item);
+    $item = createItem($_POST['item_id'], $_POST['item_price'], $dbh);
+    $itemClass = createItemClass($item, $dbh);
     echo($item->display($itemClass));
 }
 
 if ($_POST['id'] == 'addItem') {
-    $item = createItem($_POST['item_id'], $_POST['item_price']);
-    $itemClass = createItemClass($item);
+    $item = createItem($_POST['item_id'], $_POST['item_price'], $dbh);
+    $itemClass = createItemClass($item, $dbh);
     insertItemInBdd($item, $dbh);
-    insertItemClassInBdd($itemClass, $item, $dbh);
+    insertItemClassInBdd($itemClass, $dbh);
 }

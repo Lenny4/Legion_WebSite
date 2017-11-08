@@ -7,9 +7,9 @@ class item_classes
     public $subclasses = null;
     private $allItemClass = null;
 
-    function __construct($item=null, $allItemClass=null)
+    function __construct($item = null, $allItemClass = null)
     {
-        if($item!=null AND $allItemClass!=null){
+        if ($item != null AND $allItemClass != null) {
             $this->class_id = $item->itemClass;
             $this->allItemClass = $allItemClass;
             $this->name = $this->getClassName();
@@ -74,6 +74,9 @@ class item_classes
 
     public function getClassName()
     {
+        if ($this->name != null) {
+            return $this->name;
+        }
         foreach ($this->allItemClass->classes as $value) {
             if ($value->class == $this->class_id) {
                 return $value->name;
@@ -84,6 +87,13 @@ class item_classes
 
     public function getSubClass()
     {
+        if ($this->subclasses != null) {
+            foreach ($this->subclasses as $value) {
+                if ($value->class == $this->class_id) {
+                    return $value->subclasses;
+                }
+            }
+        }
         foreach ($this->allItemClass->classes as $value) {
             if ($value->class == $this->class_id) {
                 return $value->subclasses;
@@ -94,14 +104,9 @@ class item_classes
 
     public function getSubClassName($item)
     {
-        foreach ($this->allItemClass->classes as $value) {
-            if ($value->class == $this->class_id) {
-                $allSubClass = $value->subclasses;
-                foreach ($allSubClass as $subClass) {
-                    if ($subClass->subclass == $item->itemSubClass) {
-                        return $subClass->name;
-                    }
-                }
+        foreach ($this->subclasses as $subClass) {
+            if ($subClass->subclass == $item->itemSubClass) {
+                return $subClass->name;
             }
         }
         return null;
