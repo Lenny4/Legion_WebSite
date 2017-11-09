@@ -242,7 +242,7 @@ class item
                 $return = $return . '<p class="' . $key . '">' . $key . ':' . $itemClass->name . '</p>';
             } elseif ($key == "itemSubClass") {
                 $return = $return . '<p class="' . $key . '">' . $key . ':' . $itemClass->getSubClassName($this) . '</p>';
-            } elseif ($key == "itemSpells") {
+            } elseif ($key == "itemSpells" AND $value != "[]") {
                 foreach ($value as $newValue) {
                     if (isset($newValue->spell->description)) {
                         $return = $return . '<p class="' . $key . '">' . $newValue->spell->description . '</p>';

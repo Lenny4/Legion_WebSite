@@ -33,6 +33,16 @@
 
                 <div class="col-md-6 col-xs-12 borderWhite">
                     <p class="h3">Add Item Set</p>
+                    <form id="previewItemSet">
+                        <div class="form-group">
+                            <input placeholder="Item Set id" type="number" class="form-control" name="item_set_id">
+                        </div>
+                        <div class="form-group">
+                            <input placeholder="Price (Optionnal)" type="number" min="0" class="form-control"
+                                   name="item_set_price">
+                        </div>
+                        <button type="submit" class="btn btn-default">Preview</button>
+                    </form>
                 </div>
 
                 <div class="col-md-6 col-xs-12 borderWhite">
@@ -41,14 +51,6 @@
 
                 <div class="col-md-6 col-xs-12 borderWhite">
                     <p class="h3">Add Custom Item</p>
-                </div>
-
-                <div class="col-md-6 col-xs-12 borderWhite">
-                    <p class="h3">Delete item</p>
-                </div>
-
-                <div class="col-md-6 col-xs-12 borderWhite">
-                    <p class="h3">Delete item set</p>
                 </div>
 
                 <div class="col-md-6 col-xs-12 borderWhite">
@@ -128,6 +130,30 @@
         });
     }
 
+    function previewItemSet(data) {
+        var modal = $('#shopAdminModal');
+        $(modal).modal('show');
+        var modalHeader = $(modal).find('.modal-title');
+        var modalContent = $(modal).find('.modal-body');
+        $(modalHeader).html("Add item set");
+        $(modalContent).html(data);
+        $(modalContent).append("<button onclick='addItemSet(this)' id='addItemSet' class='btn btn-default'>Add to the shop</button>");
+    }
+
+    function addItemSet(button) {
+        var form = 'id=' + $(button).attr("id") + "&" + $("#previewItemSet").serialize();
+        $.post("/api/shop/admin.php", form, function (data, status) {
+            if (status === "success") {
+                var modal = $('#shopAdminModal');
+                var modalContent = $(modal).find('.modal-body');
+                $(modalContent).prepend('<div class="alert alert-warning alert-dismissable">\n' +
+                    '  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>\n' +
+                    '  <strong>' + data + '</strong>' +
+                    '</div>');
+            }
+        });
+    }
+
     $("form").submit(function (event) {
         event.preventDefault();
         var form = 'id=' + $(event.target).attr("id") + "&" + $(event.target).serialize();
@@ -135,6 +161,9 @@
             if (status === "success") {
                 if ($(event.target).attr("id") === "previewItem") {
                     previewItem(data);
+                }
+                if ($(event.target).attr("id") === "previewItemSet") {
+                    previewItemSet(data);
                 }
             }
         });
