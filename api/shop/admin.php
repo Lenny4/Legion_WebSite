@@ -168,8 +168,10 @@ function addItemBdd($postItemId, $postItemPrice, $dbh)
 {
     $item = createItem($postItemId, $postItemPrice, $dbh);
     $itemClass = createItemClass($item, $dbh);
+    $item->item_classes = $itemClass->class_id;
     insertItemInBdd($item, $dbh);
     insertItemClassInBdd($itemClass, $dbh);
+    return $item;
 }
 
 function previewItemSet($postItemSetId, $postItemSetPrice, $dbh)
@@ -184,7 +186,8 @@ function addItemSetBdd($postItemSetId, $postItemSetPrice, $dbh)
 {
     $item_set = createItemSet($postItemSetId, $postItemSetPrice, $dbh);
     foreach ($item_set->items as $itemID) {
-        addItemBdd($itemID, '', $dbh);
+        $item = addItemBdd($itemID, '', $dbh);
+        $item_set->item_classes = $item->item_classes;
     }
     insertItemSetInBdd($item_set, $dbh);
 }

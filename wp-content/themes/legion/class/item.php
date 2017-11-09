@@ -24,6 +24,8 @@ class item
     public $price = null;
     public $maxDurability = null;
     public $armor = null;
+    public $itemSet = null;
+    public $item_classes = null;
 
     public function hydrateAPI($data)
     {
@@ -174,6 +176,9 @@ class item
         }
         if (isset($data->armor)) {
             $this->armor = $data->armor;
+        }
+        if (isset($data->itemSet)) {
+            $this->itemSet = $data->itemSet->id;
         }
     }
 

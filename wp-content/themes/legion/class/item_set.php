@@ -7,6 +7,7 @@ class item_set
     public $setBonuses  = null;
     public $items  = null;
     public $price  = null;
+    public $item_classes = null;
 
     public function hydrateBDD($data)
     {
