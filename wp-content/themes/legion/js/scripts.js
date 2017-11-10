@@ -120,6 +120,23 @@ function addItemSet(button) {
 $(document).ready(function () {
     resizeVideo();
     addPlaceHolderForm();
+    //Shop Admin
+    $("form").submit(function (event) {
+        event.preventDefault();
+        var form = 'id=' + $(event.target).attr("id") + "&" + $(event.target).serialize();
+        $("*").addClass("progressWait");
+        $.post("/api/shop/shop.php", form, function (data, status) {
+            $("*").removeClass("progressWait");
+            if (status === "success") {
+                if ($(event.target).attr("id") === "previewItem") {
+                    previewItem(data);
+                }
+                if ($(event.target).attr("id") === "previewItemSet") {
+                    previewItemSet(data);
+                }
+            }
+        });
+    });
 });
 
 $(window).resize(function () {
@@ -128,22 +145,4 @@ $(window).resize(function () {
 
 $(document).scroll(function () {
     changeMenuCss()
-});
-
-//Shop Admin
-$("form").submit(function (event) {
-    event.preventDefault();
-    var form = 'id=' + $(event.target).attr("id") + "&" + $(event.target).serialize();
-    $("*").addClass("progressWait");
-    $.post("/api/shop/shop.php", form, function (data, status) {
-        $("*").removeClass("progressWait");
-        if (status === "success") {
-            if ($(event.target).attr("id") === "previewItem") {
-                previewItem(data);
-            }
-            if ($(event.target).attr("id") === "previewItemSet") {
-                previewItemSet(data);
-            }
-        }
-    });
 });

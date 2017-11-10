@@ -293,6 +293,18 @@ class item
         return $return;
     }
 
+    public function smallDisplay()
+    {
+        $return = '
+        <li class="list-group-item col-sm-6 col-xs-12"><span style="display:none">' . $this->name . '</span>
+        <div class="display_item" style="width: 100%">
+            <img src="https://wow.zamimg.com/images/wow/icons/large/' . $this->icon . '.jpg" alt="' . $this->name . '" />
+            <p class="name">' . $this->name . '</p>
+        </div>
+        </li>';
+        return $return;
+    }
+
     private function objectToArray($d)
     {
         if (is_object($d))

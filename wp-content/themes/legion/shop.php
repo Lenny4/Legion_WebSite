@@ -32,7 +32,9 @@
                                                     <?php foreach ($itemClasse["subclasses"] as $subItemClasse) { ?>
                                                         <tr>
                                                             <td class="first">
-                                                                <a class="subItemClasse clickable"><?= $subItemClasse->name; ?></a>
+                                                                <a id="subItemClasse"
+                                                                   data-sub-class-id="<?= $subItemClasse->subclass; ?>"
+                                                                   class="subItemClasse clickable"><?= $subItemClasse->name; ?></a>
                                                             </td>
                                                         </tr>
                                                     <?php } ?>
@@ -43,13 +45,17 @@
                                 <?php } ?>
                             </div>
                         </div>
-                            <div class="col-sm-9 col-xs-12">
-
-                            </div>
+                        <div class="col-sm-9 col-xs-12">
+                            <input style="display: none" class="form-control" id="filterNameShop" type="text"
+                                   placeholder="Name">
+                            <ul class="list-group" id="filterNameListShop">
+                                <div id="shopDisplayItems"></div>
+                            </ul>
                         </div>
                     </div>
+                </div>
 
-                    <br class="clear">
+                <br class="clear">
 
             </article>
             <!-- /article -->
@@ -71,6 +77,44 @@
 </main>
 
 <?php get_sidebar(); ?>
+
+<script>
+    function showFilterShop() {
+        $("#filterNameShop").show();
+    }
+
+    function hideFilterShop() {
+        $("#filterNameShop").hide();
+    }
+
+    $("a.subItemClasse").click(function (e) {
+        $("*").addClass("progressWait");
+        $.post("/api/shop/shop.php",
+            {
+                id: $(e.target).attr('id'),
+                subClassId: $(e.target).attr('data-sub-class-id')
+            },
+            function (data, status) {
+                $("*").removeClass("progressWait");
+                if (data !== 'Error !' && data !== 'No Result !') {
+                    showFilterShop();
+                    $("#shopDisplayItems").html(data);
+                } else {
+                    hideFilterShop();
+                    $("#shopDisplayItems").html('<div class="alert alert-danger alert-dismissable"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>' + data + '</strong></div>');
+                }
+            });
+    });
+
+    $(document).ready(function () {
+        $("#filterNameShop").on("keyup", function () {
+            var value = $(this).val().toLowerCase();
+            $("#filterNameListShop li").filter(function () {
+                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+            });
+        });
+    });
+</script>
 
 <?php get_footer(); ?>
 

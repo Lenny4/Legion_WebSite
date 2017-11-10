@@ -27,7 +27,7 @@ button.navbar-toggle span {
     background-color: white;
 }
 
-.progressWait{
+.progressWait {
     cursor: progress !important;
 }
 
@@ -491,4 +491,11 @@ section.shop td a:hover, section.shop .panel-title a:hover {
     -moz-transition: color 0.5s ease-out;
     -o-transition: color 0.5s ease-out;
     transition: color 0.5s ease-out;
+}
+
+#shopDisplayItems li {
+    display: inline-block;
+    float: left;
+    background-color: transparent;
+    border: none;
 }

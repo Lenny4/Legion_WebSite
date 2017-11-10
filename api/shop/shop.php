@@ -6,6 +6,7 @@ if (!isset($_POST)) {
     throw new Exception("No data");
 }
 
+//ITEM======================================================
 function createItem($POSTitem_id, $POSTitem_price, $dbh)
 {
     $item_id = intval($POSTitem_id);
@@ -16,7 +17,7 @@ function createItem($POSTitem_id, $POSTitem_price, $dbh)
             $item_price = intval($POSTitem_price);
         }
         @$result = json_decode(file_get_contents('https://us.api.battle.net/wow/item/' . $item_id . '?locale=en_US&apikey=' . API_KEY));
-        if($result==null){
+        if ($result == null) {
             echo '<div class="alert alert-danger"><strong>Not Found</strong></div>';
             die();
         }
@@ -64,7 +65,25 @@ function insertItemInBdd($item, $dbh)
     }
 }
 
+function getItemBySubClass($id, $dbh)
+{
+    $req = $dbh->query('SELECT * FROM `item` WHERE `itemSubClass`=' . $id);
+    $return = array();
+    if ($req == false) {
+        return null;
+    } else {
+        while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+            $item = new item();
+            $item->hydrateBDD($data);
+            array_push($return, $item);
+        }
+        return $return;
+    }
+}
 
+//ITEM======================================================
+
+//ITEM CLASS======================================================
 function createItemClass($item, $dbh)
 {
     $itemClassID = $item->itemClass;
@@ -105,7 +124,9 @@ function insertItemClassInBdd($itemClass, $dbh)
     $dbh->query($req);
 }
 
+//ITEM CLASS======================================================
 
+//ITEM SET======================================================
 function createItemSet($POSTitem_set_id, $POSTitem_set_price, $dbh)
 {
     $item_set_id = intval($POSTitem_set_id);
@@ -116,7 +137,7 @@ function createItemSet($POSTitem_set_id, $POSTitem_set_price, $dbh)
             $item_price = intval($POSTitem_set_price);
         }
         @$result = json_decode(file_get_contents('https://us.api.battle.net/wow/item/set/' . $item_set_id . '?locale=en_US&apikey=' . API_KEY));
-        if($result==null){
+        if ($result == null) {
             echo '<div class="alert alert-danger"><strong>Not Found</strong></div>';
             die();
         }
@@ -164,22 +185,14 @@ function insertItemSetInBdd($item_set, $dbh)
     }
 }
 
+//ITEM SET======================================================
 
+//VIEW======================================================
 function previewItem($postItemId, $postItemPrice, $dbh)
 {
     $item = createItem($postItemId, $postItemPrice, $dbh);
     $itemClass = createItemClass($item, $dbh);
     echo($item->display($itemClass));
-}
-
-function addItemBdd($postItemId, $postItemPrice, $dbh)
-{
-    $item = createItem($postItemId, $postItemPrice, $dbh);
-    $itemClass = createItemClass($item, $dbh);
-    $item->item_classes = $itemClass->class_id;
-    insertItemInBdd($item, $dbh);
-    insertItemClassInBdd($itemClass, $dbh);
-    return $item;
 }
 
 function previewItemSet($postItemSetId, $postItemSetPrice, $dbh)
@@ -188,6 +201,34 @@ function previewItemSet($postItemSetId, $postItemSetPrice, $dbh)
     foreach ($item_set->items as $itemID) {
         previewItem($itemID, '', $dbh);
     }
+}
+
+function viewItems($subClassId, $dbh)
+{
+    $subClassId = intval($subClassId);
+    $result = getItemBySubClass($subClassId, $dbh);
+    if ($result == null AND sizeof($result) > 0) {
+        echo 'Error !';
+    } elseif (sizeof($result) == 0) {
+        echo 'No Result !';
+    } else {
+        foreach ($result as $item) {
+            echo $item->smallDisplay();
+        }
+    }
+}
+
+//VIEW======================================================
+
+//ADD======================================================
+function addItemBdd($postItemId, $postItemPrice, $dbh)
+{
+    $item = createItem($postItemId, $postItemPrice, $dbh);
+    $itemClass = createItemClass($item, $dbh);
+    $item->item_classes = $itemClass->class_id;
+    insertItemInBdd($item, $dbh);
+    insertItemClassInBdd($itemClass, $dbh);
+    return $item;
 }
 
 function addItemSetBdd($postItemSetId, $postItemSetPrice, $dbh)
@@ -199,6 +240,8 @@ function addItemSetBdd($postItemSetId, $postItemSetPrice, $dbh)
     }
     insertItemSetInBdd($item_set, $dbh);
 }
+
+//ADD======================================================
 
 if ($_POST['id'] == 'previewItem') {
     previewItem($_POST['item_id'], $_POST['item_price'], $dbh);
@@ -214,4 +257,8 @@ if ($_POST['id'] == 'previewItemSet') {
 
 if ($_POST['id'] == 'addItemSet') {
     addItemSetBdd($_POST['item_set_id'], $_POST['item_set_price'], $dbh);
+}
+
+if ($_POST['id'] == 'subItemClasse') {
+    viewItems($_POST['subClassId'], $dbh);
 }
