@@ -1,5 +1,5 @@
 <!-- sidebar -->
-<aside class="sidebar col-md-2 col-md-offset-0 col-xs-10 col-xs-offset-2 hidden-xs background" role="complementary">
+<aside class="sidebar col-md-2 col-md-offset-0 col-xs-10 col-xs-offset-2 hidden-xs hidden-sm background" role="complementary">
 
     <?php if (!is_user_logged_in()) { ?>
         <p class="h3">Login</p>

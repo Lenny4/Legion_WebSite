@@ -113,12 +113,14 @@
         var modalContent = $(modal).find('.modal-body');
         $(modalHeader).html("Add item");
         $(modalContent).html(data);
-        $(modalContent).append("<button onclick='addItem(this)' id='addItem' class='btn btn-default'>Add to the shop</button>");
+        if (data != '<div class="alert alert-danger"><strong>Not Found</strong></div>') {
+            $(modalContent).append("<button onclick='addItem(this)' id='addItem' class='btn btn-default'>Add to the shop</button>");
+        }
     }
 
     function addItem(button) {
         var form = 'id=' + $(button).attr("id") + "&" + $("#previewItem").serialize();
-        $.post("/api/shop/admin.php", form, function (data, status) {
+        $.post("/api/shop/shop.php", form, function (data, status) {
             if (status === "success") {
                 var modal = $('#shopAdminModal');
                 var modalContent = $(modal).find('.modal-body');
@@ -137,12 +139,14 @@
         var modalContent = $(modal).find('.modal-body');
         $(modalHeader).html("Add item set");
         $(modalContent).html(data);
-        $(modalContent).append("<button onclick='addItemSet(this)' id='addItemSet' class='btn btn-default'>Add to the shop</button>");
+        if (data != '<div class="alert alert-danger"><strong>Not Found</strong></div>') {
+            $(modalContent).append("<button onclick='addItemSet(this)' id='addItemSet' class='btn btn-default'>Add to the shop</button>");
+        }
     }
 
     function addItemSet(button) {
         var form = 'id=' + $(button).attr("id") + "&" + $("#previewItemSet").serialize();
-        $.post("/api/shop/admin.php", form, function (data, status) {
+        $.post("/api/shop/shop.php", form, function (data, status) {
             if (status === "success") {
                 var modal = $('#shopAdminModal');
                 var modalContent = $(modal).find('.modal-body');
@@ -157,7 +161,9 @@
     $("form").submit(function (event) {
         event.preventDefault();
         var form = 'id=' + $(event.target).attr("id") + "&" + $(event.target).serialize();
-        $.post("/api/shop/admin.php", form, function (data, status) {
+        $("*").addClass("progressWait");
+        $.post("/api/shop/shop.php", form, function (data, status) {
+            $("*").removeClass("progressWait");
             if (status === "success") {
                 if ($(event.target).attr("id") === "previewItem") {
                     previewItem(data);

@@ -15,7 +15,11 @@ function createItem($POSTitem_id, $POSTitem_price, $dbh)
         if ($POSTitem_price != '') {
             $item_price = intval($POSTitem_price);
         }
-        $result = json_decode(file_get_contents('https://us.api.battle.net/wow/item/' . $item_id . '?locale=en_US&apikey=' . API_KEY));
+        @$result = json_decode(file_get_contents('https://us.api.battle.net/wow/item/' . $item_id . '?locale=en_US&apikey=' . API_KEY));
+        if($result==null){
+            echo '<div class="alert alert-danger"><strong>Not Found</strong></div>';
+            die();
+        }
         $item = new item();
         $item->hydrateAPI($result);
         if ($item_price != null) {
@@ -111,7 +115,11 @@ function createItemSet($POSTitem_set_id, $POSTitem_set_price, $dbh)
         if ($POSTitem_set_price != '') {
             $item_price = intval($POSTitem_set_price);
         }
-        $result = json_decode(file_get_contents('https://us.api.battle.net/wow/item/set/' . $item_set_id . '?locale=en_US&apikey=' . API_KEY));
+        @$result = json_decode(file_get_contents('https://us.api.battle.net/wow/item/set/' . $item_set_id . '?locale=en_US&apikey=' . API_KEY));
+        if($result==null){
+            echo '<div class="alert alert-danger"><strong>Not Found</strong></div>';
+            die();
+        }
         $item_set = new item_set();
         $item_set->hydrateAPI($result);
         if ($item_set_price != null) {

@@ -3,9 +3,9 @@
 
 <main class="col-md-8 col-md-offset-1" role="main">
     <!-- section -->
-    <section class="background">
+    <section class="background shop">
 
-        <h1><?php the_title(); ?></h1>
+        <h1 class="text-center"><?php the_title(); ?></h1>
 
         <?php if (have_posts()): while (have_posts()) : the_post(); ?>
 
@@ -14,13 +14,42 @@
 
                 <div class="col-xs-12">
                     <?php the_content(); ?>
-                </div>
+                    <?php $allItemClasses = getAllItemClasses(); ?>
+                    <div class="row">
+                        <div class="col-sm-3 col-xs-12">
+                            <div class="panel-group" id="accordion">
+                                <?php foreach ($allItemClasses as $key => $itemClasse) { ?>
+                                    <div class="panel panel-default">
+                                        <div class="panel-heading">
+                                            <h4 class="panel-title">
+                                                <a data-toggle="collapse" data-parent="#accordion"
+                                                   href="#<?= $itemClasse["name"]; ?>"><?= $itemClasse["name"]; ?></a>
+                                            </h4>
+                                        </div>
+                                        <div id="<?= $itemClasse["name"]; ?>" class="panel-collapse collapse">
+                                            <div class="panel-body">
+                                                <table class="table">
+                                                    <?php foreach ($itemClasse["subclasses"] as $subItemClasse) { ?>
+                                                        <tr>
+                                                            <td class="first">
+                                                                <a class="subItemClasse clickable"><?= $subItemClasse->name; ?></a>
+                                                            </td>
+                                                        </tr>
+                                                    <?php } ?>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php } ?>
+                            </div>
+                        </div>
+                            <div class="col-sm-9 col-xs-12">
 
-                <?php comments_template('', true); // Remove if you don't want comments ?>
+                            </div>
+                        </div>
+                    </div>
 
-                <br class="clear">
-
-                <?php edit_post_link(); ?>
+                    <br class="clear">
 
             </article>
             <!-- /article -->

@@ -489,11 +489,11 @@ function getUserWowIdWithUserData($userdata)
     $user = (array)$userdata;
     $data = (array)$user['data'];
     $user_email = $data["user_email"];
-    $userId=null;
+    $userId = null;
     if (isset($GLOBALS['database'])) {
         $sth = $GLOBALS['database']->query("SELECT username FROM auth.account WHERE email='" . $user_email . "'");
         while ($username = $sth->fetch(PDO::FETCH_ASSOC)) {
-            $userId=$username["username"];
+            $userId = $username["username"];
         }
     }
     return $userId;
@@ -507,15 +507,15 @@ function getUserWowMailWithUserData($userdata)
 
 function wow_insert_user($userdata)
 {
-    $mail=$userdata['user_email'];
-    $password=$userdata['user_pass'];
+    $mail = $userdata['user_email'];
+    $password = $userdata['user_pass'];
     new SOAPRegistration($mail, $password);
 }
 
 function wow_delete_user($userdata)
 {
-    $userId=getUserWowIdWithUserData($userdata);
-    if($userId!=null){
+    $userId = getUserWowIdWithUserData($userdata);
+    if ($userId != null) {
         new SOAPDeletion($userId);
     }
 }
@@ -523,50 +523,60 @@ function wow_delete_user($userdata)
 /**
  * @param $userdata
  */
-function wow_update_user($userdata){
-    $mail=getUserWowMailWithUserData($userdata);
-    $newPassword=null;
-    if(isset($_POST['password_repeat'])){//account page
-        $newPassword=$_POST['password_repeat'];
-    }
-    elseif (isset($_POST['pass1-text'])){//wp admin panel page
-        $newPassword=$_POST['pass1-text'];
+function wow_update_user($userdata)
+{
+    $mail = getUserWowMailWithUserData($userdata);
+    $newPassword = null;
+    if (isset($_POST['password_repeat'])) {//account page
+        $newPassword = $_POST['password_repeat'];
+    } elseif (isset($_POST['pass1-text'])) {//wp admin panel page
+        $newPassword = $_POST['pass1-text'];
     }
     //elseif //resetpassword
-    if($newPassword!=null)
-    {
-        new SOAPChangePassword($mail,$newPassword);
+    if ($newPassword != null) {
+        new SOAPChangePassword($mail, $newPassword);
     }
 }
 
 function getOnlinePlayer()
 {
-    $tab=array();
-    $tab["blue"]=12;
-    $tab["red"]=15;
-    $tab["total"]=$tab["blue"]+$tab["red"];
-    $tab["pBlue"]=intval(($tab["blue"]/$tab["total"])*100);
-    $tab["pRed"]=100-$tab["pBlue"];
+    $tab = array();
+    $tab["blue"] = 12;
+    $tab["red"] = 15;
+    $tab["total"] = $tab["blue"] + $tab["red"];
+    $tab["pBlue"] = intval(($tab["blue"] / $tab["total"]) * 100);
+    $tab["pRed"] = 100 - $tab["pBlue"];
     return $tab;
 }
 
 function getLadder()
 {
-    $tab=array();
-    for($i=0;$i<5;$i++){
-        $tab[$i]["name"]="Name";
-        $tab[$i]["win"]="1000";
-        $tab[$i]["losses"]="10";
-        $tab[$i]["ranking"]="2009";
+    $tab = array();
+    for ($i = 0; $i < 5; $i++) {
+        $tab[$i]["name"] = "Name";
+        $tab[$i]["win"] = "1000";
+        $tab[$i]["losses"] = "10";
+        $tab[$i]["ranking"] = "2009";
     }
     return $tab;
 }
 
 function serverOnline()
 {
-    $serverStatus=new SOAPOnline();
+    $serverStatus = new SOAPOnline();
     $serverStatus->isOnline();
     return $serverStatus->isOnline();
+}
+
+function getAllItemClasses()
+{
+    $sth = $GLOBALS['database']->query("SELECT * FROM website.item_classes");
+    $data = array();
+    while ($result = $sth->fetch(PDO::FETCH_ASSOC)) {
+        $result["subclasses"] = json_decode($result["subclasses"]);
+        array_push($data, $result);
+    }
+    return $data;
 }
 
 ?>

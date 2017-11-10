@@ -27,7 +27,11 @@ button.navbar-toggle span {
     background-color: white;
 }
 
-.clickable{
+.progressWait{
+    cursor: progress !important;
+}
+
+.clickable {
     cursor: pointer;
 }
 
@@ -126,7 +130,7 @@ main {
     margin-right: 5px;
 }
 
-section{
+section {
     width: 100%;
     display: inline-block;
 }
@@ -271,8 +275,8 @@ div.mainParallax {
 }
 
 aside {
-    padding-right: 15px!important;
-    padding-left: 15px!important;
+    padding-right: 15px !important;
+    padding-left: 15px !important;
     background-color: rgba(28, 36, 23, 0.9);
     border-radius: 10px 10px 10px 10px;
     margin-top: 10px;
@@ -367,77 +371,77 @@ div.item p.h3 {
     background-color: rgba(0, 0, 0, 0.7);
 }
 
-#qtranslate-chooser{
+#qtranslate-chooser {
     display: flex;
 }
 
-#qtransSelector ul{
+#qtransSelector ul {
     list-style: none;
 }
 
-#qtranslate-chooser li{
+#qtranslate-chooser li {
     padding-right: 10px;
 }
 
-#qtranslate-chooser img{
+#qtranslate-chooser img {
     width: 25px;
 }
 
-.modal-content{
+.modal-content {
     background-color: rgba(28, 36, 23, 0.9);
     background-image: url("/wp-content/uploads/2017/11/repeat-bg.jpg");
 }
 
-.modal-header{
+.modal-header {
     border: none;
 }
 
-.modal-header button{
+.modal-header button {
     color: white;
     opacity: 1;
 }
 
-.modal-footer{
+.modal-footer {
     border: none;
     display: none;
 }
 
-#onlinePlayer div{
+#onlinePlayer div {
     float: left;
     height: 20px;
 }
 
-#onlinePlayer{
+#onlinePlayer {
     width: 100%;
     display: inline-block;
     margin-left: auto;
     margin-right: auto;
 }
 
-.background{
+.background {
     background-image: url("/wp-content/uploads/2017/11/repeat-bg.jpg");
     border-radius: 10px 10px 10px 10px;
 }
 
-table{
+table {
     width: 100%;
 }
 
-td{
+td {
     padding-top: 5px;
     padding-bottom: 5px;
 }
 
-div.borderWhite{
+div.borderWhite {
     border: solid 1px white;
 }
 
-div.display_item{
+div.display_item {
     display: inline-block;
     border-radius: 5px 5px 5px 5px;
     border: white solid 1px;
     padding: 5px 5px 5px 5px;
-    background-color: rgba(0,0,0,.25);
+    background-color: rgba(0, 0, 0, .25);
 }
 
 div.display_item h1, h2, h3, h4, h5, h6, p, span {
@@ -445,6 +449,46 @@ div.display_item h1, h2, h3, h4, h5, h6, p, span {
     margin: 0;
 }
 
-div.display_item img{
+div.display_item img {
     float: left;
+}
+
+section.shop .panel {
+    background-color: rgba(28, 36, 23, 0.5);
+}
+
+section.shop .panel-heading {
+    background-color: rgba(28, 36, 23, 0.9);
+}
+
+section.shop table {
+    margin-bottom: 0px;
+}
+
+section.shop table td.first {
+    border: none;
+}
+
+section.shop .panel-collapse .panel-body {
+    padding-bottom: 0px;
+    padding-top: 0px;
+}
+
+section.shop .panel-title, section.shop .panel-title a:after, section.shop .panel-title a:focus {
+    color: ivory;
+    text-decoration: none;
+}
+
+section.shop td a {
+    color: white;
+    text-decoration: none;
+}
+
+section.shop td a:hover, section.shop .panel-title a:hover {
+    text-decoration: none;
+    color: #8e983e;
+    -webkit-transition: color 0.5s ease-out;
+    -moz-transition: color 0.5s ease-out;
+    -o-transition: color 0.5s ease-out;
+    transition: color 0.5s ease-out;
 }
