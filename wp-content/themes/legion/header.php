@@ -32,7 +32,8 @@
     </script>
 </head>
 <body <?php body_class(); ?>>
-<i id="showHideSideBar" onclick="hideShowSideBar()" class="fa fa-arrow-circle-left fa-2x buttonSideBar hidden-lg hidden-md" aria-hidden="true"></i>
+<i id="showHideSideBar" onclick="hideShowSideBar()"
+   class="fa fa-arrow-circle-left fa-2x buttonSideBar hidden-lg hidden-md" aria-hidden="true"></i>
 <!-- wrapper -->
 <div class="wrapper">
 
@@ -47,11 +48,11 @@
                         <span class="icon-bar"></span>
                     </button>
                     <a href="<?= get_home_url(); ?>">
-                    <?php
-                    $homePageId = get_option('page_on_front');
-                    $image = get_field("logo", $homePageId);
-                    echo wp_get_attachment_image($image["id"], 'medium', "", ["class" => "mainLogoHomePage hidden-xs"]);
-                    ?>
+                        <?php
+                        $homePageId = get_option('page_on_front');
+                        $image = get_field("logo", $homePageId);
+                        echo wp_get_attachment_image($image["id"], 'medium', "", ["class" => "mainLogoHomePage hidden-xs"]);
+                        ?>
                     </a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
@@ -66,13 +67,13 @@
         $image = get_field("parallax", $homePageId);
         $video = get_field("video_parallax", $homePageId);
         ?>
-        <?php if ($video) {
+        <?php if ($video AND !wp_is_mobile()) {
             echo '
             <div class="parallax">
-            <video class="videoMainParallax" autoplay loop="loop" src="' . $video["url"] .' "></video>
+            <video class="videoMainParallax" autoplay loop="loop" src="' . $video["url"] . ' "></video>
             </div>';
-        }else{ ?>
-        <div class="parallax" style="background-image: url('<?= $image["url"] ?>');"></div>
+        } else { ?>
+            <div class="parallax" style="background-image: url('<?= $image["url"] ?>');"></div>
         <?php } ?>
     </header>
     <!-- /header -->
