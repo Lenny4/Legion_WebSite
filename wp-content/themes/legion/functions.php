@@ -570,7 +570,7 @@ function serverOnline()
 
 function getAllItemClasses()
 {
-    $sth = $GLOBALS['database']->query("SELECT * FROM website.item_classes");
+    $sth = $GLOBALS['database']->query("SELECT * FROM website.item_classes ORDER BY name");
     $data = array();
     while ($result = $sth->fetch(PDO::FETCH_ASSOC)) {
         $result["subclasses"] = json_decode($result["subclasses"]);

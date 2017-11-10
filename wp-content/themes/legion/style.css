@@ -283,6 +283,12 @@ aside {
     margin-bottom: 20px;
 }
 
+@media (max-width: 768px) {
+    aside {
+        left: 50%;
+    }
+}
+
 @media (max-width: 992px) {
     aside {
         margin-top: 0px;
@@ -456,6 +462,10 @@ div.display_item h1, h2, h3, h4, h5, h6, p, span {
 
 div.display_item img {
     float: left;
+}
+
+li.list-group-item div.display_item{
+    width: 100%;
 }
 
 section.shop .panel {

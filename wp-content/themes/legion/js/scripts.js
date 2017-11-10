@@ -31,23 +31,26 @@ function changeMenuCss() {
 }
 
 function hideShowSideBar() {
+    var time=500;
     var sideBar = $('aside');
     var mainContent = $('main');
     var button = $("#showHideSideBar");
     if ($(sideBar).hasClass("active")) {
         $(sideBar).animate({
             left: '50%'
-        }, 500);
-        $(sideBar).removeClass("active");
-        $(sideBar).addClass("hidden-xs hidden-sm");
-        $(mainContent).removeClass("col-md-8");
-        $(mainContent).addClass("col-md-10");
-        $(button).removeClass("fa-arrow-circle-right");
-        $(button).addClass("fa-arrow-circle-left");
+        }, time, function() {
+            $(sideBar).removeClass("active");
+            $(sideBar).addClass("hidden-xs hidden-sm");
+            $(mainContent).removeClass("col-md-8");
+            $(mainContent).addClass("col-md-10");
+            $(button).removeClass("fa-arrow-circle-right");
+            $(button).addClass("fa-arrow-circle-left");
+        });
+
     } else {
         $(sideBar).animate({
             left: '0%'
-        }, 500);
+        }, time);
         $(sideBar).removeClass("hidden-xs hidden-sm");
         $(sideBar).addClass("active");
         $(mainContent).removeClass("col-md-10");
@@ -72,7 +75,7 @@ function previewItem(data) {
     var modalContent = $(modal).find('.modal-body');
     $(modalHeader).html("Add item");
     $(modalContent).html(data);
-    if (data != '<div class="alert alert-danger"><strong>Not Found</strong></div>') {
+    if (data !== '<div class="alert alert-danger"><strong>Not Found</strong></div>') {
         $(modalContent).append("<button onclick='addItem(this)' id='addItem' class='btn btn-default'>Add to the shop</button>");
     }
 }
