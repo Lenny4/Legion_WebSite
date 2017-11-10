@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="affa7653-6245-44a3-9715-fb48452b4bb8" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/api/shop/shop.php" afterPath="$PROJECT_DIR$/api/shop/shop.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/legion/class/item.php" afterPath="$PROJECT_DIR$/wp-content/themes/legion/class/item.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/legion/shop.php" afterPath="$PROJECT_DIR$/wp-content/themes/legion/shop.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/legion/style.css" afterPath="$PROJECT_DIR$/wp-content/themes/legion/style.css" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -47,21 +43,20 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="item.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="item.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/class/item.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="310">
-              <caret line="298" column="47" lean-forward="false" selection-start-line="298" selection-start-column="47" selection-end-line="298" selection-end-column="47" />
+            <state relative-caret-position="258">
+              <caret line="318" column="40" lean-forward="false" selection-start-line="318" selection-start-column="40" selection-end-line="318" selection-end-column="40" />
               <folding>
                 <element signature="n#hydrateAPI#0;n#item#0;n#!!top" expanded="false" />
                 <element signature="n#hydrateBDD#0;n#item#0;n#!!top" expanded="false" />
                 <element signature="n#generateInsertRequest#0;n#item#0;n#!!top" expanded="false" />
                 <element signature="n#objectToArray#0;n#item#0;n#!!top" expanded="false" />
-                <element signature="n#displayArray#0;n#item#0;n#!!top" expanded="false" />
-                <marker date="1510289695249" expanded="true" signature="6800:6819" ph="INSERT INTO `item`... " />
-                <marker date="1510289695249" expanded="true" signature="8309:8393" ph="..." />
-                <marker date="1510289695249" expanded="true" signature="8323:8335" ph="..." />
-                <marker date="1510289695249" expanded="true" signature="8439:8570" ph="..." />
+                <marker date="1510291300238" expanded="true" signature="6800:6819" ph="INSERT INTO `item`... " />
+                <marker date="1510291300238" expanded="true" signature="8309:8393" ph="..." />
+                <marker date="1510291300238" expanded="true" signature="8323:8335" ph="..." />
+                <marker date="1510291300238" expanded="true" signature="8439:8570" ph="..." />
               </folding>
             </state>
           </provider>
@@ -174,7 +169,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="style.css" pinned="false" current-in-tab="true">
+      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/style.css">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="303">
@@ -218,9 +213,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>previewItem</find>
-      <find>hydra</find>
-      <find>free</find>
       <find>var_dump</find>
       <find>br</find>
       <find>var_d</find>
@@ -248,6 +240,9 @@
       <find>item_cla</find>
       <find>$item-&gt;item_classes</find>
       <find>var</find>
+      <find>modal</find>
+      <find>=&gt;</find>
+      <find>$newKey</find>
     </findStrings>
     <replaceStrings>
       <replace>$homePageId</replace>
@@ -310,9 +305,9 @@
         <option value="$PROJECT_DIR$/wp-content/themes/legion/shopadmin.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/legion/js/scripts.js" />
         <option value="$PROJECT_DIR$/api/shop/shop.php" />
-        <option value="$PROJECT_DIR$/wp-content/themes/legion/class/item.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/legion/shop.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/legion/style.css" />
+        <option value="$PROJECT_DIR$/wp-content/themes/legion/class/item.php" />
       </list>
     </option>
   </component>
@@ -452,7 +447,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="143830000" />
+    <option name="totallyTimeSpent" value="144796000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -895,24 +890,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/class/item.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="298" column="47" lean-forward="false" selection-start-line="298" selection-start-column="47" selection-end-line="298" selection-end-column="47" />
-          <folding>
-            <element signature="n#hydrateAPI#0;n#item#0;n#!!top" expanded="false" />
-            <element signature="n#hydrateBDD#0;n#item#0;n#!!top" expanded="false" />
-            <element signature="n#generateInsertRequest#0;n#item#0;n#!!top" expanded="false" />
-            <element signature="n#objectToArray#0;n#item#0;n#!!top" expanded="false" />
-            <element signature="n#displayArray#0;n#item#0;n#!!top" expanded="false" />
-            <marker date="1510289695249" expanded="true" signature="6800:6819" ph="INSERT INTO `item`... " />
-            <marker date="1510289695249" expanded="true" signature="8309:8393" ph="..." />
-            <marker date="1510289695249" expanded="true" signature="8323:8335" ph="..." />
-            <marker date="1510289695249" expanded="true" signature="8439:8570" ph="..." />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/js/scripts.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="145">
@@ -948,6 +925,23 @@
         <state relative-caret-position="303">
           <caret line="396" column="26" lean-forward="false" selection-start-line="396" selection-start-column="26" selection-end-line="396" selection-end-column="26" />
           <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/class/item.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="258">
+          <caret line="318" column="40" lean-forward="false" selection-start-line="318" selection-start-column="40" selection-end-line="318" selection-end-column="40" />
+          <folding>
+            <element signature="n#hydrateAPI#0;n#item#0;n#!!top" expanded="false" />
+            <element signature="n#hydrateBDD#0;n#item#0;n#!!top" expanded="false" />
+            <element signature="n#generateInsertRequest#0;n#item#0;n#!!top" expanded="false" />
+            <element signature="n#objectToArray#0;n#item#0;n#!!top" expanded="false" />
+            <marker date="1510291300238" expanded="true" signature="6800:6819" ph="INSERT INTO `item`... " />
+            <marker date="1510291300238" expanded="true" signature="8309:8393" ph="..." />
+            <marker date="1510291300238" expanded="true" signature="8323:8335" ph="..." />
+            <marker date="1510291300238" expanded="true" signature="8439:8570" ph="..." />
+          </folding>
         </state>
       </provider>
     </entry>

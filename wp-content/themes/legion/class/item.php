@@ -249,9 +249,9 @@ class item
         foreach ($this as $key => $value) {
             if (($small == true AND in_array($key, $tab)) OR $small == false) {
                 if ($key == "itemClass") {
-                    $return = $return . '<p class="' . $key . '">' . $key . ':' . $itemClass->name . '</p>';
+                    $return = $return . '<p class="' . $key . '"><span class="key">' . $key . ':</span><span class="value">' . $itemClass->name . '</span></p>';
                 } elseif ($key == "itemSubClass") {
-                    $return = $return . '<p class="' . $key . '">' . $key . ':' . $itemClass->getSubClassName($this) . '</p>';
+                    $return = $return . '<p class="' . $key . '"><span class="key">' . $key . ':</span><span class="value">' . $itemClass->getSubClassName($this) . '</span></p>';
                 } elseif ($key == "itemSpells" AND $value != "[]") {
                     foreach ($value as $newValue) {
                         if (isset($newValue->spell->description)) {
@@ -289,7 +289,7 @@ class item
                                     $value = "false";
                                 }
                             }
-                            $return = $return . '<p class="' . $key . '">' . $key . ':' . $value . '</p>';
+                            $return = $return . '<p class="' . $key . '"><span class="key">' . $key . ':</span><span class="value">' . $value . '</span></p>';
                         }
                     }
                 }
@@ -315,12 +315,13 @@ class item
     private function displayArray($return, $tabValue)
     {
         $i = 0;
-        foreach ($tabValue as $newKey => $newValue) {
+        foreach ($tabValue as $newValue) {
+            $class = str_replace(' ', '_', $newValue);
             if (is_array($newValue)) {
                 $this->displayArray($return, $newValue);
             } else {
                 if ($i % 2 == 0) {
-                    $return = $return . '<span class="' . $newKey . '">[ ' . $newValue . ' => ';
+                    $return = $return . '<span class="' . $class . '">[ ' . $newValue . ' => ';
                 } else {
                     $return = $return . $newValue . ' ]</span><br/>';
                 }
