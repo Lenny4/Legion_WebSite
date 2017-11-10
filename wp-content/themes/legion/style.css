@@ -379,6 +379,8 @@ div.item p.h3 {
 
 #qtranslate-chooser {
     display: flex;
+    padding-right: 10px;
+    padding-left: 10px;
 }
 
 #qtransSelector ul {
@@ -395,6 +397,13 @@ div.item p.h3 {
 
 .modal-dialog {
     width: -moz-fit-content;
+    max-width: 90%;
+}
+
+@media (max-width: 768px) {
+    .modal-dialog {
+        margin: 10px auto;
+    }
 }
 
 .modal-content {

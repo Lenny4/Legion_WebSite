@@ -3,8 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="affa7653-6245-44a3-9715-fb48452b4bb8" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/legion/functions.php" afterPath="$PROJECT_DIR$/wp-content/themes/legion/functions.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/legion/js/scripts.js" afterPath="$PROJECT_DIR$/wp-content/themes/legion/js/scripts.js" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/legion/sidebar.php" afterPath="$PROJECT_DIR$/wp-content/themes/legion/sidebar.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/legion/style.css" afterPath="$PROJECT_DIR$/wp-content/themes/legion/style.css" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -176,8 +175,18 @@
       <file leaf-file-name="style.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="362">
-              <caret line="287" column="18" lean-forward="true" selection-start-line="287" selection-start-column="18" selection-end-line="287" selection-end-column="18" />
+            <state relative-caret-position="298">
+              <caret line="402" column="27" lean-forward="true" selection-start-line="402" selection-start-column="27" selection-end-line="402" selection-end-column="27" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="sidebar.php" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/sidebar.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="332">
+              <caret line="32" column="93" lean-forward="false" selection-start-line="32" selection-start-column="93" selection-end-line="32" selection-end-column="93" />
               <folding />
             </state>
           </provider>
@@ -193,19 +202,6 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="header.php" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/header.php">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="383">
-              <caret line="77" column="13" lean-forward="true" selection-start-line="77" selection-start-column="13" selection-end-line="77" selection-end-column="13" />
-              <folding>
-                <element signature="n#style#0;n#div#0;n#header#0;n#div#0;n#body#0;n#html#0;n#!!top" expanded="true" />
-                <marker date="1510273490834" expanded="true" signature="3193:3316" ph="..." />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
     </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
@@ -217,7 +213,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>allItemClass</find>
       <find>getItemClassInBdd</find>
       <find>insertItemClassInBdd</find>
       <find>json</find>
@@ -240,13 +235,14 @@
       <find>item_cla</find>
       <find>$item-&gt;item_classes</find>
       <find>var</find>
-      <find>modal</find>
       <find>=&gt;</find>
       <find>$newKey</find>
       <find>list-group-item</find>
       <find>display_item</find>
       <find>wp_register_script</find>
       <find>aside</find>
+      <find>qtranslate-chooser</find>
+      <find>modal</find>
     </findStrings>
     <replaceStrings>
       <replace>$homePageId</replace>
@@ -301,7 +297,6 @@
         <option value="$PROJECT_DIR$/wp-content/themes/legion/class/item_classes.php" />
         <option value="$PROJECT_DIR$/wp-config.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/legion/class/item_set.php" />
-        <option value="$PROJECT_DIR$/wp-content/themes/legion/sidebar.php" />
         <option value="$PROJECT_DIR$/api/shop/customer.php" />
         <option value="$PROJECT_DIR$/api/shop/admin.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/legion/header.php" />
@@ -311,6 +306,7 @@
         <option value="$PROJECT_DIR$/wp-content/themes/legion/class/item.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/legion/functions.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/legion/js/scripts.js" />
+        <option value="$PROJECT_DIR$/wp-content/themes/legion/sidebar.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/legion/style.css" />
       </list>
     </option>
@@ -451,7 +447,7 @@
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="146612000" />
+    <option name="totallyTimeSpent" value="147049000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -753,14 +749,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/sidebar.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="80" lean-forward="true" selection-start-line="9" selection-start-column="80" selection-end-line="9" selection-end-column="80" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/home.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-2406">
@@ -942,10 +930,18 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/sidebar.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="332">
+          <caret line="32" column="93" lean-forward="false" selection-start-line="32" selection-start-column="93" selection-end-line="32" selection-end-column="93" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="362">
-          <caret line="287" column="18" lean-forward="true" selection-start-line="287" selection-start-column="18" selection-end-line="287" selection-end-column="18" />
+        <state relative-caret-position="298">
+          <caret line="402" column="27" lean-forward="true" selection-start-line="402" selection-start-column="27" selection-end-line="402" selection-end-column="27" />
           <folding />
         </state>
       </provider>
