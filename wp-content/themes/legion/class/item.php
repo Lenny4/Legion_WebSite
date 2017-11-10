@@ -25,7 +25,6 @@ class item
     public $maxDurability = null;
     public $armor = null;
     public $itemSet = null;
-    public $item_classes = null;
 
     public function hydrateAPI($data)
     {
@@ -236,72 +235,73 @@ class item
         return $req;
     }
 
-    public function display($itemClass)
+    public function display($itemClass, $small = false)
     {
-        $return = '
+        $return = '';
+        $tab = ["name", "requiredLevel", "stackable", "allowableClasses", "itemLevel", "itemSet", "itemClass"];
+        if ($small == true) {
+            $return = $return . '<li class="list-group-item col-sm-6 col-xs-12"><span style="display:none">' . $this->name . '</span>';
+        }
+        $return = $return . '
         <div class="display_item">
             <img src="https://wow.zamimg.com/images/wow/icons/large/' . $this->icon . '.jpg" alt="' . $this->name . '" />
         ';
         foreach ($this as $key => $value) {
-            if ($key == "itemClass") {
-                $return = $return . '<p class="' . $key . '">' . $key . ':' . $itemClass->name . '</p>';
-            } elseif ($key == "itemSubClass") {
-                $return = $return . '<p class="' . $key . '">' . $key . ':' . $itemClass->getSubClassName($this) . '</p>';
-            } elseif ($key == "itemSpells" AND $value != "[]") {
-                foreach ($value as $newValue) {
-                    if (isset($newValue->spell->description)) {
-                        $return = $return . '<p class="' . $key . '">' . $newValue->spell->description . '</p>';
-                    }
-                }
-            } elseif (is_array($value)) {
-                $return = $return . '<p class="' . $key . '">';
-                foreach ($value as $key => $tabValue) {
-                    if (is_object($tabValue)) {
-                        $tabValue = $this->objectToArray($tabValue);
-                    }
-                    if (is_array($tabValue)) {
-                        $return = $this->displayArray($return, $tabValue);
-                    } else {
-                        $return = $return . '<span class="' . $key . '">[ ' . $tabValue . ' ]</span>';
-                    }
-                }
-                $return = $return . '</p>';
-            } else {
-                if (is_bool($value)) {
-                    if ($value == true) {
-                        $value = 'true';
-                    } else {
-                        $value = 'false';
-                    }
-                }
-                if ($value != '') {
-                    if (($key == "maxDurability" OR $key == "armor" OR $key == "containerSlots" OR $key == "equippable") AND $value == 0) {
-                    } else {
-                        if ($key == "isAuctionable") {
-                            if ($value == 1 OR true) {
-                                $value = "true";
-                            } else {
-                                $value = "false";
-                            }
+            if (($small == true AND in_array($key, $tab)) OR $small == false) {
+                if ($key == "itemClass") {
+                    $return = $return . '<p class="' . $key . '">' . $key . ':' . $itemClass->name . '</p>';
+                } elseif ($key == "itemSubClass") {
+                    $return = $return . '<p class="' . $key . '">' . $key . ':' . $itemClass->getSubClassName($this) . '</p>';
+                } elseif ($key == "itemSpells" AND $value != "[]") {
+                    foreach ($value as $newValue) {
+                        if (isset($newValue->spell->description)) {
+                            $return = $return . '<p class="' . $key . '">' . $newValue->spell->description . '</p>';
                         }
-                        $return = $return . '<p class="' . $key . '">' . $key . ':' . $value . '</p>';
+                    }
+                } elseif (is_array($value)) {
+                    $return = $return . '<p class="' . $key . '">';
+                    foreach ($value as $key => $tabValue) {
+                        if (is_object($tabValue)) {
+                            $tabValue = $this->objectToArray($tabValue);
+                        }
+                        if (is_array($tabValue)) {
+                            $return = $this->displayArray($return, $tabValue);
+                        } else {
+                            $return = $return . '<span class="' . $key . '">[ ' . $tabValue . ' ]</span>';
+                        }
+                    }
+                    $return = $return . '</p>';
+                } else {
+                    if (is_bool($value)) {
+                        if ($value == true) {
+                            $value = 'true';
+                        } else {
+                            $value = 'false';
+                        }
+                    }
+                    if ($value != '') {
+                        if (($key == "maxDurability" OR $key == "armor" OR $key == "containerSlots" OR $key == "equippable") AND $value == 0) {
+                        } else {
+                            if ($key == "isAuctionable") {
+                                if ($value == 1 OR true) {
+                                    $value = "true";
+                                } else {
+                                    $value = "false";
+                                }
+                            }
+                            $return = $return . '<p class="' . $key . '">' . $key . ':' . $value . '</p>';
+                        }
                     }
                 }
             }
         }
-        $return = $return . "</div>";
-        return $return;
-    }
-
-    public function smallDisplay()
-    {
-        $return = '
-        <li class="list-group-item col-sm-6 col-xs-12"><span style="display:none">' . $this->name . '</span>
-        <div class="display_item" style="width: 100%">
-            <img src="https://wow.zamimg.com/images/wow/icons/large/' . $this->icon . '.jpg" alt="' . $this->name . '" />
-            <p class="name">' . $this->name . '</p>
-        </div>
-        </li>';
+        if ($small == true) {
+            $dataShow["value"] = $this->item_id;
+            $dataShow["id"] = "previewItem";
+            $json = json_encode($dataShow);
+            $return = $return . "<a data-show='" . $json . "' onclick='showMoreShop(this)'>Show More</a>";
+        }
+        $return = $return . "</div></li>";
         return $return;
     }
 

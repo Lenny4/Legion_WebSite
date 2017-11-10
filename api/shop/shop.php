@@ -213,7 +213,8 @@ function viewItems($subClassId, $dbh)
         echo 'No Result !';
     } else {
         foreach ($result as $item) {
-            echo $item->smallDisplay();
+            $itemClass = createItemClass($item, $dbh);//améliorer
+            echo($item->display($itemClass,true));
         }
     }
 }
@@ -225,7 +226,6 @@ function addItemBdd($postItemId, $postItemPrice, $dbh)
 {
     $item = createItem($postItemId, $postItemPrice, $dbh);
     $itemClass = createItemClass($item, $dbh);
-    $item->item_classes = $itemClass->class_id;
     insertItemInBdd($item, $dbh);
     insertItemClassInBdd($itemClass, $dbh);
     return $item;
@@ -236,7 +236,6 @@ function addItemSetBdd($postItemSetId, $postItemSetPrice, $dbh)
     $item_set = createItemSet($postItemSetId, $postItemSetPrice, $dbh);
     foreach ($item_set->items as $itemID) {
         $item = addItemBdd($itemID, '', $dbh);
-        $item_set->item_classes = $item->item_classes;
     }
     insertItemSetInBdd($item_set, $dbh);
 }

@@ -47,7 +47,7 @@
                         </div>
                         <div class="col-sm-9 col-xs-12">
                             <input style="display: none" class="form-control" id="filterNameShop" type="text"
-                                   placeholder="Name">
+                                   placeholder="Name or Race">add a field for lvl
                             <ul class="list-group" id="filterNameListShop">
                                 <div id="shopDisplayItems"></div>
                             </ul>
@@ -76,6 +76,26 @@
     <!-- /section -->
 </main>
 
+<div id="shopModal" class="modal fade" role="dialog">
+    <div class="modal-dialog modal-lg">
+
+        <!-- Modal content-->
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <h4 class="modal-title"></h4>
+            </div>
+            <div class="modal-body">
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+            </div>
+        </div>
+
+    </div>
+</div>
+
 <?php get_sidebar(); ?>
 
 <script>
@@ -85,6 +105,29 @@
 
     function hideFilterShop() {
         $("#filterNameShop").hide();
+    }
+
+    function showMoreShop($this) {
+        $("*").addClass("progressWait");
+        var id = JSON.parse($($this).attr('data-show')).id;
+        var value = JSON.parse($($this).attr('data-show')).value;
+        $.post("/api/shop/shop.php",
+            {
+                id: id,
+                item_id: value,
+                item_set_id: value
+            },
+            function (data, status) {
+                $("*").removeClass("progressWait");
+                if (status === "success") {
+                    var modal = $('#shopModal');
+                    $(modal).modal('show');
+                    var modalHeader = $(modal).find('.modal-title');
+                    var modalContent = $(modal).find('.modal-body');
+                    $(modalHeader).html("");
+                    $(modalContent).html(data);
+                }
+            });
     }
 
     $("a.subItemClasse").click(function (e) {

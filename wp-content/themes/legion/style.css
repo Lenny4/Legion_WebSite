@@ -387,9 +387,14 @@ div.item p.h3 {
     width: 25px;
 }
 
+.modal-dialog {
+    width: -moz-fit-content;
+}
+
 .modal-content {
     background-color: rgba(28, 36, 23, 0.9);
     background-image: url("/wp-content/uploads/2017/11/repeat-bg.jpg");
+    display: inline-block;
 }
 
 .modal-header {
@@ -479,12 +484,13 @@ section.shop .panel-title, section.shop .panel-title a:after, section.shop .pane
     text-decoration: none;
 }
 
-section.shop td a {
+section.shop a {
     color: white;
     text-decoration: none;
+    cursor: pointer;
 }
 
-section.shop td a:hover, section.shop .panel-title a:hover {
+section.shop a:hover {
     text-decoration: none;
     color: #8e983e;
     -webkit-transition: color 0.5s ease-out;
