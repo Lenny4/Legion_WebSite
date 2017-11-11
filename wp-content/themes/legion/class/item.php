@@ -240,7 +240,14 @@ class item
         $return = '';
         $tab = ["name", "requiredLevel", "stackable", "allowableClasses", "itemLevel", "itemSet", "itemClass"];
         if ($small == true) {
-            $return = $return . '<li class="list-group-item col-sm-6 col-xs-12"><span style="display:none">' . $this->name . '</span>';
+            $return = $return . '<li class="list-group-item col-sm-6 col-xs-12"><span style="display:none">' . $this->name;
+            if ($this->allowableClasses != null AND sizeof($this->allowableClasses) > 0) {
+                foreach ($this->allowableClasses as $allowableClass) {
+                    $return = $return . ' ' . $allowableClass;
+                }
+            }
+            $return = $return . ' ' . $this->requiredLevel;
+            $return = $return . '</span>';
         }
         $return = $return . '
         <div class="display_item">

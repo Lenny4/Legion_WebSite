@@ -23,10 +23,10 @@
                                         <div class="panel-heading">
                                             <h4 class="panel-title">
                                                 <a data-toggle="collapse" data-parent="#accordion"
-                                                   href="#<?= $itemClasse["name"]; ?>"><?= $itemClasse["name"]; ?></a>
+                                                   href="#<?= $itemClasse["class_id"]; ?>"><?= $itemClasse["name"]; ?></a>
                                             </h4>
                                         </div>
-                                        <div id="<?= $itemClasse["name"]; ?>" class="panel-collapse collapse">
+                                        <div id="<?= $itemClasse["class_id"]; ?>" class="panel-collapse collapse">
                                             <div class="panel-body">
                                                 <table class="table">
                                                     <?php foreach ($itemClasse["subclasses"] as $subItemClasse) { ?>
@@ -47,7 +47,7 @@
                         </div>
                         <div class="col-sm-9 col-xs-12">
                             <input style="display: none" class="form-control" id="filterNameShop" type="text"
-                                   placeholder="Name or Race">add a field for lvl
+                                   placeholder="Name or Race">
                             <ul class="list-group" id="filterNameListShop">
                                 <div id="shopDisplayItems"></div>
                             </ul>
@@ -132,10 +132,12 @@
 
     $("a.subItemClasse").click(function (e) {
         $("*").addClass("progressWait");
+        var classId = $(e.target).parent().parent().parent().parent().parent().parent().attr("id");
         $.post("/api/shop/shop.php",
             {
                 id: $(e.target).attr('id'),
-                subClassId: $(e.target).attr('data-sub-class-id')
+                subClassId: $(e.target).attr('data-sub-class-id'),
+                classId: classId
             },
             function (data, status) {
                 $("*").removeClass("progressWait");

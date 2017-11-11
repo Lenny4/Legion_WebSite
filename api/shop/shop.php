@@ -65,9 +65,9 @@ function insertItemInBdd($item, $dbh)
     }
 }
 
-function getItemBySubClass($id, $dbh)
+function getItemByClassAndSubClass($subClassId, $classId, $dbh)
 {
-    $req = $dbh->query('SELECT * FROM `item` WHERE `itemSubClass`=' . $id);
+    $req = $dbh->query('SELECT * FROM `item` WHERE `itemSubClass`=' . $subClassId . ' AND `itemClass`=' . $classId);
     $return = array();
     if ($req == false) {
         return null;
@@ -203,18 +203,19 @@ function previewItemSet($postItemSetId, $postItemSetPrice, $dbh)
     }
 }
 
-function viewItems($subClassId, $dbh)
+function viewItems($subClassId, $classId, $dbh)
 {
     $subClassId = intval($subClassId);
-    $result = getItemBySubClass($subClassId, $dbh);
+    $classId = intval($classId);
+    $result = getItemByClassAndSubClass($subClassId, $classId, $dbh);
     if ($result == null AND sizeof($result) > 0) {
         echo 'Error !';
     } elseif (sizeof($result) == 0) {
         echo 'No Result !';
     } else {
         foreach ($result as $item) {
-            $itemClass = createItemClass($item, $dbh);//améliorer
-            echo($item->display($itemClass,true));
+            $itemClass = createItemClass($item, $dbh);
+            echo($item->display($itemClass, true));
         }
     }
 }
@@ -259,5 +260,5 @@ if ($_POST['id'] == 'addItemSet') {
 }
 
 if ($_POST['id'] == 'subItemClasse') {
-    viewItems($_POST['subClassId'], $dbh);
+    viewItems($_POST['subClassId'], $_POST['classId'], $dbh);
 }
