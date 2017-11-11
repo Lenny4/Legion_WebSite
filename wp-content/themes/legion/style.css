@@ -513,6 +513,12 @@ section.shop a {
     cursor: pointer;
 }
 
+section.shop a.pinterest:hover div.display_item {
+    box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.8);
+    position: relative;
+    bottom: 5px;
+}
+
 section.shop a:hover {
     text-decoration: none;
     color: #8e983e;
@@ -550,7 +556,12 @@ section.shop a:hover {
     background-color: black;
     border-radius: 2px 2px 2px 2px;
     padding: 0px 3px 0px 3px;
-    border: solid rgba(255,255,255,0.2) 1px;
+    border: solid rgba(255, 255, 255, 0.2) 1px;
+}
+
+a.pinterest:hover .display_item p.stackable {
+    left: 45px;
+    top: 39px;
 }
 
 .display_item img {

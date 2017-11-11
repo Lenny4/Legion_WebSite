@@ -244,7 +244,7 @@ class item
             $dataShow["value"] = $this->item_id;
             $dataShow["id"] = "previewItem";
             $json = json_encode($dataShow);
-            $return = $return . "<a data-show='" . $json . "' onclick='showMoreShop(this)'><li class='list-group-item col-sm-4 col-xs-12'><span style='display:none'>";
+            $return = $return . "<a class='pinterest' data-show='" . $json . "' onclick='showMoreShop(this)'><li class='list-group-item col-sm-4 col-xs-12'><span style='display:none'>";
             if ($this->allowableClasses != null AND sizeof($this->allowableClasses) > 0) {
                 foreach ($this->allowableClasses as $allowableClass) {
                     $return = $return . ' ' . $allowableClass . ' ' . $this->requiredLevel;
