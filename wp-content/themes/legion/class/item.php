@@ -369,6 +369,21 @@ class item
         $imgCopper = wp_get_attachment_image($image["id"], 'full', "", ["class" => "img-responsive"]);
         $globalArray = array_map('intval', str_split($value));
         $globalArray = array_reverse($globalArray);
+        if (!isset($globalArray[1])) {
+            $globalArray[1]=0;
+        }
+        if (!isset($globalArray[2])) {
+            $globalArray[2]=0;
+        }
+        if (!isset($globalArray[3])) {
+            $globalArray[3]=0;
+        }
+        if (!isset($globalArray[4])) {
+            $globalArray[4]=0;
+        }
+        if (!isset($globalArray[5])) {
+            $globalArray[5]=0;
+        }
         $cooperArray = [$globalArray[0], $globalArray[1]];
         $silverArray = [$globalArray[2], $globalArray[3]];
         $goldArray = array();

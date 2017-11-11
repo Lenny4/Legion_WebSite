@@ -2,11 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="affa7653-6245-44a3-9715-fb48452b4bb8" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/legion/class/item.php" afterPath="$PROJECT_DIR$/wp-content/themes/legion/class/item.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/legion/home.php" afterPath="$PROJECT_DIR$/wp-content/themes/legion/home.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/legion/sidebar.php" afterPath="$PROJECT_DIR$/wp-content/themes/legion/sidebar.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/legion/style.css" afterPath="$PROJECT_DIR$/wp-content/themes/legion/style.css" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -17,23 +13,23 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="item.php" pinned="false" current-in-tab="false">
+      <file leaf-file-name="item.php" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/class/item.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1318">
-              <caret line="256" column="35" lean-forward="false" selection-start-line="256" selection-start-column="35" selection-end-line="256" selection-end-column="35" />
+            <state relative-caret-position="433">
+              <caret line="382" column="9" lean-forward="true" selection-start-line="382" selection-start-column="9" selection-end-line="382" selection-end-column="9" />
               <folding>
                 <element signature="n#hydrateAPI#0;n#item#0;n#!!top" expanded="false" />
                 <element signature="n#hydrateBDD#0;n#item#0;n#!!top" expanded="false" />
                 <element signature="n#generateInsertRequest#0;n#item#0;n#!!top" expanded="false" />
                 <element signature="n#objectToArray#0;n#item#0;n#!!top" expanded="false" />
                 <element signature="n#displayArray#0;n#item#0;n#!!top" expanded="false" />
-                <marker date="1510382130509" expanded="true" signature="6832:6851" ph="INSERT INTO `item`... " />
-                <marker date="1510382130509" expanded="true" signature="8513:8745" ph="..." />
-                <marker date="1510382130509" expanded="true" signature="8527:8539" ph="..." />
-                <marker date="1510382130509" expanded="true" signature="8540:8745" ph="..." />
-                <marker date="1510382130509" expanded="true" signature="8946:9097" ph="..." />
-                <marker date="1510382130509" expanded="true" signature="8972:8983" ph="..." />
+                <marker date="1510382553274" expanded="true" signature="6832:6851" ph="INSERT INTO `item`... " />
+                <marker date="1510382553274" expanded="true" signature="8513:8745" ph="..." />
+                <marker date="1510382553274" expanded="true" signature="8527:8539" ph="..." />
+                <marker date="1510382553274" expanded="true" signature="8540:8745" ph="..." />
+                <marker date="1510382553274" expanded="true" signature="8946:9097" ph="..." />
+                <marker date="1510382553274" expanded="true" signature="8972:8983" ph="..." />
               </folding>
             </state>
           </provider>
@@ -109,7 +105,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="style.css" pinned="false" current-in-tab="true">
+      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/style.css">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="366">
@@ -274,8 +270,8 @@
         <option value="$PROJECT_DIR$/wp-content/themes/legion/shop.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/legion/sidebar.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/legion/home.php" />
-        <option value="$PROJECT_DIR$/wp-content/themes/legion/class/item.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/legion/style.css" />
+        <option value="$PROJECT_DIR$/wp-content/themes/legion/class/item.php" />
       </list>
     </option>
   </component>
@@ -411,12 +407,12 @@
       <workItem from="1510022755448" duration="31866000" />
       <workItem from="1510100894910" duration="18000" />
       <workItem from="1510104419878" duration="12455000" />
-      <workItem from="1510360630773" duration="21433000" />
+      <workItem from="1510360630773" duration="21705000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="169080000" />
+    <option name="totallyTimeSpent" value="169352000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -893,31 +889,31 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="366">
+          <caret line="546" column="23" lean-forward="false" selection-start-line="546" selection-start-column="23" selection-end-line="546" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/class/item.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1318">
-          <caret line="256" column="35" lean-forward="false" selection-start-line="256" selection-start-column="35" selection-end-line="256" selection-end-column="35" />
+        <state relative-caret-position="433">
+          <caret line="382" column="9" lean-forward="true" selection-start-line="382" selection-start-column="9" selection-end-line="382" selection-end-column="9" />
           <folding>
             <element signature="n#hydrateAPI#0;n#item#0;n#!!top" expanded="false" />
             <element signature="n#hydrateBDD#0;n#item#0;n#!!top" expanded="false" />
             <element signature="n#generateInsertRequest#0;n#item#0;n#!!top" expanded="false" />
             <element signature="n#objectToArray#0;n#item#0;n#!!top" expanded="false" />
             <element signature="n#displayArray#0;n#item#0;n#!!top" expanded="false" />
-            <marker date="1510382130509" expanded="true" signature="6832:6851" ph="INSERT INTO `item`... " />
-            <marker date="1510382130509" expanded="true" signature="8513:8745" ph="..." />
-            <marker date="1510382130509" expanded="true" signature="8527:8539" ph="..." />
-            <marker date="1510382130509" expanded="true" signature="8540:8745" ph="..." />
-            <marker date="1510382130509" expanded="true" signature="8946:9097" ph="..." />
-            <marker date="1510382130509" expanded="true" signature="8972:8983" ph="..." />
+            <marker date="1510382553274" expanded="true" signature="6832:6851" ph="INSERT INTO `item`... " />
+            <marker date="1510382553274" expanded="true" signature="8513:8745" ph="..." />
+            <marker date="1510382553274" expanded="true" signature="8527:8539" ph="..." />
+            <marker date="1510382553274" expanded="true" signature="8540:8745" ph="..." />
+            <marker date="1510382553274" expanded="true" signature="8946:9097" ph="..." />
+            <marker date="1510382553274" expanded="true" signature="8972:8983" ph="..." />
           </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="366">
-          <caret line="546" column="23" lean-forward="false" selection-start-line="546" selection-start-column="23" selection-end-line="546" selection-end-column="23" />
-          <folding />
         </state>
       </provider>
     </entry>
