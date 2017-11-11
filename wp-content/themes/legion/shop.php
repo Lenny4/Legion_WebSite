@@ -189,7 +189,7 @@
 
     $("#mainShopTitle").click(function (e) {
         $("#shopDisplayItems").html("");
-        hideFilterShop();
+        hideAllHeaderShop();
     });
 
     $(document).ready(function () {
