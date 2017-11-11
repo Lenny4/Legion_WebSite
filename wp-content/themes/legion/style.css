@@ -400,10 +400,18 @@ div.item p.h3 {
     max-width: 90%;
 }
 
+.modal-lg {
+    max-width: 600px;
+}
+
 @media (max-width: 768px) {
     .modal-dialog {
         margin: 10px auto;
     }
+}
+
+.modal-body {
+    padding-top: 10px;
 }
 
 .modal-content {
@@ -473,7 +481,7 @@ div.display_item img {
     float: left;
 }
 
-li.list-group-item div.display_item{
+li.list-group-item div.display_item {
     width: 100%;
 }
 
@@ -523,4 +531,127 @@ section.shop a:hover {
     float: left;
     background-color: transparent;
     border: none;
+}
+
+.display_item span.name, .display_item span.stackable, .display_item span.itemClass, .display_item span.itemSubClass, .display_item span.sellPrice {
+    display: none;
+}
+
+.display_item p.icon, .display_item p.id, .display_item p.item_id, .display_item p.noitemSet {
+    display: none;
+}
+
+.display_item p.stackable {
+    position: absolute;
+    left: 63px;
+    top: 52px;
+    background-color: black;
+    border-radius: 2px 2px 2px 2px;
+    padding: 0px 3px 0px 3px;
+}
+
+.display_item img {
+    border-radius: 2px 2px 2px 2px;
+}
+
+.display_item p.name {
+    float: left;
+}
+
+li.list-group-item div.display_item p.name {
+    float: none;
+}
+
+.display_item p.name span {
+    color: #a335ee !important;
+}
+
+.display_item p.ItemClass {
+    float: left;
+}
+
+.display_item p.itemLevel span {
+    color: #ffd100 !important;
+}
+
+.display_item p.bonusStats span.plus, p.bonusStats span.value {
+    float: left;
+}
+
+.display_item p.bonusStats span.value {
+    padding-left: 5px;
+    padding-right: 5px;
+}
+
+.display_item span.Versatility span, span.Agility_or_Intellect span, span.Strenght_or_Intelect span {
+    color: #e60c0b !important;
+}
+
+.display_item span.Mastery span, span.Haste span, span.Crit span {
+    color: #ffff35 !important;
+}
+
+.display_item span.Stamina span {
+    color: #295df1 !important;
+}
+
+.display_item p.allowableClasses span.Warrior {
+    color: #9382c9 !important;
+}
+
+.display_item p.allowableClasses span.Paladin {
+    color: #f48cba !important;
+}
+
+.display_item p.allowableClasses span.Hunter {
+    color: #aad372 !important;
+}
+
+.display_item p.allowableClasses span.Rogue {
+    color: #fff468 !important;
+}
+
+.display_item p.allowableClasses span.Priest {
+    color: #fff !important;
+}
+
+.display_item p.allowableClasses span.Death_Knight {
+    color: #c41e3b !important;
+}
+
+.display_item p.allowableClasses span.Shaman {
+    color: #2359ff !important;
+}
+
+.display_item p.allowableClasses span.Mage {
+    color: #68ccef !important;
+}
+
+.display_item p.allowableClasses span.Warlock {
+    color: #9382c9 !important;
+}
+
+.display_item p.allowableClasses span.Monk {
+    color: #008467 !important;
+}
+
+.display_item p.allowableClasses span.Druid {
+    color: #ff7c0a !important;
+}
+
+.display_item p.allowableClasses span.Demon_Hunter {
+    color: #a330c9 !important;
+}
+
+.display_item p.itemSpells {
+    color: #1eff00 !important;
+}
+
+.display_item p.description span.description {
+    display: none;
+}
+
+.display_item p.description span.value {
+    color: #ffd100 !important;
+    font-style: italic;
 }

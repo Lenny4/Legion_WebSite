@@ -129,6 +129,7 @@
 
     function showMoreShop($this) {
         $("*").addClass("progressWait");
+        console.log($($this).attr('data-show'));
         var id = JSON.parse($($this).attr('data-show')).id;
         var value = JSON.parse($($this).attr('data-show')).value;
         $.post("/api/shop/shop.php",

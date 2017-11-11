@@ -7,24 +7,24 @@ class item
 {
     public $item_id = null;
     public $name = null;
+    public $itemLevel = null;
+    public $itemClass = null;
+    public $itemSubClass = null;
+    public $armor = null;
+    public $maxDurability = null;
+    public $bonusStats = null;
+    public $allowableClasses = null;
+    public $requiredLevel = null;
+    public $itemSpells = null;
     public $description = null;
     public $icon = null;
     public $stackable = null;
-    public $allowableClasses = null;
-    public $bonusStats = null;
-    public $itemSpells = null;
-    public $itemClass = null;
-    public $itemSubClass = null;
-    public $itemLevel = null;
-    public $sellPrice = null;
-    public $requiredLevel = null;
     public $equippable = null;
     public $isAuctionable = null;
     public $containerSlots = null;
-    public $price = null;
-    public $maxDurability = null;
-    public $armor = null;
     public $itemSet = null;
+    public $sellPrice = null;
+    public $price = null;
 
     public function hydrateAPI($data)
     {
@@ -54,6 +54,7 @@ class item
                 '7' => 'Shaman',
                 '8' => 'Mage',
                 '9' => 'Warlock',
+                '10' => 'Monk',
                 '11' => 'Druid',
                 '12' => 'Demon Hunter'
             );
@@ -240,7 +241,10 @@ class item
         $return = '';
         $tab = ["name", "requiredLevel", "stackable", "allowableClasses", "itemLevel", "itemSet"];
         if ($small == true) {
-            $return = $return . '<li class="list-group-item col-sm-4 col-xs-12"><span style="display:none">';
+            $dataShow["value"] = $this->item_id;
+            $dataShow["id"] = "previewItem";
+            $json = json_encode($dataShow);
+            $return = $return . "<a data-show='" . $json . "' onclick='showMoreShop(this)'><li class='list-group-item col-sm-4 col-xs-12'><span style='display:none'>";
             if ($this->allowableClasses != null AND sizeof($this->allowableClasses) > 0) {
                 foreach ($this->allowableClasses as $allowableClass) {
                     $return = $return . ' ' . $allowableClass . ' ' . $this->requiredLevel;
@@ -255,25 +259,30 @@ class item
         foreach ($this as $key => $value) {
             if (($small == true AND in_array($key, $tab)) OR $small == false) {
                 if ($key == "itemClass") {
-                    $return = $return . '<p class="' . $key . '"><span class="key">' . $key . ':</span><span class="value">' . $itemClass->name . '</span></p>';
+                    $return = $return . '<p class="' . ucfirst($key) . '"><span class="' . $key . '">' . $key . ' </span><span class="value">' . $itemClass->name . '</span><i class="fa fa-arrow-right" style="margin-left: 5px;margin-right: 5px;" aria-hidden="true"></i></p>';
                 } elseif ($key == "itemSubClass") {
-                    $return = $return . '<p class="' . $key . '"><span class="key">' . $key . ':</span><span class="value">' . $itemClass->getSubClassName($this) . '</span></p>';
-                } elseif ($key == "itemSpells" AND $value != "[]") {
-                    foreach ($value as $newValue) {
-                        if (isset($newValue->spell->description)) {
-                            $return = $return . '<p class="' . $key . '">' . $newValue->spell->description . '</p>';
+                    $return = $return . '<p class="' . ucfirst($key) . '"><span class="' . $key . '">' . $key . ' </span><span class="value">' . $itemClass->getSubClassName($this) . '</span></p>';
+                } elseif ($key == "itemSpells") {
+                    if ($value != "[]") {
+                        $return = $return . '<p class="' . $key . '">Item Spells :</p>';
+                        foreach ($value as $newValue) {
+                            if (isset($newValue->spell->description)) {
+                                $return = $return . '<p class="' . $key . '">' . $newValue->spell->description . '</p>';
+                            }
                         }
+                    } else {
+                        $return = $return . '<p class="' . $key . ' no' . $key . '">Item Spells : None</p>';
                     }
                 } elseif (is_array($value)) {
                     $return = $return . '<p class="' . $key . '">';
-                    foreach ($value as $key => $tabValue) {
+                    foreach ($value as $newkey => $tabValue) {
                         if (is_object($tabValue)) {
                             $tabValue = $this->objectToArray($tabValue);
                         }
                         if (is_array($tabValue)) {
                             $return = $this->displayArray($return, $tabValue);
                         } else {
-                            $return = $return . '<span class="' . $key . '">[ ' . $tabValue . ' ]</span>';
+                            $return = $return . '<span class="' . str_replace(' ', '_', $tabValue) . '">' . $tabValue . ' </span>';
                         }
                     }
                     $return = $return . '</p>';
@@ -290,22 +299,28 @@ class item
                         } else {
                             if ($key == "isAuctionable" OR $key == "equippable") {
                                 if ($value == 1 OR true) {
-                                    $value = "true";
+                                    $value = "Yes";
                                 } else {
-                                    $value = "false";
+                                    $value = "No";
                                 }
                             }
-                            $return = $return . '<p class="' . $key . '"><span class="key">' . $key . ':</span><span class="value">' . $value . '</span></p>';
+                            if ($key == "description") {
+                                $return = $return . '<p class="' . $key . '"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value">"' . $value . '"</span></p>';
+                            } elseif ($key == "name") {
+                                if ($small == true) {
+                                    $return = $return . '<p class="' . $key . '"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value">"' . $value . '"</span></p>';
+                                } else {
+                                    $return = $return . '<p class="' . $key . '"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value">' . $value . '</span></p><p style="width: 100%;height: 20px;"></p>';
+                                }
+                            } elseif ($key == "itemSet" AND $value == 0) {
+                                $return = $return . '<p class="' . $key . ' no' . $key . '"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value">' . $value . '</span></p>';
+                            } else {
+                                $return = $return . '<p class="' . $key . '"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value">' . $value . '</span></p>';
+                            }
                         }
                     }
                 }
             }
-        }
-        if ($small == true) {
-            $dataShow["value"] = $this->item_id;
-            $dataShow["id"] = "previewItem";
-            $json = json_encode($dataShow);
-            $return = $return . "<a data-show='" . $json . "' onclick='showMoreShop(this)'>Show More</a>";
         }
         $return = $return . "</div></li>";
         return $return;
@@ -327,9 +342,9 @@ class item
                 $this->displayArray($return, $newValue);
             } else {
                 if ($i % 2 == 0) {
-                    $return = $return . '<span class="' . $class . '">[ ' . $newValue . ' => ';
+                    $return = $return . '<span class="' . $class . '"><span class="plus">+</span><span class="key">' . $newValue . '</span> ';
                 } else {
-                    $return = $return . $newValue . ' ]</span><br/>';
+                    $return = $return . '<span class="value">' . $newValue . '</span></span><br/>';
                 }
                 $i++;
             }

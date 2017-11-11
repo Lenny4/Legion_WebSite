@@ -1,7 +1,6 @@
 <?php /* Template Name: Shop Admin */ ?>
 
 <?php get_header(); ?>
-
 <main class="col-md-8 col-md-offset-1" role="main">
     <!-- section -->
     <section class="background">
