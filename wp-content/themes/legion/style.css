@@ -477,10 +477,6 @@ div.display_item h1, h2, h3, h4, h5, h6, p, span {
     margin: 0;
 }
 
-div.display_item img {
-    float: left;
-}
-
 li.list-group-item div.display_item {
     width: 100%;
 }
@@ -539,6 +535,12 @@ section.shop a:hover {
 
 .display_item p.icon, .display_item p.id, .display_item p.item_id, .display_item p.noitemSet {
     display: none;
+}
+
+.display_item p.sellPrice img {
+    display: inline-block;
+    margin-right: 2px;
+    margin-left: 2px;
 }
 
 .display_item p.stackable {

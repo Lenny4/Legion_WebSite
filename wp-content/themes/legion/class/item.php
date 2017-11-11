@@ -254,7 +254,7 @@ class item
         }
         $return = $return . '
         <div class="display_item">
-            <img src="https://wow.zamimg.com/images/wow/icons/large/' . $this->icon . '.jpg" alt="' . $this->name . '" />
+            <img style="float: left" src="https://wow.zamimg.com/images/wow/icons/large/' . $this->icon . '.jpg" alt="' . $this->name . '" />
         ';
         foreach ($this as $key => $value) {
             if (($small == true AND in_array($key, $tab)) OR $small == false) {
@@ -306,6 +306,8 @@ class item
                                 }
                             } else if ($key == "maxDurability") {
                                 $return = $return . '<p class="' . $key . '"><span class="' . $key . '">Durability </span><span class="value">' . $value . '</span></p>';
+                            } else if ($key == "sellPrice") {
+                                $return = $this->displaySellPrice($return, $key, $value);
                             } else if ($key == "requiredLevel") {
                                 $return = $return . '<p class="' . $key . '"><span class="' . $key . '">Required Level </span><span class="value">' . $value . '</span></p>';
                             } else if ($key == "description") {
@@ -353,6 +355,33 @@ class item
                 $i++;
             }
         }
+        return $return;
+    }
+
+    function displaySellPrice($return, $key, $value)
+    {
+        $homePageId = get_option('page_on_front');
+        $image = get_field("money_gold", $homePageId);
+        $imgGold = wp_get_attachment_image($image["id"], 'full', "", ["class" => "img-responsive"]);
+        $image = get_field("money_silver", $homePageId);
+        $imgSilver = wp_get_attachment_image($image["id"], 'full', "", ["class" => "img-responsive"]);
+        $image = get_field("money_copper", $homePageId);
+        $imgCopper = wp_get_attachment_image($image["id"], 'full', "", ["class" => "img-responsive"]);
+        $globalArray = array_map('intval', str_split($value));
+        $globalArray = array_reverse($globalArray);
+        $cooperArray = [$globalArray[0], $globalArray[1]];
+        $silverArray = [$globalArray[2], $globalArray[3]];
+        $goldArray = array();
+        foreach ($globalArray as $key => $value) {
+            if ($key > 3) {
+                array_push($goldArray, $value);
+            }
+        }
+        $cooperArray = array_reverse($cooperArray);
+        $silverArray = array_reverse($silverArray);
+        $goldArray = array_reverse($goldArray);
+        $value = implode($goldArray) . $imgGold . implode($silverArray) . $imgSilver . implode($cooperArray) . $imgCopper;
+        $return = $return . '<p class="sellPrice"><span class="value">' . $value . '</span></p>';
         return $return;
     }
 }

@@ -208,7 +208,7 @@
                 <?php
                 $homePageId = get_option('page_on_front');
                 $image = get_field("shop", $homePageId);
-                echo wp_get_attachment_image($image["id"], 'full', "", ["class" => ""]);
+                echo wp_get_attachment_image($image["id"], 'full', "", ["class" => "img-responsive"]);
                 ?>
             </div>
         </div>
