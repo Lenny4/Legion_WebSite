@@ -5,7 +5,7 @@
     <!-- section -->
     <section class="background shop">
 
-        <h1 class="text-center"><?php the_title(); ?></h1>
+        <h1 class="text-center"><span class="clickable" id="mainShopTitle"><?php the_title(); ?></span></h1>
 
         <?php if (have_posts()): while (have_posts()) : the_post(); ?>
 
@@ -46,12 +46,19 @@
                             </div>
                         </div>
                         <div class="col-sm-9 col-xs-12">
-                            <input style="display: none" class="form-control" id="filterNameShop" type="text"
-                                   placeholder="Name or Race">
-                            <ul class="list-group" id="filterNameListShop">
-                                <div id="shopDisplayItems"></div>
-                            </ul>
+                            <div style="display: none" id="helpFilterNameShop">
+                                <p onclick="changeArrowShop(this)" class="clickable text-center h4"
+                                   style="font-family: inherit" data-toggle="collapse" data-target="#helpFiterShop">How
+                                    to serach ? <i class="fa fa-arrow-down" aria-hidden="true"></i></p>
+                                <div id="helpFiterShop" class="collapse">
+                                    <p>Explain how to search</p>
+                                </div>
+                            </div>
+                            <input style="display: none" class="form-control" id="filterNameShop" type="text">
                         </div>
+                        <ul class="list-group" id="filterNameListShop">
+                            <div id="shopDisplayItems"></div>
+                        </ul>
                     </div>
                 </div>
 
@@ -101,10 +108,23 @@
 <script>
     function showFilterShop() {
         $("#filterNameShop").show();
+        $("#helpFilterNameShop").show();
     }
 
     function hideFilterShop() {
         $("#filterNameShop").hide();
+        $("#helpFilterNameShop").hide();
+    }
+
+    function changeArrowShop($this) {
+        var $arrow = $($this).children();
+        if ($($arrow).hasClass("fa-arrow-down")) {
+            $($arrow).removeClass("fa-arrow-down");
+            $($arrow).addClass("fa-arrow-up");
+        } else {
+            $($arrow).removeClass("fa-arrow-up");
+            $($arrow).addClass("fa-arrow-down");
+        }
     }
 
     function showMoreShop($this) {
@@ -149,6 +169,11 @@
                     $("#shopDisplayItems").html('<div class="alert alert-danger alert-dismissable"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>' + data + '</strong></div>');
                 }
             });
+    });
+
+    $("#mainShopTitle").click(function (e) {
+        $("#shopDisplayItems").html("");
+        hideFilterShop();
     });
 
     $(document).ready(function () {

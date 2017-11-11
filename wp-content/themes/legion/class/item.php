@@ -238,15 +238,14 @@ class item
     public function display($itemClass, $small = false)
     {
         $return = '';
-        $tab = ["name", "requiredLevel", "stackable", "allowableClasses", "itemLevel", "itemSet", "itemClass"];
+        $tab = ["name", "requiredLevel", "stackable", "allowableClasses", "itemLevel", "itemSet"];
         if ($small == true) {
-            $return = $return . '<li class="list-group-item col-sm-6 col-xs-12"><span style="display:none">' . $this->name;
+            $return = $return . '<li class="list-group-item col-sm-4 col-xs-12"><span style="display:none">';
             if ($this->allowableClasses != null AND sizeof($this->allowableClasses) > 0) {
                 foreach ($this->allowableClasses as $allowableClass) {
-                    $return = $return . ' ' . $allowableClass;
+                    $return = $return . ' ' . $allowableClass . ' ' . $this->requiredLevel;
                 }
             }
-            $return = $return . ' ' . $this->requiredLevel;
             $return = $return . '</span>';
         }
         $return = $return . '
@@ -289,7 +288,7 @@ class item
                     if ($value != '') {
                         if (($key == "maxDurability" OR $key == "armor" OR $key == "containerSlots" OR $key == "equippable") AND $value == 0) {
                         } else {
-                            if ($key == "isAuctionable") {
+                            if ($key == "isAuctionable" OR $key == "equippable") {
                                 if ($value == 1 OR true) {
                                     $value = "true";
                                 } else {
