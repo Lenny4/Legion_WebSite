@@ -545,11 +545,12 @@ section.shop a:hover {
 
 .display_item p.stackable {
     position: absolute;
-    left: 63px;
-    top: 52px;
+    left: 61px;
+    top: 50px;
     background-color: black;
     border-radius: 2px 2px 2px 2px;
     padding: 0px 3px 0px 3px;
+    border: solid rgba(255,255,255,0.2) 1px;
 }
 
 .display_item img {

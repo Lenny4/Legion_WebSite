@@ -381,9 +381,6 @@ class item
         if (!isset($globalArray[4])) {
             $globalArray[4]=0;
         }
-        if (!isset($globalArray[5])) {
-            $globalArray[5]=0;
-        }
         $cooperArray = [$globalArray[0], $globalArray[1]];
         $silverArray = [$globalArray[2], $globalArray[3]];
         $goldArray = array();
