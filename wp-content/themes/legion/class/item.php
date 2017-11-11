@@ -239,7 +239,7 @@ class item
     public function display($itemClass, $small = false)
     {
         $return = '';
-        $tab = ["name", "requiredLevel", "stackable", "allowableClasses", "itemLevel", "itemSet"];
+        $tab = ["name", "requiredLevel", "stackable", "allowableClasses", "itemLevel"];
         if ($small == true) {
             $dataShow["value"] = $this->item_id;
             $dataShow["id"] = "previewItem";
@@ -296,6 +296,7 @@ class item
                     }
                     if ($value != '') {
                         if (($key == "maxDurability" OR $key == "armor" OR $key == "containerSlots" OR $key == "equippable") AND $value == 0) {
+
                         } else {
                             if ($key == "isAuctionable" OR $key == "equippable") {
                                 if ($value == 1 OR true) {
@@ -303,8 +304,11 @@ class item
                                 } else {
                                     $value = "No";
                                 }
-                            }
-                            if ($key == "description") {
+                            } else if ($key == "maxDurability") {
+                                $return = $return . '<p class="' . $key . '"><span class="' . $key . '">Durability </span><span class="value">' . $value . '</span></p>';
+                            } else if ($key == "requiredLevel") {
+                                $return = $return . '<p class="' . $key . '"><span class="' . $key . '">Required Level </span><span class="value">' . $value . '</span></p>';
+                            } else if ($key == "description") {
                                 $return = $return . '<p class="' . $key . '"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value">"' . $value . '"</span></p>';
                             } elseif ($key == "name") {
                                 if ($small == true) {

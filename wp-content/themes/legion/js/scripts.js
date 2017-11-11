@@ -31,14 +31,14 @@ function changeMenuCss() {
 }
 
 function hideShowSideBar() {
-    var time=500;
+    var time = 500;
     var sideBar = $('aside');
     var mainContent = $('main');
     var button = $("#showHideSideBar");
     if ($(sideBar).hasClass("active")) {
         $(sideBar).animate({
             left: '50%'
-        }, time, function() {
+        }, time, function () {
             $(sideBar).removeClass("active");
             $(sideBar).addClass("hidden-xs hidden-sm");
             $(mainContent).removeClass("col-md-8");
@@ -62,9 +62,9 @@ function hideShowSideBar() {
 
 function addPlaceHolderForm() {
     $(document).ready(function () {
-        $('#username').attr('placeholder', $('#username').prev().text().slice(0,-1));
-        $('#user_email').attr('placeholder', $('#user_email').prev().text().slice(0,-1));
-        $('#password').attr('placeholder', $('#password').prev().text().slice(0,-1));
+        $('#username').attr('placeholder', $('#username').prev().text().slice(0, -1));
+        $('#user_email').attr('placeholder', $('#user_email').prev().text().slice(0, -1));
+        $('#password').attr('placeholder', $('#password').prev().text().slice(0, -1));
     });
 }
 

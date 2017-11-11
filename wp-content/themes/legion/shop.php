@@ -11,7 +11,7 @@
 
             <!-- article -->
             <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
-
+                <p>Automatic translation :</p><?php echo do_shortcode('[gtranslate]'); ?>
                 <div class="col-xs-12">
                     <?php the_content(); ?>
                     <?php $allItemClasses = getAllItemClasses(); ?>
@@ -34,7 +34,7 @@
                                                             <td class="first">
                                                                 <a id="subItemClasse"
                                                                    data-sub-class-id="<?= $subItemClasse->subclass; ?>"
-                                                                   class="subItemClasse clickable"><?= $subItemClasse->name; ?></a>
+                                                                   class="subItemClasse clickable resetLanguage"><?= $subItemClasse->name; ?></a>
                                                             </td>
                                                         </tr>
                                                     <?php } ?>
@@ -48,13 +48,15 @@
                         <div class="col-sm-9 col-xs-12">
                             <div style="display: none" id="helpFilterNameShop">
                                 <p onclick="changeArrowShop(this)" class="clickable text-center h4"
-                                   style="font-family: inherit" data-toggle="collapse" data-target="#helpFiterShop">How
+                                   style="font-family: inherit; margin-top: 0px" data-toggle="collapse"
+                                   data-target="#helpFiterShop">How
                                     to serach ? <i class="fa fa-arrow-down" aria-hidden="true"></i></p>
                                 <div id="helpFiterShop" class="collapse">
                                     <p>Explain how to search</p>
                                 </div>
                             </div>
                             <input style="display: none" class="form-control" id="filterNameShop" type="text">
+                            <div class="col-xs-12" id="shopDisplayError"></div>
                         </div>
                         <ul class="list-group" id="filterNameListShop">
                             <div id="shopDisplayItems"></div>
@@ -85,7 +87,6 @@
 
 <div id="shopModal" class="modal fade" role="dialog">
     <div class="modal-dialog modal-lg">
-
         <!-- Modal content-->
         <div class="modal-content">
             <div class="modal-header">
@@ -111,9 +112,14 @@
         $("#helpFilterNameShop").show();
     }
 
-    function hideFilterShop() {
+    function showAlertMessage() {
+        $("#shopDisplayError").show();
+    }
+
+    function hideAllHeaderShop() {
         $("#filterNameShop").hide();
         $("#helpFilterNameShop").hide();
+        $("#shopDisplayError").hide();
     }
 
     function changeArrowShop($this) {
@@ -153,21 +159,30 @@
 
     $("a.subItemClasse").click(function (e) {
         $("*").addClass("progressWait");
-        var classId = $(e.target).parent().parent().parent().parent().parent().parent().attr("id");
+        var target = e.target;
+        if (!$(target).hasClass("clickable")) {
+            target = $(target).parent().parent();
+        }
+        var $classId = $(target).parent().parent().parent().parent().parent().parent().attr("id");
+        var $id = $(target).attr('id');
+        var $subClassId = $(target).attr('data-sub-class-id');
+        console.log($(e.target));
         $.post("/api/shop/shop.php",
             {
-                id: $(e.target).attr('id'),
-                subClassId: $(e.target).attr('data-sub-class-id'),
-                classId: classId
+                id: $id,
+                subClassId: $subClassId,
+                classId: $classId
             },
             function (data, status) {
                 $("*").removeClass("progressWait");
+                hideAllHeaderShop();
                 if (data !== 'Error !' && data !== 'No Result !') {
                     showFilterShop();
                     $("#shopDisplayItems").html(data);
                 } else {
-                    hideFilterShop();
-                    $("#shopDisplayItems").html('<div class="alert alert-danger alert-dismissable"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>' + data + '</strong></div>');
+                    showAlertMessage();
+                    $("#shopDisplayItems").html("");
+                    $("#shopDisplayError").html('<div class="alert alert-danger alert-dismissable"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>' + data + '</strong></div>');
                 }
             });
     });
