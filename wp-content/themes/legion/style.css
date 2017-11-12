@@ -27,6 +27,15 @@ button.navbar-toggle span {
     background-color: white;
 }
 
+.overGreen:hover, ul.overGreen li a:hover {
+    text-decoration: none;
+    color: #8e983e;
+    -webkit-transition: color 0.5s ease-out;
+    -moz-transition: color 0.5s ease-out;
+    -o-transition: color 0.5s ease-out;
+    transition: color 0.5s ease-out;
+}
+
 .progressWait {
     cursor: progress !important;
 }
@@ -243,15 +252,6 @@ div.footer_nav ul li {
 
 div.footer_nav ul li a {
     color: white;
-}
-
-div.footer_nav ul li a:hover {
-    text-decoration: none;
-    color: #8e983e;
-    -webkit-transition: color 0.5s ease-out;
-    -moz-transition: color 0.5s ease-out;
-    -o-transition: color 0.5s ease-out;
-    transition: color 0.5s ease-out;
 }
 
 div.mainContent {

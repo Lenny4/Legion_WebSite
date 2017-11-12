@@ -5,7 +5,7 @@
     <!-- section -->
     <section class="background shop">
 
-        <h1 class="text-center"><span class="clickable" id="mainShopTitle"><?php the_title(); ?></span></h1>
+        <h1 class="text-center"><span class="clickable overGreen" id="mainShopTitle"><?php the_title(); ?></span></h1>
 
         <?php if (have_posts()): while (have_posts()) : the_post(); ?>
 
@@ -17,6 +17,17 @@
                     <?php $allItemClasses = getAllItemClasses(); ?>
                     <div class="row">
                         <div class="col-sm-3 col-xs-12">
+                            <div class="hidden-lg hidden-md hidden-sm">
+                                <p class="h3 text-center">
+                                    <span id="hideShowCategoryShop" onclick="toggleCategoryShop(this)"
+                                          class="clickable overGreen">
+                                        Hide Category
+                                    </span>
+                                    <span class="hidden">
+                                        Show Category
+                                    </span>
+                                </p>
+                            </div>
                             <div class="panel-group" id="accordion">
                                 <?php foreach ($allItemClasses as $key => $itemClasse) { ?>
                                     <div class="panel panel-default">
@@ -44,8 +55,15 @@
                                     </div>
                                 <?php } ?>
                             </div>
+                            <hr style="margin-top: 0px" class="hidden-lg hidden-md hidden-sm"/>
                         </div>
                         <div class="col-sm-9 col-xs-12">
+                            <div id="ajaxLoaderShop" style="display: none">
+                                <?php
+                                $image = get_field("loading_img", get_the_ID());
+                                echo wp_get_attachment_image($image["id"], 'medium', "", ["class" => "img-responsive", "style" => "max-width:100px;margin: 0 auto;"]);
+                                ?>
+                            </div>
                             <div style="display: none" id="helpFilterNameShop">
                                 <p onclick="changeArrowShop(this)" class="clickable text-center h4"
                                    style="font-family: inherit; margin-top: 0px" data-toggle="collapse"
@@ -133,6 +151,18 @@
         }
     }
 
+    function toggleCategoryShop($this) {
+        var $menu = $($this).parent().parent().next();
+        if ($($menu).hasClass("hidden-xs")) {
+            $($menu).removeClass("hidden-xs");
+        } else {
+            $($menu).addClass("hidden-xs");
+        }
+        var $previousValue = $($this).text();
+        $($this).text($($this).next().text());
+        $($this).next().text($previousValue)
+    }
+
     function showMoreShop($this) {
         $("*").addClass("progressWait");
         console.log($($this).attr('data-show'));
@@ -157,7 +187,23 @@
             });
     }
 
+    function hideCategoryIfOnPhone() {
+        if ($(window).width() <= 768) {
+            $("#hideShowCategoryShop").click();
+        }
+    }
+
+    function hideAjaxLoaderShop() {
+        $("#ajaxLoaderShop").hide();
+    }
+
+    function showAjaxLoaderShop() {
+        $("#ajaxLoaderShop").show();
+    }
+
     $("a.subItemClasse").click(function (e) {
+        hideCategoryIfOnPhone();
+        showAjaxLoaderShop();
         $("*").addClass("progressWait");
         var target = e.target;
         if (!$(target).hasClass("clickable")) {
@@ -166,7 +212,6 @@
         var $classId = $(target).parent().parent().parent().parent().parent().parent().attr("id");
         var $id = $(target).attr('id');
         var $subClassId = $(target).attr('data-sub-class-id');
-        console.log($(e.target));
         $.post("/api/shop/shop.php",
             {
                 id: $id,
@@ -176,6 +221,7 @@
             function (data, status) {
                 $("*").removeClass("progressWait");
                 hideAllHeaderShop();
+                hideAjaxLoaderShop();
                 if (data !== 'Error !' && data !== 'No Result !') {
                     showFilterShop();
                     $("#shopDisplayItems").html(data);
