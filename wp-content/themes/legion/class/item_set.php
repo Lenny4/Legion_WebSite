@@ -8,6 +8,7 @@ class item_set
     public $items = null;
     public $price = 0;
     public $item_classes = null;
+    public $allowableClasses = null;
     public $vote = 0;
 
     public function hydrateBDD($data)
@@ -82,7 +83,7 @@ class item_set
 
     function display($dbh)
     {
-        $return = '<div class="display_item_set">';
+        $return = '<div class="display_item_set display_item" style="padding-left: 20px;padding-right: 20px">';
         $i = 0;
         foreach ($this->items as $itemID) {
             if ($i % 2 == 0) {

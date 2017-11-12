@@ -148,6 +148,7 @@ function createItemSet($POSTitem_set_id, $POSTitem_set_price, $dbh, $vote = 0)
             $item_set->price = $item_set_price;
         }
         $item_set->vote = intval($vote);
+        $item_set->allowableClasses = createItem($item_set->items[0], '', $dbh, $vote)->allowableClasses;
     }
     return $item_set;
 }

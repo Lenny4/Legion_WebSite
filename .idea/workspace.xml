@@ -2,13 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="affa7653-6245-44a3-9715-fb48452b4bb8" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/api/shop/shop.php" afterPath="$PROJECT_DIR$/api/shop/shop.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/legion/class/item.php" afterPath="$PROJECT_DIR$/wp-content/themes/legion/class/item.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/legion/class/item_set.php" afterPath="$PROJECT_DIR$/wp-content/themes/legion/class/item_set.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/legion/home.php" afterPath="$PROJECT_DIR$/wp-content/themes/legion/home.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/legion/js/scripts.js" afterPath="$PROJECT_DIR$/wp-content/themes/legion/js/scripts.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/legion/shop.php" afterPath="$PROJECT_DIR$/wp-content/themes/legion/shop.php" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/legion/shopadmin.php" afterPath="$PROJECT_DIR$/wp-content/themes/legion/shopadmin.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/legion/style.css" afterPath="$PROJECT_DIR$/wp-content/themes/legion/style.css" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -23,12 +19,13 @@
       <file leaf-file-name="item.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/class/item.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-1284">
-              <caret line="239" column="20" lean-forward="false" selection-start-line="239" selection-start-column="20" selection-end-line="239" selection-end-column="20" />
+            <state relative-caret-position="243">
+              <caret line="19" column="24" lean-forward="true" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="24" />
               <folding>
                 <element signature="n#hydrateAPI#0;n#item#0;n#!!top" expanded="false" />
                 <element signature="n#hydrateBDD#0;n#item#0;n#!!top" expanded="false" />
                 <element signature="n#generateInsertRequest#0;n#item#0;n#!!top" expanded="false" />
+                <element signature="n#display#0;n#item#0;n#!!top" expanded="false" />
                 <element signature="n#objectToArray#0;n#item#0;n#!!top" expanded="false" />
                 <element signature="n#displayArray#0;n#item#0;n#!!top" expanded="false" />
                 <element signature="n#displaySellPrice#0;n#item#0;n#!!top" expanded="false" />
@@ -43,23 +40,24 @@
       <file leaf-file-name="item_set.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/class/item_set.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="464">
-              <caret line="94" column="17" lean-forward="true" selection-start-line="94" selection-start-column="17" selection-end-line="94" selection-end-column="17" />
+            <state relative-caret-position="272">
+              <caret line="44" column="0" lean-forward="true" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
               <folding>
                 <element signature="n#hydrateBDD#0;n#item_set#0;n#!!top" expanded="false" />
                 <element signature="n#hydrateAPI#0;n#item_set#0;n#!!top" expanded="false" />
                 <element signature="n#generateInsertRequest#0;n#item_set#0;n#!!top" expanded="false" />
-                <marker date="1510450394160" expanded="true" signature="1130:1153" ph="INSERT INTO `item_set`... " />
+                <marker date="1510451736029" expanded="true" signature="1167:1190" ph="INSERT INTO `item_set`... " />
+                <marker date="1510451736029" expanded="true" signature="2477:2515" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="shop.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="shop.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/api/shop/shop.php">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="629">
-              <caret line="191" column="60" lean-forward="true" selection-start-line="191" selection-start-column="60" selection-end-line="191" selection-end-column="60" />
+            <state relative-caret-position="342">
+              <caret line="154" column="0" lean-forward="true" selection-start-line="154" selection-start-column="0" selection-end-line="154" selection-end-column="0" />
               <folding>
                 <element signature="n#createItem#0;n#!!top" expanded="false" />
                 <element signature="n#getItemInBdd#0;n#!!top" expanded="false" />
@@ -68,21 +66,20 @@
                 <element signature="n#createItemClass#0;n#!!top" expanded="false" />
                 <element signature="n#getItemClassInBdd#0;n#!!top" expanded="false" />
                 <element signature="n#insertItemClassInBdd#0;n#!!top" expanded="false" />
-                <element signature="n#createItemSet#0;n#!!top" expanded="false" />
                 <element signature="n#getItemSetInBdd#0;n#!!top" expanded="false" />
                 <element signature="n#insertItemSetInBdd#0;n#!!top" expanded="false" />
                 <element signature="n#previewItem#0;n#!!top" expanded="false" />
                 <element signature="n#viewItems#0;n#!!top" expanded="false" />
                 <element signature="n#addItemBdd#0;n#!!top" expanded="false" />
                 <element signature="n#addItemSetBdd#0;n#!!top" expanded="false" />
-                <marker date="1510450105486" expanded="true" signature="1137:1174" ph="SELECT * FRO... item" />
-                <marker date="1510450105486" expanded="true" signature="2102:2144" ph="SELECT * FRO... item" />
-                <marker date="1510450105486" expanded="true" signature="2102:2167" ph="SELECT * FRO... item" />
-                <marker date="1510450105486" expanded="true" signature="2102:2179" ph="SELECT * FRO... item" />
-                <marker date="1510450105486" expanded="true" signature="2102:2180" ph="SELECT * FRO... item" />
-                <marker date="1510450105486" expanded="true" signature="2102:2181" ph="SELECT * FRO... item" />
-                <marker date="1510450105486" expanded="true" signature="3129:3175" ph="SELECT * FRO... item_classes" />
-                <marker date="1510450105486" expanded="true" signature="4962:5007" ph="SELECT * FRO... item_set" />
+                <marker date="1510451099553" expanded="true" signature="1137:1174" ph="SELECT * FRO... item" />
+                <marker date="1510451099553" expanded="true" signature="2102:2144" ph="SELECT * FRO... item" />
+                <marker date="1510451099553" expanded="true" signature="2102:2167" ph="SELECT * FRO... item" />
+                <marker date="1510451099553" expanded="true" signature="2102:2179" ph="SELECT * FRO... item" />
+                <marker date="1510451099553" expanded="true" signature="2102:2180" ph="SELECT * FRO... item" />
+                <marker date="1510451099553" expanded="true" signature="2102:2181" ph="SELECT * FRO... item" />
+                <marker date="1510451099553" expanded="true" signature="3129:3175" ph="SELECT * FRO... item_classes" />
+                <marker date="1510451099553" expanded="true" signature="5068:5113" ph="SELECT * FRO... item_set" />
               </folding>
             </state>
           </provider>
@@ -145,11 +142,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
+      <file leaf-file-name="style.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="433">
-              <caret line="672" column="39" lean-forward="false" selection-start-line="672" selection-start-column="39" selection-end-line="672" selection-end-column="39" />
+            <state relative-caret-position="128">
+              <caret line="398" column="28" lean-forward="true" selection-start-line="398" selection-start-column="28" selection-end-line="398" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -188,7 +185,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>shopDisplayItems</find>
       <find>helpFilterNameShop</find>
       <find>filterNameShop</find>
       <find>home</find>
@@ -218,6 +214,7 @@
       <find>delete</find>
       <find>add</find>
       <find>previewItem</find>
+      <find>600px</find>
     </findStrings>
     <replaceStrings>
       <replace>$homePageId</replace>
@@ -419,12 +416,12 @@
       <workItem from="1510100894910" duration="18000" />
       <workItem from="1510104419878" duration="12455000" />
       <workItem from="1510360630773" duration="25641000" />
-      <workItem from="1510442046144" duration="8210000" />
+      <workItem from="1510442046144" duration="9341000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="181498000" />
+    <option name="totallyTimeSpent" value="182629000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -837,12 +834,13 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/class/item.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1284">
-          <caret line="239" column="20" lean-forward="false" selection-start-line="239" selection-start-column="20" selection-end-line="239" selection-end-column="20" />
+        <state relative-caret-position="243">
+          <caret line="19" column="24" lean-forward="true" selection-start-line="19" selection-start-column="24" selection-end-line="19" selection-end-column="24" />
           <folding>
             <element signature="n#hydrateAPI#0;n#item#0;n#!!top" expanded="false" />
             <element signature="n#hydrateBDD#0;n#item#0;n#!!top" expanded="false" />
             <element signature="n#generateInsertRequest#0;n#item#0;n#!!top" expanded="false" />
+            <element signature="n#display#0;n#item#0;n#!!top" expanded="false" />
             <element signature="n#objectToArray#0;n#item#0;n#!!top" expanded="false" />
             <element signature="n#displayArray#0;n#item#0;n#!!top" expanded="false" />
             <element signature="n#displaySellPrice#0;n#item#0;n#!!top" expanded="false" />
@@ -853,31 +851,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/class/item_set.php">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="464">
-          <caret line="94" column="17" lean-forward="true" selection-start-line="94" selection-start-column="17" selection-end-line="94" selection-end-column="17" />
-          <folding>
-            <element signature="n#hydrateBDD#0;n#item_set#0;n#!!top" expanded="false" />
-            <element signature="n#hydrateAPI#0;n#item_set#0;n#!!top" expanded="false" />
-            <element signature="n#generateInsertRequest#0;n#item_set#0;n#!!top" expanded="false" />
-            <marker date="1510450394160" expanded="true" signature="1130:1153" ph="INSERT INTO `item_set`... " />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="433">
-          <caret line="672" column="39" lean-forward="false" selection-start-line="672" selection-start-column="39" selection-end-line="672" selection-end-column="39" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/api/shop/shop.php">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="629">
-          <caret line="191" column="60" lean-forward="true" selection-start-line="191" selection-start-column="60" selection-end-line="191" selection-end-column="60" />
+        <state relative-caret-position="342">
+          <caret line="154" column="0" lean-forward="true" selection-start-line="154" selection-start-column="0" selection-end-line="154" selection-end-column="0" />
           <folding>
             <element signature="n#createItem#0;n#!!top" expanded="false" />
             <element signature="n#getItemInBdd#0;n#!!top" expanded="false" />
@@ -886,22 +863,43 @@
             <element signature="n#createItemClass#0;n#!!top" expanded="false" />
             <element signature="n#getItemClassInBdd#0;n#!!top" expanded="false" />
             <element signature="n#insertItemClassInBdd#0;n#!!top" expanded="false" />
-            <element signature="n#createItemSet#0;n#!!top" expanded="false" />
             <element signature="n#getItemSetInBdd#0;n#!!top" expanded="false" />
             <element signature="n#insertItemSetInBdd#0;n#!!top" expanded="false" />
             <element signature="n#previewItem#0;n#!!top" expanded="false" />
             <element signature="n#viewItems#0;n#!!top" expanded="false" />
             <element signature="n#addItemBdd#0;n#!!top" expanded="false" />
             <element signature="n#addItemSetBdd#0;n#!!top" expanded="false" />
-            <marker date="1510450105486" expanded="true" signature="1137:1174" ph="SELECT * FRO... item" />
-            <marker date="1510450105486" expanded="true" signature="2102:2144" ph="SELECT * FRO... item" />
-            <marker date="1510450105486" expanded="true" signature="2102:2167" ph="SELECT * FRO... item" />
-            <marker date="1510450105486" expanded="true" signature="2102:2179" ph="SELECT * FRO... item" />
-            <marker date="1510450105486" expanded="true" signature="2102:2180" ph="SELECT * FRO... item" />
-            <marker date="1510450105486" expanded="true" signature="2102:2181" ph="SELECT * FRO... item" />
-            <marker date="1510450105486" expanded="true" signature="3129:3175" ph="SELECT * FRO... item_classes" />
-            <marker date="1510450105486" expanded="true" signature="4962:5007" ph="SELECT * FRO... item_set" />
+            <marker date="1510451099553" expanded="true" signature="1137:1174" ph="SELECT * FRO... item" />
+            <marker date="1510451099553" expanded="true" signature="2102:2144" ph="SELECT * FRO... item" />
+            <marker date="1510451099553" expanded="true" signature="2102:2167" ph="SELECT * FRO... item" />
+            <marker date="1510451099553" expanded="true" signature="2102:2179" ph="SELECT * FRO... item" />
+            <marker date="1510451099553" expanded="true" signature="2102:2180" ph="SELECT * FRO... item" />
+            <marker date="1510451099553" expanded="true" signature="2102:2181" ph="SELECT * FRO... item" />
+            <marker date="1510451099553" expanded="true" signature="3129:3175" ph="SELECT * FRO... item_classes" />
+            <marker date="1510451099553" expanded="true" signature="5068:5113" ph="SELECT * FRO... item_set" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/class/item_set.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="44" column="0" lean-forward="true" selection-start-line="44" selection-start-column="0" selection-end-line="44" selection-end-column="0" />
+          <folding>
+            <element signature="n#hydrateBDD#0;n#item_set#0;n#!!top" expanded="false" />
+            <element signature="n#hydrateAPI#0;n#item_set#0;n#!!top" expanded="false" />
+            <element signature="n#generateInsertRequest#0;n#item_set#0;n#!!top" expanded="false" />
+            <marker date="1510451736029" expanded="true" signature="1167:1190" ph="INSERT INTO `item_set`... " />
+            <marker date="1510451736029" expanded="true" signature="2477:2515" ph="..." />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="128">
+          <caret line="398" column="28" lean-forward="true" selection-start-line="398" selection-start-column="28" selection-end-line="398" selection-end-column="28" />
+          <folding />
         </state>
       </provider>
     </entry>

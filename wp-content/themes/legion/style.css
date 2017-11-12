@@ -401,7 +401,7 @@ div.item p.h3 {
 }
 
 .modal-lg {
-    max-width: 600px;
+    max-width: 650px;
 }
 
 @media (max-width: 768px) {
@@ -672,4 +672,8 @@ li.list-group-item div.display_item p.name {
 
 div.display_item_set div.display_item {
     float: left;
+}
+
+div.display_item_set div.display_item p.stackable{
+    display: none;
 }
