@@ -3,7 +3,7 @@ require_once("../config.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/wp-content/themes/legion/class/item.php");
 
 if (!isset($_POST)) {
-    throw new Exception("No data");
+    echo("No data");
 }
 
 //ITEM======================================================
@@ -284,7 +284,11 @@ if ($_POST['id'] == 'previewItem') {
 }
 
 if ($_POST['id'] == 'addItem') {
-    addItemBdd($_POST['item_id'], $_POST['item_price'], $dbh, $_POST["vote"]);
+    if (is_super_admin(get_current_user_id())) {
+        addItemBdd($_POST['item_id'], $_POST['item_price'], $dbh, $_POST["vote"]);
+    } else {
+        echo "Not Allowed !";
+    }
 }
 
 if ($_POST['id'] == 'previewItemSet') {
@@ -292,7 +296,11 @@ if ($_POST['id'] == 'previewItemSet') {
 }
 
 if ($_POST['id'] == 'addItemSet') {
-    addItemSetBdd($_POST['item_set_id'], $_POST['item_set_price'], $dbh, $_POST["vote"]);
+    if (is_super_admin(get_current_user_id())) {
+        addItemSetBdd($_POST['item_set_id'], $_POST['item_set_price'], $dbh, $_POST["vote"]);
+    } else {
+        echo "Not Allowed !";
+    }
 }
 
 if ($_POST['id'] == 'subItemClasse') {

@@ -2,6 +2,7 @@
 
 class item_set
 {
+    public $promotion = 0;
     public $item_set_id = null;
     public $name = null;
     public $setBonuses = null;
