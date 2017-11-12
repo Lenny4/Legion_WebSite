@@ -148,7 +148,8 @@ function createItemSet($POSTitem_set_id, $POSTitem_set_price, $dbh, $vote = 0)
             $item_set->price = $item_set_price;
         }
         $item_set->vote = intval($vote);
-        $item_set->allowableClasses = createItem($item_set->items[0], '', $dbh, $vote)->allowableClasses;
+        $oneItem = createItem($item_set->items[0], '', $dbh, $vote);
+        $item_set->allowableClasses = json_encode($oneItem->allowableClasses);
     }
     return $item_set;
 }
@@ -188,6 +189,22 @@ function insertItemSetInBdd($item_set, $dbh)
     }
 }
 
+function getItemSetByClass($searchClass, $dbh)
+{
+    $req = $dbh->query('SELECT * FROM `item_set` WHERE `allowableClasses` LIKE \'%' . $searchClass . '%\';');
+    $return = array();
+    if ($req == false) {
+        return null;
+    } else {
+        while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+            $itemSet = new item_set();
+            $itemSet->hydrateBDD($data);
+            array_push($return, $itemSet);
+        }
+    }
+    return $return;
+}
+
 //ITEM SET======================================================
 
 //VIEW======================================================
@@ -221,6 +238,20 @@ function viewItems($subClassId, $classId, $dbh)
         foreach ($result as $item) {
             $itemClass = createItemClass($item, $dbh);
             echo($item->display($itemClass, true));
+        }
+    }
+}
+
+function viewItemSets($searchClass, $dbh)
+{
+    $result = getItemSetByClass($searchClass, $dbh);
+    if ($result == null AND sizeof($result) > 0) {
+        echo 'Error !';
+    } elseif (sizeof($result) == 0) {
+        echo 'No Result !';
+    } else {
+        foreach ($result as $itemSet) {
+            echo($itemSet->smallDisplay($dbh));
         }
     }
 }
@@ -266,4 +297,8 @@ if ($_POST['id'] == 'addItemSet') {
 
 if ($_POST['id'] == 'subItemClasse') {
     viewItems($_POST['subClassId'], $_POST['classId'], $dbh);
+}
+
+if ($_POST['id'] == 'subItemSetClasse') {
+    viewItemSets($_POST['searchClass'], $dbh);
 }

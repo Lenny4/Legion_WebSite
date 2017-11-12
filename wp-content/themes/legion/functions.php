@@ -178,7 +178,7 @@ function html5blank_header_scripts()
         wp_register_script('modernizr', get_template_directory_uri() . '/js/lib/modernizr-2.7.1.min.js', array(), '2.7.1'); // Modernizr
         wp_enqueue_script('modernizr'); // Enqueue it!
 
-        wp_register_script('html5blankscripts', get_template_directory_uri() . '/js/scripts.js', array('jquery'), '1.0.0',true); // Custom scripts
+        wp_register_script('html5blankscripts', get_template_directory_uri() . '/js/scripts.js', array('jquery'), '1.0.0', true); // Custom scripts
         wp_enqueue_script('html5blankscripts'); // Enqueue it!
     }
 }
@@ -577,6 +577,16 @@ function getAllItemClasses()
         array_push($data, $result);
     }
     return $data;
+}
+
+function getAllItemSetClasses()
+{
+    $sth = $GLOBALS['database']->query("SELECT * FROM website.item_set ORDER BY id");
+    $data = array();
+    while ($result = $sth->fetch(PDO::FETCH_ASSOC)) {
+        array_push($data, json_decode($result["allowableClasses"])[0]);
+    }
+    return array_unique($data);
 }
 
 ?>

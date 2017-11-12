@@ -98,4 +98,62 @@ class item_set
         $return = $return . '</div>';
         return $return;
     }
+
+    function smallDisplay($dbh)
+    {
+        $return = '';
+        $allImages = $this->getAllItemImageOfTheSet($this->items, $dbh);
+        if ($allImages == null) {
+
+        } elseif ($allImages == false) {
+
+        } else {
+            foreach ($allImages as $setID) {
+                $dataShow["value"] = $this->item_set_id;
+                $dataShow["id"] = "previewItemSet";
+                $json = json_encode($dataShow);
+                $return = $return . "<a class='pinterest' data-show='" . $json . "' onclick='showMoreShop(this)'><li class='list-group-item col-sm-4 col-xs-12'><div class='display_item'>";
+                foreach ($setID as $oneImage) {
+                    $return = $return . '<img src="https://wow.zamimg.com/images/wow/icons/large/' . $oneImage . '.jpg" alt="' . $oneImage . '">';
+                }
+                $return = $return . '</div></li></a>';
+            }
+        }
+        return $return;
+    }
+
+    function getAllItemImageOfTheSet($allID, $dbh)
+    {
+        $tab = array();
+        $result = array();
+        $req = 'SELECT `icon`, `itemSet` FROM `item` WHERE `item_id`=' . $allID[0];
+        $i = 0;
+        foreach ($allID as $idItem) {
+            if ($i > 0) {
+                $req = $req . ' OR `item_id`=' . $allID[$i];
+            }
+            $i++;
+        }
+        $req = $dbh->query($req);
+        if ($req == false) {
+            return null;
+        } else {
+            while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+                array_push($tab, $data["icon"], $data["itemSet"]);
+            }
+            $i = 0;
+            $y = 0;
+            $currentSet = $tab[1];
+            foreach ($tab as $value) {
+                if ($i % 2 != 0) { //item set id
+                    $currentSet = $value;
+                } else { // icon
+                    $result[$currentSet][$y] = $value;
+                    $y++;
+                }
+                $i++;
+            }
+            return $result;
+        }
+    }
 }

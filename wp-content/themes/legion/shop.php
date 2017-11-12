@@ -20,6 +20,7 @@
                 <div class="col-xs-12">
                     <?php the_content(); ?>
                     <?php $allItemClasses = getAllItemClasses(); ?>
+                    <?php $allItemSetClasses = getAllItemSetClasses(); ?>
                     <div class="row">
                         <div class="col-sm-3 col-xs-12">
                             <div class="hidden-lg hidden-md hidden-sm">
@@ -34,6 +35,31 @@
                                 </p>
                             </div>
                             <div class="panel-group" id="accordion">
+                                <div class="panel panel-default">
+                                    <div class="panel-heading">
+                                        <h4 class="panel-title">
+                                            <a data-toggle="collapse" data-parent="#accordion" href="#setofitemcollapse"
+                                               class="collapsed" aria-expanded="false">Set of items</a>
+                                        </h4>
+                                    </div>
+                                    <div id="setofitemcollapse" class="panel-collapse collapse" aria-expanded="false"
+                                         style="height: 0px;">
+                                        <div class="panel-body">
+                                            <table class="table">
+                                                <?php foreach ($allItemSetClasses as $key => $itemSetClasse) { ?>
+                                                    <tr class="">
+                                                        <td class="first">
+                                                            <a id="subItemSetClasse"
+                                                               data-sub-class-id="<?= $itemSetClasse; ?>"
+                                                               class="subItemSetClasse clickable resetLanguage"><?= $itemSetClasse; ?></a>
+                                                        </td>
+                                                    </tr>
+                                                <?php } ?>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                <hr class="hrShopCategory"/>
                                 <?php foreach ($allItemClasses as $key => $itemClasse) { ?>
                                     <div class="panel panel-default">
                                         <div class="panel-heading">
@@ -135,8 +161,10 @@
         $("#helpFilterNameShop").show();
     }
 
-    function showAlertMessage() {
+    function showAlertMessage(data) {
         $("#shopDisplayError").show();
+        $("#shopDisplayItems").html("");
+        $("#shopDisplayError").html('<div class="alert alert-danger alert-dismissable"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>' + data + '</strong></div>');
     }
 
     function hideAllHeaderShop() {
@@ -170,9 +198,10 @@
 
     function showMoreShop($this) {
         $("*").addClass("progressWait");
-        console.log($($this).attr('data-show'));
         var id = JSON.parse($($this).attr('data-show')).id;
         var value = JSON.parse($($this).attr('data-show')).value;
+        console.log(id);
+        console.log(value);
         $.post("/api/shop/shop.php",
             {
                 id: id,
@@ -214,10 +243,32 @@
         hideAjaxLoaderShop();
     }
 
+    function sameHeight($height=0) {
+        if ($(window).width() <= 768) {
+            return;
+        }
+        var $maxHeight = 0;
+        var $allContent = $("#shopDisplayItems").first();
+        if ($height === 0) {
+            $($allContent).children('a').each(function () {
+                $li = $(this).children();
+                if ($($li).height() > $maxHeight) {
+                    $maxHeight = $($li).height();
+                }
+            });
+            sameHeight($maxHeight-10);
+        } else {
+            $($allContent).children('a').each(function () {
+                $div = $(this).children().children("div");
+                $($div).height($height);
+            });
+        }
+    }
+
     $("a.subItemClasse").click(function (e) {
+        $("*").addClass("progressWait");
         hideCategoryIfOnPhone();
         showAjaxLoaderShop();
-        $("*").addClass("progressWait");
         var target = e.target;
         if (!$(target).hasClass("clickable")) {
             target = $(target).parent().parent();
@@ -238,10 +289,38 @@
                 if (data !== 'Error !' && data !== 'No Result !') {
                     showFilterShop();
                     $("#shopDisplayItems").html(data);
+                    sameHeight();
                 } else {
-                    showAlertMessage();
-                    $("#shopDisplayItems").html("");
-                    $("#shopDisplayError").html('<div class="alert alert-danger alert-dismissable"><a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a><strong>' + data + '</strong></div>');
+                    showAlertMessage(data);
+                }
+            });
+    });
+
+    $("a.subItemSetClasse").click(function (e) {
+        $("*").addClass("progressWait");
+        hideCategoryIfOnPhone();
+        showAjaxLoaderShop();
+        var target = e.target;
+        if (!$(target).hasClass("clickable")) {
+            target = $(target).parent().parent();
+        }
+        var $searchClass = $(target).attr("data-sub-class-id");
+        var $id = $(target).attr('id');
+        $.post("/api/shop/shop.php",
+            {
+                id: $id,
+                searchClass: $searchClass
+            },
+            function (data, status) {
+                $("*").removeClass("progressWait");
+                hideAllHeaderShop();
+                hideAjaxLoaderShop();
+                if (data !== 'Error !' && data !== 'No Result !') {
+                    showFilterShop();
+                    $("#shopDisplayItems").html(data);
+                    sameHeight();
+                } else {
+                    showAlertMessage(data);
                 }
             });
     });

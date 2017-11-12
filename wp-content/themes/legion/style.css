@@ -168,6 +168,10 @@ div.hrMain {
     position: relative;
 }
 
+hr.hrShopCategory {
+    margin: 5px;
+}
+
 footer {
     background-color: rgba(28, 36, 23, 1);
 }
@@ -605,7 +609,7 @@ li.list-group-item div.display_item p.name {
     color: #ffff35 !important;
 }
 
-.display_item span.Stamina span {
+.display_item span.Stamina span, .display_item span.Intellect span {
     color: #295df1 !important;
 }
 
@@ -674,6 +678,6 @@ div.display_item_set div.display_item {
     float: left;
 }
 
-div.display_item_set div.display_item p.stackable{
+div.display_item_set div.display_item p.stackable {
     display: none;
 }
