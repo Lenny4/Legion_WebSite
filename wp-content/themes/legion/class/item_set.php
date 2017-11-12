@@ -116,6 +116,8 @@ class item_set
                 foreach ($setID as $oneImage) {
                     $return = $return . '<img src="https://wow.zamimg.com/images/wow/icons/large/' . $oneImage . '.jpg" alt="' . $oneImage . '">';
                 }
+                $return = $return . '<p class="name"><span class="name">Name </span><span class="value">"' . $this->name . '"</span></p>';
+                $return = $return . '<p class="itemLevel"><span class="itemLevel">Item Level </span><span class="value">855</span></p>';
                 $return = $return . '</div></li></a>';
             }
         }
