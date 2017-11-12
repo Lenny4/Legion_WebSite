@@ -2,12 +2,13 @@
 
 class item_set
 {
-    public $item_set_id  = null;
-    public $name  = null;
-    public $setBonuses  = null;
-    public $items  = null;
-    public $price  = null;
+    public $item_set_id = null;
+    public $name = null;
+    public $setBonuses = null;
+    public $items = null;
+    public $price = 0;
     public $item_classes = null;
+    public $vote = 0;
 
     public function hydrateBDD($data)
     {
@@ -77,5 +78,23 @@ class item_set
         }
         $req = $req . ")";
         return $req;
+    }
+
+    function display($dbh)
+    {
+        $return = '<div class="display_item_set">';
+        $i = 0;
+        foreach ($this->items as $itemID) {
+            if ($i % 2 == 0) {
+                $return = $return . "<div class='row'>";
+            }
+            $return = $return . previewItem($itemID, '', $dbh, $this->vote, true);
+            if ($i % 2 != 0) {
+                $return = $return . "</div>";
+            }
+            $i++;
+        }
+        $return = $return . '</div>';
+        return $return;
     }
 }

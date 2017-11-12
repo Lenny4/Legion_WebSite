@@ -38,7 +38,7 @@
         color: white;
     }
 
-    .overlay img{
+    .overlay img {
         display: none !important;
     }
 
@@ -166,10 +166,13 @@
                     </div>
                     <div class="col-md-5 col-xs-12">
                         <?php
-                        if(is_user_logged_in()){ ?>
+                        if (is_user_logged_in()) { ?>
                             <p class="h3">Facebook</p>
-                            <?= do_shortcode('[sfp-page-plugin url=http://www.facebook.com/facebook/]') ?>
-                        <?php }else{ ?>
+                            <?php
+                            $homePageId = get_option('page_on_front');
+                            $fbUrl = get_field("url_facebook_page", $homePageId);
+                            echo do_shortcode('[sfp-page-plugin url=' . $fbUrl . ']') ?>
+                        <?php } else { ?>
                             <p class="h3">Register</p>
                             <?= do_shortcode('[wpum_register form_id="" login_link="yes" psw_link="yes" register_link="no" ]') ?>
                         <?php }
@@ -201,27 +204,29 @@
 
     </section>
     <!-- /section -->
-    <a href="<?= get_page_link(93) ?>"><div class="col-md-6 col-xs-12" style="margin-top: 20px">
-        <div class="col-xs-12 background">
-            <p class="h1">Shop</p>
-            <div class="col-xs-12">
-                <?php
-                $homePageId = get_option('page_on_front');
-                $image = get_field("shop", $homePageId);
-                echo wp_get_attachment_image($image["id"], 'full', "", ["class" => "img-responsive"]);
-                ?>
+    <a href="<?= get_page_link(93) ?>">
+        <div class="col-md-6 col-xs-12" style="margin-top: 20px">
+            <div class="col-xs-12 background">
+                <p class="h1">Shop</p>
+                <div class="col-xs-12">
+                    <?php
+                    $homePageId = get_option('page_on_front');
+                    $image = get_field("shop", $homePageId);
+                    echo wp_get_attachment_image($image["id"], 'full', "", ["class" => "img-responsive"]);
+                    ?>
+                </div>
             </div>
         </div>
-    </div></a>
+    </a>
     <div class="col-md-6 col-xs-12" style="margin-top: 20px">
         <div class="col-xs-12 background">
             <p class="h1">Royaume</p>
             <hr/>
             <p class="h2">Nom du Royaume :
                 <?php
-                if(serverOnline()==true){ ?>
+                if (serverOnline() == true) { ?>
                     <span class="h3" style="color: green">Online</span>
-                <?php }else{ ?>
+                <?php } else { ?>
                     <span class="h3" style="color: red">Offline</span>
                 <?php } ?>
             </p>
@@ -237,17 +242,17 @@
                     <td>Losses</td>
                     <td>Ranking</td>
                 </tr>
-            <?php
-            $tabLadder=getLadder();
-            foreach ($tabLadder as $row){
-                echo"<tr>";
-                echo"<td>".$row["name"]."</td>";
-                echo"<td>".$row["win"]."</td>";
-                echo"<td>".$row["losses"]."</td>";
-                echo"<td>".$row["ranking"]."</td>";
-                echo"</tr>";
-            }
-            ?>
+                <?php
+                $tabLadder = getLadder();
+                foreach ($tabLadder as $row) {
+                    echo "<tr>";
+                    echo "<td>" . $row["name"] . "</td>";
+                    echo "<td>" . $row["win"] . "</td>";
+                    echo "<td>" . $row["losses"] . "</td>";
+                    echo "<td>" . $row["ranking"] . "</td>";
+                    echo "</tr>";
+                }
+                ?>
             </table>
         </div>
     </div>

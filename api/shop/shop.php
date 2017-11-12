@@ -7,7 +7,7 @@ if (!isset($_POST)) {
 }
 
 //ITEM======================================================
-function createItem($POSTitem_id, $POSTitem_price, $dbh)
+function createItem($POSTitem_id, $POSTitem_price, $dbh, $vote = 0)
 {
     $item_id = intval($POSTitem_id);
     $item = getItemInBdd($item_id, $dbh);
@@ -26,6 +26,7 @@ function createItem($POSTitem_id, $POSTitem_price, $dbh)
         if ($item_price != null) {
             $item->price = $item_price;
         }
+        $item->vote = intval($vote);
     }
     return $item;
 }
@@ -127,14 +128,14 @@ function insertItemClassInBdd($itemClass, $dbh)
 //ITEM CLASS======================================================
 
 //ITEM SET======================================================
-function createItemSet($POSTitem_set_id, $POSTitem_set_price, $dbh)
+function createItemSet($POSTitem_set_id, $POSTitem_set_price, $dbh, $vote = 0)
 {
     $item_set_id = intval($POSTitem_set_id);
     $item_set = getItemSetInBdd($item_set_id, $dbh);
     if ($item_set->item_set_id == null) {
         $item_set_price = null;
         if ($POSTitem_set_price != '') {
-            $item_price = intval($POSTitem_set_price);
+            $item_set_price = intval($POSTitem_set_price);
         }
         @$result = json_decode(file_get_contents('https://us.api.battle.net/wow/item/set/' . $item_set_id . '?locale=en_US&apikey=' . API_KEY));
         if ($result == null) {
@@ -146,6 +147,7 @@ function createItemSet($POSTitem_set_id, $POSTitem_set_price, $dbh)
         if ($item_set_price != null) {
             $item_set->price = $item_set_price;
         }
+        $item_set->vote = intval($vote);
     }
     return $item_set;
 }
@@ -188,19 +190,21 @@ function insertItemSetInBdd($item_set, $dbh)
 //ITEM SET======================================================
 
 //VIEW======================================================
-function previewItem($postItemId, $postItemPrice, $dbh)
+function previewItem($postItemId, $postItemPrice, $dbh, $vote = 0, $justReturn = false)
 {
-    $item = createItem($postItemId, $postItemPrice, $dbh);
+    $item = createItem($postItemId, $postItemPrice, $dbh, $vote);
     $itemClass = createItemClass($item, $dbh);
-    echo($item->display($itemClass));
+    if ($justReturn == false) {
+        echo($item->display($itemClass));
+    } else {
+        return $item->display($itemClass);
+    }
 }
 
-function previewItemSet($postItemSetId, $postItemSetPrice, $dbh)
+function previewItemSet($postItemSetId, $postItemSetPrice, $dbh, $vote = 0)
 {
-    $item_set = createItemSet($postItemSetId, $postItemSetPrice, $dbh);
-    foreach ($item_set->items as $itemID) {
-        previewItem($itemID, '', $dbh);
-    }
+    $item_set = createItemSet($postItemSetId, $postItemSetPrice, $dbh, $vote);
+    echo($item_set->display($dbh));
 }
 
 function viewItems($subClassId, $classId, $dbh)
@@ -223,20 +227,20 @@ function viewItems($subClassId, $classId, $dbh)
 //VIEW======================================================
 
 //ADD======================================================
-function addItemBdd($postItemId, $postItemPrice, $dbh)
+function addItemBdd($postItemId, $postItemPrice, $dbh, $vote = 0)
 {
-    $item = createItem($postItemId, $postItemPrice, $dbh);
+    $item = createItem($postItemId, $postItemPrice, $dbh, $vote);
     $itemClass = createItemClass($item, $dbh);
     insertItemInBdd($item, $dbh);
     insertItemClassInBdd($itemClass, $dbh);
     return $item;
 }
 
-function addItemSetBdd($postItemSetId, $postItemSetPrice, $dbh)
+function addItemSetBdd($postItemSetId, $postItemSetPrice, $dbh, $vote = 0)
 {
-    $item_set = createItemSet($postItemSetId, $postItemSetPrice, $dbh);
+    $item_set = createItemSet($postItemSetId, $postItemSetPrice, $dbh, $vote);
     foreach ($item_set->items as $itemID) {
-        $item = addItemBdd($itemID, '', $dbh);
+        addItemBdd($itemID, '', $dbh, $vote);
     }
     insertItemSetInBdd($item_set, $dbh);
 }
@@ -244,19 +248,19 @@ function addItemSetBdd($postItemSetId, $postItemSetPrice, $dbh)
 //ADD======================================================
 
 if ($_POST['id'] == 'previewItem') {
-    previewItem($_POST['item_id'], $_POST['item_price'], $dbh);
+    previewItem($_POST['item_id'], $_POST['item_price'], $dbh, $_POST["vote"]);
 }
 
 if ($_POST['id'] == 'addItem') {
-    addItemBdd($_POST['item_id'], $_POST['item_price'], $dbh);
+    addItemBdd($_POST['item_id'], $_POST['item_price'], $dbh, $_POST["vote"]);
 }
 
 if ($_POST['id'] == 'previewItemSet') {
-    previewItemSet($_POST['item_set_id'], $_POST['item_set_price'], $dbh);
+    previewItemSet($_POST['item_set_id'], $_POST['item_set_price'], $dbh, $_POST["vote"]);
 }
 
 if ($_POST['id'] == 'addItemSet') {
-    addItemSetBdd($_POST['item_set_id'], $_POST['item_set_price'], $dbh);
+    addItemSetBdd($_POST['item_set_id'], $_POST['item_set_price'], $dbh, $_POST["vote"]);
 }
 
 if ($_POST['id'] == 'subItemClasse') {

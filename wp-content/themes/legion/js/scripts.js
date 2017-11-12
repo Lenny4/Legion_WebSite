@@ -131,6 +131,7 @@ $(document).ready(function () {
         $.post("/api/shop/shop.php", form, function (data, status) {
             $("*").removeClass("progressWait");
             if (status === "success") {
+                console.log(data);
                 if ($(event.target).attr("id") === "previewItem") {
                     previewItem(data);
                 }

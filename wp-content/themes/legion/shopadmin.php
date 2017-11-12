@@ -26,6 +26,13 @@
                             <input placeholder="Price (Optionnal)" type="number" min="0" class="form-control"
                                    name="item_price">
                         </div>
+                        <div class="form-group">
+                            <label for="sel1">Can buy with vote point</label>
+                            <select class="form-control" name="vote">
+                                <option selected value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
                         <button type="submit" class="btn btn-default">Preview</button>
                     </form>
                 </div>
@@ -39,6 +46,13 @@
                         <div class="form-group">
                             <input placeholder="Price (Optionnal)" type="number" min="0" class="form-control"
                                    name="item_set_price">
+                        </div>
+                        <div class="form-group">
+                            <label for="sel1">Can buy with vote point</label>
+                            <select class="form-control" name="vote">
+                                <option selected value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
                         </div>
                         <button type="submit" class="btn btn-default">Preview</button>
                     </form>
@@ -54,6 +68,10 @@
 
                 <div class="col-md-6 col-xs-12 borderWhite">
                     <p class="h3">Delete cat</p>
+                </div>
+
+                <div class="col-md-6 col-xs-12 borderWhite">
+                    <p class="h3">Delete custom item</p>
                 </div>
 
                 <?php comments_template('', true); // Remove if you don't want comments ?>

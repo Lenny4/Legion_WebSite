@@ -539,7 +539,7 @@ section.shop a:hover {
     display: none;
 }
 
-.display_item p.icon, .display_item p.id, .display_item p.item_id, .display_item p.noitemSet {
+.display_item p.icon, .display_item p.id, .display_item p.item_id, .display_item p.noitemSet, .display_item p.vote {
     display: none;
 }
 
@@ -668,4 +668,8 @@ li.list-group-item div.display_item p.name {
 .display_item p.description span.value {
     color: #ffd100 !important;
     font-style: italic;
+}
+
+div.display_item_set div.display_item {
+    float: left;
 }

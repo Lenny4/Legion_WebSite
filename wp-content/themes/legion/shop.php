@@ -5,7 +5,12 @@
     <!-- section -->
     <section class="background shop">
 
-        <h1 class="text-center"><span class="clickable overGreen" id="mainShopTitle"><?php the_title(); ?></span></h1>
+        <h1 class="text-center">
+            <span class="clickable overGreen" id="mainShopTitle">
+                <i class="fa fa-angle-double-left" aria-hidden="true"></i>
+                <?php the_title(); ?>
+            </span>
+        </h1>
 
         <?php if (have_posts()): while (have_posts()) : the_post(); ?>
 
@@ -68,7 +73,7 @@
                                 <p onclick="changeArrowShop(this)" class="clickable text-center h4"
                                    style="font-family: inherit; margin-top: 0px" data-toggle="collapse"
                                    data-target="#helpFiterShop">How
-                                    to serach ? <i class="fa fa-arrow-down" aria-hidden="true"></i></p>
+                                    to search ? <i class="fa fa-arrow-down" aria-hidden="true"></i></p>
                                 <div id="helpFiterShop" class="collapse">
                                     <p>Explain how to search</p>
                                 </div>
@@ -201,6 +206,14 @@
         $("#ajaxLoaderShop").show();
     }
 
+    function loadHomePageShop() {
+        $("#shopDisplayItems").html("");
+        hideAllHeaderShop();
+        showAjaxLoaderShop();
+
+        hideAjaxLoaderShop();
+    }
+
     $("a.subItemClasse").click(function (e) {
         hideCategoryIfOnPhone();
         showAjaxLoaderShop();
@@ -234,8 +247,7 @@
     });
 
     $("#mainShopTitle").click(function (e) {
-        $("#shopDisplayItems").html("");
-        hideAllHeaderShop();
+        loadHomePageShop();
     });
 
     $(document).ready(function () {
@@ -245,6 +257,7 @@
                 $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
             });
         });
+        loadHomePageShop();
     });
 </script>
 

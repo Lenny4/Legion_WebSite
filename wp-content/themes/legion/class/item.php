@@ -24,7 +24,8 @@ class item
     public $containerSlots = null;
     public $itemSet = null;
     public $sellPrice = null;
-    public $price = null;
+    public $price = 0;
+    public $vote=0;
 
     public function hydrateAPI($data)
     {
@@ -320,7 +321,9 @@ class item
                                 }
                             } elseif ($key == "itemSet" AND $value == 0) {
                                 $return = $return . '<p class="' . $key . ' no' . $key . '"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value">' . $value . '</span></p>';
-                            } else {
+                            } elseif($key=="itemLevel") {
+                                $return = $return . '<p class="' . $key . '"><span class="' . $key . '">Item Level </span><span class="value">' . $value . '</span></p>';
+                            }else {
                                 $return = $return . '<p class="' . $key . '"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value">' . $value . '</span></p>';
                             }
                         }
