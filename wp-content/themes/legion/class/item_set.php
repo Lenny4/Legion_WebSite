@@ -102,33 +102,31 @@ class item_set
     function smallDisplay($dbh)
     {
         $return = '';
-        $allImages = $this->getAllItemImageOfTheSet($this->items, $dbh);
-        if ($allImages == null) {
+        $allInfos = $this->getAllItemInfoOfTheSet($this->items, $dbh);
+        if ($allInfos == null) {
 
-        } elseif ($allImages == false) {
+        } elseif ($allInfos == false) {
 
         } else {
-            foreach ($allImages as $setID) {
-                $dataShow["value"] = $this->item_set_id;
-                $dataShow["id"] = "previewItemSet";
-                $json = json_encode($dataShow);
-                $return = $return . "<a class='pinterest' data-show='" . $json . "' onclick='showMoreShop(this)'><li class='list-group-item col-sm-4 col-xs-12'><div class='display_item'>";
-                foreach ($setID as $oneImage) {
-                    $return = $return . '<img src="https://wow.zamimg.com/images/wow/icons/large/' . $oneImage . '.jpg" alt="' . $oneImage . '">';
-                }
-                $return = $return . '<p class="name"><span class="name">Name </span><span class="value">"' . $this->name . '"</span></p>';
-                $return = $return . '<p class="itemLevel"><span class="itemLevel">Item Level </span><span class="value">855</span></p>';
-                $return = $return . '</div></li></a>';
+            $dataShow["value"] = $this->item_set_id;
+            $dataShow["id"] = "previewItemSet";
+            $json = json_encode($dataShow);
+            $globalItemLevel = intval(array_sum($allInfos["itemLevel"]) / sizeof($allInfos["itemLevel"]));
+            $return = $return . "<a class='pinterest' data-show='" . $json . "' onclick='showMoreShop(this)'><li class='list-group-item col-sm-4 col-xs-12'><div class='display_item'>";
+            foreach ($allInfos["icon"] as $oneImage) {
+                $return = $return . '<img src="https://wow.zamimg.com/images/wow/icons/large/' . $oneImage . '.jpg" alt="' . $oneImage . '">';
             }
+            $return = $return . '<p class="name"><span class="name">Name </span><span class="value">"' . $this->name . '"</span></p>';
+            $return = $return . '<p class="itemLevel"><span class="itemLevel">Average Item Level </span><span class="value">' . $globalItemLevel . '</span></p>';
+            $return = $return . '</div></li></a>';
         }
         return $return;
     }
 
-    function getAllItemImageOfTheSet($allID, $dbh)
+    function getAllItemInfoOfTheSet($allID, $dbh)
     {
-        $tab = array();
         $result = array();
-        $req = 'SELECT `icon`, `itemSet` FROM `item` WHERE `item_id`=' . $allID[0];
+        $req = 'SELECT `icon`, `itemLevel` FROM `item` WHERE `item_id`=' . $allID[0];
         $i = 0;
         foreach ($allID as $idItem) {
             if ($i > 0) {
@@ -140,19 +138,11 @@ class item_set
         if ($req == false) {
             return null;
         } else {
-            while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
-                array_push($tab, $data["icon"], $data["itemSet"]);
-            }
             $i = 0;
-            $y = 0;
-            $currentSet = $tab[1];
-            foreach ($tab as $value) {
-                if ($i % 2 != 0) { //item set id
-                    $currentSet = $value;
-                } else { // icon
-                    $result[$currentSet][$y] = $value;
-                    $y++;
-                }
+            while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+                $i++;
+                $result['itemLevel'][$i] = $data["itemLevel"];
+                $result['icon'][$i] = $data["icon"];
                 $i++;
             }
             return $result;

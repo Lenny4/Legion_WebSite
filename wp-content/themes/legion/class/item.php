@@ -134,7 +134,7 @@ class item
                 "65" => "WOD_5",
                 '59' => "Multistrike",
                 '73' => "Agility or Intellect",
-                "71" => "Strenght, Agility orIntelect",
+                "71" => "Strenght or Agility or Intelect",
                 "72" => "Strenght or Agility",
                 "74" => "Strenght or Intelect",
                 // end of new wod

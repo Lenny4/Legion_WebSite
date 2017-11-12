@@ -81,8 +81,10 @@ function previewItem(data) {
 }
 
 function addItem(button) {
+    $("*").addClass("progressWait");
     var form = 'id=' + $(button).attr("id") + "&" + $("#previewItem").serialize();
     $.post("/api/shop/shop.php", form, function (data, status) {
+        $("*").removeClass("progressWait");
         if (status === "success") {
             var modal = $('#shopAdminModal');
             var modalContent = $(modal).find('.modal-body');
@@ -107,8 +109,10 @@ function previewItemSet(data) {
 }
 
 function addItemSet(button) {
+    $("*").addClass("progressWait");
     var form = 'id=' + $(button).attr("id") + "&" + $("#previewItemSet").serialize();
     $.post("/api/shop/shop.php", form, function (data, status) {
+        $("*").removeClass("progressWait");
         if (status === "success") {
             var modal = $('#shopAdminModal');
             var modalContent = $(modal).find('.modal-body');

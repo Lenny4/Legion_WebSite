@@ -601,7 +601,7 @@ li.list-group-item div.display_item p.name {
     padding-right: 5px;
 }
 
-.display_item span.Versatility span, span.Agility_or_Intellect span, span.Strenght_or_Intelect span, span.Agility span {
+.display_item span.Versatility span, span.Agility_or_Intellect span, span.Strenght_or_Intelect span, span.Agility span, span.Strenght_or_Agility_or_Intelect span {
     color: #e60c0b !important;
 }
 
