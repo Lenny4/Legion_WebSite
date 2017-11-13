@@ -589,4 +589,12 @@ function getAllItemSetClasses()
     return array_unique($data);
 }
 
+function isWowAdmin()
+{
+    if (is_super_admin(get_current_user_id())) {
+        return true;
+    }
+    return false;
+}
+
 ?>

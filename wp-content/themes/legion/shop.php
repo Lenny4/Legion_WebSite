@@ -256,8 +256,13 @@
                     $maxHeight = $($li).height();
                 }
             });
-            sameHeight($maxHeight-10);
+            sameHeight($maxHeight - 10);
         } else {
+            setTimeout(function () {
+                if ($height < 100) {
+                    sameHeight();
+                }
+            }, 100);
             $($allContent).children('a').each(function () {
                 $div = $(this).children().children("div");
                 $($div).height($height);

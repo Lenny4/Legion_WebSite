@@ -277,6 +277,32 @@ function addItemSetBdd($postItemSetId, $postItemSetPrice, $dbh, $vote = 0)
     insertItemSetInBdd($item_set, $dbh);
 }
 
+function addCustomCatBdd($name, $dbh)
+{
+    $req1 = $dbh->prepare("SELECT * FROM `custom_category` WHERE `name`='" . $name . "'");
+    $req1->execute();
+    $count = $req1->rowCount();
+    if ($count == 0) {
+        $req = $dbh->query("INSERT INTO `custom_category`(`name`) VALUES ('" . $name . "')");
+        if ($req == false OR $req == null) {
+            echo '<div class="alert alert-danger alert-dismissable">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>Error !</strong>
+                </div>';
+        } else {
+            echo '<div class="alert alert-success alert-dismissable">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>' . $name . ' added !</strong>
+                </div>';
+        }
+    } else {
+        echo '<div class="alert alert-danger alert-dismissable">
+                    <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                    <strong>' . $name . ' already exist !</strong>
+                </div>';
+    }
+}
+
 //ADD======================================================
 
 if ($_POST['id'] == 'previewItem') {
@@ -284,7 +310,7 @@ if ($_POST['id'] == 'previewItem') {
 }
 
 if ($_POST['id'] == 'addItem') {
-    if (is_super_admin(get_current_user_id())) {
+    if (isWowAdmin()) {
         addItemBdd($_POST['item_id'], $_POST['item_price'], $dbh, $_POST["vote"]);
     } else {
         echo "Not Allowed !";
@@ -296,7 +322,7 @@ if ($_POST['id'] == 'previewItemSet') {
 }
 
 if ($_POST['id'] == 'addItemSet') {
-    if (is_super_admin(get_current_user_id())) {
+    if (isWowAdmin()) {
         addItemSetBdd($_POST['item_set_id'], $_POST['item_set_price'], $dbh, $_POST["vote"]);
     } else {
         echo "Not Allowed !";
@@ -309,4 +335,10 @@ if ($_POST['id'] == 'subItemClasse') {
 
 if ($_POST['id'] == 'subItemSetClasse') {
     viewItemSets($_POST['searchClass'], $dbh);
+}
+
+if ($_POST['id'] == 'addCustomCategory') {
+    if (isWowAdmin()) {
+        addCustomCatBdd($_POST['name_custom_cat'], $dbh);
+    }
 }

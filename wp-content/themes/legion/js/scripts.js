@@ -83,7 +83,7 @@ function previewItem(data) {
     var modalContent = $(modal).find('.modal-body');
     $(modalHeader).html("Add item");
     $(modalContent).html(data);
-    if (data !== '<div class="alert alert-danger"><strong>Not Found</strong></div>') {
+    if (data !== '<div class="alert alert-danger"><strong>Not Found !</strong></div>') {
         $(modalContent).append("<button onclick='addItem(this)' id='addItem' class='btn btn-default'>Add to the shop</button>");
     }
 }
@@ -111,7 +111,7 @@ function previewItemSet(data) {
     var modalContent = $(modal).find('.modal-body');
     $(modalHeader).html("Add item set");
     $(modalContent).html(data);
-    if (data != '<div class="alert alert-danger"><strong>Not Found</strong></div>') {
+    if (data != '<div class="alert alert-danger"><strong>Not Found !</strong></div>') {
         $(modalContent).append("<button onclick='addItemSet(this)' id='addItemSet' class='btn btn-default'>Add to the shop</button>");
     }
 }
@@ -132,6 +132,10 @@ function addItemSet(button) {
     });
 }
 
+function resultAddCat(data) {
+    $("#resultAddCat").html(data);
+}
+
 $(document).ready(function () {
     resizeVideo();
     addPlaceHolderForm();
@@ -149,6 +153,9 @@ $(document).ready(function () {
                 }
                 if ($(event.target).attr("id") === "previewItemSet") {
                     previewItemSet(data);
+                }
+                if ($(event.target).attr("id") === "addCustomCategory") {
+                    resultAddCat(data);
                 }
             }
         });
