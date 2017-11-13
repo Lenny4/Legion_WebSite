@@ -58,33 +58,6 @@
                     </form>
                 </div>
 
-                <div class="col-md-6 col-xs-12 borderWhite">
-                    <p class="h3">Add Custom Category</p>
-                    <div id="resultAddCat"></div>
-                    <form id="addCustomCategory">
-                        <div class="form-group">
-                            <input placeholder="Name of the category" type="text" class="form-control"
-                                   name="name_custom_cat">
-                        </div>
-                        <div class="form-group">
-                            <button type="submit" class="btn btn-default">Add</button>
-                        </div>
-                    </form>
-                </div>
-
-                <div class="col-md-6 col-xs-12 borderWhite">
-                    <p class="h3">Add Custom Item</p>
-                </div>
-
-                <div class="col-md-6 col-xs-12 borderWhite">
-                    <p class="h3">Delete cat<span class="h5" style="color: red;font-family: Calibri;"> Will delete all items inside.</span>
-                    </p>
-                </div>
-
-                <div class="col-md-6 col-xs-12 borderWhite">
-                    <p class="h3">Delete custom item</p>
-                </div>
-
                 <?php comments_template('', true); // Remove if you don't want comments ?>
 
                 <br class="clear">

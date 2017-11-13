@@ -132,10 +132,6 @@ function addItemSet(button) {
     });
 }
 
-function resultAddCat(data) {
-    $("#resultAddCat").html(data);
-}
-
 $(document).ready(function () {
     resizeVideo();
     addPlaceHolderForm();
@@ -153,9 +149,6 @@ $(document).ready(function () {
                 }
                 if ($(event.target).attr("id") === "previewItemSet") {
                     previewItemSet(data);
-                }
-                if ($(event.target).attr("id") === "addCustomCategory") {
-                    resultAddCat(data);
                 }
             }
         });

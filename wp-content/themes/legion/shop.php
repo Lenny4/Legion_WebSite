@@ -96,15 +96,15 @@
                                 ?>
                             </div>
                             <div style="display: none" id="helpFilterNameShop">
-                                <p onclick="changeArrowShop(this)" class="clickable text-center h4"
+                                <p onclick="changeArrowShop(this)" class="clickable text-center h4 overGreen"
                                    style="font-family: inherit; margin-top: 0px" data-toggle="collapse"
-                                   data-target="#helpFiterShop">How
-                                    to search ? <i class="fa fa-arrow-down" aria-hidden="true"></i></p>
+                                   data-target="#helpFiterShop">How to search ?
+                                    <i class="fa fa-arrow-down" aria-hidden="true"></i></p>
                                 <div id="helpFiterShop" class="collapse">
                                     <p>Explain how to search</p>
                                 </div>
                             </div>
-                            <input style="display: none" class="form-control" id="filterNameShop" type="text">
+                            <input placeholder="Search" style="display: none" class="form-control" id="filterNameShop" type="text">
                             <div class="col-xs-12" id="shopDisplayError"></div>
                         </div>
                         <ul class="list-group" id="filterNameListShop">
@@ -259,7 +259,7 @@
             sameHeight($maxHeight - 10);
         } else {
             setTimeout(function () {
-                if ($height < 100) {
+                if ($height < 76) {
                     sameHeight();
                 }
             }, 100);
