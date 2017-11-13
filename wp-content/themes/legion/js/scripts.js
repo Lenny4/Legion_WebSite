@@ -30,33 +30,41 @@ function changeMenuCss() {
     }
 }
 
-function hideShowSideBar() {
+function hideShowSideBar(resize) {
     var time = 500;
     var sideBar = $('aside');
-    var mainContent = $('main');
     var button = $("#showHideSideBar");
-    if ($(sideBar).hasClass("active")) {
-        $(sideBar).animate({
-            left: '50%'
-        }, time, function () {
-            $(sideBar).removeClass("active");
-            $(sideBar).addClass("hidden-xs hidden-sm");
-            $(mainContent).removeClass("col-md-8");
-            $(mainContent).addClass("col-md-10");
-            $(button).removeClass("fa-arrow-circle-right");
-            $(button).addClass("fa-arrow-circle-left");
-        });
-
+    if (resize === true) {
+        if ($(window).width() > 992 && $(sideBar).css("left") !== "0px") {
+            $(sideBar).animate({
+                left: '0%'
+            }, time);
+            $(sideBar).removeClass("hidden-xs hidden-sm");
+            $(sideBar).addClass("active");
+            $(button).removeClass("fa-arrow-circle-left");
+            $(button).addClass("fa-arrow-circle-right");
+        }
+        console.log($(sideBar).css("left"));
     } else {
-        $(sideBar).animate({
-            left: '0%'
-        }, time);
-        $(sideBar).removeClass("hidden-xs hidden-sm");
-        $(sideBar).addClass("active");
-        $(mainContent).removeClass("col-md-10");
-        $(mainContent).addClass("col-md-8");
-        $(button).removeClass("fa-arrow-circle-left");
-        $(button).addClass("fa-arrow-circle-right");
+        if ($(sideBar).hasClass("active")) {
+            $(sideBar).animate({
+                left: '50%'
+            }, time, function () {
+                $(sideBar).removeClass("active");
+                $(sideBar).addClass("hidden-xs hidden-sm");
+                $(button).removeClass("fa-arrow-circle-right");
+                $(button).addClass("fa-arrow-circle-left");
+            });
+
+        } else {
+            $(sideBar).animate({
+                left: '0%'
+            }, time);
+            $(sideBar).removeClass("hidden-xs hidden-sm");
+            $(sideBar).addClass("active");
+            $(button).removeClass("fa-arrow-circle-left");
+            $(button).addClass("fa-arrow-circle-right");
+        }
     }
 }
 
@@ -149,6 +157,7 @@ $(document).ready(function () {
 
 $(window).resize(function () {
     resizeVideo();
+    hideShowSideBar(true);
 });
 
 $(document).scroll(function () {

@@ -401,6 +401,7 @@ div.item p.h3 {
 
 .modal-dialog {
     width: -moz-fit-content;
+    width: fit-content;
     max-width: 90%;
 }
 
