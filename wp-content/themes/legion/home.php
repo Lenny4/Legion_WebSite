@@ -175,7 +175,7 @@
                             </style>
                             <p class="h3">Facebook</p>
                             <?php
-                            $homePageId = get_option('page_on_front');
+                            $homePageId = get_the_ID();
                             $fbUrl = get_field("url_facebook_page", $homePageId);
                             echo do_shortcode('[sfp-page-plugin url=' . $fbUrl . ']') ?>
                         <?php } else { ?>
@@ -210,13 +210,26 @@
 
     </section>
     <!-- /section -->
-    <a href="<?= get_page_link(93) ?>">
-        <div class="col-md-6 col-xs-12" style="margin-top: 20px">
-            <div class="col-xs-12 background">
-                <p class="h1">Shop</p>
-                <div class="col-xs-12">
+    <a class="pinterest" href="<?= get_page_link(93) ?>">
+        <div class="col-sm-6 col-xs-12" style="margin-top: 20px">
+            <div class="col-xs-12 background shopLink" style="padding: 0">
+                <p class="h1 text-center">Shop</p>
+                <div class="col-xs-12" style="padding: 0">
                     <?php
-                    $homePageId = get_option('page_on_front');
+                    $homePageId = get_the_ID();
+                    $image = get_field("shop_kaboom", $homePageId);
+                    ?>
+                    <p class="message"
+                       style="background-image: url('<?php echo(wp_get_attachment_image_src($image["id"], "full")[0]); ?>') ">
+                    <span>
+                        <?php
+                        $homePageId = get_the_ID();
+                        $shopMessage = get_field("message_shop", $homePageId);
+                        echo $shopMessage; ?>
+                    </span>
+                    </p>
+                    <?php
+                    $homePageId = get_the_ID();
                     $image = get_field("shop", $homePageId);
                     echo wp_get_attachment_image($image["id"], 'full', "", ["class" => "img-responsive img-rounded center-block", "style" => "padding-bottom:10px;"]);
                     ?>
@@ -224,7 +237,7 @@
             </div>
         </div>
     </a>
-    <div class="col-md-6 col-xs-12" style="margin-top: 20px">
+    <div class="col-sm-6 col-xs-12" style="margin-top: 20px">
         <div class="col-xs-12 background">
             <p class="h1">Royaume</p>
             <hr/>
