@@ -15,14 +15,31 @@
 	Theme Support
 \*------------------------------------*/
 
-$VALEUR_hote = DB_HOST;
-$VALEUR_nom_bd = DB_NAME;
-$VALEUR_user = DB_USER;
-$VALEUR_user = DB_USER;
-$VALEUR_mot_de_passe = DB_PASSWORD;
-$GLOBALS['database'] = new PDO('mysql:host=' . $VALEUR_hote . ';dbname=' . $VALEUR_nom_bd, $VALEUR_user, $VALEUR_mot_de_passe);
-
 require_once 'class/wp_bootstrap_navwalker.php';
+
+// Database settings
+define('DB_NAME_SOAP', 'auth');
+
+define('API_KEY', 'x3bqkbc8n7e7hcmnkcq9p2cpkzb364rg');
+
+// Soap settings
+define('SOAP_IP', '127.0.0.1');
+define('SOAP_PORT', '7878');
+define('SOAP_USER', '12#1');
+define('SOAP_PASS', 'Computer210496,');
+
+$dsn = 'mysql:dbname=' . DB_NAME . ';host=' . DB_HOST;
+$user = DB_USER;
+$password = DB_PASSWORD;
+
+if (!isset($GLOBALS["dbh"]) OR $GLOBALS["dbh"] == null) {
+    try {
+        $GLOBALS["dbh"] = new PDO($dsn, $user, $password);
+    } catch (PDOException $e) {
+        $GLOBALS["dbh"] = null;
+        throw new Exception($e->getMessage());
+    }
+}
 
 if (!isset($content_width)) {
     $content_width = 900;
@@ -467,6 +484,8 @@ add_action('show_user_profile', 'points_extra_fields');
 add_action('edit_user_profile', 'points_extra_fields');
 add_action('personal_options_update', 'my_save_extra_profile_fields');
 add_action('edit_user_profile_update', 'my_save_extra_profile_fields');
+add_action('user_register', 'wow_insert_user');//user create account => create user in wow game
+add_action('delete_user', 'wow_delete_user');//user delete account => delete user in wow game
 
 // Remove Actions
 remove_action('wp_head', 'feed_links_extra', 3); // Display the links to the extra feeds such as category feeds
@@ -524,40 +543,54 @@ function html5_shortcode_demo_2($atts, $content = null) // Demo Heading H2 short
     return '<h2>' . $content . '</h2>';
 }
 
-function getUserWowIdWithUserData($userdata)
-{
-    $user = (array)$userdata;
-    $data = (array)$user['data'];
-    $user_email = $data["user_email"];
-    $userId = null;
-    if (isset($GLOBALS['database'])) {
-        $sth = $GLOBALS['database']->query("SELECT username FROM auth.account WHERE email='" . $user_email . "'");
-        while ($username = $sth->fetch(PDO::FETCH_ASSOC)) {
-            $userId = $username["username"];
-        }
-    }
-    return $userId;
-}
-
 function getUserWowMailWithUserData($userdata)
 {
     $user_email = $userdata["user_email"];
     return $user_email;
 }
 
-function wow_insert_user($userdata)
+function wow_insert_user($user_id)
 {
-    $mail = $userdata['user_email'];
-    $password = $userdata['user_pass'];
+    $mail = $_POST['user_email'];
+    $password = $_POST['password'];
     new SOAPRegistration($mail, $password);
 }
 
-function wow_delete_user($userdata)
+function wow_delete_user($user_id)
 {
-    $userId = getUserWowIdWithUserData($userdata);
-    if ($userId != null) {
-        new SOAPDeletion($userId);
+    $account = getUserWowIdWithUserData(get_userdata($user_id));
+    if ($account != null) {
+        new SOAPDeletion($account["username"]);
     }
+    $tabAllTableBattlenet = ["battlenet_account_bans", "battlenet_account_heirlooms", "battlenet_account_mounts", "battlenet_account_toys", "battlenet_item_appearances", "battlenet_item_favorite_appearances", "battlenet_accounts"];
+    foreach ($tabAllTableBattlenet as $table) {
+        $req = "DELETE FROM auth." . $table . " WHERE ";
+        if ($table == "battlenet_account_bans" OR $table == "battlenet_accounts") {
+            $req = $req . "id=";
+        } elseif ($table == "battlenet_account_heirlooms" OR $table == "battlenet_account_toys") {
+            $req = $req . "accountId=";
+        } elseif ($table == "battlenet_account_mounts" OR $table == "battlenet_item_appearances" OR $table == "battlenet_item_favorite_appearances") {
+            $req = $req . "battlenetAccountId=";
+        }
+        $req = $req . $account["id"];
+        $GLOBALS["dbh"]->query($req);
+    }
+}
+
+function getUserWowIdWithUserData($userdata)
+{
+    $user = (array)$userdata;
+    $data = (array)$user['data'];
+    $user_email = $data["user_email"];
+    $account = null;
+    if (isset($GLOBALS['dbh'])) {
+        $sth = $GLOBALS['dbh']->query("SELECT * FROM auth.account WHERE email='" . $user_email . "'");
+        while ($user = $sth->fetch(PDO::FETCH_ASSOC)) {
+            $account["username"] = $user["username"];
+            $account["id"] = $user["id"];
+        }
+    }
+    return $account;
 }
 
 function wow_update_user($userdata)
@@ -607,7 +640,7 @@ function serverOnline()
 
 function getAllItemClasses()
 {
-    $sth = $GLOBALS['database']->query("SELECT * FROM website.item_classes ORDER BY name");
+    $sth = $GLOBALS['dbh']->query("SELECT * FROM website.item_classes ORDER BY name");
     $data = array();
     while ($result = $sth->fetch(PDO::FETCH_ASSOC)) {
         $result["subclasses"] = json_decode($result["subclasses"]);
@@ -618,7 +651,7 @@ function getAllItemClasses()
 
 function getAllItemSetClasses()
 {
-    $sth = $GLOBALS['database']->query("SELECT * FROM website.item_set ORDER BY id");
+    $sth = $GLOBALS['dbh']->query("SELECT * FROM website.item_set ORDER BY id");
     $data = array();
     while ($result = $sth->fetch(PDO::FETCH_ASSOC)) {
         array_push($data, json_decode($result["allowableClasses"])[0]);

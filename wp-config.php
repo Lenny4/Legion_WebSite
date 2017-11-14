@@ -25,15 +25,6 @@ require_once 'wp-content/themes/legion/class/SOAPOnline.php';
 require_once 'wp-content/themes/legion/class/item.php';
 require_once 'wp-content/themes/legion/class/item_classes.php';
 require_once 'wp-content/themes/legion/class/item_set.php';
-session_start();
-// Database settings
-define('DB_NAME_SOAP', 'auth');
-
-// Soap settings
-define('SOAP_IP', '127.0.0.1');
-define('SOAP_PORT', '7878');
-define('SOAP_USER', '12#1');
-define('SOAP_PASS', 'Computer210496,');
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
@@ -63,14 +54,14 @@ define('DB_COLLATE', '');
  *
  * @since 2.6.0
  */
-define('AUTH_KEY',         '{s P@beTH|5#~p;zySNz zRQ11>?Jp,z}U.l09da,ZRX!,VV=S)a#f@qCFff9=4,');
-define('SECURE_AUTH_KEY',  'H_c[]B5b^0K;Q{b,MXZMahD*6QN|(14]Lz2ionz{ltyUYNA2wiOYFX Z/-/PX4j3');
-define('LOGGED_IN_KEY',    '$6,!9zExcRv-WSlJA=w>M&z~JLl|([f[ZYb*0cE*ZJE8 265Q?%~j/Ybz;}FFj*F');
-define('NONCE_KEY',        'agN#05fgz;v,}ivGo#}&w~an3x{##W!kAxYuMC#zu;QxfZ!PH;AudTv)bXHGy%)~');
-define('AUTH_SALT',        '{dw%k3b]O;AhJF,nk<XjG>D4XXqq/xT}^cwN;Ep6pu83jm0 G&^@Jr^eN3jn=b(k');
+define('AUTH_KEY', '{s P@beTH|5#~p;zySNz zRQ11>?Jp,z}U.l09da,ZRX!,VV=S)a#f@qCFff9=4,');
+define('SECURE_AUTH_KEY', 'H_c[]B5b^0K;Q{b,MXZMahD*6QN|(14]Lz2ionz{ltyUYNA2wiOYFX Z/-/PX4j3');
+define('LOGGED_IN_KEY', '$6,!9zExcRv-WSlJA=w>M&z~JLl|([f[ZYb*0cE*ZJE8 265Q?%~j/Ybz;}FFj*F');
+define('NONCE_KEY', 'agN#05fgz;v,}ivGo#}&w~an3x{##W!kAxYuMC#zu;QxfZ!PH;AudTv)bXHGy%)~');
+define('AUTH_SALT', '{dw%k3b]O;AhJF,nk<XjG>D4XXqq/xT}^cwN;Ep6pu83jm0 G&^@Jr^eN3jn=b(k');
 define('SECURE_AUTH_SALT', '%Xsxg2FJ@.3/j8zr`BJr<dF`}Kl]hr>oh9iMmJ~*{9~efRn%0`L#I2]?*RN##TSN');
-define('LOGGED_IN_SALT',   'wBu2W$-+E$s*DpFk4xBaB&de8BqrWh#Y,!R851#?8HaCY9#d> *M@k>N9TPONnbo');
-define('NONCE_SALT',       'p}-,.IbSWS+;v)Q/0)xD@&z;P*hwL;_ffNt4DA_i!%<2{Quv+}NWr,uV4e#s_LT5');
+define('LOGGED_IN_SALT', 'wBu2W$-+E$s*DpFk4xBaB&de8BqrWh#Y,!R851#?8HaCY9#d> *M@k>N9TPONnbo');
+define('NONCE_SALT', 'p}-,.IbSWS+;v)Q/0)xD@&z;P*hwL;_ffNt4DA_i!%<2{Quv+}NWr,uV4e#s_LT5');
 
 /**#@-*/
 
@@ -80,7 +71,7 @@ define('NONCE_SALT',       'p}-,.IbSWS+;v)Q/0)xD@&z;P*hwL;_ffNt4DA_i!%<2{Quv+}NW
  * You can have multiple installations in one database if you give each
  * a unique prefix. Only numbers, letters, and underscores please!
  */
-$table_prefix  = 'wp_';
+$table_prefix = 'wp_';
 
 /**
  * For developers: WordPress debugging mode.
@@ -99,8 +90,8 @@ define('WP_DEBUG', false);
 /* That's all, stop editing! Happy blogging. */
 
 /** Absolute path to the WordPress directory. */
-if ( !defined('ABSPATH') )
-	define('ABSPATH', dirname(__FILE__) . '/');
+if (!defined('ABSPATH'))
+    define('ABSPATH', dirname(__FILE__) . '/');
 
 /** Sets up WordPress vars and included files. */
 require_once(ABSPATH . 'wp-settings.php');

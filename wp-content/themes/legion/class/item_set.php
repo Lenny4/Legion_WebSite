@@ -82,7 +82,7 @@ class item_set
         return $req;
     }
 
-    function display($dbh)
+    function display()
     {
         $return = '<div class="display_item_set display_item" style="padding-left: 20px;padding-right: 20px">';
         $i = 0;
@@ -90,7 +90,7 @@ class item_set
             if ($i % 2 == 0) {
                 $return = $return . "<div class='row'>";
             }
-            $return = $return . previewItem($itemID, '', $dbh, $this->vote, true);
+            $return = $return . previewItem($itemID, '', $this->vote, true);
             if ($i % 2 != 0) {
                 $return = $return . "</div>";
             }
@@ -100,10 +100,10 @@ class item_set
         return $return;
     }
 
-    function smallDisplay($dbh)
+    function smallDisplay()
     {
         $return = '';
-        $allInfos = $this->getAllItemInfoOfTheSet($this->items, $dbh);
+        $allInfos = $this->getAllItemInfoOfTheSet($this->items);
         if ($allInfos == null) {
 
         } elseif ($allInfos == false) {
@@ -124,7 +124,7 @@ class item_set
         return $return;
     }
 
-    function getAllItemInfoOfTheSet($allID, $dbh)
+    function getAllItemInfoOfTheSet($allID)
     {
         $result = array();
         $req = 'SELECT `icon`, `itemLevel` FROM `item` WHERE `item_id`=' . $allID[0];
@@ -135,7 +135,7 @@ class item_set
             }
             $i++;
         }
-        $req = $dbh->query($req);
+        $req = $GLOBALS["dbh"]->query($req);
         if ($req == false) {
             return null;
         } else {

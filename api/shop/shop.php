@@ -1,6 +1,6 @@
 <?php
-require_once("../config.php");
-require_once($_SERVER['DOCUMENT_ROOT'] . "/wp-content/themes/legion/class/item.php");
+
+require_once ($_SERVER['DOCUMENT_ROOT']."/wp-config.php");
 
 $GLOBALS["shop_page_id"] = 0;
 
@@ -16,10 +16,10 @@ if (!isset($_POST)) {
 }
 
 //ITEM======================================================
-function createItem($POSTitem_id, $POSTitem_price, $dbh, $vote = 0)
+function createItem($POSTitem_id, $POSTitem_price, $vote = 0)
 {
     $item_id = intval($POSTitem_id);
-    $item = getItemInBdd($item_id, $dbh);
+    $item = getItemInBdd($item_id);
     if ($item->item_id == null) {
         $item_price = null;
         if ($POSTitem_price != '') {
@@ -40,10 +40,10 @@ function createItem($POSTitem_id, $POSTitem_price, $dbh, $vote = 0)
     return $item;
 }
 
-function getItemInBdd($itemID, $dbh)
+function getItemInBdd($itemID)
 {
     $item = new item();
-    $req = $dbh->query('SELECT * FROM `item` WHERE `item_id`=' . $itemID);
+    $req = $GLOBALS["dbh"]->query('SELECT * FROM `item` WHERE `item_id`=' . $itemID);
     if ($req == false) {
         return null;
     } else {
@@ -54,9 +54,9 @@ function getItemInBdd($itemID, $dbh)
     }
 }
 
-function insertItemInBdd($item, $dbh)
+function insertItemInBdd($item)
 {
-    $searchItem = getItemInBdd($item->item_id, $dbh);
+    $searchItem = getItemInBdd($item->item_id);
     if ($searchItem == null) {
         echo "An error occur<br/>";
         return;
@@ -66,8 +66,8 @@ function insertItemInBdd($item, $dbh)
         return;
     }
     $req = $item->generateInsertRequest();
-    $dbh->query($req);
-    $item = getItemInBdd($item->item_id, $dbh);
+    $GLOBALS["dbh"]->query($req);
+    $item = getItemInBdd($item->item_id);
     if ($item != null) {
         echo "Item added -> " . $item->item_id . ':' . $item->name . "<br/>";
     } else {
@@ -75,9 +75,9 @@ function insertItemInBdd($item, $dbh)
     }
 }
 
-function getItemByClassAndSubClass($subClassId, $classId, $dbh)
+function getItemByClassAndSubClass($subClassId, $classId)
 {
-    $req = $dbh->query('SELECT * FROM `item` WHERE `itemSubClass`=' . $subClassId . ' AND `itemClass`=' . $classId);
+    $req = $GLOBALS["dbh"]->query('SELECT * FROM `item` WHERE `itemSubClass`=' . $subClassId . ' AND `itemClass`=' . $classId);
     $return = array();
     if ($req == false) {
         return null;
@@ -94,10 +94,10 @@ function getItemByClassAndSubClass($subClassId, $classId, $dbh)
 //ITEM======================================================
 
 //ITEM CLASS======================================================
-function createItemClass($item, $dbh)
+function createItemClass($item)
 {
     $itemClassID = $item->itemClass;
-    $itemClass = getItemClassInBdd($itemClassID, $dbh);
+    $itemClass = getItemClassInBdd($itemClassID);
     if ($itemClass->class_id == null) {
         $allItemClass = json_decode(file_get_contents('https://us.api.battle.net/wow/data/item/classes?locale=en_US&apikey=' . API_KEY));
         $itemClass = new item_classes($item, $allItemClass);
@@ -105,10 +105,10 @@ function createItemClass($item, $dbh)
     return $itemClass;
 }
 
-function getItemClassInBdd($itemClassID, $dbh)
+function getItemClassInBdd($itemClassID)
 {
     $itemClass = new item_classes();
-    $req = $dbh->query('SELECT * FROM `item_classes` WHERE `class_id`=' . $itemClassID);
+    $req = $GLOBALS["dbh"]->query('SELECT * FROM `item_classes` WHERE `class_id`=' . $itemClassID);
     if ($req == false) {
         return null;
     } else {
@@ -119,9 +119,9 @@ function getItemClassInBdd($itemClassID, $dbh)
     }
 }
 
-function insertItemClassInBdd($itemClass, $dbh)
+function insertItemClassInBdd($itemClass)
 {
-    $searchItemClass = getItemClassInBdd($itemClass->class_id, $dbh);
+    $searchItemClass = getItemClassInBdd($itemClass->class_id);
     if ($searchItemClass == null) {
         echo "An error occur<br/>";
         return;
@@ -131,16 +131,16 @@ function insertItemClassInBdd($itemClass, $dbh)
         return;
     }
     $req = $itemClass->generateInsertRequest();
-    $dbh->query($req);
+    $GLOBALS["dbh"]->query($req);
 }
 
 //ITEM CLASS======================================================
 
 //ITEM SET======================================================
-function createItemSet($POSTitem_set_id, $POSTitem_set_price, $dbh, $vote = 0)
+function createItemSet($POSTitem_set_id, $POSTitem_set_price, $vote = 0)
 {
     $item_set_id = intval($POSTitem_set_id);
-    $item_set = getItemSetInBdd($item_set_id, $dbh);
+    $item_set = getItemSetInBdd($item_set_id);
     if ($item_set->item_set_id == null) {
         $item_set_price = null;
         if ($POSTitem_set_price != '') {
@@ -157,16 +157,16 @@ function createItemSet($POSTitem_set_id, $POSTitem_set_price, $dbh, $vote = 0)
             $item_set->price = $item_set_price;
         }
         $item_set->vote = intval($vote);
-        $oneItem = createItem($item_set->items[0], '', $dbh, $vote);
+        $oneItem = createItem($item_set->items[0], '', $vote);
         $item_set->allowableClasses = json_encode($oneItem->allowableClasses);
     }
     return $item_set;
 }
 
-function getItemSetInBdd($itemSetID, $dbh)
+function getItemSetInBdd($itemSetID)
 {
     $item_set = new item_set();
-    $req = $dbh->query('SELECT * FROM `item_set` WHERE `item_set_id`=' . $itemSetID);
+    $req = $GLOBALS["dbh"]->query('SELECT * FROM `item_set` WHERE `item_set_id`=' . $itemSetID);
     if ($req == false) {
         return null;
     } else {
@@ -177,9 +177,9 @@ function getItemSetInBdd($itemSetID, $dbh)
     }
 }
 
-function insertItemSetInBdd($item_set, $dbh)
+function insertItemSetInBdd($item_set)
 {
-    $searchItem = getItemSetInBdd($item_set->item_set_id, $dbh);
+    $searchItem = getItemSetInBdd($item_set->item_set_id);
     if ($searchItem == null) {
         echo "An error occur";
         return;
@@ -189,8 +189,8 @@ function insertItemSetInBdd($item_set, $dbh)
         return;
     }
     $req = $item_set->generateInsertRequest();
-    $dbh->query($req);
-    $item_set = getItemSetInBdd($item_set->item_set_id, $dbh);
+    $GLOBALS["dbh"]->query($req);
+    $item_set = getItemSetInBdd($item_set->item_set_id);
     if ($item_set != null) {
         echo "Item Set added -> " . $item_set->item_set_id . ':' . $item_set->name;
     } else {
@@ -198,9 +198,9 @@ function insertItemSetInBdd($item_set, $dbh)
     }
 }
 
-function getItemSetByClass($searchClass, $dbh)
+function getItemSetByClass($searchClass)
 {
-    $req = $dbh->query('SELECT * FROM `item_set` WHERE `allowableClasses` LIKE \'%' . $searchClass . '%\';');
+    $req = $GLOBALS["dbh"]->query('SELECT * FROM `item_set` WHERE `allowableClasses` LIKE \'%' . $searchClass . '%\';');
     $return = array();
     if ($req == false) {
         return null;
@@ -217,10 +217,10 @@ function getItemSetByClass($searchClass, $dbh)
 //ITEM SET======================================================
 
 //VIEW======================================================
-function previewItem($postItemId, $postItemPrice, $dbh, $vote = 0, $justReturn = false)
+function previewItem($postItemId, $postItemPrice, $vote = 0, $justReturn = false)
 {
-    $item = createItem($postItemId, $postItemPrice, $dbh, $vote);
-    $itemClass = createItemClass($item, $dbh);
+    $item = createItem($postItemId, $postItemPrice, $vote);
+    $itemClass = createItemClass($item);
     if ($justReturn == false) {
         echo($item->display($itemClass));
     } else {
@@ -228,39 +228,39 @@ function previewItem($postItemId, $postItemPrice, $dbh, $vote = 0, $justReturn =
     }
 }
 
-function previewItemSet($postItemSetId, $postItemSetPrice, $dbh, $vote = 0)
+function previewItemSet($postItemSetId, $postItemSetPrice, $vote = 0)
 {
-    $item_set = createItemSet($postItemSetId, $postItemSetPrice, $dbh, $vote);
-    echo($item_set->display($dbh));
+    $item_set = createItemSet($postItemSetId, $postItemSetPrice, $vote);
+    echo($item_set->display($GLOBALS["dbh"]));
 }
 
-function viewItems($subClassId, $classId, $dbh)
+function viewItems($subClassId, $classId)
 {
     $subClassId = intval($subClassId);
     $classId = intval($classId);
-    $result = getItemByClassAndSubClass($subClassId, $classId, $dbh);
+    $result = getItemByClassAndSubClass($subClassId, $classId);
     if ($result == null AND sizeof($result) > 0) {
         echo 'Error !';
     } elseif (sizeof($result) == 0) {
         echo 'No Result !';
     } else {
         foreach ($result as $item) {
-            $itemClass = createItemClass($item, $dbh);
+            $itemClass = createItemClass($item);
             echo($item->display($itemClass, true));
         }
     }
 }
 
-function viewItemSets($searchClass, $dbh)
+function viewItemSets($searchClass)
 {
-    $result = getItemSetByClass($searchClass, $dbh);
+    $result = getItemSetByClass($searchClass);
     if ($result == null AND sizeof($result) > 0) {
         echo 'Error !';
     } elseif (sizeof($result) == 0) {
         echo 'No Result !';
     } else {
         foreach ($result as $itemSet) {
-            echo($itemSet->smallDisplay($dbh));
+            echo($itemSet->smallDisplay($GLOBALS["dbh"]));
         }
     }
 }
@@ -268,54 +268,54 @@ function viewItemSets($searchClass, $dbh)
 //VIEW======================================================
 
 //ADD======================================================
-function addItemBdd($postItemId, $postItemPrice, $dbh, $vote = 0)
+function addItemBdd($postItemId, $postItemPrice, $vote = 0)
 {
-    $item = createItem($postItemId, $postItemPrice, $dbh, $vote);
-    $itemClass = createItemClass($item, $dbh);
-    insertItemInBdd($item, $dbh);
-    insertItemClassInBdd($itemClass, $dbh);
+    $item = createItem($postItemId, $postItemPrice, $vote);
+    $itemClass = createItemClass($item);
+    insertItemInBdd($item);
+    insertItemClassInBdd($itemClass);
     return $item;
 }
 
-function addItemSetBdd($postItemSetId, $postItemSetPrice, $dbh, $vote = 0)
+function addItemSetBdd($postItemSetId, $postItemSetPrice, $vote = 0)
 {
-    $item_set = createItemSet($postItemSetId, $postItemSetPrice, $dbh, $vote);
+    $item_set = createItemSet($postItemSetId, $postItemSetPrice, $vote);
     foreach ($item_set->items as $itemID) {
-        addItemBdd($itemID, '', $dbh, $vote);
+        addItemBdd($itemID, '', $vote);
     }
-    insertItemSetInBdd($item_set, $dbh);
+    insertItemSetInBdd($item_set);
 }
 
 //ADD======================================================
 
 if ($_POST['id'] == 'previewItem') {
-    previewItem($_POST['item_id'], $_POST['item_price'], $dbh, $_POST["vote"]);
+    previewItem($_POST['item_id'], $_POST['item_price'], $_POST["vote"]);
 }
 
 if ($_POST['id'] == 'addItem') {
     if (isWowAdmin()) {
-        addItemBdd($_POST['item_id'], $_POST['item_price'], $dbh, $_POST["vote"]);
+        addItemBdd($_POST['item_id'], $_POST['item_price'], $_POST["vote"]);
     } else {
         echo "Not Allowed !";
     }
 }
 
 if ($_POST['id'] == 'previewItemSet') {
-    previewItemSet($_POST['item_set_id'], $_POST['item_set_price'], $dbh, $_POST["vote"]);
+    previewItemSet($_POST['item_set_id'], $_POST['item_set_price'], $_POST["vote"]);
 }
 
 if ($_POST['id'] == 'addItemSet') {
     if (isWowAdmin()) {
-        addItemSetBdd($_POST['item_set_id'], $_POST['item_set_price'], $dbh, $_POST["vote"]);
+        addItemSetBdd($_POST['item_set_id'], $_POST['item_set_price'], $_POST["vote"]);
     } else {
         echo "Not Allowed !";
     }
 }
 
 if ($_POST['id'] == 'subItemClasse') {
-    viewItems($_POST['subClassId'], $_POST['classId'], $dbh);
+    viewItems($_POST['subClassId'], $_POST['classId']);
 }
 
 if ($_POST['id'] == 'subItemSetClasse') {
-    viewItemSets($_POST['searchClass'], $dbh);
+    viewItemSets($_POST['searchClass']);
 }
