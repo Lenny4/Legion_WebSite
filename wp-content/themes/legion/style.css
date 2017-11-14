@@ -168,6 +168,13 @@ hr.dividerFooter {
     background-image: url('/wp-content/uploads/2017/11/divider2.png');
 }
 
+@media (max-width: 768px) {
+    hr.dividerFooter, hr.dividerHeader {
+        width: 200%;
+        left: -50%;
+    }
+}
+
 div.hrMain {
     bottom: 50px;
     position: relative;
@@ -273,6 +280,7 @@ div.mainParallax {
     background-position: center;
     background-repeat: no-repeat;
     background-size: cover;
+    padding-bottom: 20px;
 }
 
 .buttonSideBar {
@@ -562,6 +570,7 @@ div.shopLink p.message span {
     position: relative;
     top: 10px;
 }
+
 section.shop a:hover {
     text-decoration: none;
     color: #8e983e;
@@ -721,11 +730,11 @@ div.display_item_set div.display_item p.stackable {
     display: none;
 }
 
-.wplc-color-bg-1{
-    background-color: rgba(28, 58, 22, 1)!important;
+.wplc-color-bg-1 {
+    background-color: rgba(28, 58, 22, 1) !important;
 }
 
-.wplc_left_logo{
+.wplc_left_logo {
     background: url("/wp-content/uploads/2017/11/Logo-Footer.png") no-repeat !important;
     background-size: 100% !important;
     background-position: center center !important;
