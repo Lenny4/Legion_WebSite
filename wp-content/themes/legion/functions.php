@@ -486,6 +486,7 @@ add_action('personal_options_update', 'my_save_extra_profile_fields');
 add_action('edit_user_profile_update', 'my_save_extra_profile_fields');
 add_action('user_register', 'wow_insert_user');//user create account => create user in wow game
 add_action('delete_user', 'wow_delete_user');//user delete account => delete user in wow game
+add_action('profile_update', 'wow_update_user');//user update account => update user in wow game
 
 // Remove Actions
 remove_action('wp_head', 'feed_links_extra', 3); // Display the links to the extra feeds such as category feeds
@@ -593,16 +594,17 @@ function getUserWowIdWithUserData($userdata)
     return $account;
 }
 
-function wow_update_user($userdata)
+function wow_update_user($user_id)
 {
-    $mail = getUserWowMailWithUserData($userdata);
+    $mail = get_userdata($user_id)->data->user_email;
     $newPassword = null;
     if (isset($_POST['password_repeat'])) {//account page
         $newPassword = $_POST['password_repeat'];
     } elseif (isset($_POST['pass1-text'])) {//wp admin panel page
         $newPassword = $_POST['pass1-text'];
+    } elseif (isset($_POST['password_2'])) {//reset password
+        $newPassword = $_POST['password_2'];
     }
-    //elseif //resetpassword prendre la key dans la bdd easy et faire se else if
     if ($newPassword != null) {
         new SOAPChangePassword($mail, $newPassword);
     }
