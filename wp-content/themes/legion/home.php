@@ -238,19 +238,49 @@
         </div>
     </a>
     <div class="col-sm-6 col-xs-12" style="margin-top: 20px">
-        <div class="col-xs-12 background">
-            <p class="h1">Royaume</p>
-            <hr/>
-            <p class="h2">Nom du Royaume :
+        <div class="col-xs-12 background" style="padding: 0">
+            <div class="col-sm-8 col-xs-12">
+                <p class="h2">Nom du Royaume :
+                    <?php
+                    if (serverOnline() == true) { ?>
+                        <span class="h3" style="color: green">Online</span>
+                    <?php } else { ?>
+                        <span class="h3" style="color: red">Offline</span>
+                    <?php } ?>
+                </p>
+            </div>
+            <div class="col-sm-4 col-xs-12" style="margin-top: 15px;">
+                <p>Rate XP : x10</p>
+                <p>Free first lvl 110</p>
+            </div>
+            <div class="col-xs-12" style="padding: 0">
+                <p class="col-xs-12">Reamlist: http://localhost/wowlegion.com</p>
                 <?php
-                if (serverOnline() == true) { ?>
-                    <span class="h3" style="color: green">Online</span>
-                <?php } else { ?>
-                    <span class="h3" style="color: red">Offline</span>
-                <?php } ?>
-            </p>
-            <p style="font-size: 20px">Rate XP | Loot | Gold : x10</p>
-            <p style="font-size: 20px">Free first lvl 110</p>
+                $homePageId = get_option('page_on_front');
+                $image = get_field("horde/alliance", $homePageId);
+                $link = wp_get_attachment_image_src($image["id"], "full")[0];
+                ?>
+                <div style="background-image: url('<?= $link; ?>');background-size: 100% 100%;background-repeat: no-repeat;">
+                    <p class="h3 text-center"
+                       style="text-shadow: #000000 1px 1px, #000000 -1px 1px, #000000 -1px -1px, #000000 1px -1px;">
+                        Online Player
+                    </p>
+                    <?php $tabOnline = getOnlinePlayer(); ?>
+                    <div id="onlinePlayer" class="row">
+                        <div style="width: <?= $tabOnline["pBlue"] ?>%"><p
+                                    class="text-center h4"><?= $tabOnline["blue"] ?></p>
+                        </div>
+                        <div style="width: <?= $tabOnline["pRed"] ?>%"><p
+                                    class="text-center h4"><?= $tabOnline["red"] ?></p></div>
+                        <div style="height: 10px; width: 100%"></div>
+                        <div style="border-radius: 5px 0px 0px 5px;background-color:darkblue; width: <?= $tabOnline["pBlue"] ?>%">
+                            <span><?= $tabOnline["pBlue"] ?>%</span></div>
+                        <div style="border-radius: 0px 5px 5px 0px;background-color:darkred; width: <?= $tabOnline["pRed"] ?>%">
+                            <span><?= $tabOnline["pRed"] ?>%</span></div>
+                    </div>
+                    <br/>
+                </div>
+            </div>
         </div>
         <div class="col-xs-12 background" style="margin-top: 20px">
             <p class="h1">Classement</p>

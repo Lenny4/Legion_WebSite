@@ -10,27 +10,6 @@
 
     <p data-toggle="modal" data-target="#chooseLanguage" class="h3 clickable text-center">Change Language</p>
     <hr/>
-    <?php
-    $homePageId = get_option('page_on_front');
-    $image = get_field("horde/alliance", $homePageId);
-    $link = wp_get_attachment_image_src($image["id"],"full")[0];
-    ?>
-    <div style="background-image: url('<?= $link; ?>');background-size: 100% 100%;background-repeat: no-repeat;">
-        <p class="h3 text-center">Online Player</p>
-        <?php $tabOnline = getOnlinePlayer(); ?>
-        <div id="onlinePlayer" class="row">
-            <div style="width: <?= $tabOnline["pBlue"] ?>%"><p class="text-center h4"><?= $tabOnline["blue"] ?></p>
-            </div>
-            <div style="width: <?= $tabOnline["pRed"] ?>%"><p class="text-center h4"><?= $tabOnline["red"] ?></p></div>
-            <div style="height: 10px; width: 100%"></div>
-            <div style="border-radius: 5px 0px 0px 5px;background-color:darkblue; width: <?= $tabOnline["pBlue"] ?>%">
-                <span><?= $tabOnline["pBlue"] ?>%</span></div>
-            <div style="border-radius: 0px 5px 5px 0px;background-color:darkred; width: <?= $tabOnline["pRed"] ?>%">
-                <span><?= $tabOnline["pRed"] ?>%</span></div>
-        </div>
-        <br/>
-    </div>
-    <hr/>
 
     <!-- Modal -->
     <div id="chooseLanguage" class="modal fade" role="dialog">
