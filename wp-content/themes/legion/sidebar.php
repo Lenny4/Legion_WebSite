@@ -31,7 +31,7 @@
 
         </div>
     </div>
-
+    <a href="/wp-login.php?action=logout">Logout</a>
 </aside>
 
 <div class="col-sm-1-offset"></div>
