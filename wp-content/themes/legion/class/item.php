@@ -309,7 +309,7 @@ class item
                             } else if ($key == "maxDurability") {
                                 $return = $return . '<p class="' . $key . '"><span class="' . $key . '">Durability </span><span class="value">' . $value . '</span></p>';
                             } else if ($key == "sellPrice") {
-                                $return = $this->displaySellPrice($return, $key, $value);
+                                $return = $this->displaySellPrice($return, $value);
                             } else if ($key == "requiredLevel") {
                                 $return = $return . '<p class="' . $key . '"><span class="' . $key . '">Required Level </span><span class="value">' . $value . '</span></p>';
                             } else if ($key == "description") {
@@ -362,14 +362,14 @@ class item
         return $return;
     }
 
-    function displaySellPrice($return, $key, $value)
+    function displaySellPrice($return, $value)
     {
-        $homePageId = get_option('page_on_front');
-        $image = get_field("money_gold", $homePageId);
+        $shopPageId = $GLOBALS["shop_page_id"];
+        $image = get_field("money_gold", $shopPageId);
         $imgGold = wp_get_attachment_image($image["id"], 'full', "", ["class" => "img-responsive"]);
-        $image = get_field("money_silver", $homePageId);
+        $image = get_field("money_silver", $shopPageId);
         $imgSilver = wp_get_attachment_image($image["id"], 'full', "", ["class" => "img-responsive"]);
-        $image = get_field("money_copper", $homePageId);
+        $image = get_field("money_copper", $shopPageId);
         $imgCopper = wp_get_attachment_image($image["id"], 'full', "", ["class" => "img-responsive"]);
         $globalArray = array_map('intval', str_split($value));
         $globalArray = array_reverse($globalArray);

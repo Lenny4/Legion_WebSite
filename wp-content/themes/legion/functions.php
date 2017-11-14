@@ -183,6 +183,42 @@ function html5blank_header_scripts()
     }
 }
 
+function points_extra_fields($user)
+{ ?>
+
+    <h3>Points Informations</h3>
+
+    <table class="form-table">
+        <tr>
+            <th><label for="vote_points">Vote</label></th>
+            <td>
+                <input type="number" name="vote_points" id="vote_points"
+                       value="<?php echo esc_attr(get_the_author_meta('vote_points', $user->ID)); ?>"
+                       class="regular-text"/><br/>
+                <span class="description">Amount of vote point</span>
+            </td>
+        </tr>
+        <tr>
+            <th><label for="buy_points">Buy</label></th>
+            <td>
+                <input type="number" name="buy_points" id="buy_points"
+                       value="<?php echo esc_attr(get_the_author_meta('buy_points', $user->ID)); ?>"
+                       class="regular-text"/><br/>
+                <span class="description">Amount of buy point</span>
+            </td>
+        </tr>
+    </table>
+<?php }
+
+function my_save_extra_profile_fields($user_id)
+{
+    if (!current_user_can('edit_user', $user_id)) {
+        return false;
+    }
+    update_user_meta($user_id, 'vote_points', $_POST['vote_points']);
+    update_user_meta($user_id, 'buy_points', $_POST['buy_points']);
+}
+
 // Load HTML5 Blank conditional scripts
 function html5blank_conditional_scripts()
 {
@@ -427,6 +463,10 @@ add_action('wp_enqueue_scripts', 'html5blank_styles'); // Add Theme Stylesheet
 add_action('init', 'register_html5_menu'); // Add HTML5 Blank Menu
 add_action('widgets_init', 'my_remove_recent_comments_style'); // Remove inline Recent Comment Styles from wp_head()
 add_action('init', 'html5wp_pagination'); // Add our HTML5 Pagination
+add_action('show_user_profile', 'points_extra_fields');
+add_action('edit_user_profile', 'points_extra_fields');
+add_action('personal_options_update', 'my_save_extra_profile_fields');
+add_action('edit_user_profile_update', 'my_save_extra_profile_fields');
 
 // Remove Actions
 remove_action('wp_head', 'feed_links_extra', 3); // Display the links to the extra feeds such as category feeds
@@ -520,9 +560,6 @@ function wow_delete_user($userdata)
     }
 }
 
-/**
- * @param $userdata
- */
 function wow_update_user($userdata)
 {
     $mail = getUserWowMailWithUserData($userdata);
@@ -532,7 +569,7 @@ function wow_update_user($userdata)
     } elseif (isset($_POST['pass1-text'])) {//wp admin panel page
         $newPassword = $_POST['pass1-text'];
     }
-    //elseif //resetpassword
+    //elseif //resetpassword prendre la key dans la bdd easy et faire se else if
     if ($newPassword != null) {
         new SOAPChangePassword($mail, $newPassword);
     }

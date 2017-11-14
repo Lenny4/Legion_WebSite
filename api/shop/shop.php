@@ -2,6 +2,15 @@
 require_once("../config.php");
 require_once($_SERVER['DOCUMENT_ROOT'] . "/wp-content/themes/legion/class/item.php");
 
+$GLOBALS["shop_page_id"] = 0;
+
+$pages = get_pages(array(
+    'meta_value' => 'shop.php'
+));
+foreach ($pages as $page) {
+    $GLOBALS["shop_page_id"] = $page->ID;
+}
+
 if (!isset($_POST)) {
     echo("No data");
 }
