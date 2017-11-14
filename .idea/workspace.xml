@@ -2,8 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="affa7653-6245-44a3-9715-fb48452b4bb8" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/legion/home.php" afterPath="$PROJECT_DIR$/wp-content/themes/legion/home.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/legion/style.css" afterPath="$PROJECT_DIR$/wp-content/themes/legion/style.css" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -65,7 +63,7 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="home.php" pinned="false" current-in-tab="true">
+      <file leaf-file-name="home.php" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/home.php">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="201">
@@ -125,11 +123,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="style.css" pinned="false" current-in-tab="false">
+      <file leaf-file-name="style.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="141">
-              <caret line="548" column="33" lean-forward="false" selection-start-line="548" selection-start-column="33" selection-end-line="548" selection-end-column="33" />
+            <state relative-caret-position="464">
+              <caret line="730" column="50" lean-forward="true" selection-start-line="730" selection-start-column="50" selection-end-line="730" selection-end-column="50" />
               <folding />
             </state>
           </provider>
@@ -184,10 +182,10 @@
       <find>pinte</find>
       <find>get_field</find>
       <find>$homePageId = get_option('page_on_front');</find>
-      <find>shop</find>
       <find>shopLink</find>
       <find>p.mess</find>
       <find>message</find>
+      <find>shop</find>
     </findStrings>
     <replaceStrings>
       <replace>$homePageId</replace>
@@ -256,8 +254,8 @@
         <option value="$PROJECT_DIR$/wp-includes/user.php" />
         <option value="$PROJECT_DIR$/wp-content/themes/legion/functions.php" />
         <option value="$PROJECT_DIR$/api/shop/shop.php" />
-        <option value="$PROJECT_DIR$/wp-content/themes/legion/style.css" />
         <option value="$PROJECT_DIR$/wp-content/themes/legion/home.php" />
+        <option value="$PROJECT_DIR$/wp-content/themes/legion/style.css" />
       </list>
     </option>
   </component>
@@ -396,12 +394,12 @@
       <workItem from="1510360630773" duration="25641000" />
       <workItem from="1510442046144" duration="27997000" />
       <workItem from="1510533899613" duration="9022000" />
-      <workItem from="1510629635562" duration="24363000" />
+      <workItem from="1510629635562" duration="25612000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="234670000" />
+    <option name="totallyTimeSpent" value="235919000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -895,14 +893,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/style.css">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="141">
-          <caret line="548" column="33" lean-forward="false" selection-start-line="548" selection-start-column="33" selection-end-line="548" selection-end-column="33" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/home.php">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="201">
@@ -921,6 +911,14 @@
             <marker date="1510676037238" expanded="true" signature="10508:10535" ph="..." />
             <marker date="1510676037238" expanded="false" signature="10537:10568" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="464">
+          <caret line="730" column="50" lean-forward="true" selection-start-line="730" selection-start-column="50" selection-end-line="730" selection-end-column="50" />
+          <folding />
         </state>
       </provider>
     </entry>

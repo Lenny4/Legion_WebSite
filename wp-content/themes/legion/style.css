@@ -720,3 +720,13 @@ div.display_item_set div.display_item {
 div.display_item_set div.display_item p.stackable {
     display: none;
 }
+
+.wplc-color-bg-1{
+    background-color: rgba(28, 58, 22, 1)!important;
+}
+
+.wplc_left_logo{
+    background: url("/wp-content/uploads/2017/11/Logo-Footer.png") no-repeat !important;
+    background-size: 100% !important;
+    background-position: center center !important;
+}
