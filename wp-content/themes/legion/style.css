@@ -337,7 +337,7 @@ aside {
     margin: 0;
 }
 
-#wpum_loginform input.input{
+#wpum_loginform input.input {
     display: block;
     width: 100%;
     height: 34px;
@@ -349,11 +349,11 @@ aside {
     background-image: none;
     border: 1px solid #ccc;
     border-radius: 4px;
-    -webkit-box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
-    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
-    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
+    -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
 }
 
 #wpum_loginform .button {
@@ -409,7 +409,7 @@ aside {
     border-color: #ccc;
 }
 
-div.wpum-message.error{
+div.wpum-message.error {
     background-color: #b94a48;
     border-color: #b94a48;
     color: #b94a48;
@@ -785,6 +785,22 @@ div.display_item_set div.display_item p.stackable {
 
 .wplc-color-bg-1 {
     background-color: rgba(28, 58, 22, 1) !important;
+}
+
+#wp-live-chat-2 input {
+    background-color: rgba(28, 58, 22, 1) !important;
+}
+
+.wplc-user-message {
+    border: 1px solid rgba(28, 58, 22, 1) !important;
+}
+
+.wplc-color-border-1:before {
+    border-color: transparent rgba(28, 58, 22, 1) !important;
+}
+
+#wplc_name {
+    color: white !important;
 }
 
 .wplc_left_logo {

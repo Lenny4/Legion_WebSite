@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="affa7653-6245-44a3-9715-fb48452b4bb8" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/legion/sidebar.php" afterPath="$PROJECT_DIR$/wp-content/themes/legion/sidebar.php" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/wp-content/themes/legion/style.css" afterPath="$PROJECT_DIR$/wp-content/themes/legion/style.css" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -139,8 +138,8 @@
       <file leaf-file-name="style.css" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/style.css">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
-              <caret line="414" column="19" lean-forward="false" selection-start-line="414" selection-start-column="19" selection-end-line="414" selection-end-column="19" />
+            <state relative-caret-position="387">
+              <caret line="802" column="28" lean-forward="false" selection-start-line="802" selection-start-column="28" selection-end-line="802" selection-end-column="28" />
               <folding />
             </state>
           </provider>
@@ -399,12 +398,12 @@
       <workItem from="1510360630773" duration="25641000" />
       <workItem from="1510442046144" duration="27997000" />
       <workItem from="1510533899613" duration="9022000" />
-      <workItem from="1510629635562" duration="28152000" />
+      <workItem from="1510629635562" duration="29338000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="238459000" />
+    <option name="totallyTimeSpent" value="239645000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
@@ -940,8 +939,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/wp-content/themes/legion/style.css">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="414" column="19" lean-forward="false" selection-start-line="414" selection-start-column="19" selection-end-line="414" selection-end-column="19" />
+        <state relative-caret-position="387">
+          <caret line="802" column="28" lean-forward="false" selection-start-line="802" selection-start-column="28" selection-end-line="802" selection-end-column="28" />
           <folding />
         </state>
       </provider>
