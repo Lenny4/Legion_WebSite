@@ -246,6 +246,7 @@ div.footer_nav ul {
     list-style: none;
     padding-top: 40px;
     float: right;
+    margin-right: 70px;
 }
 
 div.footer_nav ul li {

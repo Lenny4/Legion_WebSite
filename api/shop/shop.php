@@ -1,6 +1,11 @@
 <?php
 
-require_once ($_SERVER['DOCUMENT_ROOT']."/wp-config.php");
+require_once($_SERVER['DOCUMENT_ROOT'] . "/wp-config.php");
+
+if (strpos($_SERVER["HTTP_REFERER"], $_SERVER["SERVER_NAME"]) == false) {//check if request is from my site
+    echo("Not allowed");
+    return;
+}
 
 $GLOBALS["shop_page_id"] = 0;
 
