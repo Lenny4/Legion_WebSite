@@ -486,7 +486,7 @@ add_action('personal_options_update', 'my_save_extra_profile_fields');
 add_action('edit_user_profile_update', 'my_save_extra_profile_fields');
 add_action('user_register', 'wow_insert_user');//user create account => create user in wow game
 add_action('delete_user', 'wow_delete_user');//user delete account => delete user in wow game
-add_action('profile_update', 'wow_update_user');//user update account => update user in wow game
+add_action('profile_update', 'wow_update_user', 10, 2);//user update account => update user in wow game
 
 // Remove Actions
 remove_action('wp_head', 'feed_links_extra', 3); // Display the links to the extra feeds such as category feeds
@@ -544,17 +544,60 @@ function html5_shortcode_demo_2($atts, $content = null) // Demo Heading H2 short
     return '<h2>' . $content . '</h2>';
 }
 
-function getUserWowMailWithUserData($userdata)
+function getUserWowIdWithUserData($userdata)
 {
-    $user_email = $userdata["user_email"];
-    return $user_email;
+    $user = (array)$userdata;
+    $data = (array)$user['data'];
+    $user_email = $data["user_email"];
+    $account = null;
+    if (isset($GLOBALS['dbh'])) {
+        $sth = $GLOBALS['dbh']->query("SELECT * FROM auth.account WHERE email='" . $user_email . "'");
+        while ($user = $sth->fetch(PDO::FETCH_ASSOC)) {
+            $account["username"] = $user["username"];
+            $account["id"] = $user["id"];
+        }
+    }
+    return $account;
 }
 
 function wow_insert_user($user_id)
 {
     $mail = $_POST['user_email'];
-    $password = $_POST['password'];
+    if (isset($_POST["password"])) {
+        $password = $_POST["password"];
+    } elseif (isset($_POST["pass1-text"])) {
+        $password = $_POST["pass1-text"];
+    } else {
+        $password = null;
+    }
     new SOAPRegistration($mail, $password);
+    update_user_meta($user_id, 'vote_points', 0);
+    update_user_meta($user_id, 'buy_points', 0);
+    update_user_meta($user_id, 'real_password', $password);
+}
+
+function wow_update_user($user_id, $old_user_data)
+{
+    $mail = get_userdata($user_id)->data->user_email;
+    $oldMail = $old_user_data->data->user_email;
+
+    $newPassword = null;
+    if (isset($_POST['password_repeat'])) {//account page
+        $newPassword = $_POST['password_repeat'];
+    } elseif (isset($_POST['pass1-text'])) {//wp admin panel page
+        $newPassword = $_POST['pass1-text'];
+    } elseif (isset($_POST['password_2'])) {//reset password
+        $newPassword = $_POST['password_2'];
+    }
+    if ($newPassword != null) {
+        new SOAPChangePassword($mail, $newPassword);
+        update_user_meta($user_id, 'real_password', $newPassword);
+    }
+    //Change mail after IMPORTANT !!!
+    if ($mail != $oldMail) {
+        $GLOBALS["dbh"]->query("UPDATE auth.battlenet_accounts SET email='" . strtoupper($mail) . "' WHERE email='" . strtoupper($oldMail) . "'");
+        new SOAPChangePassword($mail, get_user_meta($user_id, 'real_password')[0]);
+    }
 }
 
 function wow_delete_user($user_id)
@@ -575,38 +618,6 @@ function wow_delete_user($user_id)
         }
         $req = $req . $account["id"];
         $GLOBALS["dbh"]->query($req);
-    }
-}
-
-function getUserWowIdWithUserData($userdata)
-{
-    $user = (array)$userdata;
-    $data = (array)$user['data'];
-    $user_email = $data["user_email"];
-    $account = null;
-    if (isset($GLOBALS['dbh'])) {
-        $sth = $GLOBALS['dbh']->query("SELECT * FROM auth.account WHERE email='" . $user_email . "'");
-        while ($user = $sth->fetch(PDO::FETCH_ASSOC)) {
-            $account["username"] = $user["username"];
-            $account["id"] = $user["id"];
-        }
-    }
-    return $account;
-}
-
-function wow_update_user($user_id)
-{
-    $mail = get_userdata($user_id)->data->user_email;
-    $newPassword = null;
-    if (isset($_POST['password_repeat'])) {//account page
-        $newPassword = $_POST['password_repeat'];
-    } elseif (isset($_POST['pass1-text'])) {//wp admin panel page
-        $newPassword = $_POST['pass1-text'];
-    } elseif (isset($_POST['password_2'])) {//reset password
-        $newPassword = $_POST['password_2'];
-    }
-    if ($newPassword != null) {
-        new SOAPChangePassword($mail, $newPassword);
     }
 }
 
