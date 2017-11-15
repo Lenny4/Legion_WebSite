@@ -29,6 +29,7 @@ class parent_item
 
     public function generateInsertRequest()
     {
+        unset($this->id);
         $req = "INSERT INTO `" . get_class($this) . "`(";
         $i = 0;
         foreach ($this as $key => $value) {

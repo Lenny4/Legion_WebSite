@@ -60,13 +60,31 @@
 
                 <div class=" col-md-6 col-xs-12 borderWhite">
                     <?php
-                    var_dump($_POST);
-                    var_dump($_FILES);
+                    if (isset($_FILES) AND isset($_POST["addHomeItem"])) {
+                        $url = uploadFile($_FILES);
+                        if ($url != false) {
+                            $homeItem = new item_home();
+                            $homeItem->name = $_POST["item_name"];
+                            $homeItem->price = intval($_POST["item_price"]);
+                            $homeItem->phpclasse = $_POST["item_phpClasse"];
+                            $homeItem->vote = $_POST["vote"];
+                            $homeItem->image = $url;
+                            $req = $homeItem->generateInsertRequest();
+                            $GLOBALS["dbh"]->query($req); ?>
+                            <div class="alert alert-success alert-dismissable">
+                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                                Item added !
+                            </div>
+                            <?php
+                        } else {
+                            echo "Error upload image";
+                        }
+                    }
                     ?>
                     <p class="h3">Home page item</p>
                     <form method="post" id="addHomeItem" enctype="multipart/form-data">
                         <div class="form-group">
-                            <input type="file" name="item_file">
+                            <input type="file" name="file">
                         </div>
                         <div class="form-group">
                             <input placeholder="Item name (en)" type="text" class="form-control" name="item_name">
@@ -86,7 +104,7 @@
                                 <option value="0">No</option>
                             </select>
                         </div>
-                        <button type="submit" class="btn btn-default">Add item</button>
+                        <button name="addHomeItem" type="submit" class="btn btn-default">Add item</button>
                     </form>
                 </div>
                 <div class=" col-md-6 col-xs-12 borderWhite">

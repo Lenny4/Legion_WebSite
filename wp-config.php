@@ -22,9 +22,12 @@ require_once 'wp-content/themes/legion/class/SOAPRegistration.php';
 require_once 'wp-content/themes/legion/class/SOAPDeletion.php';
 require_once 'wp-content/themes/legion/class/SOAPChangePassword.php';
 require_once 'wp-content/themes/legion/class/SOAPOnline.php';
+require_once 'wp-content/themes/legion/class/parent_item.php';
 require_once 'wp-content/themes/legion/class/item.php';
 require_once 'wp-content/themes/legion/class/item_classes.php';
 require_once 'wp-content/themes/legion/class/item_set.php';
+require_once 'wp-content/themes/legion/class/item_home.php';
+require_once 'wp-content/themes/legion/class/item_home_level.php';
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */

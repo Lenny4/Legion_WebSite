@@ -6,9 +6,9 @@
  * Time: 20:26
  */
 
-include_once("home_item.php");
+include_once("item_home.php");
 
-class home_item_level extends home_item
+class item_home_level extends item_home
 {
 
 }
