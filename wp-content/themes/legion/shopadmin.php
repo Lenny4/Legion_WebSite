@@ -58,6 +58,45 @@
                     </form>
                 </div>
 
+                <div class=" col-md-6 col-xs-12 borderWhite">
+                    <?php
+                    var_dump($_POST);
+                    var_dump($_FILES);
+                    ?>
+                    <p class="h3">Home page item</p>
+                    <form method="post" id="addHomeItem" enctype="multipart/form-data">
+                        <div class="form-group">
+                            <input type="file" name="item_file">
+                        </div>
+                        <div class="form-group">
+                            <input placeholder="Item name (en)" type="text" class="form-control" name="item_name">
+                        </div>
+                        <div class="form-group">
+                            <input placeholder="Item price" type="number" class="form-control" name="item_price">
+                        </div>
+                        <div class="form-group">
+                            <input placeholder="Item php classe without .php" type="text" class="form-control"
+                                   name="item_phpClasse">
+                            https://stackoverflow.com/questions/4578335/creating-php-class-instance-with-a-string/4578343
+                        </div>
+                        <div class="form-group">
+                            <label for="sel1">Can buy with vote point</label>
+                            <select class="form-control" name="vote">
+                                <option selected value="1">Yes</option>
+                                <option value="0">No</option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-default">Add item</button>
+                    </form>
+                </div>
+                <div class=" col-md-6 col-xs-12 borderWhite">
+                    <p class="h3">Define normal price for object (need to be store in bdd)</p>
+                    Create a button change all current item price
+                </div>
+                <div class=" col-md-6 col-xs-12 borderWhite">
+                    <p class="h3">Promotion (will apply to all according to the category choose item itemset home
+                        item)</p>
+                </div>
                 <?php comments_template('', true); // Remove if you don't want comments ?>
 
                 <br class="clear">
@@ -107,6 +146,9 @@
 
 <script>
     $("form").submit(function (event) {
+        if ($(event.target).attr("id") === "addHomeItem") {
+            return;
+        }
         event.preventDefault();
         var form = 'id=' + $(event.target).attr("id") + "&" + $(event.target).serialize();
         $("*").addClass("progressWait");
@@ -118,6 +160,9 @@
                     previewItem(data);
                 }
                 if ($(event.target).attr("id") === "previewItemSet") {
+                    previewItemSet(data);
+                }
+                if ($(event.target).attr("id") === "addHomeItem") {
                     previewItemSet(data);
                 }
             }

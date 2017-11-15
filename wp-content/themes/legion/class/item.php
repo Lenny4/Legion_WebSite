@@ -1,9 +1,11 @@
 <?php
 
+include_once("parent_item.php");
+
 //For array
 //https://us.battle.net/forums/en/bnet/topic/20743006350#2
 
-class item
+class item extends parent_item
 {
     public $promotion = 0;
     public $item_id = null;
@@ -26,7 +28,7 @@ class item
     public $itemSet = null;
     public $sellPrice = null;
     public $price = 0;
-    public $vote=0;
+    public $vote = 0;
 
     public function hydrateAPI($data)
     {
@@ -184,60 +186,6 @@ class item
         }
     }
 
-    public function hydrateBDD($data)
-    {
-        foreach ($data as $key => $value) {
-            if (is_int($value)) {
-                $this->$key = intval($value);
-            } else {
-                $newValue = json_decode($value);
-                if ($newValue != NULL) {
-                    $this->$key = $newValue;
-                } else {
-                    $this->$key = $value;
-                }
-            }
-        }
-    }
-
-    public function generateInsertRequest()
-    {
-        $req = "INSERT INTO `item`(";
-        $i = 0;
-        foreach ($this as $key => $value) {
-            if ($i == 0) {
-                $req = $req . "`" . $key . "`";
-            } else {
-                $req = $req . ", `" . $key . "`";
-            }
-            $i++;
-        }
-        $req = $req . ") VALUES (";
-        $i = 0;
-        foreach ($this as $key => $value) {
-            if ($i == 0) {
-                if (is_int($value) OR is_bool($value)) {
-                    $req = $req . intval($value);
-                } elseif (is_array($value)) {
-                    $req = $req . "'" . addslashes(json_encode($value)) . "'";
-                } else {
-                    $req = $req . "'" . addslashes($value) . "'";
-                }
-            } else {
-                if (is_int($value) OR is_bool($value)) {
-                    $req = $req . ", " . intval($value);
-                } elseif (is_array($value)) {
-                    $req = $req . ", '" . addslashes(json_encode($value)) . "'";
-                } else {
-                    $req = $req . ", '" . addslashes($value) . "'";
-                }
-            }
-            $i++;
-        }
-        $req = $req . ")";
-        return $req;
-    }
-
     public function display($itemClass, $small = false)
     {
         $return = '';
@@ -322,9 +270,11 @@ class item
                                 }
                             } elseif ($key == "itemSet" AND $value == 0) {
                                 $return = $return . '<p class="' . $key . ' no' . $key . '"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value">' . $value . '</span></p>';
-                            } elseif($key=="itemLevel") {
+                            } elseif ($key == "itemLevel") {
                                 $return = $return . '<p class="' . $key . '"><span class="' . $key . '">Item Level </span><span class="value">' . $value . '</span></p>';
-                            }else {
+                            } elseif ($key == 'stackable' AND $value > 9) {
+                                $return = $return . '<p class="' . $key . ' extra"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value">' . $value . '</span></p>';
+                            } else {
                                 $return = $return . '<p class="' . $key . '"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value">' . $value . '</span></p>';
                             }
                         }
@@ -374,16 +324,16 @@ class item
         $globalArray = array_map('intval', str_split($value));
         $globalArray = array_reverse($globalArray);
         if (!isset($globalArray[1])) {
-            $globalArray[1]=0;
+            $globalArray[1] = 0;
         }
         if (!isset($globalArray[2])) {
-            $globalArray[2]=0;
+            $globalArray[2] = 0;
         }
         if (!isset($globalArray[3])) {
-            $globalArray[3]=0;
+            $globalArray[3] = 0;
         }
         if (!isset($globalArray[4])) {
-            $globalArray[4]=0;
+            $globalArray[4] = 0;
         }
         $cooperArray = [$globalArray[0], $globalArray[1]];
         $silverArray = [$globalArray[2], $globalArray[3]];

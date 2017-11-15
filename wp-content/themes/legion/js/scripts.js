@@ -44,7 +44,6 @@ function hideShowSideBar(resize) {
             $(button).removeClass("fa-arrow-circle-left");
             $(button).addClass("fa-arrow-circle-right");
         }
-        console.log($(sideBar).css("left"));
     } else {
         if ($(sideBar).hasClass("active")) {
             $(sideBar).animate({

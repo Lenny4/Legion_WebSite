@@ -669,6 +669,14 @@ a.pinterest:hover .display_item p.stackable {
     top: 39px;
 }
 
+.display_item p.stackable.extra {
+    left: 53px;
+}
+
+a.pinterest:hover .display_item p.stackable.extra {
+    left: 37px;
+}
+
 .display_item img {
     border-radius: 2px 2px 2px 2px;
 }
