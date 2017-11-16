@@ -250,32 +250,30 @@
                 hideAllHeaderShop();
                 hideAjaxLoaderShop();
                 $("#shopDisplayItems").html(data);
+                $maxHeight = 0;
             });
     }
 
-    function sameHeight($height=0) {
+    var $maxHeight = 0;
+
+    function sameHeight() {
         if ($(window).width() <= 768) {
-            return;
+            $("div.display_item").height("auto");
         }
-        var $maxHeight = 0;
         var $allContent = $("#shopDisplayItems").first();
-        if ($height === 0) {
-            $($allContent).children('a').each(function () {
-                $li = $(this).children();
-                if ($($li).height() > $maxHeight) {
-                    $maxHeight = $($li).height();
-                }
-            });
-            sameHeight($maxHeight - 12);
-        } else {
-            $($allContent).children('a').each(function () {
-                $div = $(this).children().children("div");
-                $($div).height($height);
-            });
-            setTimeout(function () {
-                sameHeight();
-            }, 500);
+        $($allContent).children('a').each(function () {
+            var $div = $(this).children().children("div.display_item");
+            if ($($div).height() > $maxHeight) {
+                $maxHeight = $($div).height();
+            }
+        });
+        if ($maxHeight > 62 && $(window).width() > 768) {//par tatonnage grâce au console.log
+            $("div.display_item").height($maxHeight);
         }
+//        console.log($maxHeight);
+        setTimeout(function () {
+            sameHeight();
+        }, 500);
     }
 
     function showMoreTransmo() {
@@ -306,10 +304,10 @@
                 if (data !== 'Error !' && data !== 'No Result !') {
                     showFilterShop();
                     $("#shopDisplayItems").html(data);
-                    sameHeight();
                 } else {
                     showAlertMessage(data);
                 }
+                $maxHeight = 0;
             });
     });
 
@@ -335,10 +333,10 @@
                 if (data !== 'Error !' && data !== 'No Result !') {
                     showFilterShop();
                     $("#shopDisplayItems").html(data);
-                    sameHeight();
                 } else {
                     showAlertMessage(data);
                 }
+                $maxHeight = 0;
             });
     });
 
@@ -354,6 +352,7 @@
             });
         });
         loadHomePageShop();
+        sameHeight();
     });
 </script>
 

@@ -152,3 +152,23 @@ $(window).resize(function () {
 $(document).scroll(function () {
     changeMenuCss()
 });
+
+
+// var $allContent = $("#shopDisplayItems").first();
+// if ($height === 0) {
+//     $($allContent).children('a').each(function () {
+//         $li = $(this).children();
+//         if ($($li).height() > $maxHeight) {
+//             $maxHeight = $($li).height();
+//         }
+//     });
+//     sameHeight($maxHeight);
+// } else {
+//     $($allContent).children('a').each(function () {
+//         $div = $(this).children().children("div");
+//         $($div).height($height);
+//     });
+//     setTimeout(function () {
+//         sameHeight();
+//     }, 500);
+// }
