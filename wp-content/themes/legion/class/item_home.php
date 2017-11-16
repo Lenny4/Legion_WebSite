@@ -7,6 +7,8 @@
  */
 
 include_once("parent_item.php");
+include_once("item_home_level.php");
+include_once("item_home_transmo.php");
 
 class item_home extends parent_item
 {
@@ -18,6 +20,10 @@ class item_home extends parent_item
 
     public function display()
     {
-        var_dump($this);
+        $item_home_level = new item_home_level();
+        $item_home_trasmo = new item_home_transmo();
+        $return = "";
+        $return .= $item_home_level->displayHome() . $item_home_trasmo->displayHome();
+        echo $return;
     }
 }

@@ -293,6 +293,8 @@ function addItemSetBdd($postItemSetId, $postItemSetPrice, $vote = 0)
 
 //ADD======================================================
 
+//ADMIN SHOP======================================================
+
 if ($_POST['id'] == 'previewItem') {
     previewItem($_POST['item_id'], $_POST['item_price'], $_POST["vote"]);
 }
@@ -317,10 +319,21 @@ if ($_POST['id'] == 'addItemSet') {
     }
 }
 
+//ADMIN SHOP======================================================
+
+//SHOP======================================================
+
 if ($_POST['id'] == 'subItemClasse') {
     viewItems($_POST['subClassId'], $_POST['classId']);
 }
 
 if ($_POST['id'] == 'subItemSetClasse') {
     viewItemSets($_POST['searchClass']);
+}
+
+//SHOP======================================================
+
+if ($_POST["id"] == "showHomeItems") {
+    $allItemsHome = new item_home();
+    echo $allItemsHome->display();
 }

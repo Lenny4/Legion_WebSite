@@ -237,11 +237,20 @@
     }
 
     function loadHomePageShop() {
-        $("#shopDisplayItems").html("");
-        hideAllHeaderShop();
+        $("*").addClass("progressWait");
+        hideCategoryIfOnPhone();
         showAjaxLoaderShop();
-
-        hideAjaxLoaderShop();
+        var $id = "showHomeItems";
+        $.post("/api/shop/shop.php",
+            {
+                id: $id
+            },
+            function (data, status) {
+                $("*").removeClass("progressWait");
+                hideAllHeaderShop();
+                hideAjaxLoaderShop();
+                $("#shopDisplayItems").html(data);
+            });
     }
 
     function sameHeight($height=0) {

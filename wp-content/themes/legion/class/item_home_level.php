@@ -10,5 +10,9 @@ include_once("item_home.php");
 
 class item_home_level extends item_home
 {
+    function displayHome()
+    {
+        return "";
+    }
 
 }
