@@ -12,6 +12,18 @@ class item_home_transmo extends item_home
 {
     function displayHome()
     {
-        return "home transmo";
+        $return = "";
+        $return .= '
+        <a class="pinterest" onclick="showMoreTransmo()">
+            <li class="list-group-item col-sm-9 col-xs-12">
+        <div class="display_item">
+        ';
+        $return .= wp_get_attachment_image($this->image, 'large', false, array("class" => "img-responsive center-block", "style" => "z-index:-1;"));
+        $return .= '<p class="message hidden-xs" style="width: 50%;background-image: url(\'' . wp_get_attachment_image_src(132,"full")[0] . '\') ">
+                    <span>' . $this->name . '</span>
+                    </p>
+                    <p class="hidden-sm hidden-md hidden-lg Quickstyle text-center">' . $this->name . '</p>';
+        $return .= '</div></li></a>';
+        return $return;
     }
 }

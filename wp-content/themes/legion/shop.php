@@ -223,7 +223,7 @@
     }
 
     function hideCategoryIfOnPhone() {
-        if ($(window).width() <= 768) {
+        if ($(window).width() <= 768 && $("#accordion").hasClass("hidden-xs") === false) {
             $("#hideShowCategoryShop").click();
         }
     }
@@ -276,6 +276,10 @@
                 sameHeight();
             }, 500);
         }
+    }
+
+    function showMoreTransmo() {
+        console.log(1);
     }
 
     $("a.subItemClasse").click(function (e) {

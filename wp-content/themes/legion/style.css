@@ -8,6 +8,10 @@
     src: url('/wp-content/themes/legion/fonts/quickstyle-Regular.ttf'); /*URL to font*/
 }
 
+.Quickstyle {
+    font-family: Quickstyle;
+}
+
 body {
     overflow-x: hidden;
     background-color: black;
@@ -591,14 +595,13 @@ section.shop a.pinterest:hover div.display_item, a.pinterest:hover div.shopLink 
     bottom: 5px;
 }
 
-div.shopLink p.message {
+p.message {
     text-align: center;
     position: absolute;
     margin-left: auto;
     margin-right: auto;
     left: 0;
     right: 0;
-    top: 40%;
     /*text-shadow: #000000 1px 1px, #000000 -1px 1px, #000000 -1px -1px, #000000 1px -1px;*/
     /* Safari */
     -webkit-transform: rotate(-10deg);
@@ -613,14 +616,30 @@ div.shopLink p.message {
     display: inline-table;
     background-size: 100% 100%;
     padding: 50px 0px 50px 0px;
+}
+
+p.message span {
+    display: block;
+    margin: auto;
+    position: relative;
+}
+
+div.shopLink p.message {
+    top: 40%;
     width: 100%;
 }
 
 div.shopLink p.message span {
     max-width: 200px;
-    display: block;
-    margin: auto;
-    position: relative;
+    top: 10px;
+}
+
+div.display_item p.message {
+    top: 40%;
+}
+
+div.display_item p.message span {
+    max-width: 200px;
     top: 10px;
 }
 

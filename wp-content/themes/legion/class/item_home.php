@@ -20,10 +20,18 @@ class item_home extends parent_item
 
     public function display()
     {
-        $item_home_level = new item_home_level();
-        $item_home_trasmo = new item_home_transmo();
         $return = "";
-        $return .= $item_home_level->displayHome() . $item_home_trasmo->displayHome();
+        $req = $GLOBALS["dbh"]->query('SELECT * FROM `item_home` ');
+        $allItems = array();
+        while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+            $class = $data["phpclasse"];
+            $object = new $class();
+            $object->hydrateBDD($data);
+            array_push($allItems, $object);
+        }
+        foreach ($allItems as $itemHome) {
+            $return .= $itemHome->displayHome();
+        }
         echo $return;
     }
 }

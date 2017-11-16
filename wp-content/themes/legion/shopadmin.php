@@ -89,7 +89,6 @@
                         <div class="form-group">
                             <input placeholder="Item php classe without .php" type="text" class="form-control"
                                    name="item_phpClasse">
-                            https://stackoverflow.com/questions/4578335/creating-php-class-instance-with-a-string/4578343
                         </div>
                         <div class="form-group">
                             <label for="sel1">Can buy with vote point</label>
