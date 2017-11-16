@@ -133,8 +133,7 @@ header img.smallLogo {
 .videoMainParallax {
     position: absolute;
     z-index: -1;
-    width: 2000px;
-    left: -320px;
+    left: -150px;
 }
 
 main {
@@ -158,6 +157,7 @@ hr.hrMain {
     position: absolute;
     width: 100%;
     z-index: 1;
+    top: 5px;
 }
 
 hr.dividerHeader {

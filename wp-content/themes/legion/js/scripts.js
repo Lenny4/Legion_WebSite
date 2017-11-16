@@ -1,7 +1,9 @@
+//====================== GLOBAL
+
 function resizeVideo() {
     var video = $('header').find('video');
-    var initialLeftVideo = -320;
-    var initialWidthWindow = 1349;
+    var initialLeftVideo = -150;
+    var initialWidthWindow = 1349;//sert de repérage par rapport a la fenêtre qui a permit le cadrage
     var widthWindow = $(window).width();
     var diff = initialWidthWindow - widthWindow;
     $(video).css('left', (initialLeftVideo - (diff / 2)));
@@ -75,6 +77,10 @@ function addPlaceHolderForm() {
     });
 }
 
+//====================== GLOBAL
+
+//====================== SHOP ADMIN
+
 function previewItem(data) {
     var modal = $('#shopAdminModal');
     $(modal).modal('show');
@@ -130,6 +136,8 @@ function addItemSet(button) {
         }
     });
 }
+
+//====================== SHOP ADMIN
 
 $(document).ready(function () {
     resizeVideo();
