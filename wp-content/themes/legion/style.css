@@ -12,6 +12,10 @@
     font-family: Quickstyle;
 }
 
+.noPadding{
+    padding: 0 !important;
+}
+
 body {
     overflow-x: hidden;
     background-color: black;

@@ -157,6 +157,10 @@
 <?php get_sidebar(); ?>
 
 <script>
+
+    var $maxHeightDivShop = 0;
+    var $dontExecuteHeightShop = true;
+
     function showFilterShop() {
         $("#filterNameShop").show();
         $("#helpFilterNameShop").show();
@@ -250,11 +254,10 @@
                 hideAllHeaderShop();
                 hideAjaxLoaderShop();
                 $("#shopDisplayItems").html(data);
-                $maxHeight = 0;
+                $dontExecuteHeightShop = true;
+                $maxHeightDivShop = 0;
             });
     }
-
-    var $maxHeight = 0;
 
     function sameHeight() {
         if ($(window).width() <= 768) {
@@ -263,20 +266,28 @@
         var $allContent = $("#shopDisplayItems").first();
         $($allContent).children('a').each(function () {
             var $div = $(this).children().children("div.display_item");
-            if ($($div).height() > $maxHeight) {
-                $maxHeight = $($div).height();
+            if ($($div).height() > $maxHeightDivShop) {
+                $maxHeightDivShop = $($div).height();
             }
         });
-        if ($maxHeight > 62 && $(window).width() > 768) {//par tatonnage grâce au console.log
-            $("div.display_item").height($maxHeight);
+        if ($maxHeightDivShop > 62 && $(window).width() > 768 && $dontExecuteHeightShop === false) {//par tatonnage grâce au console.log
+            $("div.display_item").height($maxHeightDivShop);
         }
-//        console.log($maxHeight);
+//        console.log($maxHeightDivShop);
         setTimeout(function () {
             sameHeight();
         }, 500);
     }
 
     function showMoreTransmo() {
+        console.log(1);
+    }
+
+    function showMoreLevel() {
+        console.log(1);
+    }
+
+    function showMoreGold() {
         console.log(1);
     }
 
@@ -298,6 +309,7 @@
                 classId: $classId
             },
             function (data, status) {
+                $dontExecuteHeightShop = false;
                 $("*").removeClass("progressWait");
                 hideAllHeaderShop();
                 hideAjaxLoaderShop();
@@ -307,7 +319,7 @@
                 } else {
                     showAlertMessage(data);
                 }
-                $maxHeight = 0;
+                $maxHeightDivShop = 0;
             });
     });
 
@@ -327,6 +339,7 @@
                 searchClass: $searchClass
             },
             function (data, status) {
+                $dontExecuteHeightShop = false;
                 $("*").removeClass("progressWait");
                 hideAllHeaderShop();
                 hideAjaxLoaderShop();
@@ -336,7 +349,7 @@
                 } else {
                     showAlertMessage(data);
                 }
-                $maxHeight = 0;
+                $maxHeightDivShop = 0;
             });
     });
 
@@ -354,6 +367,7 @@
         loadHomePageShop();
         sameHeight();
     });
+
 </script>
 
 <?php get_footer(); ?>

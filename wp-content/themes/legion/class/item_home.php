@@ -9,6 +9,7 @@
 include_once("parent_item.php");
 include_once("item_home_level.php");
 include_once("item_home_transmo.php");
+include_once("item_home_gold.php");
 
 class item_home extends parent_item
 {
