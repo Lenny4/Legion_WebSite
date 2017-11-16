@@ -60,31 +60,25 @@
 
                 <div class=" col-md-6 col-xs-12 borderWhite">
                     <?php
-                    if (isset($_FILES) AND isset($_POST["addHomeItem"])) {
-                        $url = uploadFile($_FILES);
-                        if ($url != false) {
-                            $homeItem = new item_home();
-                            $homeItem->name = $_POST["item_name"];
-                            $homeItem->price = intval($_POST["item_price"]);
-                            $homeItem->phpclasse = $_POST["item_phpClasse"];
-                            $homeItem->vote = $_POST["vote"];
-                            $homeItem->image = $url;
-                            $req = $homeItem->generateInsertRequest();
-                            $GLOBALS["dbh"]->query($req); ?>
-                            <div class="alert alert-success alert-dismissable">
-                                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-                                Item added !
-                            </div>
-                            <?php
-                        } else {
-                            echo "Error upload image";
-                        }
-                    }
-                    ?>
+                    if (isset($_POST["addHomeItem"])) {
+                        $homeItem = new item_home();
+                        $homeItem->name = $_POST["item_name"];
+                        $homeItem->price = intval($_POST["item_price"]);
+                        $homeItem->phpclasse = $_POST["item_phpClasse"];
+                        $homeItem->vote = $_POST["vote"];
+                        $homeItem->image = $_POST["image_id"];
+                        $req = $homeItem->generateInsertRequest();
+                        $GLOBALS["dbh"]->query($req); ?>
+                        <div class="alert alert-success alert-dismissable">
+                            <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                            Item added !
+                        </div>
+                    <?php } ?>
                     <p class="h3">Home page item</p>
                     <form method="post" id="addHomeItem" enctype="multipart/form-data">
                         <div class="form-group">
-                            <input type="file" name="file">
+                            <input placeholder="Image ID" type="number" min="0" class="form-control"
+                                   name="image_id">
                         </div>
                         <div class="form-group">
                             <input placeholder="Item name (en)" type="text" class="form-control" name="item_name">
