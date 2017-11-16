@@ -104,7 +104,8 @@
                                     <p>Explain how to search</p>
                                 </div>
                             </div>
-                            <input placeholder="Search" style="display: none" class="form-control" id="filterNameShop" type="text">
+                            <input placeholder="Search" style="display: none" class="form-control" id="filterNameShop"
+                                   type="text">
                             <div class="col-xs-12" id="shopDisplayError"></div>
                         </div>
                         <ul class="list-group" id="filterNameListShop">
@@ -256,17 +257,15 @@
                     $maxHeight = $($li).height();
                 }
             });
-            sameHeight($maxHeight - 10);
+            sameHeight($maxHeight - 12);
         } else {
-            setTimeout(function () {
-                if ($height < 76) {
-                    sameHeight();
-                }
-            }, 100);
             $($allContent).children('a').each(function () {
                 $div = $(this).children().children("div");
                 $($div).height($height);
             });
+            setTimeout(function () {
+                sameHeight();
+            }, 500);
         }
     }
 
