@@ -265,17 +265,18 @@
         }
         var $allContent = $("#shopDisplayItems").first();
         $($allContent).children('a').each(function () {
-            var $div = $(this).children().children("div.display_item");
-            if ($($div).height() > $maxHeightDivShop) {
-                $maxHeightDivShop = $($div).height();
+            var $li = $(this).children();
+            if ($($li).height() > $maxHeightDivShop) {
+                $maxHeightDivShop = $($li).height();
             }
         });
         if ($maxHeightDivShop > 62 && $(window).width() > 768 && $dontExecuteHeightShop === false) {//par tatonnage grâce au console.log
-            $("div.display_item").height($maxHeightDivShop);
+            $("div.display_item_small").height($maxHeightDivShop-12);
         }
 //        console.log($maxHeightDivShop);
         setTimeout(function () {
             sameHeight();
+            return false;
         }, 500);
     }
 

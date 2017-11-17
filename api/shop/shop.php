@@ -82,7 +82,7 @@ function insertItemInBdd($item)
 
 function getItemByClassAndSubClass($subClassId, $classId)
 {
-    $req = $GLOBALS["dbh"]->query('SELECT * FROM `item` WHERE `itemSubClass`=' . $subClassId . ' AND `itemClass`=' . $classId . ' ORDER BY `itemLevel` DESC');
+    $req = $GLOBALS["dbh"]->query('SELECT * FROM `item` WHERE `itemSubClass`=' . $subClassId . ' AND `itemClass`=' . $classId . ' ORDER BY `item_id` DESC LIMIT 50');
     $return = array();
     if ($req == false) {
         return null;

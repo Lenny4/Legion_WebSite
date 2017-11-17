@@ -202,9 +202,12 @@ class item extends parent_item
             }
             $return = $return . '</span>';
         }
-        $return = $return . '
-        <div class="display_item">
-            <img style="float: left" src="https://wow.zamimg.com/images/wow/icons/large/' . $this->icon . '.jpg" alt="' . $this->name . '" />
+        if($small == true){
+            $return = $return . '<div class="display_item display_item_small">';
+        }else{
+            $return = $return . '<div class="display_item">';
+        }
+        $return = $return . '<img style="float: left" src="https://wow.zamimg.com/images/wow/icons/large/' . $this->icon . '.jpg" alt="' . $this->name . '" />
         ';
         foreach ($this as $key => $value) {
             if (($small == true AND in_array($key, $tab)) OR $small == false) {
