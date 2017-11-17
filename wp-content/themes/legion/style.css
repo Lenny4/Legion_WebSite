@@ -700,6 +700,14 @@ a.pinterest:hover .display_item p.stackable.extra {
     left: 37px;
 }
 
+.display_item p.stackable.extraplus {
+    left: 45px;
+}
+
+a.pinterest:hover .display_item p.stackable.extraplus {
+    left: 29px;
+}
+
 .display_item img {
     border-radius: 2px 2px 2px 2px;
 }

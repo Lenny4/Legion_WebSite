@@ -272,6 +272,8 @@ class item extends parent_item
                                 $return = $return . '<p class="' . $key . ' no' . $key . '"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value">' . $value . '</span></p>';
                             } elseif ($key == "itemLevel") {
                                 $return = $return . '<p class="' . $key . '"><span class="' . $key . '">Item Level </span><span class="value">' . $value . '</span></p>';
+                            } elseif ($key == 'stackable' AND $value > 99) {
+                                $return = $return . '<p class="' . $key . ' extraplus"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value">' . $value . '</span></p>';
                             } elseif ($key == 'stackable' AND $value > 9) {
                                 $return = $return . '<p class="' . $key . ' extra"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value">' . $value . '</span></p>';
                             } else {
