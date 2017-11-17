@@ -839,3 +839,9 @@ div.display_item_set div.display_item p.stackable {
     background-size: 100% !important;
     background-position: center center !important;
 }
+
+@media (max-width: 768px) {
+    .heightMinPhone{
+        height: 0px !important;
+    }
+}
