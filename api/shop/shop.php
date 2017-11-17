@@ -319,6 +319,20 @@ if ($_POST['id'] == 'addItemSet') {
     }
 }
 
+if ($_POST['id'] == "addAllItem") {
+    if (isWowAdmin()) {
+        addItemBdd($_POST['currentId'], '');
+        echo $_POST['currentId'];
+    }
+}
+
+if ($_POST['id'] == "addAllItemSet") {
+    if (isWowAdmin()) {
+        addItemSetBdd($_POST['currentId'], '');
+        echo $_POST['currentId'];
+    }
+}
+
 //ADMIN SHOP======================================================
 
 //SHOP======================================================
@@ -331,9 +345,9 @@ if ($_POST['id'] == 'subItemSetClasse') {
     viewItemSets($_POST['searchClass']);
 }
 
-//SHOP======================================================
-
 if ($_POST["id"] == "showHomeItems") {
     $allItemsHome = new item_home();
     echo $allItemsHome->display();
 }
+
+//SHOP======================================================

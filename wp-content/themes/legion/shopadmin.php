@@ -100,6 +100,32 @@
                         <button name="addHomeItem" type="submit" class="btn btn-default">Add item</button>
                     </form>
                 </div>
+                <div class="col-md-6 col-xs-12 borderWhite">
+                    <p class="h3">Add all items(open console to see)</p>
+                    <form id="addAllItem">
+                        <div class="form-group">
+                            <input placeholder="Min id item" type="number" class="form-control" name="min_id">
+                        </div>
+                        <div class="form-group">
+                            <input placeholder="Max id item" type="number" class="form-control" name="max_id">
+                        </div>
+                        <button type="submit" class="btn btn-default">Add</button>
+                    </form>
+                </div>
+                <div class="col-md-6 col-xs-12 borderWhite">
+                    <p class="h3">Add all item set(open console to see)</p>
+                    <form id="addAllItemSet">
+                        <div class="form-group">
+                            <input placeholder="Min id item set" type="number" class="form-control"
+                                   name="min_id">
+                        </div>
+                        <div class="form-group">
+                            <input placeholder="Max id item set" type="number" class="form-control"
+                                   name="max_id">
+                        </div>
+                        <button type="submit" class="btn btn-default">Add</button>
+                    </form>
+                </div>
                 <div class=" col-md-6 col-xs-12 borderWhite">
                     <p class="h3">Define normal price for object (need to be store in bdd)</p>
                     Create a button change all current item price
@@ -156,6 +182,54 @@
 <?php get_sidebar(); ?>
 
 <script>
+    function addAllItem($minId, $maxId, $idPOST, $currentId=null) {
+        if ($currentId === null) {
+            $currentId = $minId;
+        }
+        $currentId = parseInt($currentId);
+        $maxId = parseInt($maxId);
+        var pourcent = (($currentId - $minId) / ($maxId - $minId)) * 100;
+        $.post("/api/shop/shop.php",
+            {
+                id: $idPOST,
+                currentId: $currentId
+            },
+            function (data, status) {
+                console.clear();
+                console.log(pourcent + "%");
+                console.log(data);
+                if ($currentId < $maxId) {
+                    addAllItem($minId, $maxId, $idPOST, $currentId + 1)
+                } else {
+                    $("*").removeClass("progressWait");
+                }
+            });
+    }
+
+    function addAllItemSet($minId, $maxId, $idPOST, $currentId=null) {
+        if ($currentId === null) {
+            $currentId = $minId;
+        }
+        $currentId = parseInt($currentId);
+        $maxId = parseInt($maxId);
+        var pourcent = (($currentId - $minId) / ($maxId - $minId)) * 100;
+        $.post("/api/shop/shop.php",
+            {
+                id: $idPOST,
+                currentId: $currentId
+            },
+            function (data, status) {
+                console.clear();
+                console.log(pourcent + "%");
+                console.log(data);
+                if ($currentId < $maxId) {
+                    addAllItemSet($minId, $maxId, $idPOST, $currentId + 1)
+                } else {
+                    $("*").removeClass("progressWait");
+                }
+            });
+    }
+
     $("form").submit(function (event) {
         if ($(event.target).attr("id") === "addHomeItem") {
             return;
@@ -163,21 +237,30 @@
         event.preventDefault();
         var form = 'id=' + $(event.target).attr("id") + "&" + $(event.target).serialize();
         $("*").addClass("progressWait");
-        $.post("/api/shop/shop.php", form, function (data, status) {
-            $("*").removeClass("progressWait");
-            if (status === "success") {
-                console.log(data);
-                if ($(event.target).attr("id") === "previewItem") {
-                    previewItem(data);
-                }
-                if ($(event.target).attr("id") === "previewItemSet") {
-                    previewItemSet(data);
-                }
-                if ($(event.target).attr("id") === "addHomeItem") {
-                    previewItemSet(data);
-                }
+        if ($(event.target).attr("id") === "addAllItem" || $(event.target).attr("id") === "addAllItemSet") {
+            if ($(event.target).attr("id") === "addAllItem") {
+                addAllItem($($(event.target)[0][0]).val(), $($(event.target)[0][1]).val(), $(event.target).attr("id"));
+            } else {
+                addAllItemSet($($(event.target)[0][0]).val(), $($(event.target)[0][1]).val(), $(event.target).attr("id"));
             }
-        });
+
+        } else {
+            $.post("/api/shop/shop.php", form, function (data, status) {
+                $("*").removeClass("progressWait");
+                if (status === "success") {
+                    console.log(data);
+                    if ($(event.target).attr("id") === "previewItem") {
+                        previewItem(data);
+                    }
+                    if ($(event.target).attr("id") === "previewItemSet") {
+                        previewItemSet(data);
+                    }
+                    if ($(event.target).attr("id") === "addHomeItem") {
+                        previewItemSet(data);
+                    }
+                }
+            });
+        }
     });
 </script>
 
