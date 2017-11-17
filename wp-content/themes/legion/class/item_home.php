@@ -10,6 +10,9 @@ include_once("parent_item.php");
 include_once("item_home_level.php");
 include_once("item_home_transmo.php");
 include_once("item_home_gold.php");
+include_once("item_home_character.php");
+include_once("item_home_manage_character.php");
+include_once("item_home_profession.php");
 
 class item_home extends parent_item
 {
@@ -18,11 +21,12 @@ class item_home extends parent_item
     public $vote = 0;
     public $phpclasse = null;
     public $image = null;
+    public $rank = 0;
 
     public function display()
     {
         $return = "";
-        $req = $GLOBALS["dbh"]->query('SELECT * FROM `item_home` ');
+        $req = $GLOBALS["dbh"]->query('SELECT * FROM `item_home` ORDER BY `rank` ASC');
         $allItems = array();
         while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
             $class = $data["phpclasse"];
@@ -31,7 +35,13 @@ class item_home extends parent_item
             array_push($allItems, $object);
         }
         foreach ($allItems as $itemHome) {
+            if ($itemHome->phpclasse == "item_home_character") {
+                $return .= "<div class='col-sm-8 col-xs-12 noPadding'>";
+            }
             $return .= $itemHome->displayHome();
+            if ($itemHome->phpclasse == "item_home_profession") {
+                $return .= "</div>";
+            }
         }
         echo $return;
     }

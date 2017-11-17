@@ -29,6 +29,9 @@ require_once 'wp-content/themes/legion/class/item_set.php';
 require_once 'wp-content/themes/legion/class/item_home.php';
 require_once 'wp-content/themes/legion/class/item_home_level.php';
 require_once 'wp-content/themes/legion/class/item_home_gold.php';
+require_once 'wp-content/themes/legion/class/item_home_character.php';
+require_once 'wp-content/themes/legion/class/item_home_manage_character.php';
+require_once 'wp-content/themes/legion/class/item_home_profession.php';
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
