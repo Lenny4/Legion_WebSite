@@ -82,7 +82,7 @@ function insertItemInBdd($item)
 
 function getItemByClassAndSubClass($subClassId, $classId)
 {
-    $req = $GLOBALS["dbh"]->query('SELECT * FROM `item` WHERE `itemSubClass`=' . $subClassId . ' AND `itemClass`=' . $classId);
+    $req = $GLOBALS["dbh"]->query('SELECT * FROM `item` WHERE `itemSubClass`=' . $subClassId . ' AND `itemClass`=' . $classId . ' ORDER BY `itemLevel` DESC');
     $return = array();
     if ($req == false) {
         return null;
@@ -205,7 +205,7 @@ function insertItemSetInBdd($item_set)
 
 function getItemSetByClass($searchClass)
 {
-    $req = $GLOBALS["dbh"]->query('SELECT * FROM `item_set` WHERE `allowableClasses` LIKE \'%' . $searchClass . '%\';');
+    $req = $GLOBALS["dbh"]->query('SELECT * FROM `item_set` WHERE `allowableClasses` LIKE \'%' . $searchClass . '%\' ORDER BY `item_set_id` DESC');
     $return = array();
     if ($req == false) {
         return null;
@@ -273,22 +273,42 @@ function viewItemSets($searchClass)
 //VIEW======================================================
 
 //ADD======================================================
-function addItemBdd($postItemId, $postItemPrice, $vote = 0)
+function addItemBdd($postItemId, $postItemPrice, $vote = 0, $filtre = false)
 {
     $item = createItem($postItemId, $postItemPrice, $vote);
-    $itemClass = createItemClass($item);
-    insertItemInBdd($item);
-    insertItemClassInBdd($itemClass);
+    if ($filtre == true AND $item->equippable == true) {
+        if ($item->requiredLevel == 110) {
+            $itemClass = createItemClass($item);
+            insertItemInBdd($item);
+            insertItemClassInBdd($itemClass);
+        }
+    } else {
+        $itemClass = createItemClass($item);
+        insertItemInBdd($item);
+        insertItemClassInBdd($itemClass);
+    }
     return $item;
 }
 
-function addItemSetBdd($postItemSetId, $postItemSetPrice, $vote = 0)
+function addItemSetBdd($postItemSetId, $postItemSetPrice, $vote = 0, $filtre = false)
 {
     $item_set = createItemSet($postItemSetId, $postItemSetPrice, $vote);
     foreach ($item_set->items as $itemID) {
-        addItemBdd($itemID, '', $vote);
+        $item = createItem($itemID, '');
+        if ($filtre == true AND $item->equippable == true) {
+            if ($item->requiredLevel == 110) {
+                $filtre = false;
+            } else {
+                return;
+            }
+        }
+        if ($filtre == false) {
+            addItemBdd($itemID, '', $vote);
+        }
     }
-    insertItemSetInBdd($item_set);
+    if ($filtre == false) {
+        insertItemSetInBdd($item_set);
+    }
 }
 
 //ADD======================================================
@@ -321,15 +341,13 @@ if ($_POST['id'] == 'addItemSet') {
 
 if ($_POST['id'] == "addAllItem") {
     if (isWowAdmin()) {
-        addItemBdd($_POST['currentId'], '');
-        echo $_POST['currentId'];
+        addItemBdd($_POST['currentId'], '', 0, true);
     }
 }
 
 if ($_POST['id'] == "addAllItemSet") {
     if (isWowAdmin()) {
-        addItemSetBdd($_POST['currentId'], '');
-        echo $_POST['currentId'];
+        addItemSetBdd($_POST['currentId'], '', 0, true);
     }
 }
 

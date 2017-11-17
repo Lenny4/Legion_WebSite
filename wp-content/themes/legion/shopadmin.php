@@ -101,7 +101,8 @@
                     </form>
                 </div>
                 <div class="col-md-6 col-xs-12 borderWhite">
-                    <p class="h3">Add all items(open console to see)</p>
+                    <p class="h3">Add all items</p>
+                    <p id="pourcentAllItems"></p>
                     <form id="addAllItem">
                         <div class="form-group">
                             <input placeholder="Min id item" type="number" class="form-control" name="min_id">
@@ -113,7 +114,8 @@
                     </form>
                 </div>
                 <div class="col-md-6 col-xs-12 borderWhite">
-                    <p class="h3">Add all item set(open console to see)</p>
+                    <p class="h3">Add all item set</p>
+                    <p id="pourcentAllItemsSet"></p>
                     <form id="addAllItemSet">
                         <div class="form-group">
                             <input placeholder="Min id item set" type="number" class="form-control"
@@ -187,6 +189,8 @@
             $currentId = $minId;
         }
         $currentId = parseInt($currentId);
+        console.clear();
+        console.log($currentId);
         $maxId = parseInt($maxId);
         var pourcent = (($currentId - $minId) / ($maxId - $minId)) * 100;
         $.post("/api/shop/shop.php",
@@ -195,9 +199,7 @@
                 currentId: $currentId
             },
             function (data, status) {
-                console.clear();
-                console.log(pourcent + "%");
-                console.log(data);
+                $("#pourcentAllItems").html(pourcent + "%" + " / id=" + $currentId + data);
                 if ($currentId < $maxId) {
                     addAllItem($minId, $maxId, $idPOST, $currentId + 1)
                 } else {
@@ -211,6 +213,8 @@
             $currentId = $minId;
         }
         $currentId = parseInt($currentId);
+        console.clear();
+        console.log($currentId);
         $maxId = parseInt($maxId);
         var pourcent = (($currentId - $minId) / ($maxId - $minId)) * 100;
         $.post("/api/shop/shop.php",
@@ -219,9 +223,7 @@
                 currentId: $currentId
             },
             function (data, status) {
-                console.clear();
-                console.log(pourcent + "%");
-                console.log(data);
+                $("#pourcentAllItemsSet").html(pourcent + "%" + " / id=" + $currentId + data);
                 if ($currentId < $maxId) {
                     addAllItemSet($minId, $maxId, $idPOST, $currentId + 1)
                 } else {
