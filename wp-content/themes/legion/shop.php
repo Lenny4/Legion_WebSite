@@ -95,17 +95,9 @@
                                 echo wp_get_attachment_image($image["id"], 'medium', "", ["class" => "img-responsive", "style" => "max-width:100px;margin: 0 auto;"]);
                                 ?>
                             </div>
-                            <div style="display: none" id="helpFilterNameShop">
-                                <p onclick="changeArrowShop(this)" class="clickable text-center h4 overGreen"
-                                   style="font-family: inherit; margin-top: 0px" data-toggle="collapse"
-                                   data-target="#helpFiterShop">How to search ?
-                                    <i class="fa fa-arrow-down" aria-hidden="true"></i></p>
-                                <div id="helpFiterShop" class="collapse">
-                                    <p>Explain how to search</p>
-                                </div>
+                            <div style="display: none" id="filterShop">
+                                filterShop
                             </div>
-                            <input placeholder="Search" style="display: none" class="form-control" id="filterNameShop"
-                                   type="text">
                             <div class="col-xs-12" id="shopDisplayError"></div>
                         </div>
                         <ul class="list-group" id="filterNameListShop">
@@ -161,8 +153,7 @@
     var $dontExecuteHeightShop = true;
 
     function showFilterShop() {
-        $("#filterNameShop").show();
-        $("#helpFilterNameShop").show();
+        $("#filterShop").show();
     }
 
     function showAlertMessage(data) {
@@ -172,8 +163,7 @@
     }
 
     function hideAllHeaderShop() {
-        $("#filterNameShop").hide();
-        $("#helpFilterNameShop").hide();
+        $("#filterShop").hide();
         $("#shopDisplayError").hide();
     }
 
@@ -377,12 +367,6 @@
     });
 
     $(document).ready(function () {
-        $("#filterNameShop").on("keyup", function () {
-            var value = $(this).val().toLowerCase();
-            $("#filterNameListShop li").filter(function () {
-                $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
-            });
-        });
         loadHomePageShop();
         sameHeight();
     });
