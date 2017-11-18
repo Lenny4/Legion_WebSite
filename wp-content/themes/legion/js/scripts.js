@@ -38,9 +38,6 @@ function hideShowSideBar(resize) {
     var button = $("#showHideSideBar");
     if (resize === true) {
         if ($(window).width() > 992 && $(sideBar).css("left") !== "0px") {
-            $(sideBar).animate({
-                left: '0%'
-            }, time);
             $(sideBar).removeClass("hidden-xs hidden-sm");
             $(sideBar).addClass("active");
             $(button).removeClass("fa-arrow-circle-left");
@@ -69,12 +66,44 @@ function hideShowSideBar(resize) {
     }
 }
 
+function maxHeightSideBar() {
+    var $heightNav = $("header nav").height();
+    var $heightSideBar = $(window).height() - $heightNav;
+    var heightTopTop = $("header").height() - $(window).scrollTop();
+    var $footerHeight = $("footer").height();
+    $footerHeight = $(document).height() - $footerHeight;
+    var diffHeight = $(window).scrollTop() + $(window).height() - $footerHeight;
+    if ($(window).width() > 992) {
+        $("#my_sidebar").css({position: 'fixed', right: '5%', left: 'auto'});
+        if (heightTopTop < 0) {
+            $("#my_sidebar").css({top: $heightNav - 10 + 'px'});
+        } else {
+            $("#my_sidebar").css({top: heightTopTop + 'px'});
+        }
+        if (diffHeight > 0) {
+            $("#my_sidebar").css("max-height", $heightSideBar - diffHeight - 5 + "px");
+        } else {
+            $("#my_sidebar").css("max-height", $heightSideBar + "px");
+        }
+    } else {
+        $("#my_sidebar").css("max-height", $(window).height() + "px");
+        $("#my_sidebar").css({position: 'inherit', top: "0px"});
+    }
+}
+
 function addPlaceHolderForm() {
     $(document).ready(function () {
         $('#username').attr('placeholder', $('#username').prev().text().slice(0, -1));
         $('#user_email').attr('placeholder', $('#user_email').prev().text().slice(0, -1));
         $('#password').attr('placeholder', $('#password').prev().text().slice(0, -1));
     });
+}
+
+function heightTopSideBar() {
+    // var $window = $(window);
+    // var $stickyEl = $('#my_sidebar');
+    // var elTop = $($stickyEl).offset().top;
+    // $($stickyEl).css('top', $window.scrollTop() > elTop + 'px');
 }
 
 //====================== GLOBAL
@@ -142,13 +171,20 @@ function addItemSet(button) {
 $(document).ready(function () {
     resizeVideo();
     addPlaceHolderForm();
+    maxHeightSideBar();
+    new PerfectScrollbar('#my_sidebar');
+
 });
 
 $(window).resize(function () {
     resizeVideo();
     hideShowSideBar(true);
+    heightTopSideBar();
+    maxHeightSideBar();
 });
 
 $(document).scroll(function () {
-    changeMenuCss()
+    changeMenuCss();
+    heightTopSideBar();
+    maxHeightSideBar();
 });

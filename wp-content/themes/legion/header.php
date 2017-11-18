@@ -17,9 +17,12 @@
     <link rel="stylesheet"
           href="<?php echo get_template_directory_uri(); ?>/fonts/font-awesome-4.7.0/css/font-awesome.min.css">
     <link rel="stylesheet"
+          href="<?php echo get_template_directory_uri(); ?>/library/scrollbar/perfect-scrollbar.css">
+    <link rel="stylesheet"
           href="<?php echo get_template_directory_uri(); ?>/fonts/bootstrap-3.3.7-dist/css/bootstrap.min.css">
     <script src="<?php echo get_template_directory_uri(); ?>/fonts/jquery-3.2.1/jquery.min.js"></script>
     <script src="<?php echo get_template_directory_uri(); ?>/fonts/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
+    <script src="<?php echo get_template_directory_uri(); ?>/library/scrollbar/perfect-scrollbar.min.js"></script>
 
     <?php wp_head(); ?>
     <script>

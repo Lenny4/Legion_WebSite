@@ -1,5 +1,6 @@
 <!-- sidebar -->
-<aside class="sidebar col-md-2 col-md-offset-0 col-xs-10 col-xs-offset-2 hidden-xs hidden-sm background"
+<aside id="my_sidebar" style="overflow-y: auto"
+       class="sidebar col-md-2 col-md-offset-0 col-xs-10 col-xs-offset-2 hidden-xs hidden-sm background"
        role="complementary">
 
     <?php if (!is_user_logged_in()) { ?>
@@ -28,11 +29,9 @@
                     <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
                 </div>
             </div>
-
         </div>
     </div>
     <a href="/wp-login.php?action=logout">Logout</a>
 </aside>
-
 <div class="col-sm-1-offset"></div>
 <!-- /sidebar -->

@@ -247,15 +247,15 @@
 
     function sameHeight($maxHeightDivShop=0, $previousMax=0, $previous2ndMax=0) {
         if ($(window).width() <= 768) {
-            $("div.display_item").css("min-height", "auto");
+            $("div.display_item").height("auto");
         }
         var $divs = $("div.display_item_small");
         $maxHeightDivShop = Math.max.apply(null, $($divs).map(function () {
             return $(this).height();
         }).get());
         if ($previous2ndMax !== 0 && Number.isInteger($previous2ndMax)) {//on a vérifié 3 fois
-            if ($dontExecuteHeightShop === false && $(window).width() > 768) {
-                $($divs).css("min-height", $maxHeightDivShop + "px");
+            if ($dontExecuteHeightShop === false && $(window).width() > 768 && $maxHeightDivShop === $previousMax && $previousMax === $previous2ndMax) {
+                $($divs).height($maxHeightDivShop);
             }
             $maxHeightDivShop = 0;
             $previousMax = 0;
@@ -354,7 +354,6 @@
                 hideAllHeaderShop();
                 hideAjaxLoaderShop();
                 if (data !== 'Error !' && data !== 'No Result !') {
-                    showFilterShop();
                     $("#shopDisplayItems").html(data);
                 } else {
                     showAlertMessage(data);
