@@ -252,17 +252,19 @@
                 hideAjaxLoaderShop();
                 $("#shopDisplayItems").html(data);
                 $dontExecuteHeightShop = true;
-                $maxHeightDivShop = 0;
             });
     }
 
     function sameHeight($maxHeightDivShop=0, $previousMax=0, $previous2ndMax=0) {
+        if ($(window).width() <= 768) {
+            $("div.display_item").css("min-height", "auto");
+        }
         var $divs = $("div.display_item_small");
         $maxHeightDivShop = Math.max.apply(null, $($divs).map(function () {
             return $(this).height();
         }).get());
         if ($previous2ndMax !== 0 && Number.isInteger($previous2ndMax)) {//on a vérifié 3 fois
-            if ($dontExecuteHeightShop === false) {
+            if ($dontExecuteHeightShop === false && $(window).width() > 768) {
                 $($divs).css("min-height", $maxHeightDivShop + "px");
             }
             $maxHeightDivShop = 0;
@@ -338,7 +340,6 @@
                 } else {
                     showAlertMessage(data);
                 }
-                $maxHeightDivShop = 0;
             });
     });
 
@@ -368,7 +369,6 @@
                 } else {
                     showAlertMessage(data);
                 }
-                $maxHeightDivShop = 0;
             });
     });
 
