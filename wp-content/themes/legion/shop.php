@@ -271,13 +271,34 @@
             }
         });
         if ($maxHeightDivShop > 62 && $(window).width() > 768 && $dontExecuteHeightShop === false) {//par tatonnage grâce au console.log
-            $("div.display_item_small").height($maxHeightDivShop-12);
+            $("div.display_item_small").height($maxHeightDivShop - 12);
         }
 //        console.log($maxHeightDivShop);
         setTimeout(function () {
             sameHeight();
             return false;
         }, 500);
+    }
+
+    function showMoreItemGlobal($subClassId, $classId, $lastItemId) {
+        if ($subClassId < 0 || $classId < 0 || $lastItemId < 0) {
+            return false;
+        } else {
+            $("*").addClass("progressWait");
+            $("#showMoreItemGlobal").html($("#ajaxLoaderShop").html());
+            $.post("/api/shop/shop.php",
+                {
+                    id: 'subItemClasse',
+                    subClassId: $subClassId,
+                    classId: $classId,
+                    lastItemId: $lastItemId
+                },
+                function (data, status) {
+                    $("*").removeClass("progressWait");
+                    $("#showMoreItemGlobal").remove();
+                    $("#shopDisplayItems").append(data);
+                });
+        }
     }
 
     function showMoreTransmo() {

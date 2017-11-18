@@ -21,6 +21,7 @@ $pages = get_pages(array(
 foreach ($pages as $page) {
     $GLOBALS["shop_page_id"] = $page->ID;
 }
+$GLOBALS["max_items_display"] = 50;
 //STATIC DATA===========
 
 if (!isset($_POST)) {
@@ -87,9 +88,15 @@ function insertItemInBdd($item)
     }
 }
 
-function getItemByClassAndSubClass($subClassId, $classId)
+function getItemByClassAndSubClass($subClassId, $classId, $lastItemId)
 {
-    $req = $GLOBALS["dbh"]->query('SELECT * FROM `item` WHERE `itemSubClass`=' . $subClassId . ' AND `itemClass`=' . $classId . ' ORDER BY `item_id` DESC LIMIT 50');
+    if ($lastItemId == 0) {
+        $req = $GLOBALS["dbh"]->query('SELECT * FROM `item` WHERE `itemSubClass`=' . $subClassId . ' AND `itemClass`=' . $classId . ' ORDER BY `item_id` DESC LIMIT ' . $GLOBALS["max_items_display"]);
+    } else {
+        $req = 'SELECT * FROM `item` WHERE `itemSubClass`=' . $subClassId . ' AND `itemClass`=' . $classId;
+        $req .= ' AND `item_id` < ' . $lastItemId . ' ORDER BY `item_id` DESC LIMIT ' . $GLOBALS["max_items_display"];
+        $req = $GLOBALS["dbh"]->query($req);
+    }
     $return = array();
     if ($req == false) {
         return null;
@@ -246,19 +253,32 @@ function previewItemSet($postItemSetId, $postItemSetPrice, $vote = 0)
     echo($item_set->display($GLOBALS["dbh"]));
 }
 
-function viewItems($subClassId, $classId)
+function viewItems($subClassId, $classId, $lastItemId = 0)
 {
+    $amountOdItems = 0;
     $subClassId = intval($subClassId);
     $classId = intval($classId);
-    $result = getItemByClassAndSubClass($subClassId, $classId);
+    $result = getItemByClassAndSubClass($subClassId, $classId, $lastItemId);
     if ($result == null AND sizeof($result) > 0) {
         echo 'Error !';
     } elseif (sizeof($result) == 0) {
         echo 'No Result !';
     } else {
         foreach ($result as $item) {
+            $amountOdItems++;
             $itemClass = createItemClass($item);
             echo($item->display($itemClass, true));
+            $lastItemId = $item->item_id;
+        }
+        if ($amountOdItems < $GLOBALS["max_items_display"]) {
+            echo '<div id="showMoreItemGlobal" class="col-xs-12">
+                    <p class="text-center h4" style="font-family: inherit;">
+                        No more ...
+                    </p></div>';
+        } else {
+            echo '<div id="showMoreItemGlobal" class="col-xs-12"><p onclick="showMoreItemGlobal(' . $subClassId . ',' . $classId . ',' . $lastItemId . ')" class="clickable text-center h4 overGreen" style="font-family: inherit;">
+            Show more
+            <i class="fa fa-arrow-down" aria-hidden="true"></i></p></div>';
         }
     }
 }
@@ -386,7 +406,11 @@ if ($_POST['id'] == "staticData") {
 //SHOP======================================================
 
 if ($_POST['id'] == 'subItemClasse') {
-    viewItems($_POST['subClassId'], $_POST['classId']);
+    if (isset($_POST['lastItemId'])) {
+        viewItems($_POST['subClassId'], $_POST['classId'], $_POST['lastItemId']);
+    } else {
+        viewItems($_POST['subClassId'], $_POST['classId']);
+    }
 }
 
 if ($_POST['id'] == 'subItemSetClasse') {

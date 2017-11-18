@@ -287,7 +287,7 @@ class item extends parent_item
                 }
             }
         }
-        $return = $return . "</div></li>";
+        $return = $return . "</div></li></a>";
         return $return;
     }
 

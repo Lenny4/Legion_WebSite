@@ -40,7 +40,7 @@ button.navbar-toggle span {
     background-color: white;
 }
 
-.overGreen:hover, ul.overGreen li a:hover {
+.overGreen:hover, ul.overGreen li a:hover, .overGreen:hover i {
     text-decoration: none;
     color: #8e983e;
     -webkit-transition: color 0.5s ease-out;
