@@ -199,84 +199,42 @@ while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
 <?php get_sidebar(); ?>
 
 <script>
-    function addAllItem($minId, $maxId, $idPOST, $currentId=null) {
-        if ($currentId === null) {
-            $currentId = $minId;
-        }
-        $currentId = parseInt($currentId);
-        $maxId = parseInt($maxId);
-        var pourcent = (($currentId - $minId) / ($maxId - $minId)) * 100;
-        $.post("/api/shop/shop.php",
-            {
-                id: $idPOST,
-                currentId: $currentId
-            },
-            function (data, status) {
-                $("#pourcentAllItems").html(pourcent + "%" + " / id=" + $currentId + data);
-                if ($currentId < $maxId) {
-                    addAllItem($minId, $maxId, $idPOST, $currentId + 1)
-                } else {
-                    $("*").removeClass("progressWait");
-                }
-            });
-    }
-
-    function addAllItemSet($minId, $maxId, $idPOST, $currentId=null) {
-        if ($currentId === null) {
-            $currentId = $minId;
-        }
-        $currentId = parseInt($currentId);
-        $maxId = parseInt($maxId);
-        var pourcent = (($currentId - $minId) / ($maxId - $minId)) * 100;
-        $.post("/api/shop/shop.php",
-            {
-                id: $idPOST,
-                currentId: $currentId
-            },
-            function (data, status) {
-                $("#pourcentAllItemsSet").html(pourcent + "%" + " / id=" + $currentId + data);
-                if ($currentId < $maxId) {
-                    addAllItemSet($minId, $maxId, $idPOST, $currentId + 1)
-                } else {
-                    $("*").removeClass("progressWait");
-                }
-            });
-    }
-
-    $("form").submit(function (event) {
-        if ($(event.target).attr("id") === "addHomeItem") {
-            return;
-        }
-        event.preventDefault();
-        var form = 'id=' + $(event.target).attr("id") + "&" + $(event.target).serialize();
-        $("*").addClass("progressWait");
-        if ($(event.target).attr("id") === "addAllItem" || $(event.target).attr("id") === "addAllItemSet") {
-            if ($(event.target).attr("id") === "addAllItem") {
-                addAllItem($($(event.target)[0][0]).val(), $($(event.target)[0][1]).val(), $(event.target).attr("id"));
-            } else {
-                addAllItemSet($($(event.target)[0][0]).val(), $($(event.target)[0][1]).val(), $(event.target).attr("id"));
+    $(document).ready(function () {
+        $("form").submit(function (event) {
+            if ($(event.target).attr("id") === "addHomeItem") {
+                return;
             }
-
-        } else {
-            $.post("/api/shop/shop.php", form, function (data, status) {
-                $("*").removeClass("progressWait");
-                if (status === "success") {
-                    console.log(data);
-                    if ($(event.target).attr("id") === "previewItem") {
-                        previewItem(data);
-                    }
-                    if ($(event.target).attr("id") === "previewItemSet") {
-                        previewItemSet(data);
-                    }
-                    if ($(event.target).attr("id") === "addHomeItem") {
-                        previewItemSet(data);
-                    }
-                    if ($(event.target).attr("id") === "staticData") {
-                        $("#staticDataResult").html(data);
-                    }
+            event.preventDefault();
+            var form = 'id=' + $(event.target).attr("id") + "&" + $(event.target).serialize();
+            $("*").addClass("progressWait");
+            if ($(event.target).attr("id") === "addAllItem" || $(event.target).attr("id") === "addAllItemSet") {
+                if ($(event.target).attr("id") === "addAllItem") {
+                    addAllItem($($(event.target)[0][0]).val(), $($(event.target)[0][1]).val(), $(event.target).attr("id"));
+                } else {
+                    addAllItemSet($($(event.target)[0][0]).val(), $($(event.target)[0][1]).val(), $(event.target).attr("id"));
                 }
-            });
-        }
+
+            } else {
+                $.post("/api/shop/shop.php", form, function (data, status) {
+                    $("*").removeClass("progressWait");
+                    if (status === "success") {
+                        console.log(data);
+                        if ($(event.target).attr("id") === "previewItem") {
+                            previewItem(data);
+                        }
+                        if ($(event.target).attr("id") === "previewItemSet") {
+                            previewItemSet(data);
+                        }
+                        if ($(event.target).attr("id") === "addHomeItem") {
+                            previewItemSet(data);
+                        }
+                        if ($(event.target).attr("id") === "staticData") {
+                            $("#staticDataResult").html(data);
+                        }
+                    }
+                });
+            }
+        });
     });
 </script>
 

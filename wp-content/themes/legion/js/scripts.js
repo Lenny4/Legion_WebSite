@@ -99,13 +99,6 @@ function addPlaceHolderForm() {
     });
 }
 
-function heightTopSideBar() {
-    // var $window = $(window);
-    // var $stickyEl = $('#my_sidebar');
-    // var elTop = $($stickyEl).offset().top;
-    // $($stickyEl).css('top', $window.scrollTop() > elTop + 'px');
-}
-
 //====================== GLOBAL
 
 //====================== SHOP ADMIN
@@ -166,6 +159,50 @@ function addItemSet(button) {
     });
 }
 
+function addAllItem($minId, $maxId, $idPOST, $currentId=null) {
+    if ($currentId === null) {
+        $currentId = $minId;
+    }
+    $currentId = parseInt($currentId);
+    $maxId = parseInt($maxId);
+    var pourcent = (($currentId - $minId) / ($maxId - $minId)) * 100;
+    $.post("/api/shop/shop.php",
+        {
+            id: $idPOST,
+            currentId: $currentId
+        },
+        function (data, status) {
+            $("#pourcentAllItems").html(pourcent + "%" + " / id=" + $currentId + data);
+            if ($currentId < $maxId) {
+                addAllItem($minId, $maxId, $idPOST, $currentId + 1)
+            } else {
+                $("*").removeClass("progressWait");
+            }
+        });
+}
+
+function addAllItemSet($minId, $maxId, $idPOST, $currentId=null) {
+    if ($currentId === null) {
+        $currentId = $minId;
+    }
+    $currentId = parseInt($currentId);
+    $maxId = parseInt($maxId);
+    var pourcent = (($currentId - $minId) / ($maxId - $minId)) * 100;
+    $.post("/api/shop/shop.php",
+        {
+            id: $idPOST,
+            currentId: $currentId
+        },
+        function (data, status) {
+            $("#pourcentAllItemsSet").html(pourcent + "%" + " / id=" + $currentId + data);
+            if ($currentId < $maxId) {
+                addAllItemSet($minId, $maxId, $idPOST, $currentId + 1)
+            } else {
+                $("*").removeClass("progressWait");
+            }
+        });
+}
+
 //====================== SHOP ADMIN
 
 $(document).ready(function () {
@@ -179,12 +216,10 @@ $(document).ready(function () {
 $(window).resize(function () {
     resizeVideo();
     hideShowSideBar(true);
-    heightTopSideBar();
     maxHeightSideBar();
 });
 
 $(document).scroll(function () {
     changeMenuCss();
-    heightTopSideBar();
     maxHeightSideBar();
 });

@@ -91,9 +91,9 @@ function insertItemInBdd($item)
 function getItemByClassAndSubClass($subClassId, $classId, $lastItemId)
 {
     if ($lastItemId == 0) {
-        $req = $GLOBALS["dbh"]->query('SELECT * FROM `item` WHERE `itemSubClass`=' . $subClassId . ' AND `itemClass`=' . $classId . ' ORDER BY `item_id` DESC LIMIT ' . $GLOBALS["max_items_display"]);
+        $req = $GLOBALS["dbh"]->query('SELECT * FROM `item` WHERE `itemSubClass`=' . intval($subClassId) . ' AND `itemClass`=' . intval($classId) . ' ORDER BY `item_id` DESC LIMIT ' . $GLOBALS["max_items_display"]);
     } else {
-        $req = 'SELECT * FROM `item` WHERE `itemSubClass`=' . $subClassId . ' AND `itemClass`=' . $classId;
+        $req = 'SELECT * FROM `item` WHERE `itemSubClass`=' . intval($subClassId) . ' AND `itemClass`=' . intval($classId);
         $req .= ' AND `item_id` < ' . $lastItemId . ' ORDER BY `item_id` DESC LIMIT ' . $GLOBALS["max_items_display"];
         $req = $GLOBALS["dbh"]->query($req);
     }
@@ -219,6 +219,10 @@ function insertItemSetInBdd($item_set)
 
 function getItemSetByClass($searchClass)
 {
+    $allClasses = array('Warrior', 'Paladin', 'Hunter', 'Rogue', 'Priest', 'Death Knight', 'Shaman', 'Mage', 'Warlock', 'Monk', 'Druid', 'Demon Hunter');
+    if (!in_array($searchClass, $allClasses)) {
+        return false;
+    }
     $req = $GLOBALS["dbh"]->query('SELECT * FROM `item_set` WHERE `allowableClasses` LIKE \'%"' . $searchClass . '"%\' ORDER BY `item_set_id` DESC');
     $return = array();
     if ($req == false) {
@@ -293,6 +297,39 @@ function viewItemSets($searchClass)
     } else {
         foreach ($result as $itemSet) {
             echo($itemSet->smallDisplay($GLOBALS["dbh"]));
+        }
+    }
+}
+
+function searchItemByIDandName($item_id = null, $item_name = null)
+{
+    $return = array();
+    if ($item_id != null AND $item_id > 0) {
+        $req = $GLOBALS["dbh"]->prepare('SELECT * FROM `item` WHERE `item_id` = ?');
+        $req->execute(array($item_id));
+        while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+            $item = new item();
+            $item->hydrateBDD($data);
+            array_push($return, $item);
+        }
+    }
+    if ($item_name != null AND $item_name != '') {
+        $req = $GLOBALS["dbh"]->prepare('SELECT * FROM `item` WHERE `name` = ?');
+        $req->execute(array($item_name));
+        while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+            $item = new item();
+            $item->hydrateBDD($data);
+            array_push($return, $item);
+        }
+    }
+    if ($return == null AND sizeof($return) > 0) {
+        echo 'Error !';
+    } elseif (sizeof($return) == 0) {
+        echo 'No Result !';
+    } else {
+        foreach ($return as $item) {
+            $itemClass = createItemClass($item);
+            echo($item->display($itemClass, true));
         }
     }
 }
@@ -419,7 +456,13 @@ if ($_POST['id'] == 'subItemSetClasse') {
 
 if ($_POST["id"] == "showHomeItems") {
     $allItemsHome = new item_home();
-    echo $allItemsHome->display();
+    $allItemsHome->display();
+}
+
+if ($_POST['id'] == 'searchItem') {
+    $item_id = intval($_POST["search_item_id"]);
+    $item_name = $_POST["search_item_name"];
+    searchItemByIDandName($item_id, $item_name);
 }
 
 //SHOP======================================================

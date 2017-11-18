@@ -16,6 +16,30 @@
 
             <!-- article -->
             <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+                <p data-toggle="collapse" data-target="#search_item_item_set" class="clickable text-center h4 overGreen"
+                   style="font-family: inherit;">
+                    Search
+                    <i class="fa fa-arrow-down" aria-hidden="true"></i></p>
+                <div id="search_item_item_set" class="col-xs-12 collapse">
+                    <div class="col-sm-6 col-xs-12">
+                        <form id="searchItem">
+                            <div class="form-group">
+                                <input placeholder="Search item by ID" type="number" class="form-control"
+                                       name="search_item_id">
+                            </div>
+                            <div class="form-group">
+                                <input placeholder="Search item by name" type="text" class="form-control"
+                                       name="search_item_name">
+                            </div>
+                            <button type="submit" class="btn btn-default">Search</button>
+                        </form>
+                    </div>
+                    <div class="col-xs-12 hidden-lg hidden-md hidden-sm"><hr/></div>
+                    <div class="col-sm-6 col-xs-12">
+                        Can't find what an item in our database ?
+                        Let us know
+                    </div>
+                </div>
                 <p>Automatic translation :</p><?php echo do_shortcode('[gtranslate]'); ?>
                 <div class="col-xs-12">
                     <?php the_content(); ?>
@@ -96,7 +120,7 @@
                                 ?>
                             </div>
                             <div style="display: none" id="filterShop">
-                                filterShop
+                                <input class="form-control" id="filterShopInput" type="text" placeholder="Filter">
                             </div>
                             <div class="col-xs-12" id="shopDisplayError"></div>
                         </div>
@@ -290,6 +314,16 @@
         }
     }
 
+    function filterShop() {
+        var value = $("#filterShopInput").val().toLowerCase();
+        $("#filterNameListShop li").filter(function () {
+            $(this).toggle($(this).text().toLowerCase().indexOf(value) > -1)
+        });
+        setTimeout(function () {
+            filterShop();
+        }, 300);
+    }
+
     function showMoreTransmo() {
         console.log(1);
     }
@@ -302,72 +336,90 @@
         console.log(1);
     }
 
-    $("a.subItemClasse").click(function (e) {
-        $("*").addClass("progressWait");
-        hideCategoryIfOnPhone();
-        showAjaxLoaderShop();
-        var target = e.target;
-        if (!$(target).hasClass("clickable")) {
-            target = $(target).parent().parent();
-        }
-        var $classId = $(target).parent().parent().parent().parent().parent().parent().attr("id");
-        var $id = $(target).attr('id');
-        var $subClassId = $(target).attr('data-sub-class-id');
-        $.post("/api/shop/shop.php",
-            {
-                id: $id,
-                subClassId: $subClassId,
-                classId: $classId
-            },
-            function (data, status) {
-                $dontExecuteHeightShop = false;
-                $("*").removeClass("progressWait");
-                hideAllHeaderShop();
-                hideAjaxLoaderShop();
-                if (data !== 'Error !' && data !== 'No Result !') {
-                    showFilterShop();
-                    $("#shopDisplayItems").html(data);
-                } else {
-                    showAlertMessage(data);
-                }
-            });
-    });
-
-    $("a.subItemSetClasse").click(function (e) {
-        $("*").addClass("progressWait");
-        hideCategoryIfOnPhone();
-        showAjaxLoaderShop();
-        var target = e.target;
-        if (!$(target).hasClass("clickable")) {
-            target = $(target).parent().parent();
-        }
-        var $searchClass = $(target).attr("data-sub-class-id");
-        var $id = $(target).attr('id');
-        $.post("/api/shop/shop.php",
-            {
-                id: $id,
-                searchClass: $searchClass
-            },
-            function (data, status) {
-                $dontExecuteHeightShop = false;
-                $("*").removeClass("progressWait");
-                hideAllHeaderShop();
-                hideAjaxLoaderShop();
-                if (data !== 'Error !' && data !== 'No Result !') {
-                    $("#shopDisplayItems").html(data);
-                } else {
-                    showAlertMessage(data);
-                }
-            });
-    });
-
-    $("#mainShopTitle").click(function (e) {
-        loadHomePageShop();
-    });
-
     $(document).ready(function () {
+        $("a.subItemClasse").click(function (e) {
+            $("*").addClass("progressWait");
+            hideCategoryIfOnPhone();
+            showAjaxLoaderShop();
+            var target = e.target;
+            if (!$(target).hasClass("clickable")) {
+                target = $(target).parent().parent();
+            }
+            var $classId = $(target).parent().parent().parent().parent().parent().parent().attr("id");
+            var $id = $(target).attr('id');
+            var $subClassId = $(target).attr('data-sub-class-id');
+            $.post("/api/shop/shop.php",
+                {
+                    id: $id,
+                    subClassId: $subClassId,
+                    classId: $classId
+                },
+                function (data, status) {
+                    $dontExecuteHeightShop = false;
+                    $("*").removeClass("progressWait");
+                    hideAllHeaderShop();
+                    hideAjaxLoaderShop();
+                    if (data !== 'Error !' && data !== 'No Result !') {
+                        showFilterShop();
+                        $("#shopDisplayItems").html(data);
+                    } else {
+                        showAlertMessage(data);
+                    }
+                });
+        });
+
+        $("a.subItemSetClasse").click(function (e) {
+            $("*").addClass("progressWait");
+            hideCategoryIfOnPhone();
+            showAjaxLoaderShop();
+            var target = e.target;
+            if (!$(target).hasClass("clickable")) {
+                target = $(target).parent().parent();
+            }
+            var $searchClass = $(target).attr("data-sub-class-id");
+            var $id = $(target).attr('id');
+            $.post("/api/shop/shop.php",
+                {
+                    id: $id,
+                    searchClass: $searchClass
+                },
+                function (data, status) {
+                    $dontExecuteHeightShop = false;
+                    $("*").removeClass("progressWait");
+                    hideAllHeaderShop();
+                    hideAjaxLoaderShop();
+                    if (data !== 'Error !' && data !== 'No Result !') {
+                        $("#shopDisplayItems").html(data);
+                    } else {
+                        showAlertMessage(data);
+                    }
+                });
+        });
+
+        $("#mainShopTitle").click(function (e) {
+            loadHomePageShop();
+        });
+
+        $("form").submit(function (event) {
+            event.preventDefault();
+            $("*").addClass("progressWait");
+            hideCategoryIfOnPhone();
+            showAjaxLoaderShop();
+            var form = 'id=' + $(event.target).attr("id") + "&" + $(event.target).serialize();
+            $.post("/api/shop/shop.php", form, function (data, status) {
+                $("*").removeClass("progressWait");
+                hideAllHeaderShop();
+                hideAjaxLoaderShop();
+                if (data !== 'Error !' && data !== 'No Result !') {
+                    $("#shopDisplayItems").html(data);
+                } else {
+                    showAlertMessage(data);
+                }
+            });
+        });
         loadHomePageShop();
         sameHeight();
+        filterShop();
     });
 
 </script>
