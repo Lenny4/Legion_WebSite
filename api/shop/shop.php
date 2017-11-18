@@ -7,6 +7,12 @@ if (strpos($_SERVER["HTTP_REFERER"], $_SERVER["SERVER_NAME"]) == false) {//check
     return;
 }
 
+//STATIC DATA===========
+$req = $GLOBALS["dbh"]->query('SELECT * FROM `static_data_shop`');
+while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+    $GLOBALS["max_item_id"] = $data["max_item_id"];
+}
+
 $GLOBALS["shop_page_id"] = 0;
 
 $pages = get_pages(array(
@@ -15,6 +21,7 @@ $pages = get_pages(array(
 foreach ($pages as $page) {
     $GLOBALS["shop_page_id"] = $page->ID;
 }
+//STATIC DATA===========
 
 if (!isset($_POST)) {
     echo("No data");
@@ -205,7 +212,7 @@ function insertItemSetInBdd($item_set)
 
 function getItemSetByClass($searchClass)
 {
-    $req = $GLOBALS["dbh"]->query('SELECT * FROM `item_set` WHERE `allowableClasses` LIKE \'%' . $searchClass . '%\' ORDER BY `item_set_id` DESC');
+    $req = $GLOBALS["dbh"]->query('SELECT * FROM `item_set` WHERE `allowableClasses` LIKE \'%"' . $searchClass . '"%\' ORDER BY `item_set_id` DESC');
     $return = array();
     if ($req == false) {
         return null;
@@ -276,17 +283,22 @@ function viewItemSets($searchClass)
 function addItemBdd($postItemId, $postItemPrice, $vote = 0, $filtre = false)
 {
     $item = createItem($postItemId, $postItemPrice, $vote);
-    if ($filtre == true AND $item->equippable == true) {
-        if ($item->requiredLevel == 110) {
+    if ($item->item_id > $GLOBALS["max_item_id"]) {
+        echo "The id of this item is to high, check the extension";
+        return null;
+    }
+    if ($item->item_id)
+        if ($filtre == true AND $item->equippable == true) {
+            if ($item->requiredLevel == 110) {
+                $itemClass = createItemClass($item);
+                insertItemInBdd($item);
+                insertItemClassInBdd($itemClass);
+            }
+        } else {
             $itemClass = createItemClass($item);
             insertItemInBdd($item);
             insertItemClassInBdd($itemClass);
         }
-    } else {
-        $itemClass = createItemClass($item);
-        insertItemInBdd($item);
-        insertItemClassInBdd($itemClass);
-    }
     return $item;
 }
 
@@ -303,6 +315,10 @@ function addItemSetBdd($postItemSetId, $postItemSetPrice, $vote = 0, $filtre = f
             }
         }
         if ($filtre == false) {
+            if ($item->item_id > $GLOBALS["max_item_id"]) {
+                echo "The id of this item is to high, check the extension";
+                return null;
+            }
             addItemBdd($itemID, '', $vote);
         }
     }
