@@ -35,6 +35,7 @@
         </p>
         <!-- /copyright -->
     </div>
+    <a href="#body"><i class="fa fa-arrow-circle-up fa-3x buttonHeader" aria-hidden="true"></i></a>
 </footer>
 <!-- /footer -->
 

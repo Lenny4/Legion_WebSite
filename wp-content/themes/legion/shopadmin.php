@@ -1,5 +1,13 @@
 <?php /* Template Name: Shop Admin */ ?>
 
+<?php
+$max_item_id_allowed = 0;
+$req = $GLOBALS["dbh"]->query('SELECT * FROM `static_data_shop`');
+while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+    $max_item_id_allowed = $data["max_item_id"];
+}
+?>
+
 <?php get_header(); ?>
 <main class="col-md-8 col-md-offset-1" role="main">
     <!-- section -->
@@ -129,8 +137,15 @@
                     </form>
                 </div>
                 <div class=" col-md-6 col-xs-12 borderWhite">
-                    <p class="h3">Define normal price for object (need to be store in bdd)</p>
-                    Create a button change all current item price
+                    <p class="h3">Static Data</p>
+                    <p id="staticDataResult"></p>
+                    <form id="staticData">
+                        <div class="form-group">
+                            <input placeholder="Max item id" type="number" class="form-control"
+                                   name="max_item_id_allowed" value="<?= $max_item_id_allowed; ?>">
+                        </div>
+                        <button type="submit" class="btn btn-default">Change</button>
+                    </form>
                 </div>
                 <div class=" col-md-6 col-xs-12 borderWhite">
                     <p class="h3">Promotion (will apply to all according to the category choose item itemset home
@@ -189,8 +204,6 @@
             $currentId = $minId;
         }
         $currentId = parseInt($currentId);
-        console.clear();
-        console.log($currentId);
         $maxId = parseInt($maxId);
         var pourcent = (($currentId - $minId) / ($maxId - $minId)) * 100;
         $.post("/api/shop/shop.php",
@@ -213,8 +226,6 @@
             $currentId = $minId;
         }
         $currentId = parseInt($currentId);
-        console.clear();
-        console.log($currentId);
         $maxId = parseInt($maxId);
         var pourcent = (($currentId - $minId) / ($maxId - $minId)) * 100;
         $.post("/api/shop/shop.php",
@@ -259,6 +270,9 @@
                     }
                     if ($(event.target).attr("id") === "addHomeItem") {
                         previewItemSet(data);
+                    }
+                    if ($(event.target).attr("id") === "staticData") {
+                        $("#staticDataResult").html(data);
                     }
                 }
             });

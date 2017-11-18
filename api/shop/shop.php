@@ -351,6 +351,20 @@ if ($_POST['id'] == "addAllItemSet") {
     }
 }
 
+if ($_POST['id'] == "staticData") {
+    if (isWowAdmin()) {
+        $max_item_id_allowed = $_POST["max_item_id_allowed"];
+        $GLOBALS["dbh"]->query('DELETE FROM `static_data_shop` WHERE `id`>0');
+        $GLOBALS["dbh"]->query('INSERT INTO `static_data_shop`(`max_item_id`) VALUES (' . $max_item_id_allowed . ')');
+        echo '
+            <div class="alert alert-success alert-dismissable">
+                <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+                <strong>Ok</strong>
+            </div>
+        ';
+    }
+}
+
 //ADMIN SHOP======================================================
 
 //SHOP======================================================

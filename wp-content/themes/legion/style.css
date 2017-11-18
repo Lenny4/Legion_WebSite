@@ -12,7 +12,7 @@
     font-family: Quickstyle;
 }
 
-.noPadding{
+.noPadding {
     padding: 0 !important;
 }
 
@@ -291,13 +291,22 @@ div.mainParallax {
     padding-bottom: 20px;
 }
 
+.fa {
+    z-index: 10001;
+    color: white;
+    cursor: pointer;
+}
+
 .buttonSideBar {
     position: fixed;
     right: 0px;
     top: 50%;
-    z-index: 10001;
-    color: white;
-    cursor: pointer;
+}
+
+.buttonHeader {
+    position: fixed;
+    right: 34px;
+    bottom: 80px;
 }
 
 aside {
@@ -849,7 +858,7 @@ div.display_item_set div.display_item p.stackable {
 }
 
 @media (max-width: 768px) {
-    .heightMinPhone{
+    .heightMinPhone {
         height: 0px !important;
     }
 }
