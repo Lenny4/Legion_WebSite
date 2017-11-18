@@ -158,7 +158,6 @@
 
 <script>
 
-    var $maxHeightDivShop = 0;
     var $dontExecuteHeightShop = true;
 
     function showFilterShop() {
@@ -205,8 +204,6 @@
         $("*").addClass("progressWait");
         var id = JSON.parse($($this).attr('data-show')).id;
         var value = JSON.parse($($this).attr('data-show')).value;
-        console.log(id);
-        console.log(value);
         $.post("/api/shop/shop.php",
             {
                 id: id,
@@ -259,23 +256,23 @@
             });
     }
 
-    function sameHeight() {
-        if ($(window).width() <= 768) {
-            $("div.display_item").height("auto");
-        }
-        var $allContent = $("#shopDisplayItems").first();
-        $($allContent).children('a').each(function () {
-            var $li = $(this).children();
-            if ($($li).height() > $maxHeightDivShop) {
-                $maxHeightDivShop = $($li).height();
+    function sameHeight($maxHeightDivShop=0, $previousMax=0, $previous2ndMax=0) {
+        var $divs = $("div.display_item_small");
+        $maxHeightDivShop = Math.max.apply(null, $($divs).map(function () {
+            return $(this).height();
+        }).get());
+        if ($previous2ndMax !== 0 && Number.isInteger($previous2ndMax)) {//on a vérifié 3 fois
+            if ($dontExecuteHeightShop === false) {
+                $($divs).css("min-height", $maxHeightDivShop + "px");
             }
-        });
-        if ($maxHeightDivShop > 62 && $(window).width() > 768 && $dontExecuteHeightShop === false) {//par tatonnage grâce au console.log
-            $("div.display_item_small").height($maxHeightDivShop - 12);
+            $maxHeightDivShop = 0;
+            $previousMax = 0;
+            $previous2ndMax = 0;
         }
-//        console.log($maxHeightDivShop);
         setTimeout(function () {
-            sameHeight();
+            $previous2ndMax = $previousMax;
+            $previousMax = $maxHeightDivShop;
+            sameHeight($maxHeightDivShop, $previousMax, $previous2ndMax);
             return false;
         }, 500);
     }
