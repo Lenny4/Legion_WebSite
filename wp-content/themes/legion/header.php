@@ -88,3 +88,33 @@
     $image = get_field("main_paralaxx", $homePageId);
     ?>
     <div class="mainContent row mainParallax" style="background-image: url('<?= $image["url"] ?>');">
+        <?php
+        if (isWowAdmin()) {
+            $req = $GLOBALS["dbh"]->query('SELECT * FROM `ask_new_items` WHERE `answer` IS NULL');
+            if ($req->rowCount() > 0) {
+                echo '<div class="col-sm-6 col-sm-offset-3 col-xs-12" style="margin-top: 20px; z-index:500">';
+                while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+                    if ($data["item_id"] != null) {
+                        echo '
+                    <div class="alert alert-success">
+                        <strong>Asked Item : </strong> ' . $data["item_id"] . ', number : ' . $data["number"] . ' 
+                        <a target="_blank" href="http://www.wowhead.com/item=' . $data["item_id"] . '">Link</a>
+                        <a onclick="askedItemAdded(' . $data["item_id"] . ',this)" class="pointer">Item added</a>
+                        <a onclick="askedItemRefused(' . $data["item_id"] . ',this)" class="pointer">Item refused</a>
+                    </div>
+                    ';
+                    } else {
+                        echo '
+                    <div class="alert alert-success">
+                        <strong>Asked Item set : </strong> ' . $data["item_set_id"] . ', number : ' . $data["number"] . ' 
+                        <a target="_blank" href="http://www.wowhead.com/item-set=' . $data["item_set_id"] . '">Link</a>
+                        <a onclick="askedItemSetAdded(' . $data["item_set_id"] . ',this)" class="pointer">Item set added</a>
+                        <a onclick="askedItemSetRefused(' . $data["item_set_id"] . ',this)" class="pointer">Item set refused</a>
+                    </div>
+                    ';
+                    }
+                }
+                echo '</div>';
+            }
+        }
+        ?>

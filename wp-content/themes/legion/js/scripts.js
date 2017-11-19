@@ -203,6 +203,46 @@ function addAllItemSet($minId, $maxId, $idPOST, $currentId=null) {
         });
 }
 
+function askedItemAdded($id, $button) {
+    $($button).parent().remove();
+    $.post("/api/shop/shop.php",
+        {
+            id: "askedItemAdded",
+            item_id: $id
+        },
+        function (data, status) {console.log(data);});
+}
+
+function askedItemRefused($id, $button) {
+    $($button).parent().remove();
+    $.post("/api/shop/shop.php",
+        {
+            id: "askedItemRefused",
+            item_id: $id
+        },
+        function (data, status) {console.log(data);});
+}
+
+function askedItemSetAdded($id, $button) {
+    $($button).parent().remove();
+    $.post("/api/shop/shop.php",
+        {
+            id: "askedItemSetAdded",
+            item_set_id: $id
+        },
+        function (data, status) {console.log(data);});
+}
+
+function askedItemSetRefused($id, $button) {
+    $($button).parent().remove();
+    $.post("/api/shop/shop.php",
+        {
+            id: "askedItemSetRefused",
+            item_set_id: $id
+        },
+        function (data, status) {console.log(data);});
+}
+
 //====================== SHOP ADMIN
 
 $(document).ready(function () {

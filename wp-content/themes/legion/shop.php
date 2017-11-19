@@ -340,6 +340,7 @@
             '<a target="_blank" href="http://www.wowhead.com/database">Find items and items set ids</a>' +
             '                    <form id="customer_add_items" method="post">\n' +
             '                        <p class="h5 text-center" style="font-family: inherit">You can separate the ids with ;</p>\n' +
+            '                        <p class="h5 text-center" style="font-family: inherit">Max extansion of the item 7.2.5</p>\n' +
             '                        <div class="col-sm-6 col-xs-12">\n' +
             '                            <p class="h4 text-center" style="font-family: inherit">Add new item</p>\n' +
             '                            <div class="form-group">\n' +

@@ -729,6 +729,68 @@ if ($_POST['id'] == "staticData") {
     }
 }
 
+if ($_POST['id'] == "askedItemAdded") {
+    $id = $_POST['item_id'];
+    $req = $GLOBALS["dbh"]->query('SELECT * FROM `item` WHERE item_id=' . $id);
+    if ($req->rowCount() > 0) {
+        $allUsers = array();
+        $GLOBALS["dbh"]->query('UPDATE `ask_new_items` SET `answer`=1 WHERE item_id=' . $id);
+        $req = $GLOBALS["dbh"]->query('SELECT * FROM `ask_new_items_user` WHERE `ask_new_items_id`=' . $id);
+        while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+            array_push($allUsers, $data["user_wp_id"]);
+        }
+        foreach ($allUsers as $userId) {
+            $GLOBALS["dbh"]->query("INSERT INTO `message_header`(`message`, `user_id`, `item_id`, `item_set_id`) VALUES ('item_added'," . $userId . "," . $id . ",null)");
+        }
+        $GLOBALS["dbh"]->query('DELETE FROM `ask_new_items_user` WHERE `ask_new_items_id`=' . $id);
+    }
+}
+
+if ($_POST['id'] == "askedItemRefused") {
+    $id = $_POST['item_id'];
+    $allUsers = array();
+    $GLOBALS["dbh"]->query('UPDATE `ask_new_items` SET `answer`=0 WHERE item_id=' . $id);
+    $req = $GLOBALS["dbh"]->query('SELECT * FROM `ask_new_items_user` WHERE `ask_new_items_id`=' . $id);
+    while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+        array_push($allUsers, $data["user_wp_id"]);
+    }
+    foreach ($allUsers as $userId) {
+        $GLOBALS["dbh"]->query("INSERT INTO `message_header`(`message`, `user_id`, `item_id`, `item_set_id`) VALUES ('item_refused'," . $userId . ",null,null)");
+    }
+    $GLOBALS["dbh"]->query('DELETE FROM `ask_new_items_user` WHERE `ask_new_items_id`=' . $id);
+}
+
+if ($_POST['id'] == "askedItemSetAdded") {
+    $id = $_POST['item_set_id'];
+    $req = $GLOBALS["dbh"]->query('SELECT * FROM `item_set` WHERE item_set_id=' . $id);
+    if ($req->rowCount() > 0) {
+        $allUsers = array();
+        $GLOBALS["dbh"]->query('UPDATE `ask_new_items` SET `answer`=1 WHERE item_set_id=' . $id);
+        $req = $GLOBALS["dbh"]->query('SELECT * FROM `ask_new_items_user` WHERE `ask_new_items_set_id`=' . $id);
+        while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+            array_push($allUsers, $data["user_wp_id"]);
+        }
+        foreach ($allUsers as $userId) {
+            $GLOBALS["dbh"]->query("INSERT INTO `message_header`(`message`, `user_id`, `item_id`, `item_set_id`) VALUES ('item_set_added'," . $userId . ",null," . $id . ")");
+        }
+        $GLOBALS["dbh"]->query('DELETE FROM `ask_new_items_user` WHERE `ask_new_items_set_id`=' . $id);
+    }
+}
+
+if ($_POST['id'] == "askedItemSetRefused") {
+    $id = $_POST['item_set_id'];
+    $allUsers = array();
+    $GLOBALS["dbh"]->query('UPDATE `ask_new_items` SET `answer`=0 WHERE item_set_id=' . $id);
+    $req = $GLOBALS["dbh"]->query('SELECT * FROM `ask_new_items_user` WHERE `ask_new_items_set_id`=' . $id);
+    while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+        array_push($allUsers, $data["user_wp_id"]);
+    }
+    foreach ($allUsers as $userId) {
+        $GLOBALS["dbh"]->query("INSERT INTO `message_header`(`message`, `user_id`, `item_id`, `item_set_id`) VALUES ('item_set_refused'," . $userId . ",null,null)");
+    }
+    $GLOBALS["dbh"]->query('DELETE FROM `ask_new_items_user` WHERE `ask_new_items_set_id`=' . $id);
+}
+
 //ADMIN SHOP======================================================
 
 //SHOP======================================================
