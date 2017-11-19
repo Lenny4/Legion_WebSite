@@ -429,6 +429,9 @@
 
 
         $('body').on('submit', 'form', function (event) {
+            if ($(event.target).attr("id") === "wpum_loginform") {
+                return;
+            }
             event.preventDefault();
             $("*").addClass("progressWait");
             if ($(event.target).attr("id") !== "customer_add_items") {

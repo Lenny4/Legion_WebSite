@@ -386,6 +386,11 @@ function addItemSetBdd($postItemSetId, $postItemSetPrice, $vote = 0, $filtre = f
 
 function proposeNewItems($allItemsID, $allItemsSetID)
 {
+    $higherItemId = 0;
+    $req = $GLOBALS["dbh"]->query('SELECT * FROM `static_data_shop`');
+    while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+        $higherItemId = $data["max_item_id"];
+    }
     $itemsAlreadyAsked = array();
     $itemsSetAlreadyAsked = array();
     $itemAlreadyInBdd = array();
@@ -544,6 +549,15 @@ function proposeNewItems($allItemsID, $allItemsSetID)
             unset($allItemsSetID[$key]);
         }
     }
+    //Check if item id is not to high
+    foreach ($allItemsID as $value) {
+        if ($value > $higherItemId) {
+            echo '<div class="alert alert-warning alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  Item <strong>' . $value . '</strong> might have a too high expansion (if not it will be added)
+</div>';
+        }
+    }
     //Check if item Exist
     foreach ($allItemsID as $key => $item_id) {
         @$result = json_decode(file_get_contents('https://us.api.battle.net/wow/item/' . $item_id . '?locale=en_US&apikey=' . API_KEY));
@@ -557,10 +571,48 @@ function proposeNewItems($allItemsID, $allItemsSetID)
         if ($result == null) {
             array_push($itemSetNotFound, $allItemsSetID[$key]);
             unset($allItemsSetID[$key]);
+        } //Check if item id is not to high
+        else {
+            $thisItemId = $result->items[0];
+            @$result = json_decode(file_get_contents('https://us.api.battle.net/wow/item/' . $thisItemId . '?locale=en_US&apikey=' . API_KEY));
+            if ($result->id > $higherItemId) {
+                echo '<div class="alert alert-warning alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  Item set <strong>' . $item_set_id . '</strong> might have a too high expansion (if not it will be added)
+</div>';
+            }
         }
     }
     //Add items and items set
-    //Display error
+    foreach ($allItemsID as $value) {
+        $result = $GLOBALS["dbh"]->query('SELECT * FROM `ask_new_items` WHERE item_id=' . $value);
+        $count = $result->rowCount();
+        if ($count == 0) {
+            $GLOBALS["dbh"]->query('INSERT INTO `ask_new_items`(`item_id`, `item_set_id`, `number`, `answer`) VALUES (' . $value . ',null,1,null)');
+        } else {
+            while ($data = $result->fetch(PDO::FETCH_ASSOC)) {
+                $number = $data["number"] + 1;
+                $id = $data["id"];
+                $GLOBALS["dbh"]->query('UPDATE `ask_new_items` SET `number`=' . $number . ' WHERE id=' . $id);
+            }
+        }
+        $GLOBALS["dbh"]->query('INSERT INTO `ask_new_items_user`(`ask_new_items_id`, `ask_new_items_set_id`, `user_wp_id`) VALUES (' . $value . ',null,' . get_current_user_id() . ')');
+    }
+    foreach ($allItemsSetID as $value) {
+        $result = $GLOBALS["dbh"]->query('SELECT * FROM `ask_new_items` WHERE item_set_id=' . $value);
+        $count = $result->rowCount();
+        if ($count == 0) {
+            $GLOBALS["dbh"]->query('INSERT INTO `ask_new_items`(`item_id`, `item_set_id`, `number`, `answer`) VALUES (null,' . $value . ',1,null)');
+        } else {
+            while ($data = $result->fetch(PDO::FETCH_ASSOC)) {
+                $number = $data["number"] + 1;
+                $id = $data["id"];
+                $GLOBALS["dbh"]->query('UPDATE `ask_new_items` SET `number`=' . $number . ' WHERE id=' . $id);
+            }
+        }
+        $GLOBALS["dbh"]->query('INSERT INTO `ask_new_items_user`(`ask_new_items_id`, `ask_new_items_set_id`, `user_wp_id`) VALUES (null,' . $value . ',' . get_current_user_id() . ')');
+    }
+    //Display error/messages
     foreach ($itemsAlreadyAsked as $value) {
         echo '<div class="alert alert-info alert-dismissable">
   <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
@@ -666,8 +718,8 @@ if ($_POST['id'] == "addAllItemSet") {
 if ($_POST['id'] == "staticData") {
     if (isWowAdmin()) {
         $max_item_id_allowed = $_POST["max_item_id_allowed"];
-        $GLOBALS["dbh"]->query('DELETE FROM `static_data_shop` WHERE `id`>0');
         $GLOBALS["dbh"]->query('INSERT INTO `static_data_shop`(`max_item_id`) VALUES (' . $max_item_id_allowed . ')');
+        $GLOBALS["dbh"]->query('DELETE FROM `static_data_shop` WHERE `id`>0');
         echo '
             <div class="alert alert-success alert-dismissable">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
