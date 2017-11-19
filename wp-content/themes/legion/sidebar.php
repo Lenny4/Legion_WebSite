@@ -31,7 +31,7 @@
             </div>
         </div>
     </div>
-    <a href="/wp-login.php?action=logout">Logout</a>
+    <a href="<?php echo wp_logout_url( home_url() ); ?>">Logout</a>
 </aside>
 <div class="col-sm-1-offset"></div>
 <!-- /sidebar -->
