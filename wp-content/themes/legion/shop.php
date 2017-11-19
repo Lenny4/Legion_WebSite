@@ -299,7 +299,7 @@
     }
 
     function showMoreItemGlobal($subClassId, $classId, $lastItemId) {
-        if ($subClassId < 0 || $classId < 0 || $lastItemId < 0) {
+        if ($subClassId < 0 || $classId < 0 || $lastItemId <= 0) {
             return false;
         } else {
             $("*").addClass("progressWait");

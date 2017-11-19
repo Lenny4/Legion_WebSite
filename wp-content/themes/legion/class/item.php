@@ -29,11 +29,19 @@ class item extends parent_item
     public $sellPrice = null;
     public $price = 0;
     public $vote = 0;
+    public $side = null;
 
     public function hydrateAPI($data)
     {
         if (isset($data->id)) {
             $this->item_id = $data->id;
+        }
+        if (isset($data->allowableRaces)) {
+            if (in_array(1, $data->allowableRaces)) {
+                $this->side = 1;
+            } else {
+                $this->side = 2;
+            }
         }
         if (isset($data->description)) {
             $this->description = $data->description;
@@ -202,9 +210,9 @@ class item extends parent_item
             }
             $return = $return . '</span>';
         }
-        if($small == true){
+        if ($small == true) {
             $return = $return . '<div class="display_item display_item_small">';
-        }else{
+        } else {
             $return = $return . '<div class="display_item">';
         }
         $return = $return . '<img style="float: left" src="https://wow.zamimg.com/images/wow/icons/large/' . $this->icon . '.jpg" alt="' . $this->name . '" />

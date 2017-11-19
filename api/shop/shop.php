@@ -90,6 +90,7 @@ function insertItemInBdd($item)
 
 function getItemByClassAndSubClass($subClassId, $classId, $lastItemId)
 {
+    $lastItemId = intval($lastItemId);
     if ($lastItemId == 0) {
         $req = $GLOBALS["dbh"]->query('SELECT * FROM `item` WHERE `itemSubClass`=' . intval($subClassId) . ' AND `itemClass`=' . intval($classId) . ' ORDER BY `item_id` DESC LIMIT ' . $GLOBALS["max_items_display"]);
     } else {
@@ -718,8 +719,8 @@ if ($_POST['id'] == "addAllItemSet") {
 if ($_POST['id'] == "staticData") {
     if (isWowAdmin()) {
         $max_item_id_allowed = $_POST["max_item_id_allowed"];
-        $GLOBALS["dbh"]->query('INSERT INTO `static_data_shop`(`max_item_id`) VALUES (' . $max_item_id_allowed . ')');
         $GLOBALS["dbh"]->query('DELETE FROM `static_data_shop` WHERE `id`>0');
+        $GLOBALS["dbh"]->query('INSERT INTO `static_data_shop`(`max_item_id`) VALUES (' . $max_item_id_allowed . ')');
         echo '
             <div class="alert alert-success alert-dismissable">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
