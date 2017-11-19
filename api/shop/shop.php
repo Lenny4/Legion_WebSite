@@ -384,6 +384,245 @@ function addItemSetBdd($postItemSetId, $postItemSetPrice, $vote = 0, $filtre = f
     }
 }
 
+function proposeNewItems($allItemsID, $allItemsSetID)
+{
+    $itemsAlreadyAsked = array();
+    $itemsSetAlreadyAsked = array();
+    $itemAlreadyInBdd = array();
+    $itemSetAlreadyInBdd = array();
+    $itemRefused = array();
+    $itemSetRefused = array();
+    $itemNotFound = array();
+    $itemSetNotFound = array();
+    if (is_user_logged_in() == false) {
+        echo '<div class="alert alert-danger alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>You must be login !</strong>
+</div>';
+        return false;
+    }
+    if (sizeof($allItemsID) == 0 AND sizeof($allItemsSetID) == 0) {
+        echo '<div class="alert alert-danger alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>You must write IDs</strong>
+</div>';
+        return false;
+    }
+    //Check if asked items are already in bdd
+    if (sizeof($allItemsID) > 0) {
+        $req = 'SELECT * FROM `item`';
+        $i = 0;
+        foreach ($allItemsID as $id) {
+            if ($i == 0) {
+                $req .= ' WHERE ( item_id=' . $id;
+            } else {
+                $req .= ' OR item_id=' . $id;
+            }
+            $i++;
+        }
+        $req .= ')';
+        $req = $GLOBALS["dbh"]->query($req);
+        while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+            array_push($itemAlreadyInBdd, $data["item_id"]);
+        }
+    }
+    if (sizeof($allItemsSetID) > 0) {
+        $req = 'SELECT * FROM `item_set`';
+        $i = 0;
+        foreach ($allItemsSetID as $id) {
+            if ($i == 0) {
+                $req .= ' WHERE ( item_set_id=' . $id;
+            } else {
+                $req .= ' OR item_set_id=' . $id;
+            }
+            $i++;
+        }
+        $req .= ')';
+        $req = $GLOBALS["dbh"]->query($req);
+        while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+            array_push($itemSetAlreadyInBdd, $data["item_set_id"]);
+        }
+    }
+    //Check if item has been refused
+    if (sizeof($allItemsID) > 0) {
+        $req = 'SELECT * FROM `ask_new_items` WHERE answer=0';
+        $i = 0;
+        foreach ($allItemsID as $id) {
+            if ($i == 0) {
+                $req .= ' AND ( item_id=' . $id;
+            } else {
+                $req .= ' OR item_id=' . $id;
+            }
+            $i++;
+        }
+        $req .= ')';
+        $req = $GLOBALS["dbh"]->query($req);
+        while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+            array_push($itemRefused, $data["item_id"]);
+        }
+    }
+    if (sizeof($allItemsSetID) > 0) {
+        $req = 'SELECT * FROM `ask_new_items` WHERE answer=0';
+        $i = 0;
+        foreach ($allItemsSetID as $id) {
+            if ($i == 0) {
+                $req .= ' AND ( item_set_id=' . $id;
+            } else {
+                $req .= ' OR item_set_id=' . $id;
+            }
+            $i++;
+        }
+        $req .= ')';
+        $req = $GLOBALS["dbh"]->query($req);
+        while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+            array_push($itemSetRefused, $data["item_set_id"]);
+        }
+    }
+    //Check if he asked this item before
+    if (sizeof($allItemsID) > 0) {
+        $req = 'SELECT * FROM `ask_new_items_user` WHERE user_wp_id =' . get_current_user_id();
+        $i = 0;
+        foreach ($allItemsID as $id) {
+            if ($i == 0) {
+                $req .= ' AND ( ask_new_items_id=' . $id;
+            } else {
+                $req .= ' OR ask_new_items_id=' . $id;
+            }
+            $i++;
+        }
+        $req .= ')';
+        $req = $GLOBALS["dbh"]->query($req);
+        while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+            array_push($itemsAlreadyAsked, $data["ask_new_items_id"]);
+        }
+    }
+    if (sizeof($allItemsSetID) > 0) {
+        $req = 'SELECT * FROM `ask_new_items_user` WHERE user_wp_id =' . get_current_user_id();
+        $i = 0;
+        foreach ($allItemsSetID as $id) {
+            if ($i == 0) {
+                $req .= ' AND ( ask_new_items_set_id=' . $id;
+            } else {
+                $req .= ' OR ask_new_items_set_id=' . $id;
+            }
+            $i++;
+        }
+        $req .= ')';
+        $req = $GLOBALS["dbh"]->query($req);
+        while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+            array_push($itemsSetAlreadyAsked, $data["ask_new_items_set_id"]);
+        }
+    }
+    //Keep all items who must be found
+    foreach ($itemsAlreadyAsked as $value) {
+        if (($key = array_search($value, $allItemsID)) !== false) {
+            unset($allItemsID[$key]);
+        }
+    }
+    foreach ($itemsSetAlreadyAsked as $value) {
+        if (($key = array_search($value, $allItemsSetID)) !== false) {
+            unset($allItemsSetID[$key]);
+        }
+    }
+    foreach ($itemAlreadyInBdd as $value) {
+        if (($key = array_search($value, $allItemsID)) !== false) {
+            unset($allItemsID[$key]);
+        }
+    }
+    foreach ($itemSetAlreadyInBdd as $value) {
+        if (($key = array_search($value, $allItemsSetID)) !== false) {
+            unset($allItemsSetID[$key]);
+        }
+    }
+    foreach ($itemRefused as $value) {
+        if (($key = array_search($value, $allItemsID)) !== false) {
+            unset($allItemsID[$key]);
+        }
+    }
+    foreach ($itemSetRefused as $value) {
+        if (($key = array_search($value, $allItemsSetID)) !== false) {
+            unset($allItemsSetID[$key]);
+        }
+    }
+    //Check if item Exist
+    foreach ($allItemsID as $key => $item_id) {
+        @$result = json_decode(file_get_contents('https://us.api.battle.net/wow/item/' . $item_id . '?locale=en_US&apikey=' . API_KEY));
+        if ($result == null) {
+            array_push($itemNotFound, $allItemsID[$key]);
+            unset($allItemsID[$key]);
+        }
+    }
+    foreach ($allItemsSetID as $key => $item_set_id) {
+        @$result = json_decode(file_get_contents('https://us.api.battle.net/wow/item/set/' . $item_set_id . '?locale=en_US&apikey=' . API_KEY));
+        if ($result == null) {
+            array_push($itemSetNotFound, $allItemsSetID[$key]);
+            unset($allItemsSetID[$key]);
+        }
+    }
+    //Add items and items set
+    //Display error
+    foreach ($itemsAlreadyAsked as $value) {
+        echo '<div class="alert alert-info alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  You have already asked this item : <strong>' . $value . '</strong>
+</div>';
+    }
+    foreach ($itemsSetAlreadyAsked as $value) {
+        echo '<div class="alert alert-info alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  You have already asked this item set : <strong>' . $value . '</strong>
+</div>';
+    }
+    foreach ($itemAlreadyInBdd as $value) {
+        echo '<div class="alert alert-success alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  Item <strong>' . $value . '</strong> is already in shop ! <a href="#"></a>
+</div>';
+    }
+    foreach ($itemSetAlreadyInBdd as $value) {
+        echo '<div class="alert alert-success alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  Item set <strong>' . $value . '</strong> is already in shop ! <a href="#"></a>
+</div>';
+    }
+    foreach ($itemRefused as $value) {
+        echo '<div class="alert alert-danger alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  Item <strong>' . $value . '</strong> is not allowed in our server
+</div>';
+    }
+    foreach ($itemSetRefused as $value) {
+        echo '<div class="alert alert-danger alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  Item set <strong>' . $value . '</strong> is not allowed in our server
+</div>';
+    }
+    foreach ($itemNotFound as $value) {
+        echo '<div class="alert alert-warning alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  Item <strong>' . $value . '</strong> doesn\'t exist
+</div>';
+    }
+    foreach ($itemSetNotFound as $value) {
+        echo '<div class="alert alert-warning alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  Item set <strong>' . $value . '</strong> doesn\'t exist
+</div>';
+    }
+    foreach ($allItemsID as $value) {
+        echo '<div class="alert alert-success alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  Item <strong>' . $value . '</strong> might be added soon !
+</div>';
+    }
+    foreach ($allItemsSetID as $value) {
+        echo '<div class="alert alert-success alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  Item set <strong>' . $value . '</strong> might be added soon !
+</div>';
+    }
+}
+
 //ADD======================================================
 
 //ADMIN SHOP======================================================
@@ -463,6 +702,12 @@ if ($_POST['id'] == 'searchItem') {
     $item_id = intval($_POST["search_item_id"]);
     $item_name = $_POST["search_item_name"];
     searchItemByIDandName($item_id, $item_name);
+}
+
+if ($_POST["id"] == "customer_add_items") {
+    preg_match_all('!\d+!', $_POST["items_id"], $allItemsID);
+    preg_match_all('!\d+!', $_POST["items_set_id"], $allItemsSetID);
+    proposeNewItems($allItemsID[0], $allItemsSetID[0]);
 }
 
 //SHOP======================================================

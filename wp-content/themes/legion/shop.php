@@ -34,10 +34,15 @@
                             <button type="submit" class="btn btn-default">Search</button>
                         </form>
                     </div>
-                    <div class="col-xs-12 hidden-lg hidden-md hidden-sm"><hr/></div>
+                    <div class="col-xs-12 hidden-lg hidden-md hidden-sm">
+                        <hr/>
+                    </div>
                     <div class="col-sm-6 col-xs-12">
-                        Can't find what an item in our database ?
-                        Let us know
+                        <p class="h4 text-center" style="font-family: inherit">Can't find an item in our database
+                            ?</p>
+                        <p class="text-center" style="font-family: inherit">
+                            <button onclick="askNewItems()" type="button" class="btn btn-default">Let us know</button>
+                        </p>
                     </div>
                 </div>
                 <p>Automatic translation :</p><?php echo do_shortcode('[gtranslate]'); ?>
@@ -324,16 +329,38 @@
         }, 300);
     }
 
-    function showMoreTransmo() {
-        console.log(1);
-    }
-
-    function showMoreLevel() {
-        console.log(1);
-    }
-
-    function showMoreGold() {
-        console.log(1);
+    function askNewItems() {
+        var modal = $('#shopModal');
+        $(modal).modal('show');
+        var modalHeader = $(modal).find('.modal-title');
+        var modalContent = $(modal).find('.modal-body');
+        $(modalHeader).html("");
+        $(modalContent).html('' +
+            '<div class="col-xs-12">\n' +
+            '<a target="_blank" href="http://www.wowhead.com/database">Find items and items set ids</a>' +
+            '                    <form id="customer_add_items" method="post">\n' +
+            '                        <p class="h5 text-center" style="font-family: inherit">You can separate the ids with ;</p>\n' +
+            '                        <div class="col-sm-6 col-xs-12">\n' +
+            '                            <p class="h4 text-center" style="font-family: inherit">Add new item</p>\n' +
+            '                            <div class="form-group">\n' +
+            '                                <input placeholder="IDs" type="text" class="form-control"\n' +
+            '                                       name="items_id">\n' +
+            '                            </div>\n' +
+            '                        </div>\n' +
+            '                        <div class="col-sm-6 col-xs-12">\n' +
+            '                            <p class="h4 text-center" style="font-family: inherit">Add new item set</p>\n' +
+            '                            <div class="form-group">\n' +
+            '                                <input placeholder="IDs" type="text" class="form-control"\n' +
+            '                                       name="items_set_id">\n' +
+            '                            </div>\n' +
+            '                        </div>\n' +
+            '                        <p class="text-center">\n' +
+            '                            <button type="submit" class="btn btn-default">Ask to add these items</button>\n' +
+            '                        </p>\n' +
+            '                    </form>\n' +
+            '                    <div id="customer_add_items_result"></div>\n' +
+            '                </div>' +
+            '');
     }
 
     $(document).ready(function () {
@@ -400,20 +427,31 @@
             loadHomePageShop();
         });
 
-        $("form").submit(function (event) {
+
+        $('body').on('submit', 'form', function (event) {
             event.preventDefault();
             $("*").addClass("progressWait");
-            hideCategoryIfOnPhone();
-            showAjaxLoaderShop();
+            if ($(event.target).attr("id") !== "customer_add_items") {
+                hideCategoryIfOnPhone();
+                showAjaxLoaderShop();
+            } else {
+                $("#customer_add_items_result").html($("#ajaxLoaderShop").html());
+            }
             var form = 'id=' + $(event.target).attr("id") + "&" + $(event.target).serialize();
             $.post("/api/shop/shop.php", form, function (data, status) {
                 $("*").removeClass("progressWait");
-                hideAllHeaderShop();
-                hideAjaxLoaderShop();
-                if (data !== 'Error !' && data !== 'No Result !') {
-                    $("#shopDisplayItems").html(data);
+                if ($(event.target).attr("id") === "customer_add_items") {
+                    $("#customer_add_items_result").html(data);
+                    console.clear();
+                    console.log(data);
                 } else {
-                    showAlertMessage(data);
+                    hideAllHeaderShop();
+                    hideAjaxLoaderShop();
+                    if (data !== 'Error !' && data !== 'No Result !') {
+                        $("#shopDisplayItems").html(data);
+                    } else {
+                        showAlertMessage(data);
+                    }
                 }
             });
         });
