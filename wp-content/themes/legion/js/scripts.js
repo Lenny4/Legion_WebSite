@@ -159,10 +159,7 @@ function addItemSet(button) {
     });
 }
 
-function addAllItem($minId, $maxId, $idPOST, $currentId=null) {
-    if ($currentId === null) {
-        $currentId = $minId;
-    }
+function addAllItem($minId, $maxId, $idPOST, $currentId) {
     $currentId = parseInt($currentId);
     $maxId = parseInt($maxId);
     var pourcent = (($currentId - $minId) / ($maxId - $minId)) * 100;
@@ -181,10 +178,7 @@ function addAllItem($minId, $maxId, $idPOST, $currentId=null) {
         });
 }
 
-function addAllItemSet($minId, $maxId, $idPOST, $currentId=null) {
-    if ($currentId === null) {
-        $currentId = $minId;
-    }
+function addAllItemSet($minId, $maxId, $idPOST, $currentId) {
     $currentId = parseInt($currentId);
     $maxId = parseInt($maxId);
     var pourcent = (($currentId - $minId) / ($maxId - $minId)) * 100;

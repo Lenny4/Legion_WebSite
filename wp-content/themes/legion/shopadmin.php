@@ -209,9 +209,9 @@ while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
             $("*").addClass("progressWait");
             if ($(event.target).attr("id") === "addAllItem" || $(event.target).attr("id") === "addAllItemSet") {
                 if ($(event.target).attr("id") === "addAllItem") {
-                    addAllItem($($(event.target)[0][0]).val(), $($(event.target)[0][1]).val(), $(event.target).attr("id"));
+                    addAllItem($($(event.target)[0][0]).val(), $($(event.target)[0][1]).val(), $(event.target).attr("id"), $($(event.target)[0][0]).val());
                 } else {
-                    addAllItemSet($($(event.target)[0][0]).val(), $($(event.target)[0][1]).val(), $(event.target).attr("id"));
+                    addAllItemSet($($(event.target)[0][0]).val(), $($(event.target)[0][1]).val(), $(event.target).attr("id"), $($(event.target)[0][0]).val());
                 }
 
             } else {
