@@ -117,4 +117,51 @@
                 echo '</div>';
             }
         }
+        if (is_user_logged_in()) {
+            $req = $GLOBALS["dbh"]->query('SELECT * FROM `message_header` WHERE `user_id`=' . get_current_user_id());
+            if ($req->rowCount() > 0) {
+                echo '<div class="col-sm-6 col-sm-offset-3 col-xs-12" style="margin-top: 20px; z-index:500">';
+                while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+                    if ($data["item_id"] != null) {
+                        if ($data["message"] == "item_added") {
+                            $message = get_field("item_added", $GLOBALS["shop_page_id"]);
+                            echo '
+                            <div class="alert alert-success alert-dismissable">
+                              <a id="' . $data["id"] . '" href="#" class="close deleteMessageHeader" data-dismiss="alert" aria-label="close">&times;</a>
+                              <strong>' . $message . ' ' . $data["item_id"] . '</strong>
+                            </div>
+                            ';
+                        } elseif ($data["message"] == "item_refused") {
+                            $message = get_field("item_refused", $GLOBALS["shop_page_id"]);
+                            echo '
+                            <div class="alert alert-danger alert-dismissable">
+                              <a id="' . $data["id"] . '" href="#" class="close deleteMessageHeader" data-dismiss="alert" aria-label="close">&times;</a>
+                              <strong>' . $message . ' ' . $data["item_id"] . '</strong>
+                            </div>
+                            ';
+                        }
+                    }
+                    if ($data["item_set_id"] != null) {
+                        if ($data["message"] == "item_set_added") {
+                            $message = get_field("item_set_added", $GLOBALS["shop_page_id"]);
+                            echo '
+                            <div class="alert alert-success alert-dismissable">
+                              <a id="' . $data["id"] . '" href="#" class="close deleteMessageHeader" data-dismiss="alert" aria-label="close">&times;</a>
+                              <strong>' . $message . ' ' . $data["item_set_id"] . '</strong>
+                            </div>
+                            ';
+                        } elseif ($data["message"] == "item_set_refused") {
+                            $message = get_field("item_set_added", $GLOBALS["shop_page_id"]);
+                            echo '
+                            <div class="alert alert-danger alert-dismissable">
+                              <a id="' . $data["id"] . '" href="#" class="close deleteMessageHeader" data-dismiss="alert" aria-label="close">&times;</a>
+                              <strong>' . $message . ' ' . $data["item_set_id"] . '</strong>
+                            </div>
+                            ';
+                        }
+                    }
+                }
+                echo '</div>';
+            }
+        }
         ?>

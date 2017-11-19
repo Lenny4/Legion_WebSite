@@ -824,4 +824,9 @@ if ($_POST["id"] == "customer_add_items") {
     proposeNewItems($allItemsID[0], $allItemsSetID[0]);
 }
 
+if ($_POST["id"] == "deleteMessageHeader") {
+    $id = $_POST["messageId"];
+    $GLOBALS["dbh"]->query('DELETE FROM `message_header` WHERE id=' . $id);
+}
+
 //SHOP======================================================

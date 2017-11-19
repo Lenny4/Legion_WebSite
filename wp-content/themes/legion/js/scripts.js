@@ -210,7 +210,8 @@ function askedItemAdded($id, $button) {
             id: "askedItemAdded",
             item_id: $id
         },
-        function (data, status) {console.log(data);});
+        function (data, status) {
+        });
 }
 
 function askedItemRefused($id, $button) {
@@ -220,7 +221,8 @@ function askedItemRefused($id, $button) {
             id: "askedItemRefused",
             item_id: $id
         },
-        function (data, status) {console.log(data);});
+        function (data, status) {
+        });
 }
 
 function askedItemSetAdded($id, $button) {
@@ -230,7 +232,8 @@ function askedItemSetAdded($id, $button) {
             id: "askedItemSetAdded",
             item_set_id: $id
         },
-        function (data, status) {console.log(data);});
+        function (data, status) {
+        });
 }
 
 function askedItemSetRefused($id, $button) {
@@ -240,7 +243,18 @@ function askedItemSetRefused($id, $button) {
             id: "askedItemSetRefused",
             item_set_id: $id
         },
-        function (data, status) {console.log(data);});
+        function (data, status) {
+        });
+}
+
+function deleteMessageHeader($id) {
+    $.post("/api/shop/shop.php",
+        {
+            id: "deleteMessageHeader",
+            messageId: $id
+        },
+        function (data, status) {
+        });
 }
 
 //====================== SHOP ADMIN
@@ -249,6 +263,9 @@ $(document).ready(function () {
     resizeVideo();
     addPlaceHolderForm();
     maxHeightSideBar();
+    $("a.deleteMessageHeader").click(function () {
+        deleteMessageHeader($(this).attr('id'));
+    });
     new PerfectScrollbar('#my_sidebar');
 
 });
