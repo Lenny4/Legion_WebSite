@@ -15,11 +15,11 @@ class item_home_best_sell extends item_home
         $return = "";
         $return .= '
         <a class="pinterest" onclick="showMoreItemHome(\'' . get_class($this) . '\')">
-            <li class="list-group-item col-sm-6 col-xs-12">
+            <li class="list-group-item col-sm-4 col-xs-12">
         <div class="display_item noPadding">
         ';
         $return .= wp_get_attachment_image($this->image, 'large', false, array("class" => "img-responsive center-block", "style" => "z-index:-1;width:100%;"));
-        $return .= '<p class="message hidden-xs" style="width: 50%;background-image: url(\'' . wp_get_attachment_image_src(132, "full")[0] . '\') ">
+        $return .= '<p class="message hidden-xs" style="width: 60%;background-image: url(\'' . wp_get_attachment_image_src(132, "full")[0] . '\') ">
                     <span>' . $this->name . '</span>
                     </p>
                     <p class="hidden-sm hidden-md hidden-lg Quickstyle text-center">' . $this->name . '</p>';

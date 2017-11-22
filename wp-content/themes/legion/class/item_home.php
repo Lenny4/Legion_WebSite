@@ -39,11 +39,11 @@ class item_home extends parent_item
             array_push($allItems, $object);
         }
         foreach ($allItems as $itemHome) {
-            if ($itemHome->phpclasse == "item_home_character") {
+            if ($itemHome->phpclasse == "item_home_profession") {
                 $return .= "<div class='col-sm-8 col-xs-12 noPadding'>";
             }
             $return .= $itemHome->displayHome();
-            if ($itemHome->phpclasse == "item_home_profession") {
+            if ($itemHome->phpclasse == "item_home_guild") {
                 $return .= "</div>";
             }
         }
