@@ -32,6 +32,10 @@ require_once 'wp-content/themes/legion/class/item_home_gold.php';
 require_once 'wp-content/themes/legion/class/item_home_character.php';
 require_once 'wp-content/themes/legion/class/item_home_manage_character.php';
 require_once 'wp-content/themes/legion/class/item_home_profession.php';
+require_once 'wp-content/themes/legion/class/item_home_best_sell.php';
+require_once 'wp-content/themes/legion/class/item_home_membership.php';
+require_once 'wp-content/themes/legion/class/item_home_promotion.php';
+require_once 'wp-content/themes/legion/class/item_home_guild.php';
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */

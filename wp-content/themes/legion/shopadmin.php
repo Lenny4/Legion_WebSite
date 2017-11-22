@@ -141,6 +141,7 @@ while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
                     <p id="staticDataResult"></p>
                     <form id="staticData">
                         <div class="form-group">
+                            <label>Max item id</label>
                             <input placeholder="Max item id" type="number" class="form-control"
                                    name="max_item_id_allowed" value="<?= $max_item_id_allowed; ?>">
                         </div>

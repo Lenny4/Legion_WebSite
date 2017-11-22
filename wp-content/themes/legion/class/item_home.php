@@ -13,6 +13,10 @@ include_once("item_home_gold.php");
 include_once("item_home_character.php");
 include_once("item_home_manage_character.php");
 include_once("item_home_profession.php");
+include_once("item_home_best_sell.php");
+include_once("item_home_membership.php");
+include_once("item_home_promotion.php");
+include_once("item_home_guild.php");
 
 class item_home extends parent_item
 {
