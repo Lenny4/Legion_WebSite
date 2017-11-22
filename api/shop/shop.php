@@ -719,8 +719,19 @@ if ($_POST['id'] == "addAllItemSet") {
 if ($_POST['id'] == "staticData") {
     if (isWowAdmin()) {
         $max_item_id_allowed = $_POST["max_item_id_allowed"];
-        $GLOBALS["dbh"]->query('DELETE FROM `static_data_shop` WHERE `id`>0');
-        $GLOBALS["dbh"]->query('INSERT INTO `static_data_shop`(`max_item_id`) VALUES (' . $max_item_id_allowed . ')');
+        $gold_amount = $_POST["gold_amount"];
+        $real_money_amount = $_POST["real_money_amount"];
+        $buy_points = $_POST["buy_points"];
+        $vote_points = $_POST["vote_points"];
+        $GLOBALS["dbh"]->query('INSERT INTO `static_data_shop`(`max_item_id`, `gold_amount`, `real_money_amount`, `buy_points`, `vote_points`) VALUES (' . $max_item_id_allowed . ',' . $gold_amount . ',' . $real_money_amount . ',' . $buy_points . ',' . $vote_points . ')');
+        $req = $GLOBALS["dbh"]->query('SELECT * FROM `static_data_shop`');
+        $count = $req->rowCount();
+        $i = 0;
+        while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+            if (++$i != $count) {
+                $GLOBALS["dbh"]->query('DELETE FROM `static_data_shop` WHERE `id`=' . $data["id"]);
+            }
+        }
         echo '
             <div class="alert alert-success alert-dismissable">
                 <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>

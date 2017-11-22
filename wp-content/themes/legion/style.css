@@ -314,7 +314,7 @@ div.mainParallax {
 .buttonHeader {
     position: fixed;
     right: 34px;
-    bottom: 80px;
+    bottom: 20px;
 }
 
 aside {
@@ -838,32 +838,6 @@ div.display_item_set div.display_item {
 
 div.display_item_set div.display_item p.stackable {
     display: none;
-}
-
-.wplc-color-bg-1 {
-    background-color: rgba(28, 58, 22, 1) !important;
-}
-
-#wp-live-chat-2 input {
-    background-color: rgba(28, 58, 22, 1) !important;
-}
-
-.wplc-user-message {
-    border: 1px solid rgba(28, 58, 22, 1) !important;
-}
-
-.wplc-color-border-1:before {
-    border-color: transparent rgba(28, 58, 22, 1) !important;
-}
-
-#wplc_name {
-    color: white !important;
-}
-
-.wplc_left_logo {
-    background: url("/wp-content/uploads/2017/11/Logo-Footer.png") no-repeat !important;
-    background-size: 100% !important;
-    background-position: center center !important;
 }
 
 @media (max-width: 768px) {

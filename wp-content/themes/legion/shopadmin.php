@@ -2,9 +2,17 @@
 
 <?php
 $max_item_id_allowed = 0;
+$gold_amount = 0;
+$real_money_amount = 0;
+$buy_points = 0;
+$vote_points = 0;
 $req = $GLOBALS["dbh"]->query('SELECT * FROM `static_data_shop`');
 while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
     $max_item_id_allowed = $data["max_item_id"];
+    $gold_amount = $data["gold_amount"];
+    $real_money_amount = $data["real_money_amount"];
+    $buy_points = $data["buy_points"];
+    $vote_points = $data["vote_points"];
 }
 ?>
 
@@ -138,12 +146,34 @@ while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
                 </div>
                 <div class=" col-md-6 col-xs-12 borderWhite">
                     <p class="h3">Static Data</p>
+                    <p style="color: red;">Quand utilisation de woocommerce récupérer ces data pour afficher le nombre de points gagner</0p>
                     <p id="staticDataResult"></p>
                     <form id="staticData">
                         <div class="form-group">
                             <label>Max item id</label>
                             <input placeholder="Max item id" type="number" class="form-control"
                                    name="max_item_id_allowed" value="<?= $max_item_id_allowed; ?>">
+                        </div>
+                        <div class="form-group">
+                            <label>Real Money (100=1 EUR) -> is price for item in bdd</label>
+                            <input placeholder="Real Money (100=1 EUR) -> is price for item in bdd" type="number"
+                                   class="form-control"
+                                   name="real_money_amount" value="<?= $real_money_amount; ?>">
+                        </div>
+                        <div class="form-group">
+                            <label>Gold</label>
+                            <input placeholder="Gold" type="number" class="form-control"
+                                   name="gold_amount" value="<?= $gold_amount; ?>">
+                        </div>
+                        <div class="form-group">
+                            <label>Buy points</label>
+                            <input placeholder="Buy points" type="number" class="form-control"
+                                   name="buy_points" value="<?= $buy_points; ?>">
+                        </div>
+                        <div class="form-group">
+                            <label>Vote point</label>
+                            <input placeholder="Vote point" type="number" class="form-control"
+                                   name="vote_points" value="<?= $vote_points; ?>">
                         </div>
                         <button type="submit" class="btn btn-default">Change</button>
                     </form>
