@@ -14,7 +14,7 @@ class item_home_transmo extends item_home
     {
         $return = "";
         $return .= '
-        <a class="pinterest" onclick="showMoreTransmo()">
+        <a class="pinterest" onclick="showMoreItemHome(\'' . get_class($this) . '\')">
             <li class="list-group-item col-sm-9 col-xs-12">
         <div class="display_item noPadding">
         ';

@@ -13,7 +13,6 @@ include_once("item_home_gold.php");
 include_once("item_home_character.php");
 include_once("item_home_manage_character.php");
 include_once("item_home_profession.php");
-include_once("item_home_free.php");
 
 class item_home extends parent_item
 {

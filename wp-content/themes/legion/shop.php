@@ -364,6 +364,10 @@
             '');
     }
 
+    function showMoreItemHome($phpClasse) {
+        console.log($phpClasse);
+    }
+
     $(document).ready(function () {
         $("a.subItemClasse").click(function (e) {
             $("*").addClass("progressWait");
@@ -446,8 +450,6 @@
                 $("*").removeClass("progressWait");
                 if ($(event.target).attr("id") === "customer_add_items") {
                     $("#customer_add_items_result").html(data);
-                    console.clear();
-                    console.log(data);
                 } else {
                     hideAllHeaderShop();
                     hideAjaxLoaderShop();

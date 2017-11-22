@@ -92,11 +92,16 @@
 <main class="col-md-8 col-md-offset-1" role="main">
     <!-- section -->
     <section class="background" style="display: inline-block;">
-
         <?php if (have_posts()): while (have_posts()) : the_post(); ?>
 
             <!-- article -->
             <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
+
+                <?php if (the_content() != '') { ?>
+                    <div id="displayMessageHomePage" class="alert alert-info">
+                        <strong><?php the_content(); ?></strong>
+                    </div>
+                <?php } ?>
 
                 <div class="col-md-7 col-sm-6 col-xs-12">
                     <div class="col-xs-12">
@@ -184,8 +189,6 @@
                         <?php }
                         ?>
                     </div>
-
-                    <?php the_content(); ?>
 
                     <?php comments_template('', true); // Remove if you don't want comments ?>
 

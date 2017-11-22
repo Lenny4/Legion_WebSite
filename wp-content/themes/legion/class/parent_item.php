@@ -10,6 +10,8 @@ class parent_item
 {
     public $id = null;
     public $name = null;
+    public $promotion = 0;
+    public $time_promotion = 0;
 
     public function hydrateBDD($data)
     {

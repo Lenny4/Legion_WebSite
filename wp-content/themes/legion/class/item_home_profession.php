@@ -14,7 +14,7 @@ class item_home_profession extends item_home
     {
         $return = "";
         $return .= '
-        <a class="pinterest" onclick="showMoreProfession()">
+        <a class="pinterest" onclick="showMoreItemHome(\'' . get_class($this) . '\')">
             <li class="list-group-item col-xs-12">
         <div class="display_item noPadding">
         ';

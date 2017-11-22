@@ -16,6 +16,8 @@ class item_classes extends parent_item
             $this->name = $this->getClassName();
             $this->subclasses = $this->getSubClass($item);
         }
+        unset($this->promotion);
+        unset($this->time_promotion);
     }
 
     public function getClassName()

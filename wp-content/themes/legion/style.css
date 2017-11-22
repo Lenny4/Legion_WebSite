@@ -121,6 +121,10 @@ header ul.dropdown-menu a {
     font-family: LifeCraft_Font;
 }
 
+#displayMessageHomePage *{
+    color: inherit;
+}
+
 @media (max-width: 768px) {
     header .navbar-nav > li > a {
         padding-top: 15px;

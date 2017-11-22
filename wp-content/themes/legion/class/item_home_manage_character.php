@@ -14,7 +14,7 @@ class item_home_manage_character extends item_home
     {
         $return = "";
         $return .= '
-        <a class="pinterest" onclick="showMoreManage()">
+        <a class="pinterest" onclick="showMoreItemHome(\'' . get_class($this) . '\')">
             <li class="list-group-item col-sm-4 col-xs-12">
         <div class="display_item noPadding">
         ';

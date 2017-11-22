@@ -7,7 +7,6 @@ include_once("parent_item.php");
 
 class item extends parent_item
 {
-    public $promotion = 0;
     public $item_id = null;
     public $name = null;
     public $itemLevel = null;

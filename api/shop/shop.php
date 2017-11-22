@@ -315,8 +315,8 @@ function searchItemByIDandName($item_id = null, $item_name = null)
         }
     }
     if ($item_name != null AND $item_name != '') {
-        $req = $GLOBALS["dbh"]->prepare('SELECT * FROM `item` WHERE `name` = ?');
-        $req->execute(array($item_name));
+        $req = $GLOBALS["dbh"]->prepare("SELECT * FROM `item` WHERE `name` LIKE :nameItem LIMIT 50");
+        $req->execute(array(':nameItem' => '%' . $item_name . '%'));
         while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
             $item = new item();
             $item->hydrateBDD($data);

@@ -4,7 +4,6 @@ include_once("parent_item.php");
 
 class item_set extends parent_item
 {
-    public $promotion = 0;
     public $item_set_id = null;
     public $setBonuses = null;
     public $items = null;
