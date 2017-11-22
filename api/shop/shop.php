@@ -45,8 +45,8 @@ function createItem($POSTitem_id, $POSTitem_price, $vote = 0)
         }
         $item = new item();
         $item->hydrateAPI($result);
-        if ($item_price != null) {
-            $item->price = $item_price;
+        if ($item_price == 0 OR $item_price == '') {
+            $item->generatePrice();
         }
         $item->vote = intval($vote);
     }

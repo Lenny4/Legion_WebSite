@@ -19,6 +19,7 @@ class item extends parent_item
     public $requiredLevel = null;
     public $itemSpells = null;
     public $description = null;
+    public $gemInfo = null;
     public $icon = null;
     public $stackable = null;
     public $equippable = null;
@@ -42,6 +43,9 @@ class item extends parent_item
                 $this->side = 2;
             }
         }
+        if (isset($data->gemInfo)) {
+            $this->gemInfo = $data->gemInfo->bonus->name;
+        }
         if (isset($data->description)) {
             $this->description = $data->description;
         }
@@ -50,9 +54,6 @@ class item extends parent_item
         }
         if (isset($data->icon)) {
             $this->icon = $data->icon;
-        }
-        if (isset($data->stackable)) {
-            $this->stackable = $data->stackable;
         }
         if (isset($data->allowableClasses)) {
             $allClasses = array(
@@ -191,6 +192,9 @@ class item extends parent_item
         if (isset($data->itemSet)) {
             $this->itemSet = $data->itemSet->id;
         }
+        if (isset($data->stackable)) {
+            $this->getStackableNumber($data->stackable);
+        }
     }
 
     public function display($itemClass, $small = false)
@@ -324,7 +328,7 @@ class item extends parent_item
         return $return;
     }
 
-    function displaySellPrice($return, $value)
+    public function displaySellPrice($return, $value)
     {
         $shopPageId = $GLOBALS["shop_page_id"];
         $image = get_field("money_gold", $shopPageId);
@@ -361,5 +365,172 @@ class item extends parent_item
         $value = implode($goldArray) . $imgGold . implode($silverArray) . $imgSilver . implode($cooperArray) . $imgCopper;
         $return = $return . '<p class="sellPrice"><span class="value">' . $value . '</span></p>';
         return $return;
+    }
+
+    public function getStackableNumber($maxStack)
+    {
+        $maxStack = intval($maxStack);
+        $this->itemClass = intval($this->itemClass);
+        $this->stackable = $maxStack;
+        if ($this->itemClass == 0) {//Consumable
+            $this->stackable = $maxStack;
+        }
+        if ($this->itemClass == 1) {//Container
+            $this->stackable = 1;
+        }
+        if ($this->itemClass == 2) {//Weapon
+            $this->stackable = 1;
+        }
+        if ($this->itemClass == 3) {//Gem
+            $this->stackable = 1;
+        }
+        if ($this->itemClass == 4) {//Armor
+            $this->stackable = 1;
+        }
+        if ($this->itemClass == 5) {//Reagent
+            $this->stackable = $maxStack;
+        }
+        if ($this->itemClass == 7) {//Tradeskill
+            $this->stackable = $maxStack;
+        }
+        if ($this->itemClass == 9) {//Recipe
+            $this->stackable = $maxStack;
+        }
+        if ($this->itemClass == 12) {//Quest
+            $this->stackable = $maxStack;
+        }
+        if ($this->itemClass == 13) {//Key
+            $this->stackable = $maxStack;
+        }
+        if ($this->itemClass == 15) {//Miscellaneous
+            $this->stackable = $maxStack;
+        }
+        if ($this->itemClass == 16) {//Glyph
+            $this->stackable = 1;
+        }
+        if ($this->itemClass == 17) {//Battle Pets
+            $this->stackable = 1;
+        }
+        if ($this->itemClass == 18) {//WoW Token
+            $this->stackable = 1;
+        }
+    }
+
+    public function generatePrice()
+    {
+        $maxLevel = 110;
+        $this->itemClass = intval($this->itemClass);
+        if ($this->itemClass == 0) {//Consumable
+            $this->price = 20;
+        }
+        if ($this->itemClass == 1) {//Container
+            if ($this->itemSubClass == 0) {
+                $this->price = $this->containerSlots * 3;
+            } else {
+                $this->price = $this->containerSlots * 2;
+            }
+        }
+        if ($this->itemClass == 2) {//Weapon
+            $max_price = 200;
+            $k = ($maxLevel * $maxLevel) / $max_price;
+            if (isset($this->requiredLevel) AND $this->requiredLevel >= 1) {
+                $this->price = intval(($this->requiredLevel * $this->requiredLevel) / $k);
+            } else {
+                $this->price = $max_price;
+            }
+        }
+        if ($this->itemClass == 3) {//Gem
+            $max_price = 50;
+            if ($this->itemSubClass != 9 AND $this->itemSubClass != 10 AND $this->itemSubClass != 11) {
+                $maxItemLevel = 110;
+                $k = ($maxItemLevel * $maxItemLevel) / $max_price;
+                if (isset($this->itemLevel) AND $this->itemLevel >= 1) {
+                    $this->price = intval(($this->itemLevel * $this->itemLevel) / $k);
+                } else {
+                    $this->price = $max_price;
+                }
+            } elseif ($this->itemSubClass != 9) {//Other
+                $this->price = $max_price;
+            } elseif ($this->itemSubClass != 10) {//Multiple Stats
+                $this->price = $max_price;
+            } elseif ($this->itemSubClass != 11) {//Artifact Relic
+                $this->price = 80;
+            }
+        }
+        if ($this->itemClass == 4) {//Armor
+            $max_price = 200;
+            $k = ($maxLevel * $maxLevel) / $max_price;
+            if (isset($this->requiredLevel) AND $this->requiredLevel >= 1) {
+                $this->price = intval(($this->requiredLevel * $this->requiredLevel) / $k);
+            } else {
+                $this->price = $max_price;
+            }
+        }
+        if ($this->itemClass == 5) {//Reagent
+            $this->price = 50;
+        }
+        if ($this->itemClass == 7) {//Tradeskill
+            $maxItemLevel = 110;
+            $max_price = 100;
+            $k = ($maxItemLevel * $maxItemLevel) / $max_price;
+            if ($this->itemLevel > $maxItemLevel) {
+                $this->price = $max_price;
+            } elseif (isset($this->itemLevel) AND $this->itemLevel >= 1) {
+                $this->price = intval(($this->itemLevel * $this->itemLevel) / $k);
+            } else {
+                $this->price = $max_price;
+            }
+        }
+        if ($this->itemClass == 9) {//Recipe
+            $maxItemLevel = 110;
+            $max_price = 100;
+            $k = ($maxItemLevel * $maxItemLevel) / $max_price;
+            if ($this->itemLevel > $maxItemLevel) {
+                $this->price = $max_price;
+            } elseif (isset($this->itemLevel) AND $this->itemLevel >= 1) {
+                $this->price = intval(($this->itemLevel * $this->itemLevel) / $k);
+            } else {
+                $this->price = $max_price;
+            }
+        }
+        if ($this->itemClass == 12) {//Quest
+            $this->price = 50;
+        }
+        if ($this->itemClass == 13) {//Key
+            $this->price = 10;
+        }
+        if ($this->itemClass == 15) {//Miscellaneous
+            if ($this->itemSubClass == 0) {//Junk
+                $this->price = 10;
+            }
+            if ($this->itemSubClass == 1) {//Reagent
+                $this->price = 20;
+            }
+            if ($this->itemSubClass == 2) {//Companion Pets
+                $this->price = 40;
+            }
+            if ($this->itemSubClass == 3) {//Holiday
+                $this->price = 30;
+            }
+            if ($this->itemSubClass == 4) {//Other
+                $this->price = 30;
+            }
+            if ($this->itemSubClass == 5) {//Mount
+                $this->price = 800;
+            }
+        }
+        if ($this->itemClass == 16) {//Glyph
+            $this->price = 20;
+        }
+        if ($this->itemClass == 17) {//Battle Pets
+            $this->price = 50;
+        }
+        if ($this->itemClass == 18) {//WoW Token
+            $this->price = 100000000;
+        }
+
+        if (!$this->price > 0) {
+            $this->price = 1000;
+        }
     }
 }

@@ -685,7 +685,7 @@ section.shop a:hover {
     display: none;
 }
 
-.display_item p.icon, .display_item p.id, .display_item p.item_id, .display_item p.noitemSet, .display_item p.vote, .display_item p.promotion {
+.display_item p.icon, .display_item p.id, .display_item p.item_id, .display_item p.noitemSet, .display_item p.vote, .display_item p.promotion, .display_item p.time_promotion {
     display: none;
 }
 

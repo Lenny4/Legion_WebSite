@@ -11,26 +11,6 @@
 
     <p data-toggle="modal" data-target="#chooseLanguage" class="h3 clickable text-center">Change Language</p>
     <hr/>
-
-    <!-- Modal -->
-    <div id="chooseLanguage" class="modal fade" role="dialog">
-        <div class="modal-dialog">
-
-            <!-- Modal content-->
-            <div class="modal-content">
-                <div class="modal-header">
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-                <div class="modal-body">
-                    <div id="qtransSelector"
-                         class=""><?php qtranxf_generateLanguageSelectCode('image'); //‘image’, ‘text’, ‘both’, and ‘dropdown’  ?></div>
-                </div>
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
-                </div>
-            </div>
-        </div>
-    </div>
     <a href="<?php echo wp_logout_url( home_url() ); ?>">Logout</a>
 </aside>
 <div class="col-sm-1-offset"></div>
