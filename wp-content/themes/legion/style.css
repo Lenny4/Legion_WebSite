@@ -681,7 +681,7 @@ section.shop a:hover {
     border: none;
 }
 
-.display_item span.name, .display_item span.stackable, .display_item span.itemClass, .display_item span.itemSubClass, .display_item span.sellPrice, .display_item span.side {
+.display_item span.name, .display_item span.stackable, .display_item span.itemClass, .display_item span.itemSubClass, .display_item span.sellPrice, .display_item span.side, .display_item span.gemInfo {
     display: none;
 }
 
@@ -771,7 +771,7 @@ li.list-group-item div.display_item p.name {
     padding-right: 5px;
 }
 
-.display_item span.Versatility span, span.Agility_or_Intellect span, span.Strenght_or_Intelect span, span.Agility span, span.Strenght_or_Agility_or_Intelect span {
+.display_item span.Versatility span, span.Agility_or_Intellect span, span.Strenght_or_Intelect span, span.Agility span, span.Strenght_or_Agility_or_Intelect span, span.Strenght span {
     color: #e60c0b !important;
 }
 

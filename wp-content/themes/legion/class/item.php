@@ -297,6 +297,10 @@ class item extends parent_item
                                 } else {
                                     $return = $return . '<p class="' . $key . '"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value">' . wp_get_attachment_image(167, "full", true, ["class" => "img-responsive"]) . '</span></p>';
                                 }
+                            } elseif ($key == "bonusStats") {
+                                if ($value != '[]') {
+                                    $return = $return . '<p class="' . $key . '"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value">' . $value . '</span></p>';
+                                }
                             } else {
                                 $return = $return . '<p class="' . $key . '"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value">' . $value . '</span></p>';
                             }
