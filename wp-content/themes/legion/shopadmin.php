@@ -281,7 +281,7 @@ while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
                             $("#staticDataResult").html(data);
                         }
                     }
-                );
+                });
             }
         });
     });

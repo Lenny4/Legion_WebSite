@@ -15,6 +15,15 @@
 	Theme Support
 \*------------------------------------*/
 
+$GLOBALS["shop_page_id"] = 0;
+
+$pages = get_pages(array(
+    'meta_value' => 'shop.php'
+));
+foreach ($pages as $page) {
+    $GLOBALS["shop_page_id"] = $page->ID;
+}
+
 require_once 'class/wp_bootstrap_navwalker.php';
 
 // Database settings
