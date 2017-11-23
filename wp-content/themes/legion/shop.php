@@ -19,9 +19,10 @@
                 <p data-toggle="collapse" data-target="#search_item_item_set" class="clickable text-center h4 overGreen"
                    style="font-family: inherit;">
                     Search a specific item ?
-                    </p>
+                </p>
                 <div id="search_item_item_set" class="col-xs-12 collapse">
                     <div class="col-sm-6 col-xs-12">
+                        <a target="_blank" href="http://www.wowhead.com/database">Find items and items set ids</a>
                         <form id="searchItem">
                             <div class="form-group">
                                 <input placeholder="Search item by ID" type="number" class="form-control"
@@ -454,6 +455,7 @@
                     hideAllHeaderShop();
                     hideAjaxLoaderShop();
                     if (data !== 'Error !' && data !== 'No Result !') {
+                        $dontExecuteHeightShop = false;
                         $("#shopDisplayItems").html(data);
                     } else {
                         showAlertMessage(data);

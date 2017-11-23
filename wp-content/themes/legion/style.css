@@ -121,7 +121,7 @@ header ul.dropdown-menu a {
     font-family: LifeCraft_Font;
 }
 
-#displayMessageHomePage *{
+#displayMessageHomePage * {
     color: inherit;
 }
 
@@ -681,7 +681,7 @@ section.shop a:hover {
     border: none;
 }
 
-.display_item span.name, .display_item span.stackable, .display_item span.itemClass, .display_item span.itemSubClass, .display_item span.sellPrice {
+.display_item span.name, .display_item span.stackable, .display_item span.itemClass, .display_item span.itemSubClass, .display_item span.sellPrice, .display_item span.side {
     display: none;
 }
 
@@ -708,6 +708,18 @@ section.shop a:hover {
 a.pinterest:hover .display_item p.stackable {
     left: 45px;
     top: 39px;
+}
+
+.display_item p.side {
+    display: inline-block;
+    position: absolute;
+    right: 20px;
+    bottom: 16px;
+}
+
+a.pinterest:hover .display_item p.side {
+    right: 8px;
+    bottom: 4px;
 }
 
 .display_item p.stackable.extra {

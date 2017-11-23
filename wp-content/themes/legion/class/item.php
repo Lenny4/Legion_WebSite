@@ -200,7 +200,7 @@ class item extends parent_item
     public function display($itemClass, $small = false)
     {
         $return = '';
-        $tab = ["name", "requiredLevel", "stackable", "allowableClasses", "itemLevel"];
+        $tab = ["name", "requiredLevel", "stackable", "allowableClasses", "itemLevel", "side", "price"];
         if ($small == true) {
             $dataShow["value"] = $this->item_id;
             $dataShow["id"] = "previewItem";
@@ -290,6 +290,13 @@ class item extends parent_item
                                 $return = $return . '<p class="' . $key . ' extraplus"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value">' . $value . '</span></p>';
                             } elseif ($key == 'stackable' AND $value > 9) {
                                 $return = $return . '<p class="' . $key . ' extra"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value">' . $value . '</span></p>';
+                            } elseif ($key == 'side') {
+                                if ($value == 0) {
+                                } elseif ($value == 1) {
+                                    $return = $return . '<p class="' . $key . '"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value">' . wp_get_attachment_image(166, "full", true, ["class" => "img-responsive"]) . '</span></p>';
+                                } else {
+                                    $return = $return . '<p class="' . $key . '"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value">' . wp_get_attachment_image(167, "full", true, ["class" => "img-responsive"]) . '</span></p>';
+                                }
                             } else {
                                 $return = $return . '<p class="' . $key . '"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value">' . $value . '</span></p>';
                             }
