@@ -539,4 +539,35 @@ class item extends parent_item
             $this->price = 1000;
         }
     }
+
+    public function generateUpdateRequest()
+    {
+        unset($this->id);
+        $req = "UPDATE `" . get_class($this) . "` SET ";
+        $i = 0;
+        foreach ($this as $key => $value) {
+            if ($i > 0) {
+                $req .= ",`" . $key . "` = ";
+                if (is_int($value) OR is_bool($value)) {
+                    $req = $req . intval($value);
+                } elseif (is_array($value)) {
+                    $req = $req . "'" . addslashes(json_encode($value)) . "'";
+                } else {
+                    $req = $req . "'" . addslashes($value) . "'";
+                }
+            } else {
+                $req .= "`" . $key . "` = ";
+                if (is_int($value) OR is_bool($value)) {
+                    $req = $req . intval($value);
+                } elseif (is_array($value)) {
+                    $req = $req . "'" . addslashes(json_encode($value)) . "'";
+                } else {
+                    $req = $req . "'" . addslashes($value) . "'";
+                }
+            }
+            $i++;
+        }
+        $req .= " WHERE item_id = " . $this->item_id;
+        return $req;
+    }
 }

@@ -16,6 +16,23 @@ while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
 }
 ?>
 
+<?php
+//Update items
+//$req = $GLOBALS["dbh"]->query('SELECT * FROM `item` WHERE `itemClass`=4 AND `requiredLevel`=110 ORDER BY `item`.`item_id` ASC');
+//$array = array();
+//while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+//    array_push($array, $data);
+//}
+//foreach ($array as $data) {
+//    $item = new item();
+//    $item->hydrateBDD($data);
+//    $item->generatePrice();
+//    $req = $item->generateUpdateRequest();
+//    $req = $GLOBALS["dbh"]->query($req);
+//    echo $item->item_id;
+//}
+?>
+
 <?php get_header(); ?>
 <main class="col-md-8 col-md-offset-1" role="main">
     <!-- section -->
@@ -146,7 +163,8 @@ while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
                 </div>
                 <div class=" col-md-6 col-xs-12 borderWhite">
                     <p class="h3">Static Data</p>
-                    <p style="color: red;">Quand utilisation de woocommerce récupérer ces data pour afficher le nombre de points gagner</0p>
+                    <p style="color: red;">Quand utilisation de woocommerce récupérer ces data pour afficher le nombre
+                        de points gagner</0p>
                     <p id="staticDataResult"></p>
                     <form id="staticData">
                         <div class="form-group">
@@ -263,7 +281,7 @@ while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
                             $("#staticDataResult").html(data);
                         }
                     }
-                });
+                );
             }
         });
     });
