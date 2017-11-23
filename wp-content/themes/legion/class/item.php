@@ -459,10 +459,16 @@ class item extends parent_item
         }
         if ($this->itemClass == 4) {//Armor
             $max_price = 200;
+            $maxItemLevel = 890;
             $k = ($maxLevel * $maxLevel) / $max_price;
             if (isset($this->requiredLevel) AND $this->requiredLevel >= 1) {
                 $this->price = intval(($this->requiredLevel * $this->requiredLevel) / $k);
-            } else {
+            }
+            $k = ($maxItemLevel * $maxItemLevel) / $max_price;
+            if (isset($this->itemLevel) AND $this->itemLevel >= 1) {
+                $this->price = ($this->price + intval(($this->itemLevel * $this->itemLevel) / $k)) / 2;
+            }
+            if ($this->price == 0) {
                 $this->price = $max_price;
             }
         }

@@ -15,7 +15,7 @@ class item_home_character extends item_home
         $return = "";
         $return .= '
         <a class="pinterest" onclick="showMoreItemHome(\'' . get_class($this) . '\')">
-            <li class="list-group-item col-sm-9 col-xs-12">
+            <li class="list-group-item col-sm-9 col-xs-12" style="padding-top:0px;">
         <div class="display_item noPadding">
         ';
         $return .= wp_get_attachment_image($this->image, 'large', false, array("class" => "img-responsive center-block", "style" => "z-index:-1;width:60%;margin-left: 0;"));

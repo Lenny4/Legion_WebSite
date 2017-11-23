@@ -18,8 +18,8 @@
             <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
                 <p data-toggle="collapse" data-target="#search_item_item_set" class="clickable text-center h4 overGreen"
                    style="font-family: inherit;">
-                    Search
-                    <i class="fa fa-arrow-down" aria-hidden="true"></i></p>
+                    Search a specific item ?
+                    </p>
                 <div id="search_item_item_set" class="col-xs-12 collapse">
                     <div class="col-sm-6 col-xs-12">
                         <form id="searchItem">
