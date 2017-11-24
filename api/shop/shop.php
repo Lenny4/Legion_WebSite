@@ -767,7 +767,7 @@ if ($_POST['id'] == "askedItemRefused") {
         array_push($allUsers, $data["user_wp_id"]);
     }
     foreach ($allUsers as $userId) {
-        $GLOBALS["dbh"]->query("INSERT INTO `message_header`(`message`, `user_id`, `item_id`, `item_set_id`) VALUES ('item_refused'," . $userId . ",null,null)");
+        $GLOBALS["dbh"]->query("INSERT INTO `message_header`(`message`, `user_id`, `item_id`, `item_set_id`) VALUES ('item_refused'," . $userId . "," . $id . ",null)");
     }
     $GLOBALS["dbh"]->query('DELETE FROM `ask_new_items_user` WHERE `ask_new_items_id`=' . $id);
 }
@@ -798,7 +798,7 @@ if ($_POST['id'] == "askedItemSetRefused") {
         array_push($allUsers, $data["user_wp_id"]);
     }
     foreach ($allUsers as $userId) {
-        $GLOBALS["dbh"]->query("INSERT INTO `message_header`(`message`, `user_id`, `item_id`, `item_set_id`) VALUES ('item_set_refused'," . $userId . ",null,null)");
+        $GLOBALS["dbh"]->query("INSERT INTO `message_header`(`message`, `user_id`, `item_id`, `item_set_id`) VALUES ('item_set_refused'," . $userId . ",null," . $id . ")");
     }
     $GLOBALS["dbh"]->query('DELETE FROM `ask_new_items_user` WHERE `ask_new_items_set_id`=' . $id);
 }
