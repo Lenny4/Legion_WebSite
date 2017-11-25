@@ -275,28 +275,76 @@
             });
     }
 
-    function sameHeight($maxHeightDivShop=0, $previousMax=0, $previous2ndMax=0) {
+    function sameHeight() {
+        var $currentPosition = null;
+        var $element1 = null;
+        var $element2 = null;
+        var $element3 = null;
+        var $elementPos1 = null;
+        var $elementPos2 = null;
+        var $elementPos3 = null;
+        if ($dontExecuteHeightShop === false && $(window).width() > 768) {
+            $('a.pinterest').each(function (i, obj) {
+                $obj = $(obj).children("li").children("div.display_item_small");
+                var position = $($obj).offset();
+                if ($currentPosition !== position.top && $currentPosition !== null) {//change line
+                    var newHeight = $($element1).height();
+                    if ($elementPos3 === null && $elementPos1 !== null && $elementPos2 !== null) {//2 items on the line
+                        console.log(1);
+                        if ($($element2).height() > newHeight) {
+                            newHeight = $($element2).height();
+                        }
+                        $($element1).height(newHeight);
+                        $($element2).height(newHeight);
+                    } else if ($elementPos3 !== null && $elementPos1 !== null && $elementPos2 !== null) {//3 items on the line
+                        if ($($element2).height() > newHeight) {
+                            newHeight = $($element2).height();
+                        }
+                        if ($($element3).height() > newHeight) {
+                            newHeight = $($element3).height();
+                        }
+                        $($element1).height(newHeight);
+                        $($element2).height(newHeight);
+                        $($element3).height(newHeight);
+                    }
+                    $currentPosition = null;
+                    $element1 = null;
+                    $element2 = null;
+                    $element3 = null;
+                    $elementPos1 = null;
+                    $elementPos2 = null;
+                    $elementPos3 = null;
+                }
+                if ($currentPosition === null) {
+                    $currentPosition = position.top;
+                }
+                if ($element1 === null) {
+                    $element1 = $obj;
+                }
+                else if ($element2 === null) {
+                    $element2 = $obj;
+                }
+                else if ($element3 === null) {
+                    $element3 = $obj;
+                }
+                if ($elementPos1 === null) {
+                    $elementPos1 = position.top;
+                }
+                else if ($elementPos2 === null) {
+                    $elementPos2 = position.top;
+                }
+                else if ($elementPos3 === null) {
+                    $elementPos3 = position.top;
+                }
+            });
+        }
         if ($(window).width() <= 768) {
             $("div.display_item").height("auto");
         }
-        var $divs = $("div.display_item_small");
-        $maxHeightDivShop = Math.max.apply(null, $($divs).map(function () {
-            return $(this).height();
-        }).get());
-        if ($previous2ndMax !== 0 && Number.isInteger($previous2ndMax)) {//on a vérifié 3 fois
-            if ($dontExecuteHeightShop === false && $(window).width() > 768 && $maxHeightDivShop === $previousMax && $previousMax === $previous2ndMax) {
-                $($divs).height($maxHeightDivShop);
-            }
-            $maxHeightDivShop = 0;
-            $previousMax = 0;
-            $previous2ndMax = 0;
-        }
         setTimeout(function () {
-            $previous2ndMax = $previousMax;
-            $previousMax = $maxHeightDivShop;
-            sameHeight($maxHeightDivShop, $previousMax, $previous2ndMax);
+            sameHeight();
             return false;
-        }, 500);
+        }, 800);
     }
 
     function showMoreItemGlobal($subClassId, $classId, $lastItemId) {

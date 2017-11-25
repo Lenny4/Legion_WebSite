@@ -206,7 +206,7 @@ class item extends parent_item
         $return = '';
         $tab = ["name", "requiredLevel", "stackable", "allowableClasses", "itemLevel", "side", "price"];
         if ($this->itemClass == 0) {//Consumable
-            $tab = ["name", "requiredLevel", "stackable", "allowableClasses", "itemLevel", "side", "price"];
+            $tab = ["name", "requiredLevel", "stackable", "allowableClasses", "itemLevel", "side", "price", "itemSpells"];
         }
         if ($this->itemClass == 1) {//Container
 
