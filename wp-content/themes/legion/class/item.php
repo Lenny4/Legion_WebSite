@@ -172,7 +172,11 @@ class item extends parent_item
             $this->price = intval($this->sellPrice / 1000);
         }
         if (isset($data->requiredLevel)) {
-            $this->requiredLevel = $data->requiredLevel;
+            if ($data->requiredLevel == 0) {
+                $this->requiredLevel = 1;
+            } else {
+                $this->requiredLevel = $data->requiredLevel;
+            }
         }
         if (isset($data->equippable)) {
             $this->equippable = $data->equippable;
@@ -201,6 +205,48 @@ class item extends parent_item
     {
         $return = '';
         $tab = ["name", "requiredLevel", "stackable", "allowableClasses", "itemLevel", "side", "price"];
+        if ($this->itemClass == 0) {//Consumable
+            $tab = ["name", "requiredLevel", "stackable", "allowableClasses", "itemLevel", "side", "price"];
+        }
+        if ($this->itemClass == 1) {//Container
+
+        }
+        if ($this->itemClass == 2) {//Weapon
+
+        }
+        if ($this->itemClass == 3) {//Gem
+
+        }
+        if ($this->itemClass == 4) {//Armor
+
+        }
+        if ($this->itemClass == 5) {//Reagent
+
+        }
+        if ($this->itemClass == 7) {//Tradeskill
+
+        }
+        if ($this->itemClass == 9) {//Recipe
+
+        }
+        if ($this->itemClass == 12) {//Quest
+
+        }
+        if ($this->itemClass == 13) {//Key
+
+        }
+        if ($this->itemClass == 15) {//Miscellaneous
+
+        }
+        if ($this->itemClass == 16) {//Glyph
+
+        }
+        if ($this->itemClass == 17) {//Battle Pets
+
+        }
+        if ($this->itemClass == 18) {//WoW Token
+
+        }
         if ($small == true) {
             $dataShow["value"] = $this->item_id;
             $dataShow["id"] = "previewItem";
