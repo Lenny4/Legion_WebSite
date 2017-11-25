@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 4.9.x - Development - Administration package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-11-17 11:40:02+0000\n"
+"PO-Revision-Date: 2017-11-21 15:38:11+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -3908,7 +3908,7 @@ msgstr "Mise à jour de la traduction de %1$s (%2$s)&#8230;"
 #: wp-admin/includes/class-language-pack-upgrader-skin.php:29
 #: wp-admin/update-core.php:433 wp-admin/update-core.php:756
 msgid "Update Translations"
-msgstr "Mise à jour des traductions"
+msgstr "Mettre à jour les traductions"
 
 #: wp-admin/includes/update-core.php:1022
 msgid "There is not enough free disk space to complete the update."

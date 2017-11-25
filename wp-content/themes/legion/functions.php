@@ -50,6 +50,13 @@ if (!isset($GLOBALS["dbh"]) OR $GLOBALS["dbh"] == null) {
     }
 }
 
+$req = $GLOBALS["dbh"]->query('SELECT * FROM `static_data_shop`');
+while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+    define('RATIO_GOLD', $data["gold_amount"] / $data["real_money_amount"]);
+    define('BUY_POINTS', $data["buy_points"] / $data["real_money_amount"]);
+    define('VOTE_POINTS', $data["vote_points"] / $data["real_money_amount"]);
+}
+
 if (!isset($content_width)) {
     $content_width = 900;
 }

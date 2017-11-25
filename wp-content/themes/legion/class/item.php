@@ -286,6 +286,8 @@ class item extends parent_item
                                 $return = $return . '<p class="' . $key . ' no' . $key . '"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value">' . $value . '</span></p>';
                             } elseif ($key == "itemLevel") {
                                 $return = $return . '<p class="' . $key . '"><span class="' . $key . '">Item Level </span><span class="value">' . $value . '</span></p>';
+                            } elseif ($key == 'stackable' AND $value > 999) {
+                                $return = $return . '<p class="' . $key . ' extraplusplus"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value">' . $value . '</span></p>';
                             } elseif ($key == 'stackable' AND $value > 99) {
                                 $return = $return . '<p class="' . $key . ' extraplus"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value">' . $value . '</span></p>';
                             } elseif ($key == 'stackable' AND $value > 9) {
@@ -300,6 +302,12 @@ class item extends parent_item
                             } elseif ($key == "bonusStats") {
                                 if ($value != '[]') {
                                     $return = $return . '<p class="' . $key . '"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value">' . $value . '</span></p>';
+                                }
+                            } elseif ($key == "price") {
+                                $return = $return . '<p class="' . $key . '"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value">' . $value . '</span></p>';
+                                $return = $return . '<div class="display_price"><p class="' . $key . '_buy_points"><span class="' . $key . '_buy_points">' . ucfirst($key . '_buy_points') . ' </span><span class="value">' . intval($value * BUY_POINTS) . wp_get_attachment_image(168, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p>';
+                                if ($this->vote == 1) {
+                                    $return = $return . '<p style="margin-right: 10px;" class="' . $key . '_vote_points"><span class="' . $key . '_vote_points">' . ucfirst($key . '_vote_points') . ' </span><span class="value">' . intval($value * VOTE_POINTS) . wp_get_attachment_image(169, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p></div>';
                                 }
                             } else {
                                 $return = $return . '<p class="' . $key . '"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value">' . $value . '</span></p>';
