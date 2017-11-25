@@ -46,7 +46,7 @@ function hideShowSideBar(resize) {
     } else {
         if ($(sideBar).hasClass("active")) {
             $(sideBar).animate({
-                left: '50%'
+                left: '80%'
             }, time, function () {
                 $(sideBar).removeClass("active");
                 $(sideBar).addClass("hidden-xs hidden-sm");

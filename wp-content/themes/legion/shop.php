@@ -22,7 +22,7 @@
                 </p>
                 <div id="search_item_item_set" class="col-xs-12 collapse">
                     <div class="col-sm-6 col-xs-12 text-center">
-                        <a class="h4" style="font-family: inherit;" target="_blank"
+                        <a class="h4" style="font-family: inherit;color: #337ab7" target="_blank"
                            href="http://www.wowhead.com/database">Find items and items set ids</a>
                         <form id="searchItem">
                             <div class="form-group">
