@@ -18,7 +18,7 @@ class item_home_manage_character extends item_home
             <li class="list-group-item col-sm-4 col-xs-12">
         <div class="display_item noPadding">
         ';
-        $return .= "<div class='heightMinPhone' style='width: 100%;height: 132px'></div>";
+        $return .= "<div class='heightMinPhone' style='width: 100%;height: 150px'></div>";
         $return .= wp_get_attachment_image($this->image, 'large', false, array("class" => "img-responsive center-block", "style" => "z-index:-1;height:100%;width:100%"));
         $return .= '<p class="message hidden-xs" style="top: 5%;width: 80%;background-image: url(\'' . wp_get_attachment_image_src(132, "full")[0] . '\') ">
                     <span>' . $this->name . '</span>

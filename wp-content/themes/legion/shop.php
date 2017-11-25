@@ -21,8 +21,9 @@
                     Search a specific item ?
                 </p>
                 <div id="search_item_item_set" class="col-xs-12 collapse">
-                    <div class="col-sm-6 col-xs-12">
-                        <a target="_blank" href="http://www.wowhead.com/database">Find items and items set ids</a>
+                    <div class="col-sm-6 col-xs-12 text-center">
+                        <a class="h4" style="font-family: inherit;" target="_blank"
+                           href="http://www.wowhead.com/database">Find items and items set ids</a>
                         <form id="searchItem">
                             <div class="form-group">
                                 <input placeholder="Search item by ID" type="number" class="form-control"
@@ -387,9 +388,9 @@
         $(modalContent).html('' +
             '<div class="col-xs-12">\n' +
             '<a target="_blank" href="http://www.wowhead.com/database">Find items and items set ids</a>' +
-            '                    <form id="customer_add_items" method="post">\n' +
-            '                        <p class="h5 text-center" style="font-family: inherit">You can separate the ids with ;</p>\n' +
-            '                        <p class="h5 text-center" style="font-family: inherit">Max patch of the item 7.2.5</p>\n' +
+            '                    <p class="h5 text-center" style="font-family: inherit">You can separate the ids with ;</p>\n' +
+            '                    <p class="h5 text-center" style="font-family: inherit">Max patch of the item 7.2.5</p>\n' +
+            '                    <form id="customer_add_items" style="margin-bottom:10px;" method="post">\n' +
             '                        <div class="col-sm-6 col-xs-12">\n' +
             '                            <p class="h4 text-center" style="font-family: inherit">Add new item</p>\n' +
             '                            <div class="form-group">\n' +
