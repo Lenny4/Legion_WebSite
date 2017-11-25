@@ -351,9 +351,9 @@ class item extends parent_item
                                 }
                             } elseif ($key == "price") {
                                 $return = $return . '<p class="' . $key . '"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value">' . $value . '</span></p>';
-                                $return = $return . '<div class="display_price"><p class="' . $key . '_buy_points"><span class="' . $key . '_buy_points">' . ucfirst($key . '_buy_points') . ' </span><span class="value">' . intval($value * BUY_POINTS) . wp_get_attachment_image(168, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p>';
+                                $return = $return . '<div class="display_price"><p class="' . $key . '_buy_points"><span class="' . $key . '_buy_points">' . ucfirst($key . '_buy_points') . ' </span><span class="value">' . $this->getVotePoint() . wp_get_attachment_image(168, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p>';
                                 if ($this->vote == 1) {
-                                    $return = $return . '<p style="margin-right: 10px;" class="' . $key . '_vote_points"><span class="' . $key . '_vote_points">' . ucfirst($key . '_vote_points') . ' </span><span class="value">' . intval($value * VOTE_POINTS) . wp_get_attachment_image(169, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p></div>';
+                                    $return = $return . '<p style="margin-right: 10px;" class="' . $key . '_vote_points"><span class="' . $key . '_vote_points">' . ucfirst($key . '_vote_points') . ' </span><span class="value">' . $this->getBuyPoint() . wp_get_attachment_image(169, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p></div>';
                                 }
                             } elseif ($key == "containerSlots") {
                                 $return = $return . '<p class="' . $key . '"><span class="' . $key . '">Container Slots </span><span class="value">' . $value . '</span></p>';
@@ -367,6 +367,16 @@ class item extends parent_item
         }
         $return = $return . "</div></li></a>";
         return $return;
+    }
+
+    public function getVotePoint()
+    {
+        return intval($this->price * VOTE_POINTS);
+    }
+
+    public function getBuyPoint()
+    {
+        return intval($this->price * BUY_POINTS);
     }
 
     private function objectToArray($d)
