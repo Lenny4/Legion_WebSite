@@ -681,7 +681,7 @@ section.shop a:hover {
     border: none;
 }
 
-.display_item span.name, .display_item span.stackable, .display_item span.itemClass, .display_item span.itemSubClass, .display_item span.sellPrice, .display_item span.side, .display_item span.gemInfo, .display_item span.price_vote_points, .display_item span.price_buy_points {
+.display_item span.name, .display_item span.stackable, .display_item span.itemClass, .display_item span.itemSubClass, .display_item span.sellPrice, .display_item span.side, .display_item span.gemInfo, .display_item span.price_vote_points, .display_item span.price_buy_points, .display_item span.price_buy_points {
     display: none;
 }
 

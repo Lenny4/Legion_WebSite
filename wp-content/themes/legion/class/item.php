@@ -206,43 +206,43 @@ class item extends parent_item
         $return = '';
         $tab = ["name", "requiredLevel", "stackable", "allowableClasses", "itemLevel", "side", "price"];
         if ($this->itemClass == 0) {//Consumable
-            $tab = ["name", "requiredLevel", "stackable", "allowableClasses", "itemLevel", "side", "price", "itemSpells"];
+            array_push($tab, "itemSpells");
         }
         if ($this->itemClass == 1) {//Container
-
+            array_push($tab, "containerSlots", "description");
         }
         if ($this->itemClass == 2) {//Weapon
-
+            array_push($tab, "bonusStats");
         }
         if ($this->itemClass == 3) {//Gem
-
+            array_push($tab, "gemInfo");
         }
         if ($this->itemClass == 4) {//Armor
-
+            array_push($tab, "bonusStats");
         }
         if ($this->itemClass == 5) {//Reagent
-
+            array_push($tab, "description");
         }
         if ($this->itemClass == 7) {//Tradeskill
-
+            array_push($tab, "description");
         }
         if ($this->itemClass == 9) {//Recipe
-
+            array_push($tab, "itemSpells");
         }
         if ($this->itemClass == 12) {//Quest
-
+            array_push($tab, "description");
         }
         if ($this->itemClass == 13) {//Key
-
+            array_push($tab, "itemSpells");
         }
         if ($this->itemClass == 15) {//Miscellaneous
-
+            array_push($tab, "description");
         }
         if ($this->itemClass == 16) {//Glyph
-
+            array_push($tab, "itemSpells");
         }
         if ($this->itemClass == 17) {//Battle Pets
-
+            array_push($tab, "itemSpells");
         }
         if ($this->itemClass == 18) {//WoW Token
 
@@ -274,7 +274,7 @@ class item extends parent_item
                     $return = $return . '<p class="' . ucfirst($key) . '"><span class="' . $key . '">' . $key . ' </span><span class="value">' . $itemClass->getSubClassName($this) . '</span></p>';
                 } elseif ($key == "itemSpells") {
                     if ($value != "[]") {
-                        $return = $return . '<p class="' . $key . '">Item Spells :</p>';
+                        $return = $return . '<p class="hidden ' . $key . '">Item Spells :</p>';
                         foreach ($value as $newValue) {
                             if (isset($newValue->spell->description)) {
                                 $return = $return . '<p class="' . $key . '">' . $newValue->spell->description . '</p>';
@@ -355,6 +355,8 @@ class item extends parent_item
                                 if ($this->vote == 1) {
                                     $return = $return . '<p style="margin-right: 10px;" class="' . $key . '_vote_points"><span class="' . $key . '_vote_points">' . ucfirst($key . '_vote_points') . ' </span><span class="value">' . intval($value * VOTE_POINTS) . wp_get_attachment_image(169, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p></div>';
                                 }
+                            } elseif ($key == "containerSlots") {
+                                $return = $return . '<p class="' . $key . '"><span class="' . $key . '">Container Slots </span><span class="value">' . $value . '</span></p>';
                             } else {
                                 $return = $return . '<p class="' . $key . '"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value">' . $value . '</span></p>';
                             }
