@@ -65,6 +65,10 @@ class item_set extends parent_item
             }
             $return = $return . '<p class="name"><span class="name">Name </span><span class="value">"' . $this->name . '"</span></p>';
             $return = $return . '<p class="itemLevel"><span class="itemLevel">Average Item Level </span><span class="value">' . $globalItemLevel . '</span></p>';
+            $votePoints = $this->getVotePoint($allInfos["price"]);
+            $buyPoints = $this->getBuyPoint($allInfos["price"]);
+            $return = $return . '<div class="display_price"><p class="price_buy_points"><span class="price_buy_points">' . ucfirst('price_buy_points') . ' </span><span class="value">' . $buyPoints . wp_get_attachment_image(168, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p>';
+            $return = $return . '<p style="margin-right: 10px;" class="price_vote_points"><span class="price_vote_points">' . ucfirst('price_vote_points') . ' </span><span class="value">' . $votePoints . wp_get_attachment_image(169, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p></div>';
             $return = $return . '</div></li></a>';
         }
         return $return;
@@ -73,7 +77,7 @@ class item_set extends parent_item
     function getAllItemInfoOfTheSet($allID)
     {
         $result = array();
-        $req = 'SELECT `icon`, `itemLevel` FROM `item` WHERE `item_id`=' . $allID[0];
+        $req = 'SELECT * FROM `item` WHERE `item_id`=' . $allID[0];
         $i = 0;
         foreach ($allID as $idItem) {
             if ($i > 0) {
@@ -90,9 +94,36 @@ class item_set extends parent_item
                 $i++;
                 $result['itemLevel'][$i] = $data["itemLevel"];
                 $result['icon'][$i] = $data["icon"];
+                $result['price'][$i] = $data["price"];
                 $i++;
             }
             return $result;
         }
+    }
+
+    public function getVotePoint($tabPrice)
+    {
+        if ($this->price > 0) {
+            return $this->price * VOTE_POINTS;
+        }
+        $priceVoteItemSet = 0;
+        foreach ($tabPrice as $price) {
+            $priceVoteItemSet += intval($price);
+        }
+        $priceVoteItemSet = $priceVoteItemSet * VOTE_POINTS * 0.8;
+        return intval($priceVoteItemSet);
+    }
+
+    public function getBuyPoint($tabPrice)
+    {
+        if ($this->price > 0) {
+            return $this->price * BUY_POINTS;
+        }
+        $priceBuyItemSet = 0;
+        foreach ($tabPrice as $price) {
+            $priceBuyItemSet += intval($price);
+        }
+        $priceBuyItemSet = $priceBuyItemSet * BUY_POINTS * 0.8;
+        return intval($priceBuyItemSet);
     }
 }

@@ -1,5 +1,6 @@
 <?php /* Template Name: Shop Page */ ?>
 <?php get_header(); ?>
+<?php $askNewItemsText = get_field("how_to_add_new_items", get_the_ID()); ?>
 
 <main class="col-md-8 col-md-offset-1" role="main">
     <!-- section -->
@@ -13,7 +14,6 @@
         </h1>
 
         <?php if (have_posts()): while (have_posts()) : the_post(); ?>
-
             <!-- article -->
             <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>
                 <p data-toggle="collapse" data-target="#search_item_item_set" class="clickable text-center h4 overGreen"
@@ -23,7 +23,7 @@
                 <div id="search_item_item_set" class="col-xs-12 collapse">
                     <div class="col-sm-6 col-xs-12 text-center">
                         <a class="h4" style="font-family: inherit;color: #337ab7" target="_blank"
-                           href="http://www.wowhead.com/database">Find items and items set ids</a>
+                           href="http://www.wowhead.com/database">Find items ids</a>
                         <form id="searchItem">
                             <div class="form-group">
                                 <input placeholder="Search item by ID" type="number" class="form-control"
@@ -43,11 +43,11 @@
                         <p class="h4 text-center" style="font-family: inherit">Can't find an item in our database
                             ?</p>
                         <p class="text-center" style="font-family: inherit">
-                            <button onclick="askNewItems()" type="button" class="btn btn-default">Let us know</button>
+                            <button onclick="askNewItems()" type="button" class="btn btn-default"> Let us know</button>
                         </p>
                     </div>
                 </div>
-                <p>Automatic translation :</p><?php echo do_shortcode('[gtranslate]'); ?>
+                <p> Automatic translation :</p><?php echo do_shortcode('[gtranslate]'); ?>
                 <div class="col-xs-12">
                     <?php the_content(); ?>
                     <?php $allItemClasses = getAllItemClasses(); ?>
@@ -69,11 +69,13 @@
                                 <div class="panel panel-default">
                                     <div class="panel-heading">
                                         <h4 class="panel-title">
-                                            <a data-toggle="collapse" data-parent="#accordion" href="#setofitemcollapse"
+                                            <a data-toggle="collapse" data-parent="#accordion"
+                                               href="#setofitemcollapse"
                                                class="collapsed" aria-expanded="false">Set of items</a>
                                         </h4>
                                     </div>
-                                    <div id="setofitemcollapse" class="panel-collapse collapse" aria-expanded="false"
+                                    <div id="setofitemcollapse" class="panel-collapse collapse"
+                                         aria-expanded="false"
                                          style="height: 0px;">
                                         <div class="panel-body">
                                             <table class="table">
@@ -380,6 +382,7 @@
     }
 
     function askNewItems() {
+        var textExplain = <?php echo json_encode($askNewItemsText); ?>;
         var modal = $('#shopModal');
         $(modal).modal('show');
         var modalHeader = $(modal).find('.modal-title');
@@ -387,9 +390,10 @@
         $(modalHeader).html("");
         $(modalContent).html('' +
             '<div class="col-xs-12">\n' +
-            '<a target="_blank" href="http://www.wowhead.com/database">Find items and items set ids</a>' +
-            '                    <p class="h5 text-center" style="font-family: inherit">You can separate the ids with ;</p>\n' +
-            '                    <p class="h5 text-center" style="font-family: inherit">Max patch of the item 7.2.5</p>\n' +
+            '<p class="pointer overGreen h3 text-center" style="font-family:inherit" data-toggle="collapse" data-target="#howToAddItem">How to add new items ?</p>\n' +
+            '            <div id="howToAddItem" style="color:white" class="collapse">\n' +
+            textExplain +
+            '                </div>' +
             '                    <form id="customer_add_items" style="margin-bottom:10px;" method="post">\n' +
             '                        <div class="col-sm-6 col-xs-12">\n' +
             '                            <p class="h4 text-center" style="font-family: inherit">Add new item</p>\n' +
@@ -411,7 +415,9 @@
             '                    </form>\n' +
             '                    <div id="customer_add_items_result"></div>\n' +
             '                </div>' +
-            '');
+            ''
+        )
+        ;
     }
 
     function showMoreItemHome($phpClasse) {

@@ -717,7 +717,7 @@ section.shop a:hover {
     position: absolute;
     bottom: 2px;
     right: 4px;
-    background-color: rgba(0, 0, 0, 1);
+    background-color: rgba(0, 0, 0, 0.7);
 }
 
 .display_item p.stackable.extra {
@@ -855,4 +855,9 @@ div.display_item_set div.display_item p.stackable {
     .heightMinPhone {
         height: 0px !important;
     }
+}
+
+div.helpAddNewItems, div.helpAddNewItems ol, div.helpAddNewItems ol div {
+    padding: 0;
+    margin: 0;
 }

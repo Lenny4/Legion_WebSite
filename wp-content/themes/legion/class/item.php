@@ -13,6 +13,7 @@ class item extends parent_item
     public $itemClass = null;
     public $itemSubClass = null;
     public $armor = null;
+    public $damage = null;
     public $maxDurability = null;
     public $bonusStats = null;
     public $allowableClasses = null;
@@ -199,6 +200,9 @@ class item extends parent_item
         if (isset($data->stackable)) {
             $this->getStackableNumber($data->stackable);
         }
+        if (isset($data->weaponInfo)) {
+            $this->damage = $data->weaponInfo->dps;
+        }
     }
 
     public function display($itemClass, $small = false)
@@ -212,7 +216,7 @@ class item extends parent_item
             array_push($tab, "containerSlots", "description");
         }
         if ($this->itemClass == 2) {//Weapon
-            array_push($tab, "bonusStats");
+            array_push($tab, "bonusStats", "damage");
         }
         if ($this->itemClass == 3) {//Gem
             array_push($tab, "gemInfo");
@@ -351,9 +355,9 @@ class item extends parent_item
                                 }
                             } elseif ($key == "price") {
                                 $return = $return . '<p class="' . $key . '"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value">' . $value . '</span></p>';
-                                $return = $return . '<div class="display_price"><p class="' . $key . '_buy_points"><span class="' . $key . '_buy_points">' . ucfirst($key . '_buy_points') . ' </span><span class="value">' . $this->getVotePoint() . wp_get_attachment_image(168, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p>';
+                                $return = $return . '<div class="display_price"><p class="' . $key . '_buy_points"><span class="' . $key . '_buy_points">' . ucfirst($key . '_buy_points') . ' </span><span class="value">' . $this->getBuyPoint() . wp_get_attachment_image(168, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p>';
                                 if ($this->vote == 1) {
-                                    $return = $return . '<p style="margin-right: 10px;" class="' . $key . '_vote_points"><span class="' . $key . '_vote_points">' . ucfirst($key . '_vote_points') . ' </span><span class="value">' . $this->getBuyPoint() . wp_get_attachment_image(169, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p></div>';
+                                    $return = $return . '<p style="margin-right: 10px;" class="' . $key . '_vote_points"><span class="' . $key . '_vote_points">' . ucfirst($key . '_vote_points') . ' </span><span class="value">' . $this->getVotePoint() . wp_get_attachment_image(169, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p></div>';
                                 }
                             } elseif ($key == "containerSlots") {
                                 $return = $return . '<p class="' . $key . '"><span class="' . $key . '">Container Slots </span><span class="value">' . $value . '</span></p>';
@@ -507,15 +511,6 @@ class item extends parent_item
                 $this->price = $this->containerSlots * 2;
             }
         }
-        if ($this->itemClass == 2) {//Weapon
-            $max_price = 200;
-            $k = ($maxLevel * $maxLevel) / $max_price;
-            if (isset($this->requiredLevel) AND $this->requiredLevel >= 1) {
-                $this->price = intval(($this->requiredLevel * $this->requiredLevel) / $k);
-            } else {
-                $this->price = $max_price;
-            }
-        }
         if ($this->itemClass == 3) {//Gem
             $max_price = 50;
             if ($this->itemSubClass != 9 AND $this->itemSubClass != 10 AND $this->itemSubClass != 11) {
@@ -534,7 +529,7 @@ class item extends parent_item
                 $this->price = 80;
             }
         }
-        if ($this->itemClass == 4) {//Armor
+        if ($this->itemClass == 4 OR $this->itemClass == 2) {//Armor && Weapon
             $max_price = 200;
             $maxItemLevel = 890;
             $k = ($maxLevel * $maxLevel) / $max_price;
@@ -612,7 +607,7 @@ class item extends parent_item
             $this->price = 100000000;
         }
 
-        if (!$this->price > 0) {
+        if ($this->price <= 0) {
             $this->price = 1000;
         }
     }
