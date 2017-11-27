@@ -31,6 +31,7 @@ class item extends parent_item
     public $price = 0;
     public $vote = 0;
     public $side = null;
+    public $nbSells = 0;
 
     public function hydrateAPI($data)
     {
@@ -367,6 +368,8 @@ class item extends parent_item
                                     $return = $return . wp_get_attachment_image($image["id"], 'medium', "", ["class" => "img-responsive promo"]);
                                     $return = $return . "<span class='promo'>-" . $this->promotion . "%</span>";
                                 }
+                            } elseif ($key == "nbSells") {
+
                             } else {
                                 $return = $return . '<p class="' . $key . '"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value">' . $value . '</span></p>';
                             }

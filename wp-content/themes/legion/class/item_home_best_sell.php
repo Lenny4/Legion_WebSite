@@ -26,4 +26,15 @@ class item_home_best_sell extends item_home
         $return .= '</div></li></a>';
         return $return;
     }
+
+    public function show()
+    {
+        $req = $GLOBALS["dbh"]->query('SELECT * FROM `item` ORDER BY `nbSells` DESC LIMIT 100');
+        while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+            $item = new item();
+            $item->hydrateBDD($data);
+            $itemClass = createItemClass($item);
+            echo $item->display($itemClass, true);
+        }
+    }
 }
