@@ -25,6 +25,10 @@ body {
     background-color: black;
 }
 
+del {
+    color: red;
+}
+
 li, p, span, h1, h2, h3, h4, h5, h6, label, .h1, .h2, .h3, .h4, .h5, .h6, td {
     color: white;
 }
@@ -845,6 +849,23 @@ li.list-group-item div.display_item p.name {
 
 div.display_item_set div.display_item {
     float: left;
+}
+
+div.display_item img.promo {
+    position: absolute;
+    top: -10px;
+    right: -20px;
+    transform: rotate(15deg);
+}
+
+div.display_item span.promo {
+    position: absolute;
+    top: 20px;
+    right: -12px;
+    transform: rotate(15deg);
+    font-size: 18px;
+    background-color: rgba(0, 0, 0, 0.8);
+    border-radius: 20px;
 }
 
 div.display_item_set div.display_item p.stackable {

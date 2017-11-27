@@ -8,9 +8,9 @@
 
 class parent_item
 {
+    public $promotion = 0;
     public $id = null;
     public $name = null;
-    public $promotion = 0;
     public $time_promotion = 0;
 
     public function hydrateBDD($data)
@@ -26,6 +26,9 @@ class parent_item
                     $this->$key = $value;
                 }
             }
+        }
+        if ($this->time_promotion < time()) {
+            $this->promotion = 0;
         }
     }
 

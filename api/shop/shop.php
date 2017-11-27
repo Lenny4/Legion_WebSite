@@ -841,4 +841,10 @@ if ($_POST["id"] == "deleteMessageHeader") {
     $GLOBALS["dbh"]->query('DELETE FROM `message_header` WHERE id=' . $id);
 }
 
+if ($_POST["id"] == "showMoreItemHome") {
+    $phpClass = $_POST["phpClass"];
+    $item_home = new $phpClass();
+    echo $item_home->show();
+}
+
 //SHOP======================================================

@@ -49,4 +49,9 @@ class item_home extends parent_item
         }
         echo $return;
     }
+
+    public function show()
+    {
+        echo "display " . get_class($this);
+    }
 }

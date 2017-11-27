@@ -421,7 +421,22 @@
     }
 
     function showMoreItemHome($phpClasse) {
-        console.log($phpClasse);
+        $("*").addClass("progressWait");
+        hideCategoryIfOnPhone();
+        showAjaxLoaderShop();
+        $.post("/api/shop/shop.php",
+            {
+                id: 'showMoreItemHome',
+                phpClass: $phpClasse
+            },
+            function (data, status) {
+                console.log(data);
+                $dontExecuteHeightShop = false;
+                $("*").removeClass("progressWait");
+                hideAllHeaderShop();
+                hideAjaxLoaderShop();
+                $("#shopDisplayItems").html(data);
+            });
     }
 
     $(document).ready(function () {

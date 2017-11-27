@@ -208,7 +208,7 @@ class item extends parent_item
     public function display($itemClass, $small = false)
     {
         $return = '';
-        $tab = ["name", "requiredLevel", "stackable", "allowableClasses", "itemLevel", "side", "price"];
+        $tab = ["name", "requiredLevel", "stackable", "allowableClasses", "itemLevel", "side", "price", "promotion"];
         if ($this->itemClass == 0) {//Consumable
             array_push($tab, "itemSpells");
         }
@@ -361,6 +361,12 @@ class item extends parent_item
                                 }
                             } elseif ($key == "containerSlots") {
                                 $return = $return . '<p class="' . $key . '"><span class="' . $key . '">Container Slots </span><span class="value">' . $value . '</span></p>';
+                            } elseif ($key == "promotion") {
+                                if ($this->promotion > 0 AND $this->promotion <= 100) {
+                                    $image = get_field("logo_promo", $GLOBALS["shop_page_id"]);
+                                    $return = $return . wp_get_attachment_image($image["id"], 'medium', "", ["class" => "img-responsive promo"]);
+                                    $return = $return . "<span class='promo'>-" . $this->promotion . "%</span>";
+                                }
                             } else {
                                 $return = $return . '<p class="' . $key . '"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value">' . $value . '</span></p>';
                             }
@@ -375,12 +381,30 @@ class item extends parent_item
 
     public function getVotePoint()
     {
-        return intval($this->price * VOTE_POINTS);
+        if ($this->promotion > 100 OR $this->promotion < 0) {
+            $this->promotion = 0;
+        }
+        $realVotePrice = ($this->price * VOTE_POINTS);
+        $PricePromotion = $realVotePrice - ($realVotePrice * $this->promotion / 100);
+        if ($this->promotion > 0 AND $this->promotion <= 100) {
+            return '<del>' . intval($realVotePrice) . '</del>' . $PricePromotion;
+        } else {
+            return intval($realVotePrice);
+        }
     }
 
     public function getBuyPoint()
     {
-        return intval($this->price * BUY_POINTS);
+        if ($this->promotion > 100 OR $this->promotion < 0) {
+            $this->promotion = 0;
+        }
+        $realBuyPrice = ($this->price * BUY_POINTS);
+        $PricePromotion = $realBuyPrice - ($realBuyPrice * $this->promotion / 100);
+        if ($this->promotion > 0 AND $this->promotion <= 100) {
+            return '<del>' . intval($realBuyPrice) . '</del>' . $PricePromotion;
+        } else {
+            return intval($realBuyPrice);
+        }
     }
 
     private function objectToArray($d)
