@@ -70,4 +70,17 @@ class parent_item
         $req = $req . ")";
         return $req;
     }
+
+    public function getCharacters()
+    {
+        $characters = array();
+        $accountId = get_user_meta(get_current_user_id(), 'account_id')[0];
+        $req = $GLOBALS["dbh"]->query("SELECT * FROM characters.characters WHERE account=" . $accountId);
+        while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+            $character["name"] = $data["name"];
+            $character["level"] = $data["level"];
+            array_push($characters, $character);
+        }
+        return $characters;
+    }
 }

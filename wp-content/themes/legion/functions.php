@@ -5,7 +5,7 @@
  *  Custom functions, support, custom post types and more.
  */
 
-if(session_id() == '')
+if (session_id() == '')
     session_start();
 
 /*------------------------------------*\
@@ -595,9 +595,16 @@ function wow_insert_user($user_id)
         $password = null;
     }
     new SOAPRegistration($mail, $password);
+    $id_account = 0;
+    $mail = get_userdata($user_id)->user_email;
+    $req = $GLOBALS["dbh"]->query("SELECT * FROM auth.battlenet_accounts WHERE `email`='" . strtoupper($mail) . "'");
+    while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+        $id_account = $data["id"];
+    }
     update_user_meta($user_id, 'vote_points', 0);
     update_user_meta($user_id, 'buy_points', 0);
     update_user_meta($user_id, 'real_password', $password);
+    update_user_meta($user_id, 'account_id', $id_account);
 }
 
 function wow_update_user($user_id, $old_user_data)

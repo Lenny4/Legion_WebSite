@@ -31,11 +31,14 @@ class item_home_promotion extends item_home
     public function show()
     {
         $req = $GLOBALS["dbh"]->query('SELECT * FROM `item` WHERE `promotion`>0 AND `time_promotion`>' . time() . '  ORDER BY `promotion` DESC LIMIT 100');
-        while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
-            $item = new item();
-            $item->hydrateBDD($data);
-            $itemClass = createItemClass($item);
-            echo $item->display($itemClass, true);
+        $count = $req->rowCount();
+        if ($count > 0) {
+            while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+                $item = new item();
+                $item->hydrateBDD($data);
+                $itemClass = createItemClass($item);
+                echo $item->display($itemClass, true);
+            }
         }
     }
 }
