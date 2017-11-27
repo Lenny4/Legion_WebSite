@@ -23,6 +23,7 @@ require_once 'wp-content/themes/legion/class/SOAPDeletion.php';
 require_once 'wp-content/themes/legion/class/SOAPChangePassword.php';
 require_once 'wp-content/themes/legion/class/SOAPOnline.php';
 require_once 'wp-content/themes/legion/class/parent_item.php';
+require_once 'wp-content/themes/legion/class/shop.php';
 require_once 'wp-content/themes/legion/class/item.php';
 require_once 'wp-content/themes/legion/class/item_classes.php';
 require_once 'wp-content/themes/legion/class/item_set.php';

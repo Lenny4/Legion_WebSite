@@ -5,6 +5,9 @@
  *  Custom functions, support, custom post types and more.
  */
 
+if(session_id() == '')
+    session_start();
+
 /*------------------------------------*\
 	External Modules/Files
 \*------------------------------------*/
@@ -22,6 +25,10 @@ $pages = get_pages(array(
 ));
 foreach ($pages as $page) {
     $GLOBALS["shop_page_id"] = $page->ID;
+}
+
+if (!isset($_SESSION["shop"])) {
+    $_SESSION["shop"] = new shop();
 }
 
 require_once 'class/wp_bootstrap_navwalker.php';
@@ -548,6 +555,7 @@ add_shortcode('html5_shortcode_demo_2', 'html5_shortcode_demo_2'); // Place [htm
 /*------------------------------------*\
 	ShortCode Functions
 \*------------------------------------*/
+
 // Shortcode Demo with Nested Capability
 function html5_shortcode_demo($atts, $content = null)
 {
