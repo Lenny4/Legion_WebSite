@@ -80,10 +80,17 @@ function maxHeightSideBar() {
         } else {
             $("#my_sidebar").css({top: heightTopTop + 'px'});
         }
-        if (diffHeight > 0) {
-            $("#my_sidebar").css("max-height", $heightSideBar - diffHeight - 5 + "px");
+        var $maxValue = $(document).height() - $("header").height() - $("footer").height() - 15;
+        if ($maxValue < $("#my_sidebar").height()) {
+            $("#my_sidebar").css("max-height", $maxValue + "px");
         } else {
-            $("#my_sidebar").css("max-height", $heightSideBar + "px");
+            if (diffHeight > 0 && $maxValue > $("#my_sidebar").height()) {
+                console.log(1);
+                $("#my_sidebar").css("max-height", $heightSideBar - diffHeight - 5 + "px");
+            } else if ($maxValue > $("#my_sidebar").height()) {
+                console.log(2);
+                $("#my_sidebar").css("max-height", $heightSideBar + "px");
+            }
         }
     } else {
         $("#my_sidebar").css("max-height", $(window).height() + "px");
@@ -253,7 +260,8 @@ function deleteMessageHeader($id) {
 
 function scrollTopDocument() {
     var body = $("html, body");
-    body.stop().animate({scrollTop: 0}, 300, 'swing', function () {});
+    body.stop().animate({scrollTop: 0}, 300, 'swing', function () {
+    });
 }
 
 //====================== SHOP ADMIN
