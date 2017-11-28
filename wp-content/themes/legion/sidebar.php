@@ -12,18 +12,18 @@
     <p data-toggle="modal" data-target="#chooseLanguage" class="h3 clickable text-center">Change Language</p>
     <hr/>
     <?php if (is_user_logged_in()) { ?>
-        <div class="col-xs-12 profile_sidebar">
+        <div style="display: contents" class="col-xs-12 profile_sidebar">
             <div class="row">
                 <div style="display: inline-block; float: left">
                     <?php echo get_avatar(get_current_user_id(), 96); ?>
                 </div>
                 <p>
                     <?php echo wp_get_attachment_image(168, 'thumbnail', "", ["class" => "img-responsive img-float", "style" => "width:20px"]); ?>
-                    <span><?= get_user_meta(get_current_user_id(), 'buy_points')[0]; ?></span>
+                    <span style="margin-left: 10px"><?= get_user_meta(get_current_user_id(), 'buy_points')[0]; ?></span>
                 </p>
                 <p style="margin: 10px;">
                     <?php echo wp_get_attachment_image(169, 'thumbnail', "", ["class" => "img-responsive img-float", "style" => "width:20px"]); ?>
-                    <span><?= get_user_meta(get_current_user_id(), 'vote_points')[0]; ?></span>
+                    <span style="margin-left: 10px"><?= get_user_meta(get_current_user_id(), 'vote_points')[0]; ?></span>
                 </p>
                 <p>
                     <a href="<?= get_page_link(18); ?>">
