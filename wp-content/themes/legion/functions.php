@@ -64,6 +64,21 @@ while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
     define('VOTE_POINTS', $data["vote_points"] / $data["real_money_amount"]);
 }
 
+if (serverOnline()) {
+    $req = $GLOBALS["dbh"]->query('SELECT * FROM `user_update_offline` ORDER BY id ASC');
+    while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+        if ($data["add_user"] == 1) {
+            wow_insert_user($data["user_id"], true);
+        }
+        if ($data["delete_user"] == 1) {
+            wow_delete_user($data["user_id"], json_decode($data["value"]));
+        }
+        if ($data["update_user"] == 1) {
+
+        }
+    }
+}
+
 if (!isset($content_width)) {
     $content_width = 900;
 }
@@ -584,27 +599,72 @@ function getUserWowIdWithUserData($userdata)
     return $account;
 }
 
-function wow_insert_user($user_id)
+function serverOnline()
 {
-    $mail = $_POST['user_email'];
-    if (isset($_POST["password"])) {
-        $password = $_POST["password"];
-    } elseif (isset($_POST["pass1-text"])) {
-        $password = $_POST["pass1-text"];
-    } else {
+    $serverStatus = new SOAPOnline();
+    $serverStatus->isOnline();
+//    return $serverStatus->isOnline();
+    return false;
+}
+
+function wow_insert_user($user_id, $update_because_server_was_offline = false)
+{
+    if ($update_because_server_was_offline == false) {//the server wasn't offline when created this user
+        if (isset($_POST['user_email'])) {
+            $mail = $_POST['user_email'];
+        } elseif (isset($_POST["email"])) {
+            $mail = $_POST['email'];
+        } else {
+            $mail = null;
+        }
+        if (isset($_POST["username"])) {
+            $username = $_POST["username"];
+        } elseif (isset($_POST["user_login"])) {
+            $username = $_POST["user_login"];
+        } else {
+            $username = null;
+        }
+        if (isset($_POST["password"])) {
+            $password = $_POST["password"];
+        } elseif (isset($_POST["pass1-text"])) {
+            $password = $_POST["pass1-text"];
+        } else {
+            $password = null;
+        }
+    } else {// the server was offline when created this user
+        $mail = null;
         $password = null;
+        $username = null;
+        $req = $GLOBALS["dbh"]->query('SELECT * FROM `user_update_offline` WHERE `user_id`=' . $user_id . ' AND `add_user`=1');
+        while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+            $value = json_decode($data["value"]);
+            $mail = $value->mail;
+            $password = $value->password;
+            $username = $value->username;
+        }
     }
-    new SOAPRegistration($mail, $password);
-    $id_account = 0;
-    $mail = get_userdata($user_id)->user_email;
-    $req = $GLOBALS["dbh"]->query("SELECT * FROM auth.battlenet_accounts WHERE `email`='" . strtoupper($mail) . "'");
-    while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
-        $id_account = $data["id"];
+    if (serverOnline()) {
+        new SOAPRegistration($mail, $password);
+        $id_account = 0;
+        $mail = get_userdata($user_id)->user_email;
+        $req = $GLOBALS["dbh"]->query("SELECT * FROM auth.battlenet_accounts WHERE `email`='" . strtoupper($mail) . "'");
+        while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+            $id_account = $data["id"];
+        }
+        update_user_meta($user_id, 'account_id', $id_account);
+    } elseif ($update_because_server_was_offline == false) {
+        $value["mail"] = $mail;
+        $value["password"] = $password;
+        $value["username"] = $username;
+        $value = json_encode($value);
+        $GLOBALS["dbh"]->query("INSERT INTO `user_update_offline`(`user_id`, `add_user`,`value`) VALUES (" . $user_id . ",1,'" . $value . "')");
+    }
+    if ($update_because_server_was_offline == true) {
+        $GLOBALS["dbh"]->query("DELETE FROM `user_update_offline` WHERE `user_id`=" . $user_id . " AND `add_user`=1");
     }
     update_user_meta($user_id, 'vote_points', 0);
     update_user_meta($user_id, 'buy_points', 0);
     update_user_meta($user_id, 'real_password', $password);
-    update_user_meta($user_id, 'account_id', $id_account);
 }
 
 function wow_update_user($user_id, $old_user_data)
@@ -636,24 +696,33 @@ function wow_update_user($user_id, $old_user_data)
     }
 }
 
-function wow_delete_user($user_id)
+function wow_delete_user($user_id, $real_account = null)
 {
     $account = getUserWowIdWithUserData(get_userdata($user_id));
-    if ($account != null) {
-        new SOAPDeletion($account["username"]);
+    if ($real_account != null) {
+        $account["username"] = $real_account->username;
+        $account["id"] = $real_account->id;
     }
-    $tabAllTableBattlenet = ["battlenet_account_bans", "battlenet_account_heirlooms", "battlenet_account_mounts", "battlenet_account_toys", "battlenet_item_appearances", "battlenet_item_favorite_appearances", "battlenet_accounts"];
-    foreach ($tabAllTableBattlenet as $table) {
-        $req = "DELETE FROM auth." . $table . " WHERE ";
-        if ($table == "battlenet_account_bans" OR $table == "battlenet_accounts") {
-            $req = $req . "id=";
-        } elseif ($table == "battlenet_account_heirlooms" OR $table == "battlenet_account_toys") {
-            $req = $req . "accountId=";
-        } elseif ($table == "battlenet_account_mounts" OR $table == "battlenet_item_appearances" OR $table == "battlenet_item_favorite_appearances") {
-            $req = $req . "battlenetAccountId=";
+    if (serverOnline()) {
+        if ($account != null) {
+            new SOAPDeletion($account["username"]);
         }
-        $req = $req . $account["id"];
-        $GLOBALS["dbh"]->query($req);
+        $tabAllTableBattlenet = ["battlenet_account_bans", "battlenet_account_heirlooms", "battlenet_account_mounts", "battlenet_account_toys", "battlenet_item_appearances", "battlenet_item_favorite_appearances", "battlenet_accounts"];
+        foreach ($tabAllTableBattlenet as $table) {
+            $req = "DELETE FROM auth." . $table . " WHERE ";
+            if ($table == "battlenet_account_bans" OR $table == "battlenet_accounts") {
+                $req = $req . "id=";
+            } elseif ($table == "battlenet_account_heirlooms" OR $table == "battlenet_account_toys") {
+                $req = $req . "accountId=";
+            } elseif ($table == "battlenet_account_mounts" OR $table == "battlenet_item_appearances" OR $table == "battlenet_item_favorite_appearances") {
+                $req = $req . "battlenetAccountId=";
+            }
+            $req = $req . $account["id"];
+            $GLOBALS["dbh"]->query($req);
+        }
+        $GLOBALS["dbh"]->query("DELETE FROM `user_update_offline` WHERE `user_id`=" . $user_id . " AND `delete_user`=1");
+    } else {
+        $GLOBALS["dbh"]->query("INSERT INTO `user_update_offline`(`user_id`, `delete_user`, `value`) VALUES (" . $user_id . ",1,'" . json_encode($account) . "')");
     }
 }
 
@@ -678,13 +747,6 @@ function getLadder()
         $tab[$i]["ranking"] = "2009";
     }
     return $tab;
-}
-
-function serverOnline()
-{
-    $serverStatus = new SOAPOnline();
-    $serverStatus->isOnline();
-    return $serverStatus->isOnline();
 }
 
 function getAllItemClasses()
