@@ -288,56 +288,58 @@
         var $elementPos3 = null;
         if ($dontExecuteHeightShop === false && $(window).width() > 768) {
             $('a.pinterest').each(function (i, obj) {
-                $obj = $(obj).children("li").children("div.display_item_small");
-                var position = $($obj).offset();
-                if ($currentPosition !== position.top && $currentPosition !== null) {//change line
-                    var newHeight = $($element1).height();
-                    if ($elementPos3 === null && $elementPos1 !== null && $elementPos2 !== null) {//2 items on the line
-                        console.log(1);
-                        if ($($element2).height() > newHeight) {
-                            newHeight = $($element2).height();
+                var $li = $(obj).children("li");
+                if ($($li).css('display') !== 'none') {
+                    var $obj = $(obj).children("li").children("div.display_item_small");
+                    var position = $($obj).offset();
+                    if ($currentPosition !== position.top && $currentPosition !== null) {//change line
+                        var newHeight = $($element1).height();
+                        if ($elementPos3 === null && $elementPos1 !== null && $elementPos2 !== null) {//2 items on the line
+                            if ($($element2).height() > newHeight) {
+                                newHeight = $($element2).height();
+                            }
+                            $($element1).height(newHeight);
+                            $($element2).height(newHeight);
+                        } else if ($elementPos3 !== null && $elementPos1 !== null && $elementPos2 !== null) {//3 items on the line
+                            if ($($element2).height() > newHeight) {
+                                newHeight = $($element2).height();
+                            }
+                            if ($($element3).height() > newHeight) {
+                                newHeight = $($element3).height();
+                            }
+                            $($element1).height(newHeight);
+                            $($element2).height(newHeight);
+                            $($element3).height(newHeight);
                         }
-                        $($element1).height(newHeight);
-                        $($element2).height(newHeight);
-                    } else if ($elementPos3 !== null && $elementPos1 !== null && $elementPos2 !== null) {//3 items on the line
-                        if ($($element2).height() > newHeight) {
-                            newHeight = $($element2).height();
-                        }
-                        if ($($element3).height() > newHeight) {
-                            newHeight = $($element3).height();
-                        }
-                        $($element1).height(newHeight);
-                        $($element2).height(newHeight);
-                        $($element3).height(newHeight);
+                        $currentPosition = null;
+                        $element1 = null;
+                        $element2 = null;
+                        $element3 = null;
+                        $elementPos1 = null;
+                        $elementPos2 = null;
+                        $elementPos3 = null;
                     }
-                    $currentPosition = null;
-                    $element1 = null;
-                    $element2 = null;
-                    $element3 = null;
-                    $elementPos1 = null;
-                    $elementPos2 = null;
-                    $elementPos3 = null;
-                }
-                if ($currentPosition === null) {
-                    $currentPosition = position.top;
-                }
-                if ($element1 === null) {
-                    $element1 = $obj;
-                }
-                else if ($element2 === null) {
-                    $element2 = $obj;
-                }
-                else if ($element3 === null) {
-                    $element3 = $obj;
-                }
-                if ($elementPos1 === null) {
-                    $elementPos1 = position.top;
-                }
-                else if ($elementPos2 === null) {
-                    $elementPos2 = position.top;
-                }
-                else if ($elementPos3 === null) {
-                    $elementPos3 = position.top;
+                    if ($currentPosition === null) {
+                        $currentPosition = position.top;
+                    }
+                    if ($element1 === null) {
+                        $element1 = $obj;
+                    }
+                    else if ($element2 === null) {
+                        $element2 = $obj;
+                    }
+                    else if ($element3 === null) {
+                        $element3 = $obj;
+                    }
+                    if ($elementPos1 === null) {
+                        $elementPos1 = position.top;
+                    }
+                    else if ($elementPos2 === null) {
+                        $elementPos2 = position.top;
+                    }
+                    else if ($elementPos3 === null) {
+                        $elementPos3 = position.top;
+                    }
                 }
             });
         }

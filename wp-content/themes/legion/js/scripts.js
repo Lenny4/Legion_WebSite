@@ -251,6 +251,11 @@ function deleteMessageHeader($id) {
         });
 }
 
+function scrollTopDocument() {
+    var body = $("html, body");
+    body.stop().animate({scrollTop: 0}, 300, 'swing', function () {});
+}
+
 //====================== SHOP ADMIN
 
 $(document).ready(function () {
