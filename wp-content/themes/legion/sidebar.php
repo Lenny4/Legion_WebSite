@@ -11,7 +11,32 @@
 
     <p data-toggle="modal" data-target="#chooseLanguage" class="h3 clickable text-center">Change Language</p>
     <hr/>
-    <a href="<?php echo wp_logout_url( home_url() ); ?>">Logout</a>
+    <?php if (is_user_logged_in()) { ?>
+        <div class="col-xs-12 profile_sidebar">
+            <div class="row">
+                <div style="display: inline-block; float: left">
+                    <?php echo get_avatar(get_current_user_id(), 96); ?>
+                </div>
+                <p>
+                    <?php echo wp_get_attachment_image(168, 'thumbnail', "", ["class" => "img-responsive img-float", "style" => "width:20px"]); ?>
+                    <span><?= get_user_meta(get_current_user_id(), 'buy_points')[0]; ?></span>
+                </p>
+                <p style="margin: 10px;">
+                    <?php echo wp_get_attachment_image(169, 'thumbnail', "", ["class" => "img-responsive img-float", "style" => "width:20px"]); ?>
+                    <span><?= get_user_meta(get_current_user_id(), 'vote_points')[0]; ?></span>
+                </p>
+                <p>
+                    <a href="<?= get_page_link(18); ?>">
+                        <i style="color: #3B5998;" class="fa fa-address-card fa-2x" aria-hidden="true"></i>
+                    </a>
+                    <a href="<?php echo wp_logout_url(home_url()); ?>">
+                        <i style="float: right;color: #b94a48;" class="fa fa-sign-out fa-2x" aria-hidden="true"></i>
+                    </a>
+                </p>
+            </div>
+        </div>
+        <hr/>
+    <?php } ?>
 </aside>
 <div class="col-sm-1-offset"></div>
 <!-- /sidebar -->

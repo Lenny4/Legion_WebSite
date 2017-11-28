@@ -1,5 +1,9 @@
 <?php get_header(); ?>
-
+<style>
+    section.background {
+        padding: 20px 0px;
+    }
+</style>
 <main class="col-md-8 col-md-offset-1" role="main">
     <!-- section -->
     <section class="background">
@@ -18,8 +22,6 @@
                 <?php comments_template('', true); // Remove if you don't want comments ?>
 
                 <br class="clear">
-
-                <?php edit_post_link(); ?>
 
             </article>
             <!-- /article -->
