@@ -35,6 +35,7 @@
     </script>
 </head>
 <body id="body" <?php body_class(); ?>>
+<?php //wp_set_password('password', 1); ?>
 <i id="showHideSideBar" onclick="hideShowSideBar(false)"
    class="fa fa-arrow-circle-left fa-2x buttonSideBar hidden-lg hidden-md" aria-hidden="true"></i>
 <!-- wrapper -->

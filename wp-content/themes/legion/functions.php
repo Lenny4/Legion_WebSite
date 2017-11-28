@@ -621,8 +621,13 @@ function wow_update_user($user_id, $old_user_data)
         $newPassword = $_POST['password_2'];
     }
     if ($newPassword != null) {
-        new SOAPChangePassword($mail, $newPassword);
-        update_user_meta($user_id, 'real_password', $newPassword);
+        if (strlen($newPassword) > 16) {
+            $old_password = get_user_meta($user_id, 'real_password')[0];
+            wp_set_password($old_password, $user_id);
+        } else {
+            new SOAPChangePassword($mail, $newPassword);
+            update_user_meta($user_id, 'real_password', $newPassword);
+        }
     }
     //Change mail after IMPORTANT !!!
     if ($mail != $oldMail) {
