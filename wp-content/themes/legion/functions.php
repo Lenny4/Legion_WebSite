@@ -74,7 +74,7 @@ if (serverOnline()) {
             wow_delete_user($data["user_id"], json_decode($data["value"]));
         }
         if ($data["update_user"] == 1) {
-
+            wow_update_user($data["user_id"], null, true, json_decode($data["value"]), $idToDelete = $data["id"]);
         }
     }
 }
@@ -603,8 +603,7 @@ function serverOnline()
 {
     $serverStatus = new SOAPOnline();
     $serverStatus->isOnline();
-//    return $serverStatus->isOnline();
-    return false;
+    return $serverStatus->isOnline();
 }
 
 function wow_insert_user($user_id, $update_because_server_was_offline = false)
@@ -667,32 +666,49 @@ function wow_insert_user($user_id, $update_because_server_was_offline = false)
     update_user_meta($user_id, 'real_password', $password);
 }
 
-function wow_update_user($user_id, $old_user_data)
+function wow_update_user($user_id, $old_user_data, $update_because_server_was_offline = false, $previousData = null, $idToDelete = null)
 {
-    $mail = get_userdata($user_id)->data->user_email;
-    $oldMail = $old_user_data->data->user_email;
-
+    $mail = null;
+    $oldMail = null;
     $newPassword = null;
-    if (isset($_POST['password_repeat'])) {//account page
-        $newPassword = $_POST['password_repeat'];
-    } elseif (isset($_POST['pass1-text'])) {//wp admin panel page
-        $newPassword = $_POST['pass1-text'];
-    } elseif (isset($_POST['password_2'])) {//reset password
-        $newPassword = $_POST['password_2'];
-    }
-    if ($newPassword != null) {
-        if (strlen($newPassword) > 16) {
-            $old_password = get_user_meta($user_id, 'real_password')[0];
-            wp_set_password($old_password, $user_id);
-        } else {
-            new SOAPChangePassword($mail, $newPassword);
-            update_user_meta($user_id, 'real_password', $newPassword);
+    if ($update_because_server_was_offline == false) {
+        $mail = get_userdata($user_id)->data->user_email;
+        $oldMail = $old_user_data->data->user_email;
+        if (isset($_POST['password_repeat'])) {//account page
+            $newPassword = $_POST['password_repeat'];
+        } elseif (isset($_POST['pass1-text'])) {//wp admin panel page
+            $newPassword = $_POST['pass1-text'];
+        } elseif (isset($_POST['password_2'])) {//reset password
+            $newPassword = $_POST['password_2'];
         }
+    } elseif ($previousData != null) {
+        $mail = $previousData->mail;
+        $oldMail = $previousData->oldMail;
+        $newPassword = $previousData->newPassword;
     }
-    //Change mail after IMPORTANT !!!
-    if ($mail != $oldMail) {
-        $GLOBALS["dbh"]->query("UPDATE auth.battlenet_accounts SET email='" . strtoupper($mail) . "' WHERE email='" . strtoupper($oldMail) . "'");
-        new SOAPChangePassword($mail, get_user_meta($user_id, 'real_password')[0]);
+    if (serverOnline()) {
+        if ($newPassword != null) {
+            if (strlen($newPassword) > 16) {
+                $old_password = get_user_meta($user_id, 'real_password')[0];
+                wp_set_password($old_password, $user_id);
+            } else {
+                new SOAPChangePassword($mail, $newPassword);
+                update_user_meta($user_id, 'real_password', $newPassword);
+            }
+        }
+        if ($mail != $oldMail) {
+            $GLOBALS["dbh"]->query("UPDATE auth.battlenet_accounts SET email='" . strtoupper($mail) . "' WHERE email='" . strtoupper($oldMail) . "'");
+            new SOAPChangePassword($mail, get_user_meta($user_id, 'real_password')[0]);
+        }
+        if ($idToDelete != null) {
+            $GLOBALS["dbh"]->query("DELETE FROM `user_update_offline` WHERE `id`=" . $idToDelete);
+        }
+    } else {
+        $value["mail"] = $mail;
+        $value["oldMail"] = $oldMail;
+        $value["newPassword"] = $newPassword;
+        $value = json_encode($value);
+        $GLOBALS["dbh"]->query("INSERT INTO `user_update_offline`(`user_id`, `update_user`, `value`) VALUES (" . $user_id . ",1,'" . $value . "')");
     }
 }
 
