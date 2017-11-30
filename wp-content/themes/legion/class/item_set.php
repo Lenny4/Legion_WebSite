@@ -126,4 +126,9 @@ class item_set extends parent_item
         $priceBuyItemSet = $priceBuyItemSet * BUY_POINTS * 0.8;
         return intval($priceBuyItemSet);
     }
+
+    public function displayCart()
+    {
+        return "to do";
+    }
 }

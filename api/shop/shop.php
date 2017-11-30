@@ -29,7 +29,7 @@ if (!isset($_POST)) {
 }
 
 //ITEM======================================================
-function createItem($POSTitem_id, $POSTitem_price, $vote = 0)
+function createItem($POSTitem_id, $POSTitem_price = '', $vote = 0)
 {
     $item_id = intval($POSTitem_id);
     $item = getItemInBdd($item_id);
@@ -930,3 +930,25 @@ if ($_POST["id"] == "removeItem") {
     }
 }
 //SHOP ADMIN======================================================
+
+//SHOP CART======================================================
+if ($_POST["id"] == "addToCart") {
+    $id = intval($_POST["item_item_set_id"]);
+    $type = $_POST["type"];
+    if ($id > 0) {
+        if ($type == "item") {
+            $_SESSION["shop"]->addItem($id);
+        } elseif ($type == "item_set") {
+            var_dump($id);
+            var_dump($type);
+        }
+    }
+}
+if ($_POST["id"] == "removeToCart") {
+    $id = intval($_POST["item_item_set_id"]);
+    $type = $_POST["type"];
+    if ($id > 0) {
+        $_SESSION["shop"]->erase($id, $type);
+    }
+}
+//SHOP CART======================================================

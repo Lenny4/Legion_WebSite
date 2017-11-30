@@ -16,6 +16,10 @@
     padding: 0 !important;
 }
 
+.noMargin {
+    margin: 0 !important;
+}
+
 .pointer {
     cursor: pointer;
 }
@@ -336,7 +340,7 @@ aside {
     z-index: 10;
 }
 
-aside p.menu-sidebar i{
+aside p.menu-sidebar i {
     margin: 0px 5px;
 }
 
@@ -897,11 +901,25 @@ div.option * {
     font-family: inherit;
 }
 
+.cartItem {
+    position: relative;
+}
+
+.cartItem .removeItem {
+    display: inline-block;
+    position: absolute;
+    right: 0px;
+}
+
+.cartItem .removeItem .fa{
+    color: red;
+}
+
 div.option span.promo {
     position: absolute;
     bottom: 0;
     left: 10px;
-    background-color: rgba(0,0,0,0.8);
+    background-color: rgba(0, 0, 0, 0.8);
 }
 
 @media (max-width: 768px) {

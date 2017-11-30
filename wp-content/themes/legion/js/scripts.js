@@ -40,21 +40,19 @@ function hideShowSideBar(resize) {
         if ($(window).width() > 992 && $(sideBar).css("left") !== "0px") {
             $(sideBar).removeClass("hidden-xs hidden-sm");
             $(sideBar).addClass("active");
-            $(button).removeClass("fa-arrow-circle-left");
-            $(button).addClass("fa-arrow-circle-right");
         }
     } else {
         if ($(sideBar).hasClass("active")) {
+            animateRotate(button, 360);
             $(sideBar).animate({
                 left: '80%'
             }, time, function () {
                 $(sideBar).removeClass("active");
                 $(sideBar).addClass("hidden-xs hidden-sm");
-                $(button).removeClass("fa-arrow-circle-right");
-                $(button).addClass("fa-arrow-circle-left");
             });
 
         } else {
+            animateRotate(button, 360);
             $(sideBar).animate({
                 left: '0%'
             }, time);
@@ -103,6 +101,17 @@ function addPlaceHolderForm() {
         $('#username').attr('placeholder', $('#username').prev().text().slice(0, -1));
         $('#user_email').attr('placeholder', $('#user_email').prev().text().slice(0, -1));
         $('#password').attr('placeholder', $('#password').prev().text().slice(0, -1));
+    });
+}
+
+function animateRotate($elem, angle) {
+    $({deg: 0}).animate({deg: angle}, {
+        duration: 500,
+        step: function (now) {
+            $($elem).css({
+                transform: 'rotate(' + now + 'deg)'
+            });
+        }
     });
 }
 

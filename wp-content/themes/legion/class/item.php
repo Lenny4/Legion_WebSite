@@ -389,8 +389,8 @@ class item extends parent_item
         $return = $return . "</div>";
         if ($display_option == true) {
             $return = $return . "<div style='width: 1px;height: 10px'></div>";
-            $return = $return . "<div class='option'>
-    <button style='float:left;' onclick='addToCart(this," . $this->item_id . ")' type=\"button\" class=\"btn btn-success\">" . wp_get_attachment_image(221, 'thumbnail', true, array('class' => 'img-responsive')) . "</button>";
+            $return = $return . "<div class='option'><div id='result_req_user_item'></div>
+    <button style='float:left;' onclick=\"addToCart(this," . $this->item_id . ",'item')\" type=\"button\" class=\"btn btn-success\">" . wp_get_attachment_image(221, 'thumbnail', true, array('class' => 'img-responsive')) . "</button>";
             if (($this->promotion > 0 AND $this->promotion <= 100) AND $this->time_promotion > time()) {
                 $return = $return . "<div style='display: inline-block;float: left;margin-left:15px; position: relative'>";
                 $return = $return . wp_get_attachment_image(209, 'thumbnail', true, array('class' => 'img-responsive'));
@@ -425,6 +425,17 @@ class item extends parent_item
             </div>';
         }
         $return = $return . "</li></a>";
+        return $return;
+    }
+
+    public function displayCart()
+    {
+        $return = "<div class='col-xs-12 noPadding noMargin cartItem' style='margin-top: 15px'>
+        <div class='removeItem'><i onclick=\"removeItemCart(this," . $this->item_id . ",'item')\" class=\"fa fa-times\" aria-hidden=\"true\"></i></div>
+        <img style='float: left;width: 30px' class='img-responsive' src=\"https://wow.zamimg.com/images/wow/icons/large/" . $this->icon . ".jpg\" alt=\"" . $this->name . "\" />
+        <p>" . $this->name . "</p>";
+        $return = $return . "<hr style='width: 50%; margin: 5px auto; display: flex;'/>";
+        $return = $return . "</div>";
         return $return;
     }
 

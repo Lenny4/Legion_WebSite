@@ -3,6 +3,7 @@
 <?php $askNewItemsText = get_field("how_to_add_new_items", get_the_ID()); ?>
 
 <main class="col-md-8 col-md-offset-1" role="main">
+
     <!-- section -->
     <section class="background shop">
 
@@ -255,6 +256,9 @@
     function hideAjaxLoaderShop($otherPlace=null) {
         if ($otherPlace === "admin") {
             $("#ajaxLoaderShopAdmin").html('');
+        }
+        if ($otherPlace === "user") {
+            $("#result_req_user_item").html('');
         } else {
             $("#ajaxLoaderShop").hide();
         }
@@ -264,6 +268,10 @@
         if ($otherPlace === "admin") {
             $("#ajaxLoaderShopAdmin").html($("#ajaxLoaderShop").html());
             $("#ajaxLoaderShopAdmin").children().show();
+        }
+        if ($otherPlace === "user") {
+            $("#result_req_user_item").html($("#ajaxLoaderShop").html());
+            $("#result_req_user_item").children().show();
         } else {
             $("#ajaxLoaderShop").show();
         }
@@ -477,6 +485,37 @@
                 $("*").removeClass("progressWait");
                 hideAjaxLoaderShop("admin");
                 $("#result_req_admin_item").html(data);
+            });
+    }
+
+    function removeItemCart($this, $id, $type) {
+        $($this).parent().parent().remove();
+        var count = $("#item_cart").children().length;
+        if (count === 0) {
+            $("#cart_shop").html('');
+        }
+        $.post("/api/shop/shop.php",
+            {
+                id: "removeToCart",
+                item_item_set_id: $id,
+                type: $type
+            },
+            function (data, status) {});
+    }
+
+    function addToCart($element, $id, $type) {
+        $("*").addClass("progressWait");
+        showAjaxLoaderShop("user");
+        $.post("/api/shop/shop.php",
+            {
+                id: "addToCart",
+                item_item_set_id: $id,
+                type: $type
+            },
+            function (data, status) {
+                $("*").removeClass("progressWait");
+                hideAjaxLoaderShop("user");
+                $("#result_req_user_item").html(data);
             });
     }
 

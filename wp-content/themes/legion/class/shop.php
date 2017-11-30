@@ -8,15 +8,39 @@
 
 class shop
 {
-    private $array = null;
+    public $array = array();
 
-    public function getArray()
+    public function erase($id = null, $type = null)
     {
-        return $this->array;
+        if ($id == null) {
+            $this->array = array();
+        }
+        foreach ($this->array as $key => $item) {
+            if ($type == "item") {
+                if (is_a($item, $type) AND $item->item_id == $id) {
+                    unset($this->array["$key"]);
+                }
+            } elseif ($type = "item_set") {
+                if (is_a($item, $type) AND $item->item_set_id == $id) {
+                    unset($this->array["$key"]);
+                }
+            }
+        }
     }
 
-    public function erase()
+    public function addItem($id)
     {
-        $this->array = null;
+        $item = createItem($id);
+        if (!in_array($item, $this->array)) {
+            array_push($this->array, $item);
+        }
+    }
+
+    public function isEmpty()
+    {
+        if ($this->array == array()) {
+            return true;
+        }
+        return false;
     }
 }

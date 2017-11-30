@@ -3,6 +3,24 @@
        class="sidebar col-md-2 col-md-offset-0 col-xs-10 col-xs-offset-2 hidden-xs hidden-sm background"
        role="complementary">
 
+    <?php
+    echo '<div id="cart_shop"
+    ';
+    if ($_SESSION["shop"]->isEmpty()) {
+        echo ' style="display:none;"';
+    }
+    echo '>';
+    echo '<div class="col-xs-12 text-center" id="item_cart_collapse"><i onclick="animateRotate(this,360)" data-toggle="collapse" data-target="#item_cart" class="fa fa-chevron-circle-up fa-2x" aria-hidden="true"></i></div>
+    <div class="col-xs-12 noPadding collapse" id="item_cart">';
+    foreach ($_SESSION["shop"]->array as $item) {
+        echo $item->displayCart();
+    }
+    ?>
+    </div>
+    <button type="button" class="btn btn-primary btn-block"><i class="fa fa-eye fa-2x" aria-hidden="true"></i>
+    </button>
+    <hr/>
+    </div>
     <?php if (!is_user_logged_in()) { ?>
         <p class="h3">Login</p>
         <?= do_shortcode('[wpum_login_form psw_link="yes"]') ?>

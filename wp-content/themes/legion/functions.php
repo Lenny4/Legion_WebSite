@@ -27,7 +27,7 @@ foreach ($pages as $page) {
     $GLOBALS["shop_page_id"] = $page->ID;
 }
 
-if (!isset($_SESSION["shop"])) {
+if (!isset($_SESSION["shop"]) OR $_SESSION["shop"] == null) {
     $_SESSION["shop"] = new shop();
 }
 
