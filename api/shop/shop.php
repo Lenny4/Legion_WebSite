@@ -246,7 +246,7 @@ function previewItem($postItemId, $postItemPrice, $vote = 0, $justReturn = false
     $item = createItem($postItemId, $postItemPrice, $vote);
     $itemClass = createItemClass($item);
     if ($justReturn == false) {
-        echo($item->display($itemClass));
+        echo($item->display($itemClass, false, true, true));
     } else {
         return $item->display($itemClass);
     }
@@ -848,3 +848,39 @@ if ($_POST["id"] == "showMoreItemHome") {
 }
 
 //SHOP======================================================
+
+//SHOP ADMIN======================================================
+if ($_POST["id"] == "update_promotion_item_admin") {
+    $item_id = intval($_POST["item_id"]);
+    $pourcent = intval($_POST["pourcent"]);
+    $date = intval(strtotime($_POST["date"]));
+    if ($item_id <= 0 OR $pourcent <= 0 OR $date <= time()) {
+        echo '<div class="alert alert-danger alert-dismissable">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>Error !</strong>
+        </div>';
+        return;
+    }
+    $GLOBALS["dbh"]->query('UPDATE `item` SET `promotion`=' . $pourcent . ', `time_promotion`=' . $date . ' WHERE `item_id`=' . $item_id);
+    echo '<div class="alert alert-success alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>Promotion update</strong>
+</div>';
+}
+
+if ($_POST["id"] == "removePromotion") {
+    $item_id = intval($_POST["item_id"]);
+    if ($item_id <= 0) {
+        echo '<div class="alert alert-success alert-dismissable">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>Error !</strong>
+        </div>';
+    } else {
+        $GLOBALS["dbh"]->query('UPDATE `item` SET `promotion`=0, `time_promotion`=0 WHERE `item_id`=' . $item_id);
+        echo '<div class="alert alert-success alert-dismissable">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>Promotion delete</strong>
+        </div>';
+    }
+}
+//SHOP ADMIN======================================================

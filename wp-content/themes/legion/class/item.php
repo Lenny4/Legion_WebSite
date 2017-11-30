@@ -206,7 +206,7 @@ class item extends parent_item
         }
     }
 
-    public function display($itemClass, $small = false)
+    public function display($itemClass, $small = false, $display_option = false, $display_admin = false)
     {
         $return = '';
         $tab = ["name", "requiredLevel", "stackable", "allowableClasses", "itemLevel", "side", "price", "promotion"];
@@ -370,6 +370,8 @@ class item extends parent_item
                                 }
                             } elseif ($key == "nbSells") {
 
+                            } elseif ($key == "item_id") {
+                                $return = $return . '<p class="' . $key . '"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value"><a target="_blank" href="http://www.wowhead.com/item=' . $this->item_id . '">' . $value . '</a></span></p>';
                             } else {
                                 $return = $return . '<p class="' . $key . '"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value">' . $value . '</span></p>';
                             }
@@ -378,7 +380,40 @@ class item extends parent_item
                 }
             }
         }
-        $return = $return . "</div></li></a>";
+        $return = $return . "</div>";
+        if ($display_option == true) {
+            $return = $return . "<div style='width: 1px;height: 10px'></div>";
+            $return = $return . "<div class='option'>
+    <button style='float:left;' onclick='addToCart(this," . $this->item_id . ")' type=\"button\" class=\"btn btn-success\">" . wp_get_attachment_image(221, 'thumbnail', true, array('class' => 'img-responsive')) . "</button>";
+            if (($this->promotion > 0 AND $this->promotion <= 100) AND $this->time_promotion > time()) {
+                $return = $return . "<div style='display: inline-block;float: left;margin-left:15px; position: relative'>";
+                $return = $return . wp_get_attachment_image(209, 'thumbnail', true, array('class' => 'img-responsive'));
+                $return = $return . "<span class='promo'>-" . $this->promotion . "%</span>";
+                $return = $return . "</div>";
+            }
+            $return = $return . "</div>";
+        }
+        if ($display_admin == true AND isWowAdmin()) {
+            $return = $return . "<div class='col-xs-12' style='padding: 0'>";
+            $return = $return . '<hr><div id="ajaxLoaderShopAdmin"></div><div id="result_req_admin_item"></div>
+             <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#update_promotion_admin">Promotion</button>
+             <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#update_item_admin">Item</button>
+                <div id="update_promotion_admin" class="collapse">
+                <button onclick="removePromotion(' . $this->item_id . ')" type="button" class="btn btn-danger">Remove promotion</button>
+                <p>Update promotion</p>
+                <form method="post" id="update_promotion_item_admin">
+                    <input name="item_id" class="hidden" value="' . $this->item_id . '" />
+                    <input name="pourcent" placeholder="poucentage ex:20" type=\'number\' min="0" max="100" />
+                    <input name="date" type=\'date\' placeholder=\'dd/mm/yyyy\' />
+                    <button type="submit" class="btn btn-info">Update</button>
+                </form>
+                </div>
+                <div id="update_item_admin" class="collapse">
+                item admin
+                </div> 
+            </div>';
+        }
+        $return = $return . "</li></a>";
         return $return;
     }
 
@@ -390,7 +425,7 @@ class item extends parent_item
         $realVotePrice = ($this->price * VOTE_POINTS);
         $PricePromotion = $realVotePrice - ($realVotePrice * $this->promotion / 100);
         if ($this->promotion > 0 AND $this->promotion <= 100) {
-            return '<del>' . intval($realVotePrice) . '</del>' . $PricePromotion;
+            return '<del>' . intval($realVotePrice) . '</del>' . intval($PricePromotion);
         } else {
             return intval($realVotePrice);
         }
@@ -404,7 +439,7 @@ class item extends parent_item
         $realBuyPrice = ($this->price * BUY_POINTS);
         $PricePromotion = $realBuyPrice - ($realBuyPrice * $this->promotion / 100);
         if ($this->promotion > 0 AND $this->promotion <= 100) {
-            return '<del>' . intval($realBuyPrice) . '</del>' . $PricePromotion;
+            return '<del>' . intval($realBuyPrice) . '</del>' . intval($PricePromotion);
         } else {
             return intval($realBuyPrice);
         }

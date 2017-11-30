@@ -702,11 +702,11 @@ section.shop a:hover {
     border: none;
 }
 
-.display_item span.name, .display_item span.stackable, .display_item span.itemClass, .display_item span.itemSubClass, .display_item span.sellPrice, .display_item span.side, .display_item span.gemInfo, .display_item span.price_vote_points, .display_item span.price_buy_points, .display_item span.price_buy_points {
+.display_item span.name, .display_item span.stackable, .display_item span.itemClass, .display_item span.itemSubClass, .display_item span.sellPrice, .display_item span.side, .display_item span.gemInfo, .display_item span.price_vote_points, .display_item span.price_buy_points, .display_item span.price_buy_points, .display_item span.item_id {
     display: none;
 }
 
-.display_item p.icon, .display_item p.id, .display_item p.item_id, .display_item p.noitemSet, .display_item p.vote, .display_item p.promotion, .display_item p.time_promotion, .display_item p.price {
+.display_item p.icon, .display_item p.id, .display_item p.noitemSet, .display_item p.vote, .display_item p.promotion, .display_item p.time_promotion, .display_item p.price {
     display: none;
 }
 
@@ -887,6 +887,17 @@ div.display_item span.promo {
 
 div.display_item_set div.display_item p.stackable {
     display: none;
+}
+
+div.option * {
+    font-family: inherit;
+}
+
+div.option span.promo {
+    position: absolute;
+    bottom: 0;
+    left: 10px;
+    background-color: rgba(0,0,0,0.8);
 }
 
 @media (max-width: 768px) {

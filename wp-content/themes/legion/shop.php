@@ -252,12 +252,21 @@
         }
     }
 
-    function hideAjaxLoaderShop() {
-        $("#ajaxLoaderShop").hide();
+    function hideAjaxLoaderShop($otherPlace=null) {
+        if ($otherPlace === "admin") {
+            $("#ajaxLoaderShopAdmin").html('');
+        } else {
+            $("#ajaxLoaderShop").hide();
+        }
     }
 
-    function showAjaxLoaderShop() {
-        $("#ajaxLoaderShop").show();
+    function showAjaxLoaderShop($otherPlace=null) {
+        if ($otherPlace === "admin") {
+            $("#ajaxLoaderShopAdmin").html($("#ajaxLoaderShop").html());
+            $("#ajaxLoaderShopAdmin").children().show();
+        } else {
+            $("#ajaxLoaderShop").show();
+        }
     }
 
     function loadHomePageShop() {
@@ -432,12 +441,26 @@
                 phpClass: $phpClasse
             },
             function (data, status) {
-                console.log(data);
                 $dontExecuteHeightShop = false;
                 $("*").removeClass("progressWait");
                 hideAllHeaderShop();
                 hideAjaxLoaderShop();
                 $("#shopDisplayItems").html(data);
+            });
+    }
+
+    function removePromotion($item_id) {
+        $("*").addClass("progressWait");
+        showAjaxLoaderShop("admin");
+        $.post("/api/shop/shop.php",
+            {
+                id: "removePromotion",
+                item_id: $item_id
+            },
+            function (data, status) {
+                $("*").removeClass("progressWait");
+                hideAjaxLoaderShop("admin");
+                $("#result_req_admin_item").html(data);
             });
     }
 
@@ -512,6 +535,16 @@
             }
             event.preventDefault();
             $("*").addClass("progressWait");
+            if ($(event.target).attr("id") === "update_promotion_item_admin") {
+                showAjaxLoaderShop("admin");
+                var formAdmin = 'id=' + $(event.target).attr("id") + "&" + $(event.target).serialize();
+                $.post("/api/shop/shop.php", formAdmin, function (data, status) {
+                    $("*").removeClass("progressWait");
+                    hideAjaxLoaderShop("admin");
+                    $("#result_req_admin_item").html(data);
+                });
+                return;
+            }
             if ($(event.target).attr("id") !== "customer_add_items") {
                 hideCategoryIfOnPhone();
                 showAjaxLoaderShop();
