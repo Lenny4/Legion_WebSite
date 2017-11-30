@@ -322,8 +322,8 @@ div.mainParallax {
 
 .buttonHeader {
     position: fixed;
-    right: 34px;
-    bottom: 20px;
+    right: 20px;
+    bottom: 45px;
 }
 
 aside {
@@ -334,6 +334,10 @@ aside {
     margin-top: 10px;
     margin-bottom: 20px;
     z-index: 10;
+}
+
+aside p.menu-sidebar i{
+    margin: 0px 5px;
 }
 
 @media (max-width: 768px) {

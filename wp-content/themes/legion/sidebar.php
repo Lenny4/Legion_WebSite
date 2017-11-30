@@ -9,9 +9,10 @@
         <hr/>
     <?php } ?>
 
-    <p class="h3 clickable text-center">
+    <p class="h3 text-center menu-sidebar">
         <i data-toggle="modal" data-target="#chooseLanguage" class="fa fa-language" aria-hidden="true"></i>
-        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+        <i class="fa fa-money" aria-hidden="true"></i>
+        <i class="fa fa-area-chart" aria-hidden="true"></i>
     </p>
     <hr/>
     <?php if (is_user_logged_in()) { ?>

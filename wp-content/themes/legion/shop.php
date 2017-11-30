@@ -287,14 +287,15 @@
             });
     }
 
+    var $currentPosition = null;
+    var $element1 = null;
+    var $element2 = null;
+    var $element3 = null;
+    var $elementPos1 = null;
+    var $elementPos2 = null;
+    var $elementPos3 = null;
+
     function sameHeight() {
-        var $currentPosition = null;
-        var $element1 = null;
-        var $element2 = null;
-        var $element3 = null;
-        var $elementPos1 = null;
-        var $elementPos2 = null;
-        var $elementPos3 = null;
         if ($dontExecuteHeightShop === false && $(window).width() > 768) {
             $('a.pinterest').each(function (i, obj) {
                 var $li = $(obj).children("li");
@@ -464,8 +465,30 @@
             });
     }
 
+    function removeItem($item_id) {
+        $("*").addClass("progressWait");
+        showAjaxLoaderShop("admin");
+        $.post("/api/shop/shop.php",
+            {
+                id: "removeItem",
+                item_id: $item_id
+            },
+            function (data, status) {
+                $("*").removeClass("progressWait");
+                hideAjaxLoaderShop("admin");
+                $("#result_req_admin_item").html(data);
+            });
+    }
+
     $(document).ready(function () {
         $("a.subItemClasse").click(function (e) {
+            $currentPosition = null;
+            $element1 = null;
+            $element2 = null;
+            $element3 = null;
+            $elementPos1 = null;
+            $elementPos2 = null;
+            $elementPos3 = null;
             $("*").addClass("progressWait");
             hideCategoryIfOnPhone();
             showAjaxLoaderShop();
@@ -497,6 +520,13 @@
         });
 
         $("a.subItemSetClasse").click(function (e) {
+            $currentPosition = null;
+            $element1 = null;
+            $element2 = null;
+            $element3 = null;
+            $elementPos1 = null;
+            $elementPos2 = null;
+            $elementPos3 = null;
             $("*").addClass("progressWait");
             hideCategoryIfOnPhone();
             showAjaxLoaderShop();
@@ -528,14 +558,13 @@
             loadHomePageShop();
         });
 
-
         $('body').on('submit', 'form', function (event) {
             if ($(event.target).attr("id") === "wpum_loginform") {
                 return;
             }
             event.preventDefault();
             $("*").addClass("progressWait");
-            if ($(event.target).attr("id") === "update_promotion_item_admin") {
+            if ($(event.target).attr("id") === "update_promotion_item_admin" || $(event.target).attr("id") === "update_item_admin") {
                 showAjaxLoaderShop("admin");
                 var formAdmin = 'id=' + $(event.target).attr("id") + "&" + $(event.target).serialize();
                 $.post("/api/shop/shop.php", formAdmin, function (data, status) {

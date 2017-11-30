@@ -415,7 +415,12 @@ class item extends parent_item
                 </form>
                 </div>
                 <div id="update_item_admin" class="collapse">
-                item admin
+                <button onclick="removeItem(' . $this->item_id . ')" type="button" class="btn btn-danger">Remove Item</button>
+                <form id="update_item_admin">
+                    <input name="item_id" class="hidden" value="' . $this->item_id . '" />
+                    <input type="number" min="0" name="price" value="' . $this->price . '">
+                    <button type="submit" class="btn btn-info">Update</button>
+                </form>
                 </div> 
             </div>';
         }

@@ -889,4 +889,44 @@ if ($_POST["id"] == "removePromotion") {
         </div>';
     }
 }
+
+if ($_POST["id"] == "update_item_admin") {
+    if (!isWowAdmin()) {
+        return;
+    }
+    $newPrice = intval($_POST["price"]);
+    $item_id = intval($_POST["item_id"]);
+    if ($newPrice < 0) {
+        echo '<div class="alert alert-success alert-dismissable">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>Error !</strong>
+        </div>';
+    } else {
+        $GLOBALS["dbh"]->query('UPDATE `item` SET `price`=' . $newPrice . ' WHERE `item_id`=' . $item_id);
+        echo '<div class="alert alert-success alert-dismissable">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>Item updated !</strong>
+        </div>';
+    }
+
+}
+
+if ($_POST["id"] == "removeItem") {
+    if (!isWowAdmin()) {
+        return;
+    }
+    $item_id = intval($_POST["item_id"]);
+    if ($item_id <= 0) {
+        echo '<div class="alert alert-success alert-dismissable">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>Error !</strong>
+        </div>';
+    } else {
+        $GLOBALS["dbh"]->query('DELETE FROM `item` WHERE `item_id`=' . $item_id);
+        echo '<div class="alert alert-success alert-dismissable">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>Item delete</strong>
+        </div>';
+    }
+}
 //SHOP ADMIN======================================================
