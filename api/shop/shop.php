@@ -851,6 +851,9 @@ if ($_POST["id"] == "showMoreItemHome") {
 
 //SHOP ADMIN======================================================
 if ($_POST["id"] == "update_promotion_item_admin") {
+    if (!isWowAdmin()) {
+        return;
+    }
     $item_id = intval($_POST["item_id"]);
     $pourcent = intval($_POST["pourcent"]);
     $date = intval(strtotime($_POST["date"]));
@@ -869,6 +872,9 @@ if ($_POST["id"] == "update_promotion_item_admin") {
 }
 
 if ($_POST["id"] == "removePromotion") {
+    if (!isWowAdmin()) {
+        return;
+    }
     $item_id = intval($_POST["item_id"]);
     if ($item_id <= 0) {
         echo '<div class="alert alert-success alert-dismissable">
