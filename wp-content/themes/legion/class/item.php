@@ -430,11 +430,11 @@ class item extends parent_item
 
     public function displayCart()
     {
-        $return = "<div class='col-xs-12 noPadding noMargin cartItem' style='margin-top: 15px'>
+        $return = "<div class='col-xs-12 noPadding cartItem' style='margin: 5px 0px'>
         <div class='removeItem'><i onclick=\"removeItemCart(this," . $this->item_id . ",'item')\" class=\"fa fa-times\" aria-hidden=\"true\"></i></div>
         <img style='float: left;width: 30px' class='img-responsive' src=\"https://wow.zamimg.com/images/wow/icons/large/" . $this->icon . ".jpg\" alt=\"" . $this->name . "\" />
         <p>" . $this->name . "</p>";
-        $return = $return . "<hr style='width: 50%; margin: 5px auto; display: flex;'/>";
+        $return = $return . "<div class='col-xs-12'><hr style='width: 100%;margin: 0 auto;'/></div>";
         $return = $return . "</div>";
         return $return;
     }

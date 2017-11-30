@@ -326,8 +326,8 @@ div.mainParallax {
 
 .buttonHeader {
     position: fixed;
-    right: 20px;
-    bottom: 45px;
+    left: 10px;
+    bottom: 10px;
 }
 
 aside {
@@ -911,7 +911,7 @@ div.option * {
     right: 0px;
 }
 
-.cartItem .removeItem .fa{
+.cartItem .removeItem .fa {
     color: red;
 }
 

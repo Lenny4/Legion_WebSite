@@ -28,12 +28,30 @@ class shop
         }
     }
 
+    public function view($id, $type)
+    {
+        foreach ($this->array as $key => $item) {
+            if ($type == "item") {
+                if (is_a($item, $type) AND $item->item_id == $id) {
+                    return $this->array["$key"]->displayCart();
+                }
+            } elseif ($type = "item_set") {
+                if (is_a($item, $type) AND $item->item_set_id == $id) {
+                    return $this->array["$key"]->displayCart();
+                }
+            }
+        }
+    }
+
     public function addItem($id)
     {
+        $result = "false";
         $item = createItem($id);
         if (!in_array($item, $this->array)) {
             array_push($this->array, $item);
+            $result = "true";
         }
+        return $result;
     }
 
     public function isEmpty()

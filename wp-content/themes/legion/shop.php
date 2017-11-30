@@ -492,7 +492,8 @@
         $($this).parent().parent().remove();
         var count = $("#item_cart").children().length;
         if (count === 0) {
-            $("#cart_shop").html('');
+            $("#cart_shop").collapse("hide");
+            $("#cart_shop").css('display', 'none');
         }
         $.post("/api/shop/shop.php",
             {
@@ -500,7 +501,8 @@
                 item_item_set_id: $id,
                 type: $type
             },
-            function (data, status) {});
+            function (data, status) {
+            });
     }
 
     function addToCart($element, $id, $type) {
@@ -515,7 +517,26 @@
             function (data, status) {
                 $("*").removeClass("progressWait");
                 hideAjaxLoaderShop("user");
-                $("#result_req_user_item").html(data);
+                if (data === "true") {
+                    var modal = $('#shopModal');
+                    $(modal).modal('hide');
+                    $("#cart_shop").show();
+                    $.post("/api/shop/shop.php",
+                        {
+                            id: "viewItemCart",
+                            item_item_set_id: $id,
+                            type: $type
+                        },
+                        function (data, status) {
+                            $("#item_cart").append(data);
+                            var count = $("#item_cart").children().length;
+                            if (count === 1) {
+                                $("#cart_shop").collapse("show");
+                            }
+                        });
+                } else {
+                    $("#result_req_user_item").html(data);
+                }
             });
     }
 

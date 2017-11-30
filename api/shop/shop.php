@@ -935,14 +935,22 @@ if ($_POST["id"] == "removeItem") {
 if ($_POST["id"] == "addToCart") {
     $id = intval($_POST["item_item_set_id"]);
     $type = $_POST["type"];
+    $result = "false";
     if ($id > 0) {
         if ($type == "item") {
-            $_SESSION["shop"]->addItem($id);
+            $result = $_SESSION["shop"]->addItem($id);
         } elseif ($type == "item_set") {
             var_dump($id);
             var_dump($type);
         }
     }
+    if ($result == "false") {
+        $result = "<div class=\"alert alert-success alert-dismissable\">
+  <a href=\"#\" class=\"close\" data-dismiss=\"alert\" aria-label=\"close\">&times;</a>
+  <strong>Already in your cart !</strong>
+</div>";
+    }
+    echo $result;
 }
 if ($_POST["id"] == "removeToCart") {
     $id = intval($_POST["item_item_set_id"]);
@@ -950,5 +958,10 @@ if ($_POST["id"] == "removeToCart") {
     if ($id > 0) {
         $_SESSION["shop"]->erase($id, $type);
     }
+}
+if ($_POST["id"] == "viewItemCart") {
+    $id = intval($_POST["item_item_set_id"]);
+    $type = $_POST["type"];
+    echo $_SESSION["shop"]->view($id, $type);
 }
 //SHOP CART======================================================
