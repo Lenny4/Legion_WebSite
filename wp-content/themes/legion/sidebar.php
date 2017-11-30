@@ -5,15 +5,19 @@
 
     <?php if (!is_user_logged_in()) { ?>
         <p class="h3">Login</p>
-        <?= do_shortcode('[wpum_login_form]') ?>
+        <?= do_shortcode('[wpum_login_form psw_link="yes"]') ?>
         <hr/>
     <?php } ?>
 
-    <p data-toggle="modal" data-target="#chooseLanguage" class="h3 clickable text-center">Change Language</p>
+    <p class="h3 clickable text-center">
+        <i data-toggle="modal" data-target="#chooseLanguage" class="fa fa-language" aria-hidden="true"></i>
+        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+    </p>
     <hr/>
     <?php if (is_user_logged_in()) { ?>
         <div style="display: contents" class="col-xs-12 profile_sidebar">
             <div class="row">
+                <p class="h3" style="margin-top:0px;margin-left:20px;"><?= wp_get_current_user()->user_login; ?></p>
                 <div style="display: inline-block; float: left">
                     <?php echo get_avatar(get_current_user_id(), 96); ?>
                 </div>

@@ -17,6 +17,7 @@ include_once("item_home_best_sell.php");
 include_once("item_home_membership.php");
 include_once("item_home_promotion.php");
 include_once("item_home_guild.php");
+include_once("item_home_teleport.php");
 
 class item_home extends parent_item
 {
@@ -40,10 +41,10 @@ class item_home extends parent_item
         }
         foreach ($allItems as $itemHome) {
             if ($itemHome->phpclasse == "item_home_profession") {
-                $return .= "<div class='col-sm-8 col-xs-12 noPadding'>";
+                $return .= "<div class='col-sm-9 col-xs-12 noPadding'>";
             }
             $return .= $itemHome->displayHome();
-            if ($itemHome->phpclasse == "item_home_guild") {
+            if ($itemHome->phpclasse == "item_home_level") {
                 $return .= "</div>";
             }
         }

@@ -7,7 +7,11 @@
 <main class="col-md-8 col-md-offset-1" role="main">
     <!-- section -->
     <section class="background">
-
+        <?php if (serverOnline() == false) { ?>
+            <div class="alert alert-warning">
+                <strong><?= get_field("information_update", 18); ?></strong>
+            </div>
+        <?php } ?>
         <h1><?php the_title(); ?></h1>
 
         <?php if (have_posts()): while (have_posts()) : the_post(); ?>

@@ -184,8 +184,13 @@
                             $fbUrl = get_field("url_facebook_page", $homePageId);
                             echo do_shortcode('[sfp-page-plugin url=' . $fbUrl . ']') ?>
                         <?php } else { ?>
+                            <?php if (serverOnline() == false) { ?>
+                                <div class="alert alert-warning">
+                                    <?= get_field("information_update", 18); ?>
+                                </div>
+                            <?php } ?>
                             <p class="h3">Register</p>
-                            <?= do_shortcode('[wpum_register form_id="" login_link="yes" psw_link="yes" register_link="no" ]') ?>
+                            <?= do_shortcode('[wpum_register form_id="" login_link="no" psw_link="no" register_link="no" ]') ?>
                         <?php }
                         ?>
                     </div>

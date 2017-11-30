@@ -15,7 +15,7 @@ class item_home_level extends item_home
         $return = "";
         $return .= '
         <a class="pinterest" onclick="showMoreItemHome(\'' . get_class($this) . '\')">
-            <li class="list-group-item col-sm-4 col-xs-12">
+            <li class="list-group-item col-sm-5 col-xs-12">
         <div class="display_item noPadding">
         ';
         $return .= wp_get_attachment_image($this->image, 'large', false, array("class" => "img-responsive center-block", "style" => "z-index:-1;width:100%;"));
