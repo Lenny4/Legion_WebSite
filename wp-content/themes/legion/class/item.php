@@ -314,10 +314,16 @@ class item extends parent_item
 
                         } else {
                             if ($key == "isAuctionable" OR $key == "equippable") {
-                                if ($value == 1 OR true) {
+                                $value = intval($value);
+                                if ($value == 1) {
                                     $value = "Yes";
                                 } else {
                                     $value = "No";
+                                }
+                                if ($key == "isAuctionable") {
+                                    $return = $return . '<p class="' . $key . '"><span class="' . $key . '">Is Auctionable : </span><span class="value">' . $value . '</span></p>';
+                                } else {
+                                    $return = $return . '<p class="' . $key . '"><span class="' . $key . '">' . ucfirst($key) . ' : </span><span class="value">' . $value . '</span></p>';
                                 }
                             } else if ($key == "maxDurability") {
                                 $return = $return . '<p class="' . $key . '"><span class="' . $key . '">Durability </span><span class="value">' . $value . '</span></p>';
@@ -356,9 +362,9 @@ class item extends parent_item
                                 }
                             } elseif ($key == "price") {
                                 $return = $return . '<p class="' . $key . '"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value">' . $value . '</span></p>';
-                                $return = $return . '<div class="display_price"><p class="' . $key . '_buy_points"><span class="' . $key . '_buy_points">' . ucfirst($key . '_buy_points') . ' </span><span class="value">' . $this->getBuyPoint() . wp_get_attachment_image(168, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p>';
+                                $return = $return . '<div class="display_price"><p class="' . $key . '_buy_points"><span class="' . $key . '_buy_points">' . ucfirst($key . '_buy_points') . ' </span><span class="value">' . formatNumber($this->getBuyPoint()) . wp_get_attachment_image(168, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p>';
                                 if ($this->vote == 1) {
-                                    $return = $return . '<p style="margin-right: 10px;" class="' . $key . '_vote_points"><span class="' . $key . '_vote_points">' . ucfirst($key . '_vote_points') . ' </span><span class="value">' . $this->getVotePoint() . wp_get_attachment_image(169, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p></div>';
+                                    $return = $return . '<p style="margin-right: 10px;" class="' . $key . '_vote_points"><span class="' . $key . '_vote_points">' . ucfirst($key . '_vote_points') . ' </span><span class="value">' . formatNumber($this->getVotePoint()) . wp_get_attachment_image(169, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p></div>';
                                 }
                             } elseif ($key == "containerSlots") {
                                 $return = $return . '<p class="' . $key . '"><span class="' . $key . '">Container Slots </span><span class="value">' . $value . '</span></p>';

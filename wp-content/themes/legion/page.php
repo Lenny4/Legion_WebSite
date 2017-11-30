@@ -7,7 +7,7 @@
 <main class="col-md-8 col-md-offset-1" role="main">
     <!-- section -->
     <section class="background">
-        <?php if (serverOnline() == false) { ?>
+        <?php if (serverOnline() == false AND (get_the_ID() == 16 OR get_the_ID() == 18)) { ?>
             <div class="alert alert-warning">
                 <strong><?= get_field("information_update", 18); ?></strong>
             </div>

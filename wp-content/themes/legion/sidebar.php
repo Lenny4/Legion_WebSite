@@ -23,11 +23,11 @@
                 </div>
                 <p>
                     <?php echo wp_get_attachment_image(168, 'thumbnail', "", ["class" => "img-responsive img-float", "style" => "width:20px"]); ?>
-                    <span style="margin-left: 10px"><?= get_user_meta(get_current_user_id(), 'buy_points')[0]; ?></span>
+                    <span style="margin-left: 10px"><?= formatNumber(get_user_meta(get_current_user_id(), 'buy_points')[0]); ?></span>
                 </p>
                 <p style="margin: 10px;">
                     <?php echo wp_get_attachment_image(169, 'thumbnail', "", ["class" => "img-responsive img-float", "style" => "width:20px"]); ?>
-                    <span style="margin-left: 10px"><?= get_user_meta(get_current_user_id(), 'vote_points')[0]; ?></span>
+                    <span style="margin-left: 10px"><?= formatNumber(get_user_meta(get_current_user_id(), 'vote_points')[0]); ?></span>
                 </p>
                 <p>
                     <a href="<?= get_page_link(18); ?>">

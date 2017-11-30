@@ -794,4 +794,9 @@ function isWowAdmin()
     return false;
 }
 
+function formatNumber($number)
+{
+    return number_format($number, 0, ',', ' ');
+}
+
 ?>

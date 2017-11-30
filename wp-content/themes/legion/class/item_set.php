@@ -65,8 +65,8 @@ class item_set extends parent_item
             }
             $return = $return . '<p class="name"><span class="name">Name </span><span class="value">"' . $this->name . '"</span></p>';
             $return = $return . '<p class="itemLevel"><span class="itemLevel">Average Item Level </span><span class="value">' . $globalItemLevel . '</span></p>';
-            $votePoints = $this->getVotePoint($allInfos["price"]);
-            $buyPoints = $this->getBuyPoint($allInfos["price"]);
+            $votePoints = formatNumber($this->getVotePoint($allInfos["price"]));
+            $buyPoints = formatNumber($this->getBuyPoint($allInfos["price"]));
             $return = $return . '<div class="display_price"><p class="price_buy_points"><span class="price_buy_points">' . ucfirst('price_buy_points') . ' </span><span class="value">' . $buyPoints . wp_get_attachment_image(168, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p>';
             $return = $return . '<p style="margin-right: 10px;" class="price_vote_points"><span class="price_vote_points">' . ucfirst('price_vote_points') . ' </span><span class="value">' . $votePoints . wp_get_attachment_image(169, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p></div>';
             $return = $return . '</div></li></a>';
