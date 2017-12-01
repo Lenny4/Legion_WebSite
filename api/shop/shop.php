@@ -186,7 +186,7 @@ function createItemSet($POSTitem_set_id, $POSTitem_set_price = '', $vote = 0)
             $oneItem = createItem($item_set->items[0], '', $vote);
             $item_set->price += $oneItem->price;
         }
-        $item_set->price = intval($item_set->price * 0.8);
+        $item_set->price = intval($item_set->price);
     }
     return $item_set;
 }

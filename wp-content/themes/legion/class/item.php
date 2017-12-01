@@ -362,9 +362,9 @@ class item extends parent_item
                                 }
                             } elseif ($key == "price") {
                                 $return = $return . '<p class="' . $key . '"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value">' . $value . '</span></p>';
-                                $return = $return . '<div class="display_price"><p class="' . $key . '_buy_points"><span class="' . $key . '_buy_points">' . ucfirst($key . '_buy_points') . ' </span><span class="value">' . formatNumber($this->getBuyPoint()) . wp_get_attachment_image(168, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p>';
+                                $return = $return . '<div class="display_price"><p class="' . $key . '_buy_points"><span class="' . $key . '_buy_points">' . ucfirst($key . '_buy_points') . ' </span><span class="value">' . $this->getBuyPoint() . wp_get_attachment_image(168, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p>';
                                 if ($this->vote == 1) {
-                                    $return = $return . '<p style="margin-right: 10px;" class="' . $key . '_vote_points"><span class="' . $key . '_vote_points">' . ucfirst($key . '_vote_points') . ' </span><span class="value">' . formatNumber($this->getVotePoint()) . wp_get_attachment_image(169, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p></div>';
+                                    $return = $return . '<p style="margin-right: 10px;" class="' . $key . '_vote_points"><span class="' . $key . '_vote_points">' . ucfirst($key . '_vote_points') . ' </span><span class="value">' . $this->getVotePoint() . wp_get_attachment_image(169, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p></div>';
                                 }
                             } elseif ($key == "containerSlots") {
                                 $return = $return . '<p class="' . $key . '"><span class="' . $key . '">Container Slots </span><span class="value">' . $value . '</span></p>';
@@ -377,7 +377,7 @@ class item extends parent_item
                             } elseif ($key == "nbSells") {
 
                             } elseif ($key == "item_id") {
-                                $return = $return . '<p class="' . $key . '"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value"><a target="_blank" href="http://www.wowhead.com/item=' . $this->item_id . '">' . $value . '</a></span></p>';
+                                $return = $return . '<p class="' . $key . '"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value"><a target="_blank" href="http://www.wowhead.com/item=' . $this->item_id . '">' . $value . ' <i class="fa fa-info-circle" aria-hidden="true"></i></a></span></p>';
                             } else {
                                 $return = $return . '<p class="' . $key . '"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value">' . $value . '</span></p>';
                             }

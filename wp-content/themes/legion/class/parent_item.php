@@ -35,6 +35,9 @@ class parent_item
     public function generateInsertRequest()
     {
         unset($this->id);
+        if (is_a($this, 'item_set')) {
+            unset($this->price);
+        }
         $req = "INSERT INTO `" . get_class($this) . "`(";
         $i = 0;
         foreach ($this as $key => $value) {
@@ -84,31 +87,42 @@ class parent_item
         return $characters;
     }
 
-    public function getVotePoint()
+    function getReduction($point, $type)
     {
         if ($this->promotion > 100 OR $this->promotion < 0) {
             $this->promotion = 0;
         }
-        $realVotePrice = ($this->price * VOTE_POINTS);
-        $PricePromotion = $realVotePrice - ($realVotePrice * $this->promotion / 100);
-        if ($this->promotion > 0 AND $this->promotion <= 100) {
-            return '<del>' . intval($realVotePrice) . '</del>' . intval($PricePromotion);
-        } else {
-            return intval($realVotePrice);
+        if ($type == "vote") {
+            $realPrice = ($point * VOTE_POINTS);
         }
+        if ($type == "buy") {
+            $realPrice = ($point * BUY_POINTS);
+        }
+        $PriceReduction = $realPrice;
+        if ($this->promotion > 0 AND $this->promotion <= 100 AND $this->time_promotion > time()) {
+            $PriceReduction = $realPrice - ($realPrice * $this->promotion / 100);
+        }
+        if (is_a($this, 'item_set')) {
+            $PriceReduction = $PriceReduction * 0.8;
+        }
+        if ($PriceReduction != $realPrice) {
+            return '<del>' . formatNumber(intval($realPrice)) . '</del> ' . formatNumber(intval($PriceReduction));
+        } else {
+            return formatNumber(intval($realPrice));
+        }
+    }
+
+    public function getVotePoint()
+    {
+        $realVotePrice = ($this->price * VOTE_POINTS);
+        $realVotePrice = $this->getReduction($realVotePrice, "buy");
+        return $realVotePrice;
     }
 
     public function getBuyPoint()
     {
-        if ($this->promotion > 100 OR $this->promotion < 0) {
-            $this->promotion = 0;
-        }
         $realBuyPrice = ($this->price * BUY_POINTS);
-        $PricePromotion = $realBuyPrice - ($realBuyPrice * $this->promotion / 100);
-        if ($this->promotion > 0 AND $this->promotion <= 100) {
-            return '<del>' . intval($realBuyPrice) . '</del>' . intval($PricePromotion);
-        } else {
-            return intval($realBuyPrice);
-        }
+        $realBuyPrice = $this->getReduction($realBuyPrice, "buy");
+        return $realBuyPrice;
     }
 }

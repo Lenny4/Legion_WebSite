@@ -32,6 +32,7 @@ class item_set extends parent_item
     function display($display_option = false, $display_admin = false)
     {
         $return = '<div class="display_item_set display_item" style="padding-left: 20px;padding-right: 20px">';
+        $return .= '<p class="item_id"><span class="item_id">Item_id </span><span class="value"><a target="_blank" href="http://www.wowhead.com/item-set=' . $this->item_set_id . '">' . $this->item_set_id . ' <i class="fa fa-info-circle" aria-hidden="true"></i></a></span></p>';
         $i = 0;
         foreach ($this->items as $itemID) {
             if ($i % 2 == 0) {
@@ -44,15 +45,23 @@ class item_set extends parent_item
             $i++;
         }
         if ($display_option == true) {
+            $votePoints = $this->getVotePoint();
+            $buyPoints = $this->getBuyPoint();
+            $return = $return . '<div><p class="price_buy_points"><span class="price_buy_points">' . ucfirst('price_buy_points') . ' </span><span class="value">' . $buyPoints . wp_get_attachment_image(168, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p>';
+            $return = $return . '<p style="margin-right: 10px;" class="price_vote_points"><span class="price_vote_points">' . ucfirst('price_vote_points') . ' </span><span class="value">' . $votePoints . wp_get_attachment_image(169, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p></div>';
             $return = $return . "<div style='width: 1px;height: 10px'></div>";
             $return = $return . "<div class='option'><div id='result_req_user_item'></div>
     <button style='float:left;' onclick=\"addToCart(this," . $this->item_set_id . ",'item_set')\" type=\"button\" class=\"btn btn-success\">" . wp_get_attachment_image(221, 'thumbnail', true, array('class' => 'img-responsive')) . "</button>";
             if (($this->promotion > 0 AND $this->promotion <= 100) AND $this->time_promotion > time()) {
                 $return = $return . "<div style='display: inline-block;float: left;margin-left:15px; position: relative'>";
                 $return = $return . wp_get_attachment_image(209, 'thumbnail', true, array('class' => 'img-responsive'));
-                $return = $return . "<span class='promo'>-" . $this->promotion . "%</span>";
+                $return = $return . "<span style='transform: inherit;top: inherit;right: inherit;font-size: inherit;' class='promo'>-" . $this->promotion . "%</span>";
                 $return = $return . "</div>";
             }
+            $return = $return . "<div style='display: inline-block;float: left;margin-left:15px; position: relative'>";
+            $return = $return . wp_get_attachment_image(222, 'thumbnail', true, array('class' => 'img-responsive'));
+            $return = $return . "<span style='top: inherit;right: inherit;transform: inherit;left: 45px;bottom: 40px;' class='promo'>-20%</span>";
+            $return = $return . "</div>";
             $return = $return . "</div>";
         }
         if ($display_admin == true AND isWowAdmin()) {
@@ -93,13 +102,18 @@ class item_set extends parent_item
             $json = json_encode($dataShow);
             $globalItemLevel = intval(array_sum($allInfos["itemLevel"]) / sizeof($allInfos["itemLevel"]));
             $return = $return . "<a class='pinterest' data-show='" . $json . "' onclick='showMoreShop(this)'><li class='list-group-item col-sm-4 col-xs-12'><div class='display_item display_item_small'>";
+            if ($this->promotion > 0 AND $this->promotion <= 100 AND $this->time_promotion > time()) {
+//                $return .= '<img src="http://localhost/wp-content/uploads/2017/11/promo.png" class="img-responsive promo" alt="" width="50" height="50"><span class="promo">-30%</span>';
+                $return = $return . wp_get_attachment_image(209, 'thumbnail', true, array('class' => 'img-responsive promo'));
+                $return = $return . "<span class='promo'>-" . $this->promotion . "%</span>";
+            }
             foreach ($allInfos["icon"] as $oneImage) {
                 $return = $return . '<img src="https://wow.zamimg.com/images/wow/icons/large/' . $oneImage . '.jpg" alt="' . $oneImage . '">';
             }
             $return = $return . '<p class="name"><span class="name">Name </span><span class="value">"' . $this->name . '"</span></p>';
             $return = $return . '<p class="itemLevel"><span class="itemLevel">Average Item Level </span><span class="value">' . $globalItemLevel . '</span></p>';
-            $votePoints = formatNumber($this->getVotePoint());
-            $buyPoints = formatNumber($this->getBuyPoint());
+            $votePoints = $this->getVotePoint();
+            $buyPoints = $this->getBuyPoint();
             $return = $return . '<div class="display_price"><p class="price_buy_points"><span class="price_buy_points">' . ucfirst('price_buy_points') . ' </span><span class="value">' . $buyPoints . wp_get_attachment_image(168, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p>';
             $return = $return . '<p style="margin-right: 10px;" class="price_vote_points"><span class="price_vote_points">' . ucfirst('price_vote_points') . ' </span><span class="value">' . $votePoints . wp_get_attachment_image(169, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p></div>';
             $return = $return . '</div></li></a>';
