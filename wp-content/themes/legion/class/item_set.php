@@ -12,6 +12,7 @@ class item_set extends parent_item
     public $allowableClasses = null;
     public $vote = 0;
 
+
     public function hydrateAPI($data)
     {
         if (isset($data->id)) {
@@ -28,7 +29,7 @@ class item_set extends parent_item
         }
     }
 
-    function display()
+    function display($display_option = false, $display_admin = false)
     {
         $return = '<div class="display_item_set display_item" style="padding-left: 20px;padding-right: 20px">';
         $i = 0;
@@ -41,6 +42,38 @@ class item_set extends parent_item
                 $return = $return . "</div>";
             }
             $i++;
+        }
+        if ($display_option == true) {
+            $return = $return . "<div style='width: 1px;height: 10px'></div>";
+            $return = $return . "<div class='option'><div id='result_req_user_item'></div>
+    <button style='float:left;' onclick=\"addToCart(this," . $this->item_set_id . ",'item_set')\" type=\"button\" class=\"btn btn-success\">" . wp_get_attachment_image(221, 'thumbnail', true, array('class' => 'img-responsive')) . "</button>";
+            if (($this->promotion > 0 AND $this->promotion <= 100) AND $this->time_promotion > time()) {
+                $return = $return . "<div style='display: inline-block;float: left;margin-left:15px; position: relative'>";
+                $return = $return . wp_get_attachment_image(209, 'thumbnail', true, array('class' => 'img-responsive'));
+                $return = $return . "<span class='promo'>-" . $this->promotion . "%</span>";
+                $return = $return . "</div>";
+            }
+            $return = $return . "</div>";
+        }
+        if ($display_admin == true AND isWowAdmin()) {
+            $return = $return . "<div class='col-xs-12' style='padding: 0'>";
+            $return = $return . '<hr><div id="ajaxLoaderShopAdmin"></div><div id="result_req_admin_item"></div>
+             <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#update_promotion_admin">Promotion</button>
+             <button type="button" class="btn btn-info" data-toggle="collapse" data-target="#update_item_admin">Item set</button>
+                <div id="update_promotion_admin" class="collapse">
+                <button onclick="removePromotion(' . $this->item_set_id . ',true)" type="button" class="btn btn-danger">Remove promotion</button>
+                <p>Update promotion</p>
+                <form method="post" id="update_promotion_item_admin">
+                    <input name="item_set_id" class="hidden" value="' . $this->item_set_id . '" />
+                    <input name="pourcent" placeholder="poucentage ex:20" type=\'number\' min="0" max="100" />
+                    <input name="date" type=\'date\' placeholder=\'dd/mm/yyyy\' />
+                    <button type="submit" class="btn btn-info">Update</button>
+                </form>
+                </div>
+                <div id="update_item_admin" class="collapse">
+                <button onclick="removeItem(' . $this->item_set_id . ',true)" type="button" class="btn btn-danger">Remove Item set</button>
+                </div> 
+            </div>';
         }
         $return = $return . '</div>';
         return $return;
@@ -65,8 +98,8 @@ class item_set extends parent_item
             }
             $return = $return . '<p class="name"><span class="name">Name </span><span class="value">"' . $this->name . '"</span></p>';
             $return = $return . '<p class="itemLevel"><span class="itemLevel">Average Item Level </span><span class="value">' . $globalItemLevel . '</span></p>';
-            $votePoints = formatNumber($this->getVotePoint($allInfos["price"]));
-            $buyPoints = formatNumber($this->getBuyPoint($allInfos["price"]));
+            $votePoints = formatNumber($this->getVotePoint());
+            $buyPoints = formatNumber($this->getBuyPoint());
             $return = $return . '<div class="display_price"><p class="price_buy_points"><span class="price_buy_points">' . ucfirst('price_buy_points') . ' </span><span class="value">' . $buyPoints . wp_get_attachment_image(168, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p>';
             $return = $return . '<p style="margin-right: 10px;" class="price_vote_points"><span class="price_vote_points">' . ucfirst('price_vote_points') . ' </span><span class="value">' . $votePoints . wp_get_attachment_image(169, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p></div>';
             $return = $return . '</div></li></a>';
@@ -94,41 +127,24 @@ class item_set extends parent_item
                 $i++;
                 $result['itemLevel'][$i] = $data["itemLevel"];
                 $result['icon'][$i] = $data["icon"];
-                $result['price'][$i] = $data["price"];
                 $i++;
             }
             return $result;
         }
     }
 
-    public function getVotePoint($tabPrice)
-    {
-        if ($this->price > 0) {
-            return $this->price * VOTE_POINTS;
-        }
-        $priceVoteItemSet = 0;
-        foreach ($tabPrice as $price) {
-            $priceVoteItemSet += intval($price);
-        }
-        $priceVoteItemSet = $priceVoteItemSet * VOTE_POINTS * 0.8;
-        return intval($priceVoteItemSet);
-    }
-
-    public function getBuyPoint($tabPrice)
-    {
-        if ($this->price > 0) {
-            return $this->price * BUY_POINTS;
-        }
-        $priceBuyItemSet = 0;
-        foreach ($tabPrice as $price) {
-            $priceBuyItemSet += intval($price);
-        }
-        $priceBuyItemSet = $priceBuyItemSet * BUY_POINTS * 0.8;
-        return intval($priceBuyItemSet);
-    }
-
     public function displayCart()
     {
-        return "to do";
+        $allInfos = $this->getAllItemInfoOfTheSet($this->items);
+        $return = "<div class='col-xs-12 noPadding cartItem' style='margin: 5px 0px'>
+        <div class='removeItem'><i onclick=\"removeItemCart(this," . $this->item_set_id . ",'item_set')\" class=\"fa fa-times\" aria-hidden=\"true\"></i></div>
+        ";
+        foreach ($allInfos["icon"] as $oneImage) {
+            $return = $return . '<img style="float: left;width: 30px;" src="https://wow.zamimg.com/images/wow/icons/large/' . $oneImage . '.jpg" alt="' . $oneImage . '">';
+        }
+        $return .= "<p>" . $this->name . "</p>";
+        $return = $return . "<div class='col-xs-12'><hr style='width: 100%;margin: 0 auto;'/></div>";
+        $return = $return . "</div>";
+        return $return;
     }
 }

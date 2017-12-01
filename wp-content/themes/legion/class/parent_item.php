@@ -83,4 +83,32 @@ class parent_item
         }
         return $characters;
     }
+
+    public function getVotePoint()
+    {
+        if ($this->promotion > 100 OR $this->promotion < 0) {
+            $this->promotion = 0;
+        }
+        $realVotePrice = ($this->price * VOTE_POINTS);
+        $PricePromotion = $realVotePrice - ($realVotePrice * $this->promotion / 100);
+        if ($this->promotion > 0 AND $this->promotion <= 100) {
+            return '<del>' . intval($realVotePrice) . '</del>' . intval($PricePromotion);
+        } else {
+            return intval($realVotePrice);
+        }
+    }
+
+    public function getBuyPoint()
+    {
+        if ($this->promotion > 100 OR $this->promotion < 0) {
+            $this->promotion = 0;
+        }
+        $realBuyPrice = ($this->price * BUY_POINTS);
+        $PricePromotion = $realBuyPrice - ($realBuyPrice * $this->promotion / 100);
+        if ($this->promotion > 0 AND $this->promotion <= 100) {
+            return '<del>' . intval($realBuyPrice) . '</del>' . intval($PricePromotion);
+        } else {
+            return intval($realBuyPrice);
+        }
+    }
 }

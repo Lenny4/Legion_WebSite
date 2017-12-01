@@ -458,34 +458,60 @@
             });
     }
 
-    function removePromotion($item_id) {
+    function removePromotion($item_id, $isItemSet=false) {
         $("*").addClass("progressWait");
         showAjaxLoaderShop("admin");
-        $.post("/api/shop/shop.php",
-            {
-                id: "removePromotion",
-                item_id: $item_id
-            },
-            function (data, status) {
-                $("*").removeClass("progressWait");
-                hideAjaxLoaderShop("admin");
-                $("#result_req_admin_item").html(data);
-            });
+        if ($isItemSet === false) {
+            $.post("/api/shop/shop.php",
+                {
+                    id: "removePromotion",
+                    item_id: $item_id
+                },
+                function (data, status) {
+                    $("*").removeClass("progressWait");
+                    hideAjaxLoaderShop("admin");
+                    $("#result_req_admin_item").html(data);
+                });
+        } else {
+            $.post("/api/shop/shop.php",
+                {
+                    id: "removePromotion",
+                    item_set_id: $item_id
+                },
+                function (data, status) {
+                    $("*").removeClass("progressWait");
+                    hideAjaxLoaderShop("admin");
+                    $("#result_req_admin_item").html(data);
+                });
+        }
     }
 
-    function removeItem($item_id) {
+    function removeItem($item_id, $isItemSet=false) {
         $("*").addClass("progressWait");
         showAjaxLoaderShop("admin");
-        $.post("/api/shop/shop.php",
-            {
-                id: "removeItem",
-                item_id: $item_id
-            },
-            function (data, status) {
-                $("*").removeClass("progressWait");
-                hideAjaxLoaderShop("admin");
-                $("#result_req_admin_item").html(data);
-            });
+        if ($isItemSet === false) {
+            $.post("/api/shop/shop.php",
+                {
+                    id: "removeItem",
+                    item_id: $item_id
+                },
+                function (data, status) {
+                    $("*").removeClass("progressWait");
+                    hideAjaxLoaderShop("admin");
+                    $("#result_req_admin_item").html(data);
+                });
+        }else {
+            $.post("/api/shop/shop.php",
+                {
+                    id: "removeItem",
+                    item_set_id: $item_id
+                },
+                function (data, status) {
+                    $("*").removeClass("progressWait");
+                    hideAjaxLoaderShop("admin");
+                    $("#result_req_admin_item").html(data);
+                });
+        }
     }
 
     function removeItemCart($this, $id, $type) {
@@ -529,10 +555,6 @@
                         },
                         function (data, status) {
                             $("#item_cart").append(data);
-                            var count = $("#item_cart").children().length;
-                            if (count === 1) {
-                                $("#cart_shop").collapse("show");
-                            }
                         });
                 } else {
                     $("#result_req_user_item").html(data);

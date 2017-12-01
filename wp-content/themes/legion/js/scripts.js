@@ -83,10 +83,8 @@ function maxHeightSideBar() {
             $("#my_sidebar").css("max-height", $maxValue + "px");
         } else {
             if (diffHeight > 0 && $maxValue > $("#my_sidebar").height()) {
-                console.log(1);
                 $("#my_sidebar").css("max-height", $heightSideBar - diffHeight - 5 + "px");
             } else if ($maxValue > $("#my_sidebar").height()) {
-                console.log(2);
                 $("#my_sidebar").css("max-height", $heightSideBar + "px");
             }
         }

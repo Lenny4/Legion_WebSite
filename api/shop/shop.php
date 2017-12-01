@@ -157,7 +157,7 @@ function insertItemClassInBdd($itemClass)
 //ITEM CLASS======================================================
 
 //ITEM SET======================================================
-function createItemSet($POSTitem_set_id, $POSTitem_set_price, $vote = 0)
+function createItemSet($POSTitem_set_id, $POSTitem_set_price = '', $vote = 0)
 {
     $item_set_id = intval($POSTitem_set_id);
     $item_set = getItemSetInBdd($item_set_id);
@@ -179,6 +179,14 @@ function createItemSet($POSTitem_set_id, $POSTitem_set_price, $vote = 0)
         $item_set->vote = intval($vote);
         $oneItem = createItem($item_set->items[0], '', $vote);
         $item_set->allowableClasses = json_encode($oneItem->allowableClasses);
+    }
+    if (intval($item_set->price) == 0) {
+        $item_set->price = 0;
+        foreach ($item_set->items as $item_id) {
+            $oneItem = createItem($item_set->items[0], '', $vote);
+            $item_set->price += $oneItem->price;
+        }
+        $item_set->price = intval($item_set->price * 0.8);
     }
     return $item_set;
 }
@@ -230,8 +238,7 @@ function getItemSetByClass($searchClass)
         return null;
     } else {
         while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
-            $itemSet = new item_set();
-            $itemSet->hydrateBDD($data);
+            $itemSet = createItemSet($data["item_set_id"], $data["price"], $data["vote"]);
             array_push($return, $itemSet);
         }
     }
@@ -255,7 +262,7 @@ function previewItem($postItemId, $postItemPrice, $vote = 0, $justReturn = false
 function previewItemSet($postItemSetId, $postItemSetPrice, $vote = 0)
 {
     $item_set = createItemSet($postItemSetId, $postItemSetPrice, $vote);
-    echo($item_set->display($GLOBALS["dbh"]));
+    echo($item_set->display(true, true));
 }
 
 function viewItems($subClassId, $classId, $lastItemId = 0)
@@ -297,7 +304,7 @@ function viewItemSets($searchClass)
         echo 'No Result !';
     } else {
         foreach ($result as $itemSet) {
-            echo($itemSet->smallDisplay($GLOBALS["dbh"]));
+            echo($itemSet->smallDisplay());
         }
     }
 }
@@ -854,39 +861,73 @@ if ($_POST["id"] == "update_promotion_item_admin") {
     if (!isWowAdmin()) {
         return;
     }
-    $item_id = intval($_POST["item_id"]);
-    $pourcent = intval($_POST["pourcent"]);
-    $date = intval(strtotime($_POST["date"]));
-    if ($item_id <= 0 OR $pourcent <= 0 OR $date <= time()) {
-        echo '<div class="alert alert-danger alert-dismissable">
+    if (isset($_POST["item_id"])) {
+        $item_id = intval($_POST["item_id"]);
+        $pourcent = intval($_POST["pourcent"]);
+        $date = intval(strtotime($_POST["date"]));
+        if ($item_id <= 0 OR $pourcent <= 0 OR $date <= time()) {
+            echo '<div class="alert alert-danger alert-dismissable">
           <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
           <strong>Error !</strong>
         </div>';
-        return;
+            return;
+        }
+        $GLOBALS["dbh"]->query('UPDATE `item` SET `promotion`=' . $pourcent . ', `time_promotion`=' . $date . ' WHERE `item_id`=' . $item_id);
+        echo '<div class="alert alert-success alert-dismissable">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>Promotion update</strong>
+        </div>';
+    } elseif (isset($_POST["item_set_id"])) {
+        $item_id = intval($_POST["item_set_id"]);
+        $pourcent = intval($_POST["pourcent"]);
+        $date = intval(strtotime($_POST["date"]));
+        if ($item_id <= 0 OR $pourcent <= 0 OR $date <= time()) {
+            echo '<div class="alert alert-danger alert-dismissable">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>Error !</strong>
+        </div>';
+            return;
+        }
+        $GLOBALS["dbh"]->query('UPDATE `item_set` SET `promotion`=' . $pourcent . ', `time_promotion`=' . $date . ' WHERE `item_set_id`=' . $item_id);
+        echo '<div class="alert alert-success alert-dismissable">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>Promotion update</strong>
+        </div>';
     }
-    $GLOBALS["dbh"]->query('UPDATE `item` SET `promotion`=' . $pourcent . ', `time_promotion`=' . $date . ' WHERE `item_id`=' . $item_id);
-    echo '<div class="alert alert-success alert-dismissable">
-  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-  <strong>Promotion update</strong>
-</div>';
 }
 
 if ($_POST["id"] == "removePromotion") {
     if (!isWowAdmin()) {
         return;
     }
-    $item_id = intval($_POST["item_id"]);
-    if ($item_id <= 0) {
-        echo '<div class="alert alert-success alert-dismissable">
+    if (isset($_POST["item_id"])) {
+        $item_id = intval($_POST["item_id"]);
+        if ($item_id <= 0) {
+            echo '<div class="alert alert-success alert-dismissable">
           <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
           <strong>Error !</strong>
         </div>';
-    } else {
-        $GLOBALS["dbh"]->query('UPDATE `item` SET `promotion`=0, `time_promotion`=0 WHERE `item_id`=' . $item_id);
-        echo '<div class="alert alert-success alert-dismissable">
+        } else {
+            $GLOBALS["dbh"]->query('UPDATE `item` SET `promotion`=0, `time_promotion`=0 WHERE `item_id`=' . $item_id);
+            echo '<div class="alert alert-success alert-dismissable">
           <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
           <strong>Promotion delete</strong>
         </div>';
+        }
+    } elseif (isset($_POST["item_set_id"])) {
+        $item_id = intval($_POST["item_set_id"]);
+        if ($item_id <= 0) {
+            echo '<div class="alert alert-success alert-dismissable">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>Error !</strong>
+        </div>';
+        } else {
+            $GLOBALS["dbh"]->query('UPDATE `item_set` SET `promotion`=0, `time_promotion`=0 WHERE `item_set_id`=' . $item_id);
+            echo '<div class="alert alert-success alert-dismissable">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>Promotion delete</strong>
+        </div>';
+        }
     }
 }
 
@@ -915,18 +956,34 @@ if ($_POST["id"] == "removeItem") {
     if (!isWowAdmin()) {
         return;
     }
-    $item_id = intval($_POST["item_id"]);
-    if ($item_id <= 0) {
-        echo '<div class="alert alert-success alert-dismissable">
+    if (isset($_POST["item_id"])) {
+        $item_id = intval($_POST["item_id"]);
+        if ($item_id <= 0) {
+            echo '<div class="alert alert-success alert-dismissable">
           <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
           <strong>Error !</strong>
         </div>';
-    } else {
-        $GLOBALS["dbh"]->query('DELETE FROM `item` WHERE `item_id`=' . $item_id);
-        echo '<div class="alert alert-success alert-dismissable">
+        } else {
+            $GLOBALS["dbh"]->query('DELETE FROM `item` WHERE `item_id`=' . $item_id);
+            echo '<div class="alert alert-success alert-dismissable">
           <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
           <strong>Item delete</strong>
         </div>';
+        }
+    } elseif (isset($_POST["item_set_id"])) {
+        $item_id = intval($_POST["item_set_id"]);
+        if ($item_id <= 0) {
+            echo '<div class="alert alert-success alert-dismissable">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>Error !</strong>
+        </div>';
+        } else {
+            $GLOBALS["dbh"]->query('DELETE FROM `item_set` WHERE `item_set_id`=' . $item_id);
+            echo '<div class="alert alert-success alert-dismissable">
+          <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+          <strong>Item set delete (but the items still exists)</strong>
+        </div>';
+        }
     }
 }
 //SHOP ADMIN======================================================
@@ -940,8 +997,7 @@ if ($_POST["id"] == "addToCart") {
         if ($type == "item") {
             $result = $_SESSION["shop"]->addItem($id);
         } elseif ($type == "item_set") {
-            var_dump($id);
-            var_dump($type);
+            $result = $_SESSION["shop"]->addItemSet($id);
         }
     }
     if ($result == "false") {
@@ -952,6 +1008,7 @@ if ($_POST["id"] == "addToCart") {
     }
     echo $result;
 }
+
 if ($_POST["id"] == "removeToCart") {
     $id = intval($_POST["item_item_set_id"]);
     $type = $_POST["type"];
@@ -959,6 +1016,7 @@ if ($_POST["id"] == "removeToCart") {
         $_SESSION["shop"]->erase($id, $type);
     }
 }
+
 if ($_POST["id"] == "viewItemCart") {
     $id = intval($_POST["item_item_set_id"]);
     $type = $_POST["type"];

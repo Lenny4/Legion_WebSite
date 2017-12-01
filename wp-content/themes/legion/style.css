@@ -287,7 +287,6 @@ div.footer_nav ul {
     list-style: none;
     padding-top: 40px;
     float: right;
-    margin-right: 70px;
 }
 
 div.footer_nav ul li {
@@ -571,6 +570,10 @@ div.item p.h3 {
     display: block;
     margin-left: auto;
     margin-right: auto;
+}
+
+#onlinePlayer p.h4 {
+    text-shadow: #000000 1px 1px, #000000 -1px 1px, #000000 -1px -1px, #000000 1px -1px;
 }
 
 .background {

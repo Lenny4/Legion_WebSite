@@ -745,11 +745,16 @@ function wow_delete_user($user_id, $real_account = null)
 function getOnlinePlayer()
 {
     $tab = array();
-    $tab["blue"] = 12;
-    $tab["red"] = 15;
+    $tab["blue"] = 0;
+    $tab["red"] = 0;
     $tab["total"] = $tab["blue"] + $tab["red"];
-    $tab["pBlue"] = intval(($tab["blue"] / $tab["total"]) * 100);
-    $tab["pRed"] = 100 - $tab["pBlue"];
+    if ($tab["total"] == 0) {
+        $tab["pBlue"] = 50;
+        $tab["pRed"] = 50;
+    }else{
+        $tab["pBlue"] = intval(($tab["blue"] / $tab["total"]) * 100);
+        $tab["pRed"] = 100 - $tab["pBlue"];
+    }
     return $tab;
 }
 
