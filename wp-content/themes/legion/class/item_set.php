@@ -88,7 +88,7 @@ class item_set extends parent_item
         return $return;
     }
 
-    function smallDisplay()
+    function smallDisplay($showBuy = false)
     {
         $return = '';
         $allInfos = $this->getAllItemInfoOfTheSet($this->items);
@@ -116,7 +116,25 @@ class item_set extends parent_item
             $buyPoints = $this->getBuyPoint();
             $return = $return . '<div class="display_price"><p class="price_buy_points"><span class="price_buy_points">' . ucfirst('price_buy_points') . ' </span><span class="value">' . $buyPoints . wp_get_attachment_image(168, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p>';
             $return = $return . '<p style="margin-right: 10px;" class="price_vote_points"><span class="price_vote_points">' . ucfirst('price_vote_points') . ' </span><span class="value">' . $votePoints . wp_get_attachment_image(169, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p></div>';
-            $return = $return . '</div></li></a>';
+            $return = $return . '</div>';
+            if ($showBuy == true) {
+                $return .= '<div class="form-group"><label for="item_set_' . $this->item_set_id . '_character">Select the character to receive this item set</label>
+                    <select class="form-control selectCharacter" id="item_set_' . $this->item_set_id . '_character">';
+                $i = 0;
+                foreach ($this->getCharacters() as $character) {
+                    if ($i == 0 AND !isset($this->character)) {
+                        $this->character = $character["name"];
+                    }
+                    if($this->character==$character["name"]){
+                        $return .= '<option selected value="' . $character["name"] . '">' . $character["name"] . ' lvl ' . $character["level"] . '</option>';
+                    }else{
+                        $return .= '<option value="' . $character["name"] . '">' . $character["name"] . ' lvl ' . $character["level"] . '</option>';
+                    }
+                    $i++;
+                }
+                $return .= '</select></div>';
+            }
+            $return = $return . '</li></a>';
         }
         return $return;
     }

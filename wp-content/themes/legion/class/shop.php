@@ -56,6 +56,7 @@ class shop
         }
         if ($canAddItem == true) {
             $item->count = 1;
+            $item->currency = "vote";
             array_push($this->array, $item);
             $result = "true";
         }
@@ -75,6 +76,7 @@ class shop
         }
         if ($canAddItem == true) {
             $item_set->count = 1;
+            $item_set->currency = "vote";
             array_push($this->array, $item_set);
             $result = "true";
         }
@@ -87,5 +89,46 @@ class shop
             return true;
         }
         return false;
+    }
+
+    public function displayBuy()
+    {
+        $i = 0;
+        $echo = "<div id=\"shopDisplayItems\">";
+        if ($this->isEmpty()) {
+            $echo .= "Nothing in your cat";
+        } else {
+            $echo .= '<div class="form-group"><label for="main_character">Select the character to receive your items</label><select class="form-control" id="main_character">';
+            foreach ($this->array[0]->getCharacters() as $character) {
+                $echo .= '
+                    <option value="' . $character["name"] . '">' . $character["name"] . ' lvl ' . $character["level"] . '</option>
+                  ';
+            }
+            $echo .= '</select></div>';
+        }
+        foreach ($this->array as $item) {
+            if ($i == 0) {
+                $echo .= "<div class='row'>";
+            }
+            if (is_a($item, 'item')) {
+                $echo .= $item->display($item->itemClass, true, false, false, false, true);
+            } elseif (is_a($item, 'item_set')) {
+                $echo .= $item->smallDisplay(true);
+            }
+            $i++;
+            if ($i == 3) {
+                $echo .= "</div>";
+                $i = 0;
+            }
+        }
+        $echo .= "</div>";
+        echo $echo;
+    }
+
+    public function changeChracterForAll($name)
+    {
+        foreach ($this->array as $item) {
+            $item->character = $name;
+        }
     }
 }

@@ -273,6 +273,27 @@ function scrollTopDocument() {
 
 //====================== SHOP ADMIN
 
+//====================== SHOP
+
+function removeItemCart($this, $id, $type) {
+    $($this).parent().parent().remove();
+    var count = $("#item_cart").children().length;
+    if (count === 0) {
+        $("#cart_shop").collapse("hide");
+        $("#cart_shop").css('display', 'none');
+    }
+    $.post("/api/shop/shop.php",
+        {
+            id: "removeToCart",
+            item_item_set_id: $id,
+            type: $type
+        },
+        function (data, status) {
+        });
+}
+
+//====================== SHOP
+
 $(document).ready(function () {
     resizeVideo();
     addPlaceHolderForm();

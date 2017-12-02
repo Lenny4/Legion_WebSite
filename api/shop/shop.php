@@ -1022,4 +1022,10 @@ if ($_POST["id"] == "viewItemCart") {
     $type = $_POST["type"];
     echo $_SESSION["shop"]->view($id, $type);
 }
+
+if ($_POST["id"] == "changeSelectedCharacter") {
+    if (!isset($_POST["item_id"]) AND !isset($_POST["item_set_id"])) {
+        $_SESSION["shop"]->changeChracterForAll($_POST["character_name"]);
+    }
+}
 //SHOP CART======================================================

@@ -206,7 +206,7 @@ class item extends parent_item
         }
     }
 
-    public function display($itemClass, $small = false, $display_option = false, $display_admin = false, $dontShowReduction = false)
+    public function display($itemClass, $small = false, $display_option = false, $display_admin = false, $dontShowReduction = false, $showBuy = false)
     {
         $return = '';
         $tab = ["name", "requiredLevel", "stackable", "allowableClasses", "itemLevel", "side", "price", "promotion"];
@@ -423,6 +423,26 @@ class item extends parent_item
                 </form>
                 </div> 
             </div>';
+        }
+        if ($showBuy == true) {
+            $return .= '<div class="form-group"><label for="item_' . $this->item_id . '_character">Select the character to receive this item</label>
+            <select class="form-control selectCharacter" id="item_' . $this->item_id . '_character">';
+            $i = 0;
+            foreach ($this->getCharacters() as $character) {
+                if ($i == 0 AND !isset($this->character)) {
+                    $this->character = $character["name"];
+                }
+                if ($this->character == $character["name"]) {
+                    $return .= '<option selected value="' . $character["name"] . '">' . $character["name"] . ' lvl ' . $character["level"] . '</option>';
+                } else {
+                    $return .= '<option value="' . $character["name"] . '">' . $character["name"] . ' lvl ' . $character["level"] . '</option>';
+                }
+                $return .= '
+                    <option value="' . $character["name"] . '">' . $character["name"] . ' lvl ' . $character["level"] . '</option>
+                  ';
+                $i++;
+            }
+            $return .= '</select></div>';
         }
         $return = $return . "</li></a>";
         return $return;
