@@ -112,16 +112,22 @@ class parent_item
         }
     }
 
-    public function getVotePoint()
+    public function getVotePoint($dontShowReduction = false)
     {
         $realVotePrice = ($this->price * VOTE_POINTS);
+        if ($dontShowReduction == true) {
+            return $realVotePrice;
+        }
         $realVotePrice = $this->getReduction($realVotePrice, "buy");
         return $realVotePrice;
     }
 
-    public function getBuyPoint()
+    public function getBuyPoint($dontShowReduction = false)
     {
         $realBuyPrice = ($this->price * BUY_POINTS);
+        if ($dontShowReduction == true) {
+            return $realBuyPrice;
+        }
         $realBuyPrice = $this->getReduction($realBuyPrice, "buy");
         return $realBuyPrice;
     }

@@ -206,7 +206,7 @@ class item extends parent_item
         }
     }
 
-    public function display($itemClass, $small = false, $display_option = false, $display_admin = false)
+    public function display($itemClass, $small = false, $display_option = false, $display_admin = false, $dontShowReduction = false)
     {
         $return = '';
         $tab = ["name", "requiredLevel", "stackable", "allowableClasses", "itemLevel", "side", "price", "promotion"];
@@ -362,14 +362,14 @@ class item extends parent_item
                                 }
                             } elseif ($key == "price") {
                                 $return = $return . '<p class="' . $key . '"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value">' . $value . '</span></p>';
-                                $return = $return . '<div class="display_price"><p class="' . $key . '_buy_points"><span class="' . $key . '_buy_points">' . ucfirst($key . '_buy_points') . ' </span><span class="value">' . $this->getBuyPoint() . wp_get_attachment_image(168, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p>';
+                                $return = $return . '<div class="display_price"><p class="' . $key . '_buy_points"><span class="' . $key . '_buy_points">' . ucfirst($key . '_buy_points') . ' </span><span class="value">' . $this->getBuyPoint($dontShowReduction) . wp_get_attachment_image(168, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p>';
                                 if ($this->vote == 1) {
-                                    $return = $return . '<p style="margin-right: 10px;" class="' . $key . '_vote_points"><span class="' . $key . '_vote_points">' . ucfirst($key . '_vote_points') . ' </span><span class="value">' . $this->getVotePoint() . wp_get_attachment_image(169, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p></div>';
+                                    $return = $return . '<p style="margin-right: 10px;" class="' . $key . '_vote_points"><span class="' . $key . '_vote_points">' . ucfirst($key . '_vote_points') . ' </span><span class="value">' . $this->getVotePoint($dontShowReduction) . wp_get_attachment_image(169, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p></div>';
                                 }
                             } elseif ($key == "containerSlots") {
                                 $return = $return . '<p class="' . $key . '"><span class="' . $key . '">Container Slots </span><span class="value">' . $value . '</span></p>';
                             } elseif ($key == "promotion") {
-                                if ($this->promotion > 0 AND $this->promotion <= 100) {
+                                if ($this->promotion > 0 AND $this->promotion <= 100 AND $dontShowReduction == false) {
                                     $image = get_field("logo_promo", $GLOBALS["shop_page_id"]);
                                     $return = $return . wp_get_attachment_image($image["id"], 'medium', "", ["class" => "img-responsive promo"]);
                                     $return = $return . "<span class='promo'>-" . $this->promotion . "%</span>";

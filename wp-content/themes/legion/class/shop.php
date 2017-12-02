@@ -46,15 +46,18 @@ class shop
     public function addItem($id)
     {
         $result = "false";
+        $canAddItem = true;
         $item = createItem($id);
-        if (!in_array($item, $this->array)) {
+        foreach ($this->array as $itemInArray) {
+            if ($itemInArray->item_id == $item->item_id) {
+                $canAddItem = false;
+                break;
+            }
+        }
+        if ($canAddItem == true) {
+            $item->count = 1;
             array_push($this->array, $item);
             $result = "true";
-        }
-        foreach ($this->array as $key => $newItem) {
-            if ($newItem == $item) {
-                $this->array[$key]->count = 1;
-            }
         }
         return $result;
     }
@@ -62,15 +65,18 @@ class shop
     public function addItemSet($id)
     {
         $result = "false";
+        $canAddItem = true;
         $item_set = createItemSet($id);
-        if (!in_array($item_set, $this->array)) {
+        foreach ($this->array as $itemInArray) {
+            if ($itemInArray->item_set_id == $item_set->item_set_id) {
+                $canAddItem = false;
+                break;
+            }
+        }
+        if ($canAddItem == true) {
+            $item_set->count = 1;
             array_push($this->array, $item_set);
             $result = "true";
-        }
-        foreach ($this->array as $key => $newItemSet) {
-            if ($newItemSet == $item_set) {
-                $this->array[$key]->count = 1;
-            }
         }
         return $result;
     }

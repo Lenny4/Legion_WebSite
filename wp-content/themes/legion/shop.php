@@ -304,6 +304,7 @@
     var $elementPos3 = null;
 
     function sameHeight() {
+        var nbLine = 0;
         if ($dontExecuteHeightShop === false && $(window).width() > 768) {
             $('a.pinterest').each(function (i, obj) {
                 var $li = $(obj).children("li");
@@ -316,8 +317,10 @@
                             if ($($element2).height() > newHeight) {
                                 newHeight = $($element2).height();
                             }
-                            $($element1).height(newHeight);
-                            $($element2).height(newHeight);
+                            if ($($element1).height() !== $($element2).height()) {
+                                $($element1).height(newHeight);
+                                $($element2).height(newHeight);
+                            }
                         } else if ($elementPos3 !== null && $elementPos1 !== null && $elementPos2 !== null) {//3 items on the line
                             if ($($element2).height() > newHeight) {
                                 newHeight = $($element2).height();
@@ -325,9 +328,11 @@
                             if ($($element3).height() > newHeight) {
                                 newHeight = $($element3).height();
                             }
-                            $($element1).height(newHeight);
-                            $($element2).height(newHeight);
-                            $($element3).height(newHeight);
+                            if ($($element1).height() !== $($element2).height() || $($element1).height() !== $($element3).height() || $($element2).height() !== $($element3).height()) {
+                                $($element1).height(newHeight);
+                                $($element2).height(newHeight);
+                                $($element3).height(newHeight);
+                            }
                         }
                         $currentPosition = null;
                         $element1 = null;
@@ -342,20 +347,14 @@
                     }
                     if ($element1 === null) {
                         $element1 = $obj;
+                        $elementPos1 = position.top;
                     }
                     else if ($element2 === null) {
                         $element2 = $obj;
+                        $elementPos2 = position.top;
                     }
                     else if ($element3 === null) {
                         $element3 = $obj;
-                    }
-                    if ($elementPos1 === null) {
-                        $elementPos1 = position.top;
-                    }
-                    else if ($elementPos2 === null) {
-                        $elementPos2 = position.top;
-                    }
-                    else if ($elementPos3 === null) {
                         $elementPos3 = position.top;
                     }
                 }
@@ -500,7 +499,7 @@
                     hideAjaxLoaderShop("admin");
                     $("#result_req_admin_item").html(data);
                 });
-        }else {
+        } else {
             $.post("/api/shop/shop.php",
                 {
                     id: "removeItem",

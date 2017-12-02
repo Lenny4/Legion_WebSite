@@ -248,14 +248,14 @@ function getItemSetByClass($searchClass)
 //ITEM SET======================================================
 
 //VIEW======================================================
-function previewItem($postItemId, $postItemPrice, $vote = 0, $justReturn = false)
+function previewItem($postItemId, $postItemPrice, $vote = 0, $justReturn = false, $dontShowReduction = false)
 {
     $item = createItem($postItemId, $postItemPrice, $vote);
     $itemClass = createItemClass($item);
     if ($justReturn == false) {
         echo($item->display($itemClass, false, true, true));
     } else {
-        return $item->display($itemClass);
+        return $item->display($itemClass, false, false, false, $dontShowReduction);
     }
 }
 

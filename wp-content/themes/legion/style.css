@@ -683,18 +683,14 @@ div.shopLink p.message {
     width: 100%;
 }
 
-div.shopLink p.message span {
+div.shopLink p.message span, div.display_item p.message span {
     max-width: 200px;
     top: 10px;
+    text-shadow: #000000 1px 1px, #000000 -1px 1px, #000000 -1px -1px, #000000 1px -1px;
 }
 
 div.display_item p.message {
     top: 40%;
-}
-
-div.display_item p.message span {
-    max-width: 200px;
-    top: 10px;
 }
 
 section.shop a:hover {
@@ -741,15 +737,7 @@ section.shop a:hover {
     display: inline-block;
     position: absolute;
     right: 4px;
-    bottom: 24px;
-}
-
-.display_item div.display_price {
-    display: inline-block;
-    position: absolute;
-    bottom: 2px;
-    right: 4px;
-    background-color: rgba(0, 0, 0, 0.7);
+    bottom: 44px;
 }
 
 .display_item p.stackable.extra {

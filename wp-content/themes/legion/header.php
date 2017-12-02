@@ -25,14 +25,6 @@
     <script src="<?php echo get_template_directory_uri(); ?>/library/scrollbar/perfect-scrollbar.min.js"></script>
 
     <?php wp_head(); ?>
-    <script>
-        // conditionizr.com
-        // configure environment tests
-        conditionizr.config({
-            assets: '<?php echo get_template_directory_uri(); ?>',
-            tests: {}
-        });
-    </script>
 </head>
 <body id="body" <?php body_class(); ?>>
 <?php //wp_set_password('password', 1); ?>

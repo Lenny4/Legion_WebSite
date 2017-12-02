@@ -38,7 +38,7 @@ class item_set extends parent_item
             if ($i % 2 == 0) {
                 $return = $return . "<div class='row'>";
             }
-            $return = $return . previewItem($itemID, '', $this->vote, true);
+            $return = $return . previewItem($itemID, '', $this->vote, true, true);
             if ($i % 2 != 0) {
                 $return = $return . "</div>";
             }
@@ -58,9 +58,9 @@ class item_set extends parent_item
                 $return = $return . "<span style='transform: inherit;top: inherit;right: inherit;font-size: inherit;' class='promo'>-" . $this->promotion . "%</span>";
                 $return = $return . "</div>";
             }
-            $return = $return . "<div style='display: inline-block;float: left;margin-left:15px; position: relative'>";
+            $return = $return . "<div style='display: inline-block;float: left;margin-left:15px; position: relative; width:90px'>";
             $return = $return . wp_get_attachment_image(222, 'thumbnail', true, array('class' => 'img-responsive'));
-            $return = $return . "<span style='top: inherit;right: inherit;transform: inherit;left: 45px;bottom: 40px;' class='promo'>-20%</span>";
+            $return = $return . "<span style='top: inherit;right: inherit;transform: inherit;left: 25px;bottom: 20px;' class='promo'>-20%</span>";
             $return = $return . "</div>";
             $return = $return . "</div>";
         }
