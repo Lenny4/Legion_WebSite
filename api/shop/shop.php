@@ -1034,4 +1034,13 @@ if ($_POST["id"] == "changeSelectedCharacter") {
         }
     }
 }
+if ($_POST["id"] == "changeQuantity") {
+    $result = 1;
+    $quantity = intval($_POST["quantity"]);
+    $id = intval($_POST["item_id"]);
+    if ($_POST["type"] == "item" OR $_POST["type"] == "item_set") {
+        $result = $_SESSION["shop"]->changeQuantity($quantity, $id, $_POST["type"]);
+    }
+    echo $result;
+}
 //SHOP CART======================================================

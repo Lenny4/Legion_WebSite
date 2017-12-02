@@ -152,4 +152,26 @@ class shop
             }
         }
     }
+
+    public function changeQuantity($quantity, $id, $type)
+    {
+        if ($quantity <= 0 OR $quantity > 100) {
+            return 1;
+        }
+        $return = 1;
+        foreach ($this->array as $item) {
+            if ($type == "item") {
+                if ($item->item_id == $id AND is_a($item, 'item')) {
+                    $return = $item->count = $quantity;
+                    break;
+                }
+            } elseif ($type == "item_set") {
+                if ($item->item_set_id == $id AND is_a($item, 'item_set')) {
+                    $return = $item->count = $quantity;
+                    break;
+                }
+            }
+        }
+        return $return;
+    }
 }

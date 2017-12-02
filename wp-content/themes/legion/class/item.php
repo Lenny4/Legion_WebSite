@@ -439,7 +439,12 @@ class item extends parent_item
                 }
                 $i++;
             }
-            $return .= '</select></div>';
+            $return .= '</select>';
+            $return .= '<div class="form-group">
+                          <label>Quantity</label>
+                          <input id="' . $this->item_id . '" type="number" min=1 max=100 value=' . $this->count . ' class="form-control quantity item" >
+                        </div>';
+            $return .= '</div>';
         }
         $return = $return . "</li></a>";
         return $return;

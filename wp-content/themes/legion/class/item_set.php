@@ -132,7 +132,12 @@ class item_set extends parent_item
                     }
                     $i++;
                 }
-                $return .= '</select></div>';
+                $return .= '</select>';
+                $return .= '<div class="form-group">
+                          <label>Quantity</label>
+                          <input id="'.$this->item_set_id.'" type="number" min=1 max=100 value=' . $this->count . ' class="form-control quantity item_set" >
+                        </div>';
+                $return .= '</div>';
             }
             $return = $return . '</li></a>';
         }

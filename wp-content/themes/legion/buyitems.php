@@ -78,7 +78,8 @@
                         type: "item_set",
                         item_id: $item_id
                     },
-                    function (data, status) {});
+                    function (data, status) {
+                    });
             } else if ($(this).hasClass("item")) {
                 $.post("/api/shop/shop.php",
                     {
@@ -87,8 +88,28 @@
                         type: "item",
                         item_id: $item_id
                     },
-                    function (data, status) {});
+                    function (data, status) {
+                    });
             }
+        });
+        $("input.quantity").change(function () {
+            var $type = "";
+            var input = this;
+            if ($(this).hasClass("item")) {
+                $type = "item";
+            } else if ($(this).hasClass("item_set")) {
+                $type = "item_set";
+            }
+            $.post("/api/shop/shop.php",
+                {
+                    id: "changeQuantity",
+                    quantity: this.value,
+                    type: $type,
+                    item_id: $(this).attr("id")
+                },
+                function (data, status) {
+                    $(input).val(data);
+                });
         });
     });
 </script>
