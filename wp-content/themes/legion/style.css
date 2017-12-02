@@ -170,6 +170,7 @@ main {
     margin-top: 10px;
     margin-bottom: 20px;
     margin-right: 5px;
+    min-height: 400px !important;
 }
 
 section {

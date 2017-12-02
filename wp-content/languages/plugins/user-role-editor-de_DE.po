@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the Plugins - User Role Editor - Stable (latest release) package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-10-17 07:25:42+0000\n"
+"PO-Revision-Date: 2017-11-22 18:41:10+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -40,7 +40,7 @@ msgstr "Primäre Rolle:"
 
 #: includes/ure-user-edit.php:35
 msgid "Change capabilities for user"
-msgstr "Rechte ändern für Benutzer"
+msgstr "Berechtigungen ändern für Benutzer"
 
 #: includes/ure-user-edit.php:32
 msgid "Network Super Admin"
@@ -64,15 +64,15 @@ msgstr "Auf alle Websites anwenden"
 
 #: includes/ure-role-edit.php:44
 msgid "If checked, then apply action to ALL sites of this Network"
-msgstr "anhaken, um die Aktion auf ALLE Sites in diesem Netzwerk anzuwenden"
+msgstr "Wählen, um die Aktion auf ALLE Websites in diesem Netzwerk anzuwenden"
 
 #: includes/ure-role-edit.php:30 includes/ure-user-edit.php:54
 msgid "Show capabilities in human readable form"
-msgstr "Anzeige der Rechte in allgemeinverständlicher Form"
+msgstr "Anzeige der Berechtigungen in allgemeinverständlicher Form"
 
 #: includes/ure-role-edit.php:17
 msgid "Select Role and change its capabilities:"
-msgstr "Eine Rolle auswählen und ihre Rechte ändern:"
+msgstr "Eine Rolle auswählen und ihre Berechtigungen ändern:"
 
 #: includes/settings-template.php:177
 msgid "Allow non super administrators to create, edit, and delete users"
@@ -105,15 +105,15 @@ msgstr "User Role Editor – Einstellungen"
 
 #: includes/class-user-role-editor.php:912
 msgid " Capability name (ID) must contain latin characters, digits, hyphens or underscore only!"
-msgstr "Fehler: Der Name des Rechts darf nur Buchstaben, Ziffern, Bindestrich oder Unterstrich enthalten!"
+msgstr " Der Name der Berechtigung (ID) darf nur Buchstaben, Ziffern, Bindestriche oder Unterstriche enthalten!"
 
 #: includes/class-user-role-editor.php:911
 msgid " Capability name (ID) can not be empty!"
-msgstr "Name darf nicht leer sein!"
+msgstr "Name der Berechtigung (ID) darf nicht leer sein!"
 
 #: includes/class-user-role-editor.php:910
 msgid "Warning! Be careful - removing critical capability could crash some plugin or other custom code"
-msgstr "Achtung! Sei vorsichtig – das Löschen kritischer Rechte könnte Plugin- oder angepassten Code zerstören."
+msgstr "Achtung! Sei vorsichtig – das Löschen kritischer Berechtigungen könnte Plugin- oder angepassten Code zum Absturz bringen"
 
 #: includes/class-user-role-editor.php:908
 msgid "Set New Default Role"
@@ -146,11 +146,11 @@ msgstr "Zurücksetzen"
 #: includes/class-user-role-editor.php:900
 #: includes/class-user-role-editor.php:909
 msgid "Delete Capability"
-msgstr "Recht entfernen"
+msgstr "Berechtigung entfernen"
 
 #: includes/class-user-role-editor.php:899
 msgid "Add Capability"
-msgstr "Neues Recht hinzufügen"
+msgstr "Neue Berechtigung hinzufügen"
 
 #: includes/class-user-role-editor.php:898
 msgid "Cancel"
@@ -258,7 +258,7 @@ msgstr "Rolle für Benutzer ohne Rolle ändern"
 
 #: includes/class-user-other-roles.php:215
 msgid "Additional Capabilities"
-msgstr "Zusätzliche Rechte"
+msgstr "Zusätzliche Berechtigungen"
 
 #: includes/class-user-other-roles.php:169
 msgid "Edit"
@@ -267,7 +267,7 @@ msgstr "Bearbeiten"
 #: includes/class-user-other-roles.php:162
 #: includes/class-user-role-editor.php:438
 msgid "Capabilities"
-msgstr "Rechte"
+msgstr "Berechtigungen"
 
 #: includes/class-user-other-roles.php:83
 msgid "Select additional roles for this user"
@@ -302,7 +302,7 @@ msgstr "Veraltete Rechtebezeichnungen anzeigen"
 
 #: includes/class-ure-screen-help.php:18 includes/settings-template.php:61
 msgid "Show capabilities in the human readable form"
-msgstr "Rechte in allgemeinverständlicher Form anzeigen"
+msgstr "Berechtigungen in allgemeinverständlicher Form anzeigen"
 
 #: includes/class-ure-screen-help.php:15 includes/settings-template.php:53
 msgid "Show Administrator role at User Role Editor"
@@ -355,7 +355,7 @@ msgstr "Version:"
 
 #: includes/class-ure-lib.php:2433
 msgid "Capability %s was removed successfully"
-msgstr "Das Recht %s wurde erfogreich entfernt"
+msgstr "Berechtigung %s wurde erfolgreich entfernt"
 
 #: includes/class-ure-lib.php:2414
 msgid "Error! You do not have permission to delete this capability: %s!"
@@ -363,7 +363,7 @@ msgstr "Fehler! Dir fehlt die Berechtigung, dieses Recht zu löschen: %s!"
 
 #: includes/class-ure-lib.php:2385
 msgid "Capability %s exists already"
-msgstr "Recht %s existiert bereits"
+msgstr "Berechtigung %s existiert bereits"
 
 #: includes/class-ure-lib.php:2383
 msgid "Capability %s is added successfully"
@@ -371,7 +371,7 @@ msgstr "Recht %s wurde erfolgreich hinzugefügt"
 
 #: includes/class-ure-lib.php:2370
 msgid "Error: Capability name must contain latin characters and digits only!"
-msgstr "Fehler: Der Name des Rechts darf nur Buchstaben und Ziffern enthalten!"
+msgstr "Fehler: Der Name der Berechtigung darf nur Buchstaben und Ziffern enthalten!"
 
 #: includes/class-ure-lib.php:2247
 msgid "Export"
@@ -734,7 +734,7 @@ msgstr "Bei der Aktualisierung des Benutzers ist ein Fehler aufgetreten."
 
 #: includes/class-ure-lib.php:495
 msgid "User capabilities are updated successfully"
-msgstr "Benutzer-Rechte wurden erfolgreich aktualisiert"
+msgstr "Benutzerrechte wurden erfolgreich aktualisiert"
 
 #: includes/class-ure-lib.php:488
 msgid "Error occured during role(s) update"
@@ -769,7 +769,7 @@ msgstr "User Role Editor"
 
 #: includes/class-ure-lib.php:322
 msgid "Capability name (ID): "
-msgstr "Rechte-Name (ID): "
+msgstr "Name der Berechtigung (ID):"
 
 #: includes/class-ure-lib.php:315
 msgid "Delete:"

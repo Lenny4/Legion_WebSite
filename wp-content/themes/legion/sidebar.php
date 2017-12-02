@@ -17,8 +17,10 @@
     }
     ?>
     </div>
-    <a href="/"><button type="button" class="btn btn-primary btn-block"><i class="fa fa-eye fa-2x" aria-hidden="true"></i></a>
-    </button>
+    <a href="<?= get_permalink(253); ?>">
+        <button type="button" class="btn btn-primary btn-block"><i class="fa fa-eye fa-2x" aria-hidden="true"></i>
+        </button>
+    </a>
     <hr/>
     </div>
     <?php if (!is_user_logged_in()) { ?>
