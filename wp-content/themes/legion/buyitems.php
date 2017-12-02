@@ -3,8 +3,7 @@
 
 <style>
     #shopDisplayItems li {
-        border-right: 1px solid;
-        border-left: 1px solid;
+        border: 1px solid;
     }
 </style>
 

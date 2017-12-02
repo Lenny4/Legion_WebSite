@@ -29,6 +29,10 @@ body {
     background-color: black;
 }
 
+input[type="radio"] {
+    cursor: pointer;
+}
+
 del {
     color: red;
 }

@@ -135,11 +135,26 @@ class item_set extends parent_item
                 $return .= '</select>';
                 $return .= '<div class="form-group">
                           <label>Quantity</label>
-                          <input id="'.$this->item_set_id.'" type="number" min=1 max=100 value=' . $this->count . ' class="form-control quantity item_set" >
+                          <input id="' . $this->item_set_id . '" type="number" min=1 max=100 value=' . $this->count . ' class="form-control quantity item_set" >
                         </div>';
+                $return .= '<div class="radio col-sm-4 col-sm-offset-1 col-xs-6 text-center" style="margin-top: 0px">';
+                $return .= wp_get_attachment_image(168, 'thumbnail', true, ["class" => "img-responsive"]);
+                if ($this->currency == "buy") {
+                    $return .= '<label><input checked="checked" type="radio" name="optradio_item_set' . $this->item_set_id . '"></label>';
+                } else {
+                    $return .= '<label><input type="radio" name="optradio_item_set' . $this->item_set_id . '"></label>';
+                }
+                $return .= '</div>';
+                $return .= '<div class="radio col-sm-4 col-sm-offset-1 col-xs-6 text-center" style="margin-top: 0px">';
+                $return .= wp_get_attachment_image(169, 'thumbnail', true, ["class" => "img-responsive"]);
+                if ($this->currency == "vote") {
+                    $return .= '<label><input checked="checked" type="radio" name="optradio_item_set' . $this->item_set_id . '"></label>';
+                } else {
+                    $return .= '<label><input type="radio" name="optradio_item_set' . $this->item_set_id . '"></label>';
+                }
                 $return .= '</div>';
             }
-            $return = $return . '</li></a>';
+            $return = $return . '</li ></a > ';
         }
         return $return;
     }
@@ -147,11 +162,11 @@ class item_set extends parent_item
     function getAllItemInfoOfTheSet($allID)
     {
         $result = array();
-        $req = 'SELECT * FROM `item` WHERE `item_id`=' . $allID[0];
+        $req = 'SELECT * FROM `item` WHERE `item_id` = ' . $allID[0];
         $i = 0;
         foreach ($allID as $idItem) {
             if ($i > 0) {
-                $req = $req . ' OR `item_id`=' . $allID[$i];
+                $req = $req . ' OR `item_id` = ' . $allID[$i];
             }
             $i++;
         }
@@ -173,14 +188,14 @@ class item_set extends parent_item
     public function displayCart()
     {
         $allInfos = $this->getAllItemInfoOfTheSet($this->items);
-        $return = "<div class='col-xs-12 noPadding cartItem' style='margin: 5px 0px'>
+        $return = "<div class='col - xs - 12 noPadding cartItem' style='margin: 5px 0px'>
         <div class='removeItem'><i onclick=\"removeItemCart(this," . $this->item_set_id . ",'item_set')\" class=\"fa fa-times\" aria-hidden=\"true\"></i></div>
         ";
         foreach ($allInfos["icon"] as $oneImage) {
-            $return = $return . '<img style="float: left;width: 30px;" src="https://wow.zamimg.com/images/wow/icons/large/' . $oneImage . '.jpg" alt="' . $oneImage . '">';
+            $return = $return . ' < img style = "float: left;width: 30px;" src = "https://wow.zamimg.com/images/wow/icons/large/' . $oneImage . '.jpg" alt = "' . $oneImage . '" > ';
         }
         $return .= "<p>" . $this->name . "</p>";
-        $return = $return . "<div class='col-xs-12'><hr style='width: 100%;margin: 0 auto;'/></div>";
+        $return = $return . "<div class='col - xs - 12'><hr style='width: 100 %;margin: 0 auto;'/></div>";
         $return = $return . "</div>";
         return $return;
     }
