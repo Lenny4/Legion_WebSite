@@ -98,7 +98,8 @@ class shop
         if ($this->isEmpty()) {
             $echo .= "Nothing in your cat";
         } else {
-            $echo .= '<div class="form-group"><label for="main_character">Select the character to receive your items</label><select class="form-control" id="main_character">';
+            $echo .= '<div class="form-group"><label for="main_character">Select the character to receive your items</label><select class="form-control" id="main_character">
+            <option disabled selected value> -- Select a Character -- </option>';
             foreach ($this->array[0]->getCharacters() as $character) {
                 $echo .= '
                     <option value="' . $character["name"] . '">' . $character["name"] . ' lvl ' . $character["level"] . '</option>
@@ -125,10 +126,30 @@ class shop
         echo $echo;
     }
 
-    public function changeChracterForAll($name)
+    public function changeCharacterForAll($name)
     {
         foreach ($this->array as $item) {
             $item->character = $name;
+        }
+    }
+
+    public function changeCharacterItem($id, $name)
+    {
+        foreach ($this->array as $item) {
+            if ($item->item_id == $id AND is_a($item, 'item')) {
+                $item->character = $name;
+                break;
+            }
+        }
+    }
+
+    public function changeCharacterItemSet($id, $name)
+    {
+        foreach ($this->array as $item_set) {
+            if ($item_set->item_set_id == $id AND is_a($item_set, 'item_set')) {
+                $item_set->character = $name;
+                break;
+            }
         }
     }
 }

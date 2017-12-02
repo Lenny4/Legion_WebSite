@@ -426,7 +426,7 @@ class item extends parent_item
         }
         if ($showBuy == true) {
             $return .= '<div class="form-group"><label for="item_' . $this->item_id . '_character">Select the character to receive this item</label>
-            <select class="form-control selectCharacter" id="item_' . $this->item_id . '_character">';
+            <select class="form-control selectCharacter item" id="item_' . $this->item_id . '_character">';
             $i = 0;
             foreach ($this->getCharacters() as $character) {
                 if ($i == 0 AND !isset($this->character)) {
@@ -437,9 +437,6 @@ class item extends parent_item
                 } else {
                     $return .= '<option value="' . $character["name"] . '">' . $character["name"] . ' lvl ' . $character["level"] . '</option>';
                 }
-                $return .= '
-                    <option value="' . $character["name"] . '">' . $character["name"] . ' lvl ' . $character["level"] . '</option>
-                  ';
                 $i++;
             }
             $return .= '</select></div>';

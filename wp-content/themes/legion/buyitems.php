@@ -67,6 +67,29 @@
                 function (data, status) {
                 });
         });
+        $("select.selectCharacter").change(function () {
+            var $item_id = $(this).attr("id").replace(/[^\d.]/g, '');
+            $item_id = parseInt($item_id, 10);
+            if ($(this).hasClass("item_set")) {
+                $.post("/api/shop/shop.php",
+                    {
+                        id: "changeSelectedCharacter",
+                        character_name: this.value,
+                        type: "item_set",
+                        item_id: $item_id
+                    },
+                    function (data, status) {});
+            } else if ($(this).hasClass("item")) {
+                $.post("/api/shop/shop.php",
+                    {
+                        id: "changeSelectedCharacter",
+                        character_name: this.value,
+                        type: "item",
+                        item_id: $item_id
+                    },
+                    function (data, status) {});
+            }
+        });
     });
 </script>
 

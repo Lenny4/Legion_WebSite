@@ -1024,8 +1024,14 @@ if ($_POST["id"] == "viewItemCart") {
 }
 
 if ($_POST["id"] == "changeSelectedCharacter") {
-    if (!isset($_POST["item_id"]) AND !isset($_POST["item_set_id"])) {
-        $_SESSION["shop"]->changeChracterForAll($_POST["character_name"]);
+    if (!isset($_POST["type"])) {
+        $_SESSION["shop"]->changeCharacterForAll($_POST["character_name"]);
+    } else {
+        if ($_POST["type"] == "item") {
+            $_SESSION["shop"]->changeCharacterItem($_POST["item_id"], $_POST["character_name"]);
+        } elseif ($_POST["type"] == "item_set") {
+            $_SESSION["shop"]->changeCharacterItemSet($_POST["item_id"], $_POST["character_name"]);
+        }
     }
 }
 //SHOP CART======================================================

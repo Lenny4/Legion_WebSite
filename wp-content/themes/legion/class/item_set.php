@@ -119,15 +119,15 @@ class item_set extends parent_item
             $return = $return . '</div>';
             if ($showBuy == true) {
                 $return .= '<div class="form-group"><label for="item_set_' . $this->item_set_id . '_character">Select the character to receive this item set</label>
-                    <select class="form-control selectCharacter" id="item_set_' . $this->item_set_id . '_character">';
+                    <select class="form-control selectCharacter item_set" id="item_set_' . $this->item_set_id . '_character">';
                 $i = 0;
                 foreach ($this->getCharacters() as $character) {
                     if ($i == 0 AND !isset($this->character)) {
                         $this->character = $character["name"];
                     }
-                    if($this->character==$character["name"]){
+                    if ($this->character == $character["name"]) {
                         $return .= '<option selected value="' . $character["name"] . '">' . $character["name"] . ' lvl ' . $character["level"] . '</option>';
-                    }else{
+                    } else {
                         $return .= '<option value="' . $character["name"] . '">' . $character["name"] . ' lvl ' . $character["level"] . '</option>';
                     }
                     $i++;
