@@ -17,7 +17,7 @@
     }
     ?>
     </div>
-    <button type="button" class="btn btn-primary btn-block"><i class="fa fa-eye fa-2x" aria-hidden="true"></i>
+    <a href="/"><button type="button" class="btn btn-primary btn-block"><i class="fa fa-eye fa-2x" aria-hidden="true"></i></a>
     </button>
     <hr/>
     </div>
