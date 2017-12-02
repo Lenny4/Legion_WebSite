@@ -103,7 +103,6 @@ class item_set extends parent_item
             $globalItemLevel = intval(array_sum($allInfos["itemLevel"]) / sizeof($allInfos["itemLevel"]));
             $return = $return . "<a class='pinterest' data-show='" . $json . "' onclick='showMoreShop(this)'><li class='list-group-item col-sm-4 col-xs-12'><div class='display_item display_item_small'>";
             if ($this->promotion > 0 AND $this->promotion <= 100 AND $this->time_promotion > time()) {
-//                $return .= '<img src="http://localhost/wp-content/uploads/2017/11/promo.png" class="img-responsive promo" alt="" width="50" height="50"><span class="promo">-30%</span>';
                 $return = $return . wp_get_attachment_image(209, 'thumbnail', true, array('class' => 'img-responsive promo'));
                 $return = $return . "<span class='promo'>-" . $this->promotion . "%</span>";
             }
@@ -140,17 +139,17 @@ class item_set extends parent_item
                 $return .= '<div class="radio col-sm-4 col-sm-offset-1 col-xs-6 text-center" style="margin-top: 0px">';
                 $return .= wp_get_attachment_image(168, 'thumbnail', true, ["class" => "img-responsive"]);
                 if ($this->currency == "buy") {
-                    $return .= '<label><input checked="checked" type="radio" name="optradio_item_set' . $this->item_set_id . '"></label>';
+                    $return .= '<label><input id="' . $this->item_set_id . '" class="item_set buy currency" checked="checked" type="radio" name="optradio_item_set' . $this->item_set_id . '"></label>';
                 } else {
-                    $return .= '<label><input type="radio" name="optradio_item_set' . $this->item_set_id . '"></label>';
+                    $return .= '<label><input id="' . $this->item_set_id . '" class="item_set buy currency" type="radio" name="optradio_item_set' . $this->item_set_id . '"></label>';
                 }
                 $return .= '</div>';
                 $return .= '<div class="radio col-sm-4 col-sm-offset-1 col-xs-6 text-center" style="margin-top: 0px">';
                 $return .= wp_get_attachment_image(169, 'thumbnail', true, ["class" => "img-responsive"]);
                 if ($this->currency == "vote") {
-                    $return .= '<label><input checked="checked" type="radio" name="optradio_item_set' . $this->item_set_id . '"></label>';
+                    $return .= '<label><input id="' . $this->item_set_id . '" class="item_set vote currency" checked="checked" type="radio" name="optradio_item_set' . $this->item_set_id . '"></label>';
                 } else {
-                    $return .= '<label><input type="radio" name="optradio_item_set' . $this->item_set_id . '"></label>';
+                    $return .= '<label><input id="' . $this->item_set_id . '" class="item_set vote currency" type="radio" name="optradio_item_set' . $this->item_set_id . '"></label>';
                 }
                 $return .= '</div>';
             }
@@ -192,7 +191,7 @@ class item_set extends parent_item
         <div class='removeItem'><i onclick=\"removeItemCart(this," . $this->item_set_id . ",'item_set')\" class=\"fa fa-times\" aria-hidden=\"true\"></i></div>
         ";
         foreach ($allInfos["icon"] as $oneImage) {
-            $return = $return . ' < img style = "float: left;width: 30px;" src = "https://wow.zamimg.com/images/wow/icons/large/' . $oneImage . '.jpg" alt = "' . $oneImage . '" > ';
+            $return = $return . ' <img style = "float: left;width: 30px;" src = "https://wow.zamimg.com/images/wow/icons/large/' . $oneImage . '.jpg" alt = "' . $oneImage . '" > ';
         }
         $return .= "<p>" . $this->name . "</p>";
         $return = $return . "<div class='col - xs - 12'><hr style='width: 100 %;margin: 0 auto;'/></div>";

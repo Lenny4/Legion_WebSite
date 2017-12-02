@@ -444,6 +444,22 @@ class item extends parent_item
                           <label>Quantity</label>
                           <input id="' . $this->item_id . '" type="number" min=1 max=100 value=' . $this->count . ' class="form-control quantity item" >
                         </div>';
+            $return .= '<div class="radio col-sm-4 col-sm-offset-1 col-xs-6 text-center" style="margin-top: 0px">';
+            $return .= wp_get_attachment_image(168, 'thumbnail', true, ["class" => "img-responsive"]);
+            if ($this->currency == "buy") {
+                $return .= '<label><input id="' . $this->item_id . '" class="item buy currency" checked="checked" type="radio" name="optradio_item' . $this->item_id . '"></label>';
+            } else {
+                $return .= '<label><input id="' . $this->item_id . '" class="item buy currency" type="radio" name="optradio_item' . $this->item_id . '"></label>';
+            }
+            $return .= '</div>';
+            $return .= '<div class="radio col-sm-4 col-sm-offset-1 col-xs-6 text-center" style="margin-top: 0px">';
+            $return .= wp_get_attachment_image(169, 'thumbnail', true, ["class" => "img-responsive"]);
+            if ($this->currency == "vote") {
+                $return .= '<label><input id="' . $this->item_id . '" class="item vote currency" checked="checked" type="radio" name="optradio_item' . $this->item_id . '"></label>';
+            } else {
+                $return .= '<label><input id="' . $this->item_id . '" class="item vote currency" type="radio" name="optradio_item' . $this->item_id . '"></label>';
+            }
+            $return .= '</div>';
             $return .= '</div>';
         }
         $return = $return . "</li></a>";

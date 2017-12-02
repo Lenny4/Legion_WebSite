@@ -87,10 +87,10 @@ class parent_item
             }
             return $characters;
         }
-        return false;
+        return array();
     }
 
-    function getReduction($point, $type)
+    function getReduction($point, $type, $asInt)
     {
         if ($this->promotion > 100 OR $this->promotion < 0) {
             $this->promotion = 0;
@@ -108,30 +108,34 @@ class parent_item
         if (is_a($this, 'item_set')) {
             $PriceReduction = $PriceReduction * 0.8;
         }
-        if ($PriceReduction != $realPrice) {
-            return '<del>' . formatNumber(intval($realPrice)) . '</del> ' . formatNumber(intval($PriceReduction));
+        if ($asInt == true) {
+            return intval($PriceReduction);
         } else {
-            return formatNumber(intval($realPrice));
+            if ($PriceReduction != $realPrice) {
+                return '<del>' . formatNumber(intval($realPrice)) . '</del> ' . formatNumber(intval($PriceReduction));
+            } else {
+                return formatNumber(intval($realPrice));
+            }
         }
     }
 
-    public function getVotePoint($dontShowReduction = false)
+    public function getVotePoint($dontShowReduction = false, $asInt = false)
     {
         $realVotePrice = ($this->price * VOTE_POINTS);
         if ($dontShowReduction == true) {
             return $realVotePrice;
         }
-        $realVotePrice = $this->getReduction($realVotePrice, "buy");
+        $realVotePrice = $this->getReduction($realVotePrice, "buy", $asInt);
         return $realVotePrice;
     }
 
-    public function getBuyPoint($dontShowReduction = false)
+    public function getBuyPoint($dontShowReduction = false, $asInt = false)
     {
         $realBuyPrice = ($this->price * BUY_POINTS);
         if ($dontShowReduction == true) {
             return $realBuyPrice;
         }
-        $realBuyPrice = $this->getReduction($realBuyPrice, "buy");
+        $realBuyPrice = $this->getReduction($realBuyPrice, "buy", $asInt);
         return $realBuyPrice;
     }
 }

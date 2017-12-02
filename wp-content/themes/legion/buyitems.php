@@ -25,6 +25,15 @@
                     <?php
                     $_SESSION["shop"]->displayBuy();
                     ?>
+                    <div class="col-sm-6 col-sm-offset-3 col-xs-12">
+                        <div id="ajaxLoaderShop" style="display: none">
+                            <?php
+                            $image = get_field("loading_img", $GLOBALS["shop_page_id"]);
+                            echo wp_get_attachment_image($image["id"], 'medium', "", ["class" => "img-responsive", "style" => "max-width:100px;margin: 0 auto;"]);
+                            ?>
+                        </div>
+                        <div id="display_buy_options"></div>
+                    </div>
                 </div>
 
                 <?php comments_template('', true); // Remove if you don't want comments ?>
@@ -55,6 +64,22 @@
 <?php get_sidebar(); ?>
 
 <script>
+    function loadBuy() {
+        $("#ajaxLoaderShop").show();
+        $.post("/api/shop/shop.php",
+            {
+                id: "loadBuy"
+            },
+            function (data, status) {
+                $("#ajaxLoaderShop").hide();
+                $("#display_buy_options").html(data);
+            });
+    }
+
+    function buyAllCart() {
+        alert(1);
+    }
+
     $(document).ready(function () {
         $("#main_character").change(function () {
             $("select.selectCharacter").val(this.value);
@@ -65,6 +90,7 @@
                 },
                 function (data, status) {
                 });
+            loadBuy();
         });
         $("select.selectCharacter").change(function () {
             var $item_id = $(this).attr("id").replace(/[^\d.]/g, '');
@@ -88,6 +114,7 @@
                         item_id: $item_id
                     },
                     function (data, status) {
+                        loadBuy();
                     });
             }
         });
@@ -108,8 +135,34 @@
                 },
                 function (data, status) {
                     $(input).val(data);
+                    loadBuy();
                 });
         });
+        $("input.currency").change(function () {
+            var $type = "";
+            var $currency = "";
+            if ($(this).hasClass("item_set")) {
+                $type = "item_set";
+            } else if ($(this).hasClass("item")) {
+                $type = "item";
+            }
+            if ($(this).hasClass("vote")) {
+                $currency = "vote";
+            } else if ($(this).hasClass("buy")) {
+                $currency = "buy";
+            }
+            $.post("/api/shop/shop.php",
+                {
+                    id: "changeCurrency",
+                    currency: $currency,
+                    type: $type,
+                    item_id: $(this).attr("id")
+                },
+                function (data, status) {
+                    loadBuy();
+                });
+        });
+        loadBuy();
     });
 </script>
 

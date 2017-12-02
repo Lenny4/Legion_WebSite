@@ -1034,6 +1034,7 @@ if ($_POST["id"] == "changeSelectedCharacter") {
         }
     }
 }
+
 if ($_POST["id"] == "changeQuantity") {
     $result = 1;
     $quantity = intval($_POST["quantity"]);
@@ -1043,4 +1044,19 @@ if ($_POST["id"] == "changeQuantity") {
     }
     echo $result;
 }
+
+if ($_POST["id"] == "changeCurrency") {
+    $currency = $_POST["currency"];
+    $type = $_POST["type"];
+    $id = intval($_POST["item_id"]);
+    if (($type == "item" OR $type == "item_set") AND ($currency == "vote" OR $currency == "buy")) {
+        $_SESSION["shop"]->changeCurrency($id, $type, $currency);
+    }
+}
 //SHOP CART======================================================
+
+//SHOP BUY CART======================================================
+if ($_POST["id"] == "loadBuy") {
+    echo $_SESSION["shop"]->loadBuy();
+}
+//SHOP BUY CART======================================================

@@ -155,7 +155,10 @@ class shop
 
     public function changeQuantity($quantity, $id, $type)
     {
-        if ($quantity <= 0 OR $quantity > 100) {
+        if ($quantity > 100) {
+            return 100;
+        }
+        if ($quantity <= 0) {
             return 1;
         }
         $return = 1;
@@ -172,6 +175,74 @@ class shop
                 }
             }
         }
+        return $return;
+    }
+
+    public function changeCurrency($id, $type, $currency)
+    {
+
+        foreach ($this->array as $item) {
+            if ($type == "item") {
+                if ($item->item_id == $id AND is_a($item, 'item')) {
+                    $item->currency = $currency;
+                    break;
+                }
+            } elseif ($type == "item_set") {
+                if ($item->item_set_id == $id AND is_a($item, 'item_set')) {
+                    $item->currency = $currency;
+                    break;
+                }
+            }
+        }
+    }
+
+    public function loadBuy()
+    {
+        if (get_current_user_id() == 0) {
+            return '<div class="alert alert-danger">
+                  <strong>You need to be login to buy item</strong>
+                </div>';
+        }
+        $amountOfVotePoints = 0;
+        $amountOfBuyPoints = 0;
+        $userVotePoint = intval(get_user_meta(get_current_user_id(), "vote_points")[0]);
+        $userBuyPoint = intval(get_user_meta(get_current_user_id(), "buy_points")[0]);
+        foreach ($this->array as $item) {
+            if ($item->currency == "vote") {
+                $amountOfVotePoints += $item->getVotePoint(false, true);
+            } elseif ($item->currency == "buy") {
+                $amountOfBuyPoints += $item->getBuyPoint(false, true);
+            }
+        }
+        $userVotePointAfterBuy = $userVotePoint - $amountOfVotePoints;
+        $userBuyPointAfterBuy = $userBuyPoint - $amountOfBuyPoints;
+        $return = "<div class='col-xs-12'>";
+        $return .= "<div class='col-xs-6'>
+        <div class='col-xs-6 col-xs-offset-3'>" . wp_get_attachment_image(169, 'thumbnail', true, ["class" => "img-responsive"]) . "</div>
+        <div class='col-xs-12'><p class='text-center'>" . formatNumber($userVotePoint) . " - " . formatNumber($amountOfVotePoints) . "</p></div>";
+        if ($userVotePointAfterBuy >= 0) {
+            $return .= "<div class='col-xs-12'><p class='text-center'>" . formatNumber($userVotePointAfterBuy) . "</p></div>";
+        } else {
+            $return .= "<div class='col-xs-12'><p class='text-center' style='color:red'>" . formatNumber($userVotePointAfterBuy) . "</p></div>";
+        }
+        $return .= "</div>";
+        $return .= "<div class='col-xs-6'>
+        <div class='col-xs-6 col-xs-offset-3'>" . wp_get_attachment_image(168, 'thumbnail', true, ["class" => "img-responsive"]) . "</div>
+        <div class='col-xs-12'><p class='text-center'>" . formatNumber($userBuyPoint) . " - " . formatNumber($amountOfBuyPoints) . "</p></div>";
+        if ($userBuyPointAfterBuy >= 0) {
+            $return .= "<div class='col-xs-12'><p class='text-center'>" . formatNumber($userBuyPointAfterBuy) . "</p></div>";
+        } else {
+            $return .= "<div class='col-xs-12'><p class='text-center' style='color:red'>" . formatNumber($userBuyPointAfterBuy) . "</p></div>";
+        }
+        $return .= "</div > ";
+        if (empty($this->array[0]->getCharacters())) {
+            $return .= ' <button type="button" class="btn btn-primary btn-block disabled">You need to create a character</button>';
+        } elseif ($userBuyPointAfterBuy >= 0 AND $userVotePointAfterBuy >= 0) {
+            $return .= ' <button onclick="buyAllCart()" type="button" class="btn btn-primary btn-block">Buy</button>';
+        } else {
+            $return .= ' <button type="button" class="btn btn-primary btn-block disabled">You don\'t have enought points</button>';
+        }
+        $return .= " </div > ";
         return $return;
     }
 }
