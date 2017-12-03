@@ -29,11 +29,11 @@ if (!isset($_POST)) {
 }
 
 //ITEM======================================================
-function createItem($POSTitem_id, $POSTitem_price = '', $vote = 0)
+function createItem($POSTitem_id, $POSTitem_price = '', $vote = 0, $mustBeInBdd = false)
 {
     $item_id = intval($POSTitem_id);
     $item = getItemInBdd($item_id);
-    if ($item->item_id == null) {
+    if ($item->item_id == null AND $mustBeInBdd == false) {
         $item_price = null;
         if ($POSTitem_price != '') {
             $item_price = intval($POSTitem_price);
@@ -157,11 +157,11 @@ function insertItemClassInBdd($itemClass)
 //ITEM CLASS======================================================
 
 //ITEM SET======================================================
-function createItemSet($POSTitem_set_id, $POSTitem_set_price = '', $vote = 0)
+function createItemSet($POSTitem_set_id, $POSTitem_set_price = '', $vote = 0, $mustBeInBdd = false)
 {
     $item_set_id = intval($POSTitem_set_id);
     $item_set = getItemSetInBdd($item_set_id);
-    if ($item_set->item_set_id == null) {
+    if ($item_set->item_set_id == null AND $mustBeInBdd == false) {
         $item_set_price = null;
         if ($POSTitem_set_price != '') {
             $item_set_price = intval($POSTitem_set_price);

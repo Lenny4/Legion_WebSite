@@ -49,14 +49,14 @@ class shop
     {
         $result = "false";
         $canAddItem = true;
-        $item = createItem($id);
+        $item = createItem($id, '', 0, true);
         foreach ($this->array as $itemInArray) {
             if ($itemInArray->item_id == $item->item_id) {
                 $canAddItem = false;
                 break;
             }
         }
-        if ($canAddItem == true) {
+        if ($canAddItem == true AND $item->item_id != null) {
             $item->count = 1;
             $item->currency = "vote";
             array_push($this->array, $item);
@@ -69,14 +69,14 @@ class shop
     {
         $result = "false";
         $canAddItem = true;
-        $item_set = createItemSet($id);
+        $item_set = createItemSet($id, '', 0, true);
         foreach ($this->array as $itemInArray) {
             if ($itemInArray->item_set_id == $item_set->item_set_id) {
                 $canAddItem = false;
                 break;
             }
         }
-        if ($canAddItem == true) {
+        if ($canAddItem == true AND $item_set->item_set_id != null) {
             $item_set->count = 1;
             $item_set->stackable = 1;
             $item_set->currency = "vote";
