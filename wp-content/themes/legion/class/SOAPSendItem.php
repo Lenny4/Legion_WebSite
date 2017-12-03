@@ -23,6 +23,13 @@ class SOAPSendItem
                     $req = 'INSERT INTO `log_sells`(`item_id`, `item_set_id`, `item_home`, `vote_points`, `buy_points`, `date`, `user_id`, `quantity`, `command`) VALUES (' . $item . ',null,null,' . $point_vote . ',null,NOW(),' . get_current_user_id() . ',' . $quantity . ',\'' . json_encode($command) . '\')';
                 }
                 $GLOBALS["dbh"]->query($req);
+                $req = $GLOBALS["dbh"]->query('SELECT * FROM `item` WHERE `item_id`=' . $item);
+                $nbSells = 0;
+                while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+                    $nbSells = $data["nbSells"];
+                }
+                $nbSells += 1;
+                $GLOBALS["dbh"]->query('UPDATE `item` SET `nbSells`=' . $nbSells . ' WHERE `item_id`=' . $item);
                 $this->message = "<div class=\"alert alert-success\"><strong>Item " . $item . " has been send to " . $character . "</strong></div>";
                 $_SESSION["shop"]->erase($item, $type);
                 if ($point_buy == null) {
