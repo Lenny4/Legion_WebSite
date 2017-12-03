@@ -48,7 +48,9 @@ class item_set extends parent_item
             $votePoints = $this->getVotePoint();
             $buyPoints = $this->getBuyPoint();
             $return = $return . '<div><p class="price_buy_points"><span class="price_buy_points">' . ucfirst('price_buy_points') . ' </span><span class="value">' . $buyPoints . wp_get_attachment_image(168, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p>';
-            $return = $return . '<p style="margin-right: 10px;" class="price_vote_points"><span class="price_vote_points">' . ucfirst('price_vote_points') . ' </span><span class="value">' . $votePoints . wp_get_attachment_image(169, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p></div>';
+            if ($this->vote == 1) {
+                $return = $return . '<p style="margin-right: 10px;" class="price_vote_points"><span class="price_vote_points">' . ucfirst('price_vote_points') . ' </span><span class="value">' . $votePoints . wp_get_attachment_image(169, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p></div>';
+            }
             $return = $return . "<div style='width: 1px;height: 10px'></div>";
             $return = $return . "<div class='option'><div id='result_req_user_item'></div>
     <button style='float:left;' onclick=\"addToCart(this," . $this->item_set_id . ",'item_set')\" type=\"button\" class=\"btn btn-success\">" . wp_get_attachment_image(221, 'thumbnail', true, array('class' => 'img-responsive')) . "</button>";
@@ -114,7 +116,9 @@ class item_set extends parent_item
             $votePoints = $this->getVotePoint();
             $buyPoints = $this->getBuyPoint();
             $return = $return . '<div class="display_price"><p class="price_buy_points"><span class="price_buy_points">' . ucfirst('price_buy_points') . ' </span><span class="value">' . $buyPoints . wp_get_attachment_image(168, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p>';
-            $return = $return . '<p style="margin-right: 10px;" class="price_vote_points"><span class="price_vote_points">' . ucfirst('price_vote_points') . ' </span><span class="value">' . $votePoints . wp_get_attachment_image(169, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p></div>';
+            if ($this->vote == 1) {
+                $return = $return . '<p style="margin-right: 10px;" class="price_vote_points"><span class="price_vote_points">' . ucfirst('price_vote_points') . ' </span><span class="value">' . $votePoints . wp_get_attachment_image(169, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p></div>';
+            }
             $return = $return . '</div>';
             if ($showBuy == true) {
                 $return .= '<div class="form-group"><label for="item_set_' . $this->item_set_id . '_character">Select the character to receive this item set</label>
@@ -156,14 +160,16 @@ class item_set extends parent_item
                     $return .= '<label><input id="' . $this->item_set_id . '" class="item_set buy currency" type="radio" name="optradio_item_set' . $this->item_set_id . '"></label>';
                 }
                 $return .= '</div>';
-                $return .= '<div class="radio col-sm-4 col-sm-offset-1 col-xs-6 text-center" style="margin-top: 0px">';
-                $return .= wp_get_attachment_image(169, 'thumbnail', true, ["class" => "img-responsive"]);
-                if ($this->currency == "vote") {
-                    $return .= '<label><input id="' . $this->item_set_id . '" class="item_set vote currency" checked="checked" type="radio" name="optradio_item_set' . $this->item_set_id . '"></label>';
-                } else {
-                    $return .= '<label><input id="' . $this->item_set_id . '" class="item_set vote currency" type="radio" name="optradio_item_set' . $this->item_set_id . '"></label>';
+                if ($this->vote == 1) {
+                    $return .= '<div class="radio col-sm-4 col-sm-offset-1 col-xs-6 text-center" style="margin-top: 0px">';
+                    $return .= wp_get_attachment_image(169, 'thumbnail', true, ["class" => "img-responsive"]);
+                    if ($this->currency == "vote") {
+                        $return .= '<label><input id="' . $this->item_set_id . '" class="item_set vote currency" checked="checked" type="radio" name="optradio_item_set' . $this->item_set_id . '"></label>';
+                    } else {
+                        $return .= '<label><input id="' . $this->item_set_id . '" class="item_set vote currency" type="radio" name="optradio_item_set' . $this->item_set_id . '"></label>';
+                    }
+                    $return .= '</div>';
                 }
-                $return .= '</div>';
             }
             $return = $return . '</li ></a > ';
         }

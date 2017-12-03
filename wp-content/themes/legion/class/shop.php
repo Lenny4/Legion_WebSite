@@ -58,7 +58,11 @@ class shop
         }
         if ($canAddItem == true AND $item->item_id != null) {
             $item->count = 1;
-            $item->currency = "vote";
+            if ($item->vote == 1) {
+                $item->currency = "vote";
+            } else {
+                $item->currency = "buy";
+            }
             array_push($this->array, $item);
             $result = "true";
         }
@@ -79,7 +83,11 @@ class shop
         if ($canAddItem == true AND $item_set->item_set_id != null) {
             $item_set->count = 1;
             $item_set->stackable = 1;
-            $item_set->currency = "vote";
+            if ($item_set->vote == 1) {
+                $item_set->currency = "vote";
+            } else {
+                $item_set->currency = "buy";
+            }
             array_push($this->array, $item_set);
             $result = "true";
         }
@@ -181,16 +189,19 @@ class shop
 
     public function changeCurrency($id, $type, $currency)
     {
-
         foreach ($this->array as $item) {
             if ($type == "item") {
                 if ($item->item_id == $id AND is_a($item, 'item')) {
-                    $item->currency = $currency;
+                    if ($currency == "vote" AND $item->vote == 1) {
+                        $item->currency = $currency;
+                    }
                     break;
                 }
             } elseif ($type == "item_set") {
                 if ($item->item_set_id == $id AND is_a($item, 'item_set')) {
-                    $item->currency = $currency;
+                    if ($currency == "vote" AND $item->vote == 1) {
+                        $item->currency = $currency;
+                    }
                     break;
                 }
             }

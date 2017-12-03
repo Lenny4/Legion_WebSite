@@ -29,12 +29,11 @@ class item_home_best_sell extends item_home
 
     public function show()
     {
-        $req = $GLOBALS["dbh"]->query('SELECT * FROM `item` WHERE `nbSells`>0 ORDER BY `nbSells` DESC LIMIT 100');
+        $req = $GLOBALS["dbh"]->query('SELECT DISTINCT `item_id` FROM `log_sells` WHERE `date` >= now() - interval 1 month AND `item_id`>0 AND `admin`=0 LIMIT 100');
         $count = $req->rowCount();
         if ($count > 0) {
             while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
-                $item = new item();
-                $item->hydrateBDD($data);
+                $item = createItem($data["item_id"]);
                 $itemClass = createItemClass($item);
                 echo $item->display($itemClass, true);
             }
