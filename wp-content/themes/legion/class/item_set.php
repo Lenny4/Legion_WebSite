@@ -131,6 +131,18 @@ class item_set extends parent_item
                     }
                     $i++;
                 }
+                $characterSelectedIsDeleted = true;
+                foreach ($this->getCharacters() as $character) {
+                    if ($this->character == $character["name"]) {
+                        $characterSelectedIsDeleted = false;
+                    }
+                }
+                if ($characterSelectedIsDeleted == true) {
+                    foreach ($this->getCharacters() as $character) {
+                        $this->character = $character["name"];
+                        break;
+                    }
+                }
                 $return .= '</select>';
                 $return .= '<div class="form-group">
                           <label>Quantity</label>

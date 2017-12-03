@@ -6,6 +6,8 @@
  * Time: 18:36
  */
 
+include_once("SOAPSendItem.php");
+
 class shop
 {
     public $array = array();
@@ -96,7 +98,7 @@ class shop
         $i = 0;
         $echo = "<div id=\"shopDisplayItems\">";
         if ($this->isEmpty()) {
-            $echo .= "Nothing in your cat";
+            $echo .= "Nothing in your cart";
         } else {
             $echo .= '<div class="form-group"><label for="main_character">Select the character to receive your items</label><select class="form-control" id="main_character">
             <option disabled selected value> -- Select a Character -- </option>';
@@ -209,9 +211,9 @@ class shop
         $userBuyPoint = intval(get_user_meta(get_current_user_id(), "buy_points")[0]);
         foreach ($this->array as $item) {
             if ($item->currency == "vote") {
-                $amountOfVotePoints += $item->getVotePoint(false, true);
+                $amountOfVotePoints += $item->getVotePoint(false, true) * $item->count;
             } elseif ($item->currency == "buy") {
-                $amountOfBuyPoints += $item->getBuyPoint(false, true);
+                $amountOfBuyPoints += $item->getBuyPoint(false, true) * $item->count;
             }
         }
         $userVotePointAfterBuy = $userVotePoint - $amountOfVotePoints;
@@ -235,14 +237,45 @@ class shop
             $return .= "<div class='col-xs-12'><p class='text-center' style='color:red'>" . formatNumber($userBuyPointAfterBuy) . "</p></div>";
         }
         $return .= "</div > ";
-        if (empty($this->array[0]->getCharacters())) {
-            $return .= ' <button type="button" class="btn btn-primary btn-block disabled">You need to create a character</button>';
+        if (!serverOnline()) {
+            $return .= '<button type="button" class="btn btn-primary btn-block disabled">The server is not online</button>';
+        } elseif (empty($this->array[0]->getCharacters())) {
+            $return .= '<button type="button" class="btn btn-primary btn-block disabled">You need to create a character</button>';
         } elseif ($userBuyPointAfterBuy >= 0 AND $userVotePointAfterBuy >= 0) {
-            $return .= ' <button onclick="buyAllCart()" type="button" class="btn btn-primary btn-block">Buy</button>';
+            $return .= '<button onclick="buyAllCart()" type="button" class="btn btn-primary btn-block">Buy</button>';
         } else {
-            $return .= ' <button type="button" class="btn btn-primary btn-block disabled">You don\'t have enought points</button>';
+            $return .= '<button type="button" class="btn btn-primary btn-block disabled">You don\'t have enought points</button>';
         }
         $return .= " </div > ";
         return $return;
+    }
+
+    public function buyAllCart()
+    {
+        //can buy ?
+        $loadBuy = $this->loadBuy();
+        $point_vote = null;
+        $point_buy = null;
+        $message = "";
+        if (strpos($loadBuy, 'buyAllCart()') !== false) {
+            foreach ($this->array as $item) {
+                $quantity = $item->stackable * $item->count;
+                if ($item->currency == "vote") {
+                    $point_vote = $item->getVotePoint(false, true) * $item->count;
+                    $point_buy = null;
+                } elseif ($item->currency == "buy") {
+                    $point_buy = $item->getBuyPoint(false, true) * $item->count;
+                    $point_vote = null;
+                }
+                if (is_a($item, 'item')) {
+                    $soapCommand = new SOAPSendItem($item->item_id, $quantity, $point_vote, $point_buy, $item->character, 'item');
+                    $message .= $soapCommand->message;
+                } elseif (is_a($item, 'item_set')) {
+                    $soapCommand = new SOAPSendItem($item->item_id, $quantity, $point_vote, $point_buy, $item->character, 'item_set');
+                    $message .= $soapCommand->message;
+                }
+            }
+        }
+        return $message;
     }
 }

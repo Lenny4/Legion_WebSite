@@ -751,7 +751,7 @@ function getOnlinePlayer()
     if ($tab["total"] == 0) {
         $tab["pBlue"] = 50;
         $tab["pRed"] = 50;
-    }else{
+    } else {
         $tab["pBlue"] = intval(($tab["blue"] / $tab["total"]) * 100);
         $tab["pRed"] = 100 - $tab["pBlue"];
     }
@@ -802,6 +802,20 @@ function isWowAdmin()
 function formatNumber($number)
 {
     return number_format($number, 0, ',', ' ');
+}
+
+function removeVotePoint($id, $amount)
+{
+    $currentVotePoint = intval(get_user_meta($id, 'vote_points')[0]);
+    $newVotePoint = intval($currentVotePoint) - intval($amount);
+    update_user_meta($id, 'vote_points', $newVotePoint);
+}
+
+function removeBuyPoint($id, $amount)
+{
+    $currentBuyPoint = intval(get_user_meta($id, 'buy_points')[0]);
+    $newBuyPoint = intval($currentBuyPoint) - intval($amount);
+    update_user_meta($id, 'buy_points', $newBuyPoint);
 }
 
 ?>

@@ -1059,4 +1059,13 @@ if ($_POST["id"] == "changeCurrency") {
 if ($_POST["id"] == "loadBuy") {
     echo $_SESSION["shop"]->loadBuy();
 }
+
+if ($_POST["id"] == "buyAllCart") {
+    $message = $_SESSION["shop"]->buyAllCart();
+    if ($message == "") {
+        echo "<div class=\"alert alert-danger\"><strong>An error occur, please reload the page and try again</strong></div>";
+    } else {
+        echo $message;
+    }
+}
 //SHOP BUY CART======================================================

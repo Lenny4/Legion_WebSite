@@ -77,7 +77,16 @@
     }
 
     function buyAllCart() {
-        alert(1);
+        $("#ajaxLoaderShop").show();
+        $.post("/api/shop/shop.php",
+            {
+                id: "buyAllCart"
+            },
+            function (data, status) {
+                $("#ajaxLoaderShop").hide();
+                $("#display_buy_options").html(data);
+                //change display point
+            });
     }
 
     $(document).ready(function () {
@@ -90,7 +99,6 @@
                 },
                 function (data, status) {
                 });
-            loadBuy();
         });
         $("select.selectCharacter").change(function () {
             var $item_id = $(this).attr("id").replace(/[^\d.]/g, '');
