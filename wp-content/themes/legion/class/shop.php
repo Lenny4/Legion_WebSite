@@ -78,6 +78,7 @@ class shop
         }
         if ($canAddItem == true) {
             $item_set->count = 1;
+            $item_set->stackable = 1;
             $item_set->currency = "vote";
             array_push($this->array, $item_set);
             $result = "true";
@@ -97,9 +98,7 @@ class shop
     {
         $i = 0;
         $echo = "<div id=\"shopDisplayItems\">";
-        if ($this->isEmpty()) {
-            $echo .= "Nothing in your cart";
-        } else {
+        if (!$this->isEmpty()) {
             $echo .= '<div class="form-group"><label for="main_character">Select the character to receive your items</label><select class="form-control" id="main_character">
             <option disabled selected value> -- Select a Character -- </option>';
             foreach ($this->array[0]->getCharacters() as $character) {
@@ -205,6 +204,11 @@ class shop
                   <strong>You need to be login to buy item</strong>
                 </div>';
         }
+        if ($this->isEmpty()) {
+            return '<div class="alert alert-danger">
+                  <strong>Nothing in your cart</strong>
+                </div>';
+        }
         $amountOfVotePoints = 0;
         $amountOfBuyPoints = 0;
         $userVotePoint = intval(get_user_meta(get_current_user_id(), "vote_points")[0]);
@@ -271,10 +275,14 @@ class shop
                     $soapCommand = new SOAPSendItem($item->item_id, $quantity, $point_vote, $point_buy, $item->character, 'item');
                     $message .= $soapCommand->message;
                 } elseif (is_a($item, 'item_set')) {
-                    $soapCommand = new SOAPSendItem($item->item_id, $quantity, $point_vote, $point_buy, $item->character, 'item_set');
+                    $soapCommand = new SOAPSendItem($item, $quantity, $point_vote, $point_buy, $item->character, 'item_set');
                     $message .= $soapCommand->message;
                 }
             }
+        } else {
+            $message = '<div class="alert alert-danger">
+                  <strong>An error occur, please reload the page</strong>
+                </div>';
         }
         return $message;
     }

@@ -6,24 +6,25 @@ class SOAPSendItem
     protected $online;
     public $message;
 
-    public function __construct($item_id, $quantity, $point_vote, $point_buy, $character, $type)
+    public function __construct($item, $quantity, $point_vote, $point_buy, $character, $type)
     {
         $this->online = true;
         $this->done = false;
+        $this->message = "";
         $this->soapConnect();
         if ($type == 'item') {
-            $command = 'send items ' . $character . ' "Shop" "Shop" ' . $item_id . ':' . $quantity;
+            $command = 'send items ' . $character . ' "Shop" "Shop" ' . $item . ':' . $quantity;
             $this->soapCommand($command);
             if ($this->online == true) {//command has been execute
                 $req = "";
                 if ($point_vote == null) {
-                    $req = 'INSERT INTO `log_sells`(`item_id`, `item_set_id`, `item_home`, `vote_points`, `buy_points`, `date`, `user_id`, `quantity`, `command`) VALUES (' . $item_id . ',null,null,null,' . $point_buy . ',NOW(),' . get_current_user_id() . ',' . $quantity . ',\'' . json_encode($command) . '\')';
+                    $req = 'INSERT INTO `log_sells`(`item_id`, `item_set_id`, `item_home`, `vote_points`, `buy_points`, `date`, `user_id`, `quantity`, `command`) VALUES (' . $item . ',null,null,null,' . $point_buy . ',NOW(),' . get_current_user_id() . ',' . $quantity . ',\'' . json_encode($command) . '\')';
                 } elseif ($point_buy == null) {
-                    $req = 'INSERT INTO `log_sells`(`item_id`, `item_set_id`, `item_home`, `vote_points`, `buy_points`, `date`, `user_id`, `quantity`, `command`) VALUES (' . $item_id . ',null,null,' . $point_vote . ',null,NOW(),' . get_current_user_id() . ',' . $quantity . ',\'' . json_encode($command) . '\')';
+                    $req = 'INSERT INTO `log_sells`(`item_id`, `item_set_id`, `item_home`, `vote_points`, `buy_points`, `date`, `user_id`, `quantity`, `command`) VALUES (' . $item . ',null,null,' . $point_vote . ',null,NOW(),' . get_current_user_id() . ',' . $quantity . ',\'' . json_encode($command) . '\')';
                 }
                 $GLOBALS["dbh"]->query($req);
-                $this->message = "<div class=\"alert alert-success\"><strong>Item " . $item_id . " has been send to " . $character . "</strong></div>";
-                $_SESSION["shop"]->erase($item_id, $type);
+                $this->message = "<div class=\"alert alert-success\"><strong>Item " . $item . " has been send to " . $character . "</strong></div>";
+                $_SESSION["shop"]->erase($item, $type);
                 if ($point_buy == null) {
                     removeVotePoint(get_current_user_id(), $point_vote);
                 } else {
@@ -31,7 +32,26 @@ class SOAPSendItem
                 }
             }
         } elseif ($type == "item_set") {
-
+            foreach ($item->items as $item_id) {
+                $command = 'send items ' . $character . ' "Shop" "Shop" ' . $item_id . ':' . $quantity;
+                $this->soapCommand($command);
+            }
+            if ($this->online == true) {//command has been execute
+                $req = "";
+                if ($point_vote == null) {
+                    $req = 'INSERT INTO `log_sells`(`item_id`, `item_set_id`, `item_home`, `vote_points`, `buy_points`, `date`, `user_id`, `quantity`, `command`) VALUES (null,' . $item->item_set_id . ',null,null,' . $point_buy . ',NOW(),' . get_current_user_id() . ',' . $quantity . ',\'' . json_encode($command) . '\')';
+                } elseif ($point_buy == null) {
+                    $req = 'INSERT INTO `log_sells`(`item_id`, `item_set_id`, `item_home`, `vote_points`, `buy_points`, `date`, `user_id`, `quantity`, `command`) VALUES (null,' . $item->item_set_id . ',null,' . $point_vote . ',null,NOW(),' . get_current_user_id() . ',' . $quantity . ',\'' . json_encode($command) . '\')';
+                }
+                $GLOBALS["dbh"]->query($req);
+                $this->message = "<div class=\"alert alert-success\"><strong>Item set " . $item->item_set_id . " has been send to " . $character . "</strong></div>";
+                $_SESSION["shop"]->erase($item->item_set_id, $type);
+                if ($point_buy == null) {
+                    removeVotePoint(get_current_user_id(), $point_vote);
+                } else {
+                    removeBuyPoint(get_current_user_id(), $point_buy);
+                }
+            }
         }
     }
 

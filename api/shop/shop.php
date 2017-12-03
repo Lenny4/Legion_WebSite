@@ -1063,9 +1063,9 @@ if ($_POST["id"] == "loadBuy") {
 if ($_POST["id"] == "buyAllCart") {
     $message = $_SESSION["shop"]->buyAllCart();
     if ($message == "") {
-        echo "<div class=\"alert alert-danger\"><strong>An error occur, please reload the page and try again</strong></div>";
+        echo("<div class=\"alert alert-danger\"><strong>An error occur, please reload the page and try again</strong></div>");
     } else {
-        echo $message;
+        echo($message);
     }
 }
 //SHOP BUY CART======================================================
