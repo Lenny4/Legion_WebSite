@@ -53,6 +53,26 @@ class item_home extends parent_item
 
     public function show()
     {
-        echo "display " . get_class($this);
+        return "Coming soon !";
+    }
+
+    public function displayAllCharacters($allCharacters)
+    {
+        $return = "";
+        if (!empty($allCharacters)) {
+            $return .= ' <div class="form-group">
+  <label for="select_character_' . get_class($this) . '">Select a character:</label>
+  <select class="form-control" id="select_character_' . get_class($this) . '">';
+            $return .= '<option disabled selected> -- Select a Character -- </option>';
+            foreach ($allCharacters as $character) {
+                $return .= '<option value="' . $character["name"] . '">' . $character["name"] . ' lvl ' . $character["level"] . '</option>';
+            }
+            $return .= '</select></div>';
+        } else {
+            $return.='<div class="alert alert-danger">
+  <strong>You must create at least one character to use the teleport</strong>
+</div>';
+        }
+        return $return;
     }
 }

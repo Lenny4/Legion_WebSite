@@ -13,7 +13,13 @@
             </div>
         <?php } ?>
         <h1><?php the_title(); ?></h1>
-
+        <?php
+        if (strpos($_SERVER[REQUEST_URI], 'password') !== false AND get_the_ID() == 18) {
+            echo '<div class="alert alert-warning">
+  <strong>Your password can have 16 characters maximum, otherwise you wouldn\'t be able to connect in the game</strong>
+</div>';
+        }
+        ?>
         <?php if (have_posts()): while (have_posts()) : the_post(); ?>
             <!-- article -->
             <article id="post-<?php the_ID(); ?>" <?php post_class(); ?>>

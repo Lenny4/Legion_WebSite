@@ -26,4 +26,16 @@ class item_home_teleport extends item_home
         $return .= '</div></li></a>';
         return $return;
     }
+
+    public function show()
+    {
+        $return = "<div class='col-sm-9 col-xs-12'>";
+        $allCharacters = $this->getCharacters();
+        $return .= $this->displayAllCharacters($allCharacters);
+        if (isWowAdmin()) {
+            $return .= "<p>Add teleportation</p>";
+        }
+        $return .= "</div>";
+        return $return;
+    }
 }
