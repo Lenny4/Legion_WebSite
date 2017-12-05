@@ -1069,3 +1069,14 @@ if ($_POST["id"] == "buyAllCart") {
     }
 }
 //SHOP BUY CART======================================================
+
+//SHOP TELEPORT======================================================
+if ($_POST["id"] == "addMapTeleportation") {
+    $newMap = new map();
+//    $newMap->createMapWithForm($_POST);
+//    $newMap->saveMapBdd();
+//    Create $_SESSION["map'] if isn't isset (is a map object) -> $_SESSION["map']=new map()
+//    $_SESSION["map']->reloadAllMap();
+//    call $_SESSION["map']->reloadAllMap(); each time item_home_teleport is call
+}
+//SHOP TELEPORT======================================================

@@ -7,6 +7,7 @@
  */
 
 include_once("item_home.php");
+include_once("map.php");
 
 class item_home_teleport extends item_home
 {
@@ -33,7 +34,45 @@ class item_home_teleport extends item_home
         $allCharacters = $this->getCharacters();
         $return .= $this->displayAllCharacters($allCharacters);
         if (isWowAdmin()) {
-            $return .= "<p>Add teleportation</p>";
+            $return .= '<hr/><p>Add map <a href="http://www.wowhead.com/maps">All Maps</a></p><p id="result-add-teleport"></p>
+ <form method="post" id="addMapTeleportation">
+ <div class="form-group col-sm-6">
+    <label for="previous_id">Parent map id</label>
+    <input type="number" min="1" class="form-control" id="previous_id">
+  </div>
+  <div class="form-group col-sm-6">
+    <label for="name">Name (optionnal if cannot tp on it)</label>
+    <input type="text" class="form-control" id="name">
+  </div>
+  <div class="form-group col-sm-6">
+    <label for="image">Url of the image of the map</label>
+    <input type="text" class="form-control" id="image">
+  </div>
+  <div class="form-group col-sm-6">
+      <label for="city">Is it a city</label>
+      <select class="form-control" id="city">
+        <option selected value="0">No</option>
+        <option value="1">Yes</option>
+      </select>
+  </div> 
+  <div class="form-group col-sm-6">
+    <label for="min_level">Min level</label>
+    <input type="number" min="1" max="110" class="form-control" id="min_level">
+  </div>
+  <div class="form-group col-sm-6">
+    <label for="max_level">Max level</label>
+    <input type="number" min="1" max="110" class="form-control" id="max_level">
+  </div>
+  <div class="form-group col-sm-6">
+      <label for="can_tp">Can teleport here</label>
+      <select class="form-control" id="can_tp">
+        <option selected value="0">No</option>
+        <option value="1">Yes</option>
+      </select>
+  </div> 
+  <button type="submit" class="btn btn-default btn-block">Submit</button>
+</form>';
+
         }
         $return .= "</div>";
         return $return;

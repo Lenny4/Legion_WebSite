@@ -278,6 +278,8 @@
     }
 
     function loadHomePageShop() {
+        showMoreItemHome("item_home_teleport");
+        return;
         $("*").addClass("progressWait");
         hideCategoryIfOnPhone();
         showAjaxLoaderShop();
@@ -650,13 +652,17 @@
                 if ($(event.target).attr("id") === "customer_add_items") {
                     $("#customer_add_items_result").html(data);
                 } else {
-                    hideAllHeaderShop();
+                    $dontExecuteHeightShop = false;
                     hideAjaxLoaderShop();
-                    if (data !== 'Error !' && data !== 'No Result !') {
-                        $dontExecuteHeightShop = false;
-                        $("#shopDisplayItems").html(data);
+                    hideAllHeaderShop();
+                    if ($(event.target).attr("id") === "addMapTeleportation") {
+                        $("#result-add-teleport").html(data);
                     } else {
-                        showAlertMessage(data);
+                        if (data !== 'Error !' && data !== 'No Result !') {
+                            $("#shopDisplayItems").html(data);
+                        } else {
+                            showAlertMessage(data);
+                        }
                     }
                 }
             });
