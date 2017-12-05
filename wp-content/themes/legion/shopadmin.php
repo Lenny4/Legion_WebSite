@@ -163,7 +163,7 @@ while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
                 </div>
                 <div class=" col-md-6 col-xs-12 borderWhite">
                     <p class="h3">Static Data</p>
-                    <p style="color: red;">Quand utilisation de woocommerce récupérer ces data pour afficher le nombre
+                    <p style="color: red;">These informations are used by woocommerce
                         de points gagner</0p>
                     <p id="staticDataResult"></p>
                     <form id="staticData">

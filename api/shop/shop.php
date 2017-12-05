@@ -373,7 +373,7 @@ function addItemSetBdd($postItemSetId, $postItemSetPrice, $vote = 0, $filtre = f
     foreach ($item_set->items as $itemID) {
         $item = createItem($itemID, '');
         if ($filtre == true AND $item->equippable == true) {
-            if ($item->requiredLevel == 110) {
+            if ($item->requiredLevel >= 100) {
                 $filtre = false;
             } else {
                 return;
