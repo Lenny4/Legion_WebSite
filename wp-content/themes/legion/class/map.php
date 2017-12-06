@@ -231,6 +231,9 @@ class map
 
     private function displayOption($myMap, $allCharacters)
     {
+        if (get_current_user_id() == 0) {
+            return '<button type="button" class="btn btn-danger btn-block disabled">You must be connected</button>';
+        }
         $return = "";
         $characterLevel = 0;
         $votePoints = $this->getPrice('vote');
