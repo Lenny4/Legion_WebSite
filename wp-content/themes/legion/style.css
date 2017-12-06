@@ -936,5 +936,5 @@ div.helpAddNewItems, div.helpAddNewItems ol, div.helpAddNewItems ol div {
 }
 
 .checkbox + .checkbox, .radio + .radio {
-    margin-top: 10px !important;
+    margin-top: 10px;
 }

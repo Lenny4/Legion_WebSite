@@ -221,11 +221,11 @@ class map
     private function getBuyButtons($votePoints, $buyPoints)
     {
         $return = '
-<div class="col-xs-6 text-center radio"><div style="display: inline-block">
+<div class="col-xs-6 noMargin text-center radio"><div style="display: inline-block">
   <label style="float: left"><input type="radio" value="buy" name="optionBuyTeleport">' . $buyPoints . '</label>
   ' . wp_get_attachment_image(168, 'thumbnail', true, ["class" => "img-responsive center-block", "style" => "width:20px;float: left;margin-left: 10px;"]) . '
 </div></div>
-<div class="col-xs-6 text-center radio"><div style="display: inline-block">
+<div class="col-xs-6 noMargin text-center radio"><div style="display: inline-block">
   <label style="float: left"><input checked="checked" type="radio" value="vote" name="optionBuyTeleport">' . $votePoints . '</label>
   ' . wp_get_attachment_image(169, 'thumbnail', true, ["class" => "img-responsive center-block", "style" => "width:20px;float: left;margin-left: 10px;"]) . '
 </div></div>';
@@ -265,49 +265,52 @@ class map
         return $return;
     }
 
-    private function displayOneMap($myMap)
+    private function displayOneMap($myMap, $type)
     {
         $return = "";
-        $return .= '<div class="col-xs-12 noPadding">';
-        $return .= '<div style="display: inline-block;position: absolute">';
-        if ($myMap->id != null) {
-            $return .= '<i onclick="displayOneMap(null)" class="fa fa-map fa-2x" aria-hidden="true"></i><br/>';
-        }
-        if ($myMap->parent != null) {
-            $return .= '<i onclick="displayOneMap(' . $myMap->parent . ')" class="fa fa-arrow-circle-left fa-2x" aria-hidden="true"></i><br/>';
-        }
-        if (isWowAdmin() AND $myMap->id != null) {
-            $return .= '<p style="background-color: black">' . $myMap->id . '</p>';
-        }
-        $return .= '</div>';
-        $return .= ' <img class="img-responsive" src = "' . $myMap->url . '" alt = "' . $myMap->name . '" ></div > ';
-        foreach ($myMap->children as $map) {
-            $return .= '<div onclick = "displayOneMap(' . $map->id . ')" class="map" ' . $map->getStyle() . ' ></div > ';
-        }
-        if ($myMap->canTp == 1) {
-            $item_home_teleport = new item_home_teleport();
-            $allCharacters = $item_home_teleport->getCharacters();
-            $return .= '<form data-map="' . $myMap->id . '" id="teleportThisCharacter" method="post">';
-            $return .= '<input type="hidden" value="' . $myMap->name . '">';
-            $return .= '<div class="col-xs-6">';
-            $return .= $item_home_teleport->displayAllCharacters($allCharacters, $this->characterSelected);
+        if ($type == 'map') {
+            $return .= '<div style="position: relative" class="col-xs-12 noPadding">';
+            $return .= '<div style="display: inline-block;position: absolute">';
+            if ($myMap->id != null) {
+                $return .= '<i onclick="displayOneMap(null)" class="fa fa-map fa-2x" aria-hidden="true"></i><br/>';
+            }
+            if ($myMap->parent != null) {
+                $return .= '<i onclick="displayOneMap(' . $myMap->parent . ')" class="fa fa-arrow-circle-left fa-2x" aria-hidden="true"></i><br/>';
+            }
+            if (isWowAdmin() AND $myMap->id != null) {
+                $return .= '<p style="background-color: black">' . $myMap->id . '</p>';
+            }
             $return .= '</div>';
-            $return .= '<div class="col-xs-6 noPadding">';
-            $return .= $this->displayOption($myMap, $allCharacters);
-            $return .= '</div>';
-            $return .= '</form>';
+            $return .= ' <img class="img-responsive" src = "' . $myMap->url . '" alt = "' . $myMap->name . '" ></div > ';
+            foreach ($myMap->children as $map) {
+                $return .= '<div onclick = "displayOneMap(' . $map->id . ')" class="map" ' . $map->getStyle() . ' ></div > ';
+            }
+        } elseif ($type == 'option') {
+            if ($myMap->canTp == 1) {
+                $item_home_teleport = new item_home_teleport();
+                $allCharacters = $item_home_teleport->getCharacters();
+                $return .= '<form data-map="' . $myMap->id . '" id="teleportThisCharacter" method="post">';
+                $return .= '<input type="hidden" value="' . $myMap->name . '">';
+                $return .= '<div class="col-xs-6">';
+                $return .= $item_home_teleport->displayAllCharacters($allCharacters, $this->characterSelected);
+                $return .= '</div>';
+                $return .= '<div class="col-xs-6 noPadding">';
+                $return .= $this->displayOption($myMap, $allCharacters);
+                $return .= '</div>';
+                $return .= '</form>';
+            }
         }
         return $return;
     }
 
-    public function display($id = null)
+    public function display($id = null, $type = null)
     {
         $return = "";
         if ($id == null) {
-            $return .= $this->displayOneMap($this);
+            $return .= $this->displayOneMap($this, $type);
         } else {
             $map = $this->search($this, $id);
-            $return .= $this->displayOneMap($map);
+            $return .= $this->displayOneMap($map, $type);
         }
         return $return;
     }

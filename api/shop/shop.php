@@ -1091,7 +1091,7 @@ if ($_POST["id"] == "addMapTeleportation") {
     echo $_SESSION["map"]->display();
 }
 if ($_POST["id"] == "showMap") {
-    echo $_SESSION["map"]->display($_POST["map_id"]);
+    echo $_SESSION["map"]->display($_POST["map_id"], $_POST["type"]);
 }
 if ($_POST["id"] == "teleportThisCharacter") {
     echo '<div style="display: inline-block;width: 100%;" class="alert alert-success alert-dismissable">

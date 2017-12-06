@@ -31,9 +31,10 @@ class item_home_teleport extends item_home
     public function show()
     {
         $return = "<div class='col-sm-9 col-xs-12'>";
-        $return .= '<div style="display: inline-block; position: relative" id="display-maps">' . $_SESSION["map"]->display() . '</div>';
+        $return .= '<div style="display: inline-block; position: relative" id="display-maps">' . $_SESSION["map"]->display(null, 'map') . '</div>';
+        $return .= '<div style="display: inline-block; width: 100%;" id="display-maps-option">' . $_SESSION["map"]->display(null, 'option') . '</div>';
         if (isWowAdmin()) {
-            $return .= '<hr/><p>Add map <a href="http://www.wowhead.com/maps">All Maps</a></p>
+            $return .= '<hr style="margin-top: 0px"/><p>Add map <a href="http://www.wowhead.com/maps">All Maps</a></p>
  <form method="post" id="addMapTeleportation">
  <div class="form-group col-sm-6">
     <label for="previous_id">Parent map id</label>

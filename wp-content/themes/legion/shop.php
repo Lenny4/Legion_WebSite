@@ -553,13 +553,26 @@
         $.post("/api/shop/shop.php",
             {
                 id: "showMap",
-                map_id: $id
+                map_id: $id,
+                type: 'map'
             },
             function (data, status) {
                 $("*").removeClass("progressWait");
                 hideAllHeaderShop();
                 hideAjaxLoaderShop();
                 $("#display-maps").html(data);
+            });
+        $.post("/api/shop/shop.php",
+            {
+                id: "showMap",
+                map_id: $id,
+                type: 'option'
+            },
+            function (data, status) {
+                $("*").removeClass("progressWait");
+                hideAllHeaderShop();
+                hideAjaxLoaderShop();
+                $("#display-maps-option").html(data);
             });
     }
 
