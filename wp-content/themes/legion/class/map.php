@@ -38,7 +38,7 @@ class map
         $this->minLevel = null;
         $this->maxLevel = null;
         $this->canTp = null;
-        $this->radius = 0;
+        $this->radius = "10%";
     }
 
     public function createMapWithForm($form)
@@ -161,7 +161,7 @@ class map
 
     private function getStyle()
     {
-        return "style='left:" . $this->leftPos . "%; top:" . $this->topPos . "%; width:" . $this->width . "%; height:" . $this->height . "%; border-radius: " . $this->radius . "%;'";
+        return "style='left:" . $this->leftPos . "%; top:" . $this->topPos . "%; width:" . $this->width . "%; height:" . $this->height . "%; border-radius: " . $this->radius . ";'";
     }
 
     private function search($oneMap, $searchId)

@@ -1079,7 +1079,7 @@ if ($_POST["id"] == "addMapTeleportation") {
     $newMap->createMapWithForm($_POST);//no link beetween map are created
     $newMap->saveMapBdd();
     $_SESSION["map"]->reloadMap();
-    echo $_SESSION["map"]->display(12);
+    echo $_SESSION["map"]->display();
 }
 
 //SHOP TELEPORT======================================================
