@@ -158,7 +158,7 @@ class item_set extends parent_item
                           <label>Quantity</label>
                           <input id="' . $this->item_set_id . '" type="number" min=1 max=100 value=' . $this->count . ' class="form-control quantity item_set" >
                         </div>';
-                $return .= '<div class="radio col-sm-4 col-sm-offset-1 col-xs-6 text-center" style="margin-top: 0px">';
+                $return .= '<div class="radio col-sm-4 col-sm-offset-1 col-xs-6 text-center">';
                 $return .= wp_get_attachment_image(168, 'thumbnail', true, ["class" => "img-responsive"]);
                 if ($this->currency == "buy") {
                     $return .= '<label><input id="' . $this->item_set_id . '" class="item_set buy currency" checked="checked" type="radio" name="optradio_item_set' . $this->item_set_id . '"></label>';

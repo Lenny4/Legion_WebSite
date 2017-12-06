@@ -934,3 +934,7 @@ div.helpAddNewItems, div.helpAddNewItems ol, div.helpAddNewItems ol div {
     background-color: rgba(0, 0, 0, 0.5);
     cursor: pointer;
 }
+
+.checkbox + .checkbox, .radio + .radio {
+    margin-top: 10px !important;
+}

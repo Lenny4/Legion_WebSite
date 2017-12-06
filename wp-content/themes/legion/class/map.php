@@ -220,14 +220,22 @@ class map
 
     private function getBuyButtons($votePoints, $buyPoints)
     {
-        $return = '<div class="col-sm-6 col-xs-12 noPadding"><button type="submit" class="btn btn-primary btn-block">' . $votePoints . wp_get_attachment_image(168, 'thumbnail', true, ["class" => "img-responsive center-block", "style" => "width:20px"]) . '</button></div>';
-        $return .= '<div class="col-sm-6 col-xs-12 noPadding"><button type="submit" class="btn btn-primary btn-block">' . $buyPoints . wp_get_attachment_image(169, 'thumbnail', true, ["class" => "img-responsive center-block", "style" => "width:20px"]) . '</button></div>';
+        $return = '
+<div class="col-xs-6 text-center radio"><div style="display: inline-block">
+  <label style="float: left"><input type="radio" value="buy" name="optionBuyTeleport">' . $buyPoints . '</label>
+  ' . wp_get_attachment_image(168, 'thumbnail', true, ["class" => "img-responsive center-block", "style" => "width:20px;float: left;margin-left: 10px;"]) . '
+</div></div>
+<div class="col-xs-6 text-center radio"><div style="display: inline-block">
+  <label style="float: left"><input checked="checked" type="radio" value="vote" name="optionBuyTeleport">' . $votePoints . '</label>
+  ' . wp_get_attachment_image(169, 'thumbnail', true, ["class" => "img-responsive center-block", "style" => "width:20px;float: left;margin-left: 10px;"]) . '
+</div></div>';
+        $return .= '<div class="col-xs-12"><button type="submit" class="btn btn-primary btn-block">Teleport me !</button></div>';
         return $return;
     }
 
     private function getFreeButtons()
     {
-        $return = '<div class="col-xs-12 noPadding"><button type="submit" class="btn btn-primary btn-block">Free !</button></div>';
+        $return = '<div class="col-xs-12 noPadding"><button type="submit" class="btn btn-primary btn-block">Teleport me ! (free)</button></div>';
         return $return;
     }
 
@@ -284,7 +292,7 @@ class map
             $return .= '<div class="col-xs-6">';
             $return .= $item_home_teleport->displayAllCharacters($allCharacters, $this->characterSelected);
             $return .= '</div>';
-            $return .= '<div class="col-xs-6 noPadding" style="margin-top: 25px;">';
+            $return .= '<div class="col-xs-6 noPadding">';
             $return .= $this->displayOption($myMap, $allCharacters);
             $return .= '</div>';
             $return .= '</form>';
@@ -292,8 +300,7 @@ class map
         return $return;
     }
 
-    public
-    function display($id = null)
+    public function display($id = null)
     {
         $return = "";
         if ($id == null) {
