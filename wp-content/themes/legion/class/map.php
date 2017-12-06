@@ -151,22 +151,24 @@ class map
         $this->characterSelected = null;
         $this->url = 'http://wow.zamimg.com/images/wow/maps/enus/zoom/-4.jpg?25550';
         $this->name = 'Cosmic Map';
-        $req = $GLOBALS["dbh"]->query('SELECT * FROM `map` ORDER BY id DESC');
-        while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
-            $map = new map();
-            $map->hydrateBDD($data);
-            $allMaps[$map->id] = $map;
-        }
-        if (isset($allMaps)) {
-            foreach ($allMaps as $key => $map) {
-                if ($map->parent != null) {
-                    $allMaps[$map->parent]->addMap($map);
-                    unset($allMaps[$map->id]);
-                }
+        if (isset($GLOBALS["dbh"])) {
+            $req = $GLOBALS["dbh"]->query('SELECT * FROM `map` ORDER BY id DESC');
+            while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+                $map = new map();
+                $map->hydrateBDD($data);
+                $allMaps[$map->id] = $map;
             }
-            foreach ($allMaps as $map) {
-                if ($map->parent == null) {
-                    $this->addMap($map);
+            if (isset($allMaps)) {
+                foreach ($allMaps as $key => $map) {
+                    if ($map->parent != null) {
+                        $allMaps[$map->parent]->addMap($map);
+                        unset($allMaps[$map->id]);
+                    }
+                }
+                foreach ($allMaps as $map) {
+                    if ($map->parent == null) {
+                        $this->addMap($map);
+                    }
                 }
             }
         }
