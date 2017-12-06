@@ -6,6 +6,8 @@
  * Time: 18:16
  */
 
+include_once("item_home.php");
+
 class map
 {
     private $id;
@@ -22,8 +24,14 @@ class map
     public $maxLevel;
     public $canTp;
     public $radius;
+    public $rotate;
 
     function __construct()
+    {
+        $this->initialiseNewMap();
+    }
+
+    private function initialiseNewMap()
     {
         $this->id = null;
         $this->name = null;
@@ -39,6 +47,7 @@ class map
         $this->maxLevel = null;
         $this->canTp = null;
         $this->radius = "10%";
+        $this->rotate = 0;
     }
 
     public function createMapWithForm($form)
@@ -138,30 +147,35 @@ class map
         if ($this->id != null) {
             return false;
         }
-        $this->children = array();
-        $allMaps = array();
+        $this->initialiseNewMap();
+        $this->characterSelected = null;
+        $this->url = 'http://wow.zamimg.com/images/wow/maps/enus/zoom/-4.jpg?25550';
+        $this->name = 'Cosmic Map';
         $req = $GLOBALS["dbh"]->query('SELECT * FROM `map` ORDER BY id DESC');
         while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
             $map = new map();
             $map->hydrateBDD($data);
             $allMaps[$map->id] = $map;
         }
-        foreach ($allMaps as $key => $map) {
-            if ($map->parent != null) {
-                $allMaps[$map->parent]->addMap($map);
-                unset($allMaps[$map->id]);
+        if (isset($allMaps)) {
+            foreach ($allMaps as $key => $map) {
+                if ($map->parent != null) {
+                    $allMaps[$map->parent]->addMap($map);
+                    unset($allMaps[$map->id]);
+                }
+            }
+            foreach ($allMaps as $map) {
+                if ($map->parent == null) {
+                    $this->addMap($map);
+                }
             }
         }
-        foreach ($allMaps as $map) {
-            if ($map->parent == null) {
-                $this->addMap($map);
-            }
-        }
+        return true;
     }
 
     private function getStyle()
     {
-        return "style='left:" . $this->leftPos . "%; top:" . $this->topPos . "%; width:" . $this->width . "%; height:" . $this->height . "%; border-radius: " . $this->radius . ";'";
+        return "style='top:" . $this->topPos . "%; left:" . $this->leftPos . "%; width:" . $this->width . "%; height:" . $this->height . "%; border-radius: " . $this->radius . "; transform: rotate(" . $this->rotate . "deg);'";
     }
 
     private function search($oneMap, $searchId)
@@ -179,17 +193,102 @@ class map
         return $return;
     }
 
-    private function displayOneMap($myMap)
+    private function getPrice($type)
+    {
+        $req = $GLOBALS["dbh"]->query("SELECT * FROM `item_home` WHERE `phpclasse`='item_home_teleport'");
+        while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+            $price = $data["price"];
+        }
+        $priceVote = $price * VOTE_POINTS;
+        $priceBuy = $price * BUY_POINTS;
+        $priceVote = intval($priceVote);
+        $priceBuy = intval($priceBuy);
+        if ($priceVote <= 0) {
+            $priceVote = 1;
+        }
+        if ($priceBuy <= 0) {
+            $priceBuy = 1;
+        }
+        if ($type == 'vote') {
+            return $priceVote;
+        } else {
+            return $priceBuy;
+        }
+    }
+
+    private function getBuyButtons($votePoints, $buyPoints)
+    {
+        $return = '<div class="col-sm-6 col-xs-12 noPadding"><button type="submit" class="btn btn-primary btn-block">' . $votePoints . wp_get_attachment_image(168, 'thumbnail', true, ["class" => "img-responsive center-block", "style" => "width:20px"]) . '</button></div>';
+        $return .= '<div class="col-sm-6 col-xs-12 noPadding"><button type="submit" class="btn btn-primary btn-block">' . $buyPoints . wp_get_attachment_image(169, 'thumbnail', true, ["class" => "img-responsive center-block", "style" => "width:20px"]) . '</button></div>';
+        return $return;
+    }
+
+    private function getFreeButtons()
+    {
+        $return = '<div class="col-xs-12 noPadding"><button type="submit" class="btn btn-primary btn-block">Free !</button></div>';
+        return $return;
+    }
+
+    private function displayOption($myMap, $allCharacters)
     {
         $return = "";
-        $return .= '<div class="col-xs-12 noPadding"><img class="img-responsive" src="' . $myMap->url . '" alt="' . $myMap->name . '"></div>';
-        foreach ($myMap->children as $map) {
-            $return .= '<div onclick="displayOneMap(' . $map->id . ')" class="map" ' . $map->getStyle() . ' ></div>';
+        $characterLevel = 0;
+        $votePoints = $this->getPrice('vote');
+        $buyPoints = $this->getPrice('buy');
+        if ($this->characterSelected != null) {
+            foreach ($allCharacters as $character) {
+                if ($character["name"] == $this->characterSelected) {
+                    $characterLevel = $character["level"];
+                }
+            }
+            if (($characterLevel < 110 AND $myMap->isCity == 1) OR ($characterLevel >= $myMap->minLevel AND $characterLevel <= $myMap->maxLevel)) {
+                $return .= $this->getFreeButtons();
+            } else {
+                $return .= $this->getBuyButtons($votePoints, $buyPoints);
+            }
+        } else {
+            $return = '<button type="button" class="btn btn-danger btn-block disabled">You must select a character</button>';
         }
         return $return;
     }
 
-    public function display($id = null)
+    private function displayOneMap($myMap)
+    {
+        $return = "";
+        $return .= '<div class="col-xs-12 noPadding">';
+        $return .= '<div style="display: inline-block;position: absolute">';
+        if ($myMap->id != null) {
+            $return .= '<i onclick="displayOneMap(null)" class="fa fa-map fa-2x" aria-hidden="true"></i><br/>';
+        }
+        if ($myMap->parent != null) {
+            $return .= '<i onclick="displayOneMap(' . $myMap->parent . ')" class="fa fa-arrow-circle-left fa-2x" aria-hidden="true"></i><br/>';
+        }
+        if (isWowAdmin() AND $myMap->id != null) {
+            $return .= '<p style="background-color: black">' . $myMap->id . '</p>';
+        }
+        $return .= '</div>';
+        $return .= ' <img class="img-responsive" src = "' . $myMap->url . '" alt = "' . $myMap->name . '" ></div > ';
+        foreach ($myMap->children as $map) {
+            $return .= '<div onclick = "displayOneMap(' . $map->id . ')" class="map" ' . $map->getStyle() . ' ></div > ';
+        }
+        if ($myMap->canTp == 1) {
+            $item_home_teleport = new item_home_teleport();
+            $allCharacters = $item_home_teleport->getCharacters();
+            $return .= '<form data-map="' . $myMap->id . '" id="teleportThisCharacter" method="post">';
+            $return .= '<input type="hidden" value="' . $myMap->name . '">';
+            $return .= '<div class="col-xs-6">';
+            $return .= $item_home_teleport->displayAllCharacters($allCharacters, $this->characterSelected);
+            $return .= '</div>';
+            $return .= '<div class="col-xs-6 noPadding" style="margin-top: 25px;">';
+            $return .= $this->displayOption($myMap, $allCharacters);
+            $return .= '</div>';
+            $return .= '</form>';
+        }
+        return $return;
+    }
+
+    public
+    function display($id = null)
     {
         $return = "";
         if ($id == null) {

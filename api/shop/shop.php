@@ -1073,15 +1073,30 @@ if ($_POST["id"] == "buyAllCart") {
 }
 //SHOP BUY CART======================================================
 
+//SHOP ITEM HOME======================================================
+if ($_POST["id"] == "changeCharacterItemHome") {
+    $phpClass = $_POST["phpClass"];
+    if ($phpClass == 'item_home_teleport') {
+        $_SESSION["map"]->characterSelected = $_POST["value"];
+    }
+}
+//SHOP ITEM HOME======================================================
+
 //SHOP TELEPORT======================================================
 if ($_POST["id"] == "addMapTeleportation") {
     $newMap = new map();
     $newMap->createMapWithForm($_POST);//no link beetween map are created
     $newMap->saveMapBdd();
     $_SESSION["map"]->reloadMap();
-    echo $_SESSION["map"]->display(12);
+    echo $_SESSION["map"]->display();
 }
 if ($_POST["id"] == "showMap") {
     echo $_SESSION["map"]->display($_POST["map_id"]);
+}
+if ($_POST["id"] == "teleportThisCharacter") {
+    echo '<div style="display: inline-block;width: 100%;" class="alert alert-success alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>You character has been teleport</strong>
+</div>';
 }
 //SHOP TELEPORT======================================================

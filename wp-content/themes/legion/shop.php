@@ -564,6 +564,26 @@
     }
 
     $(document).ready(function () {
+        $('body').on('change', '#select_character_item_home', function (event) {
+            var $select = event.target;
+            var $phpClass = $($select).attr('data-phpclass');
+            var characterName = $($select).val();
+            var mapId = $select;
+            while (!$(mapId).attr('data-map') > 0) {
+                mapId = $(mapId).parent();
+            }
+            mapId = $(mapId).attr('data-map');
+            $.post("/api/shop/shop.php",
+                {
+                    id: 'changeCharacterItemHome',
+                    phpClass: $phpClass,
+                    value: characterName
+                },
+                function (data, status) {
+                    displayOneMap(mapId);
+                });
+        });
+
         $("a.subItemClasse").click(function (e) {
             $currentPosition = null;
             $element1 = null;
@@ -674,6 +694,10 @@
                     hideAllHeaderShop();
                     if ($(event.target).attr("id") === "addMapTeleportation") {
                         $("#display-maps").html(data);
+                    } else if ($(event.target).attr("id") === "teleportThisCharacter") {
+                        $("#teleportThisCharacter").prepend(data);
+                        hideAjaxLoaderShop();
+                        hideAllHeaderShop();
                     } else {
                         if (data !== 'Error !' && data !== 'No Result !') {
                             $("#shopDisplayItems").html(data);

@@ -31,8 +31,6 @@ class item_home_teleport extends item_home
     public function show()
     {
         $return = "<div class='col-sm-9 col-xs-12'>";
-        $allCharacters = $this->getCharacters();
-        $return .= $this->displayAllCharacters($allCharacters);
         $return .= '<div style="display: inline-block; position: relative" id="display-maps">' . $_SESSION["map"]->display() . '</div>';
         if (isWowAdmin()) {
             $return .= '<hr/><p>Add map <a href="http://www.wowhead.com/maps">All Maps</a></p>

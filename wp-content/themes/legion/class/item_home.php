@@ -56,20 +56,28 @@ class item_home extends parent_item
         return "Coming soon !";
     }
 
-    public function displayAllCharacters($allCharacters)
+    public function displayAllCharacters($allCharacters, $selectedCharacter = null)
     {
         $return = "";
         if (!empty($allCharacters)) {
             $return .= ' <div class="form-group">
   <label for="select_character_' . get_class($this) . '">Select a character:</label>
-  <select class="form-control" id="select_character_' . get_class($this) . '">';
-            $return .= '<option disabled selected> -- Select a Character -- </option>';
+  <select data-phpClass="' . get_class($this) . '" class="form-control" id="select_character_item_home">';
+            $addDefaultOption = true;
             foreach ($allCharacters as $character) {
-                $return .= '<option value="' . $character["name"] . '">' . $character["name"] . ' lvl ' . $character["level"] . '</option>';
+                if ($selectedCharacter != null AND $character["name"] == $selectedCharacter) {
+                    $return .= '<option selected value="' . $character["name"] . '">' . $character["name"] . ' lvl ' . $character["level"] . '</option>';
+                    $addDefaultOption = false;
+                } else {
+                    $return .= '<option value="' . $character["name"] . '">' . $character["name"] . ' lvl ' . $character["level"] . '</option>';
+                }
+            }
+            if ($addDefaultOption == true) {
+                $return .= '<option disabled selected> -- Select a Character -- </option>';
             }
             $return .= '</select></div>';
         } else {
-            $return.='<div class="alert alert-danger">
+            $return .= '<div class="alert alert-danger">
   <strong>You must create at least one character to use the teleport</strong>
 </div>';
         }

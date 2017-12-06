@@ -931,6 +931,6 @@ div.helpAddNewItems, div.helpAddNewItems ol, div.helpAddNewItems ol div {
 
 .map {
     position: absolute;
-    background-color: rgba(0, 0, 0, 0.3);
+    background-color: rgba(0, 0, 0, 0.5);
     cursor: pointer;
 }
