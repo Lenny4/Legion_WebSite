@@ -39,6 +39,8 @@ require_once 'wp-content/themes/legion/class/item_home_promotion.php';
 require_once 'wp-content/themes/legion/class/item_home_guild.php';
 require_once 'wp-content/themes/legion/class/item_home_teleport.php';
 require_once 'wp-content/themes/legion/class/map.php';
+require_once 'wp-content/themes/legion/class/SOAPSendItem.php';
+require_once 'wp-content/themes/legion/class/SOAPTeleportation.php';
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */

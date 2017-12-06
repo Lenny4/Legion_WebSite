@@ -62,7 +62,7 @@ class item_home extends parent_item
         if (!empty($allCharacters)) {
             $return .= ' <div class="form-group">
   <label for="select_character_' . get_class($this) . '">Select a character:</label>
-  <select data-phpClass="' . get_class($this) . '" class="form-control" id="select_character_item_home">';
+  <select name="character_selected" data-phpClass="' . get_class($this) . '" class="form-control" id="select_character_item_home">';
             $addDefaultOption = true;
             foreach ($allCharacters as $character) {
                 if ($selectedCharacter != null AND $character["name"] == $selectedCharacter) {

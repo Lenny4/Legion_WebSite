@@ -1094,9 +1094,18 @@ if ($_POST["id"] == "showMap") {
     echo $_SESSION["map"]->display($_POST["map_id"], $_POST["type"]);
 }
 if ($_POST["id"] == "teleportThisCharacter") {
-    echo '<div style="display: inline-block;width: 100%;" class="alert alert-success alert-dismissable">
+    if (isset($_POST["optionBuyTeleport"])) {
+        $soapTeleporation = new SOAPTeleportation($_POST["map_id"], $_POST["character_selected"], $_POST["optionBuyTeleport"]);
+    } else {
+        $soapTeleporation = new SOAPTeleportation($_POST["map_id"], $_POST["character_selected"]);
+    }
+    if ($soapTeleporation->message == '') {
+        echo '<div style="display: inline-block;width: 100%;" class="alert alert-success alert-dismissable">
   <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-  <strong>You character has been teleport</strong>
+  <strong>' . $_POST["character_selected"] . ' has been teleport</strong>
 </div>';
+    } else {
+        echo $soapTeleporation->message;
+    }
 }
 //SHOP TELEPORT======================================================

@@ -180,7 +180,7 @@ class map
         return "style='top:" . $this->topPos . "%; left:" . $this->leftPos . "%; width:" . $this->width . "%; height:" . $this->height . "%; border-radius: " . $this->radius . "; transform: rotate(" . $this->rotate . "deg);'";
     }
 
-    private function search($oneMap, $searchId)
+    public function search($oneMap, $searchId)
     {
         $return = null;
         foreach ($oneMap->children as $id => $map) {
@@ -195,7 +195,7 @@ class map
         return $return;
     }
 
-    private function getPrice($type)
+    public function getPrice($type)
     {
         $req = $GLOBALS["dbh"]->query("SELECT * FROM `item_home` WHERE `phpclasse`='item_home_teleport'");
         while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
@@ -235,12 +235,15 @@ class map
 
     private function getFreeButtons()
     {
-        $return = '<div class="col-xs-12 noPadding"><button type="submit" class="btn btn-primary btn-block">Teleport me ! (free)</button></div>';
+        $return = '<div style="margin-top: 25px;" class="col-xs-12 noPadding"><button type="submit" class="btn btn-primary btn-block">Teleport me ! (free)</button></div>';
         return $return;
     }
 
     private function displayOption($myMap, $allCharacters)
     {
+        if (!serverOnline()) {
+            return '<button type="button" class="btn btn-danger btn-block disabled">Server is offline</button>';
+        }
         if (get_current_user_id() == 0) {
             return '<button type="button" class="btn btn-danger btn-block disabled">You must be connected</button>';
         }
@@ -290,7 +293,7 @@ class map
                 $item_home_teleport = new item_home_teleport();
                 $allCharacters = $item_home_teleport->getCharacters();
                 $return .= '<form data-map="' . $myMap->id . '" id="teleportThisCharacter" method="post">';
-                $return .= '<input type="hidden" value="' . $myMap->name . '">';
+                $return .= '<input name="map_id" type="hidden" value="' . $myMap->id . '">';
                 $return .= '<div class="col-xs-6">';
                 $return .= $item_home_teleport->displayAllCharacters($allCharacters, $this->characterSelected);
                 $return .= '</div>';
@@ -313,5 +316,10 @@ class map
             $return .= $this->displayOneMap($map, $type);
         }
         return $return;
+    }
+
+    public function getId()
+    {
+        return $this->id;
     }
 }
