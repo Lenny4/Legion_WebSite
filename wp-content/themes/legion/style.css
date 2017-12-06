@@ -928,3 +928,9 @@ div.helpAddNewItems, div.helpAddNewItems ol, div.helpAddNewItems ol div {
     padding: 0;
     margin: 0;
 }
+
+.map {
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.3);
+    cursor: pointer;
+}

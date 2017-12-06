@@ -34,15 +34,21 @@ class item_set extends parent_item
         $return = '<div class="display_item_set display_item" style="padding-left: 20px;padding-right: 20px">';
         $return .= '<p class="item_id"><span class="item_id">Item_id </span><span class="value"><a target="_blank" href="http://www.wowhead.com/item-set=' . $this->item_set_id . '">' . $this->item_set_id . ' <i class="fa fa-info-circle" aria-hidden="true"></i></a></span></p>';
         $i = 0;
+        $isClose = true;
         foreach ($this->items as $itemID) {
             if ($i % 2 == 0) {
                 $return = $return . "<div class='row'>";
+                $isClose = false;
             }
             $return = $return . previewItem($itemID, '', $this->vote, true, true);
             if ($i % 2 != 0) {
                 $return = $return . "</div>";
+                $isClose = true;
             }
             $i++;
+        }
+        if ($isClose == false) {
+            $return = $return . "</div>";
         }
         if ($display_option == true) {
             $votePoints = $this->getVotePoint();

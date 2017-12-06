@@ -123,7 +123,7 @@ class parent_item
     {
         $realVotePrice = ($this->price * VOTE_POINTS);
         if ($dontShowReduction == true) {
-            return $realVotePrice;
+            return intval($realVotePrice);
         }
         $realVotePrice = $this->getReduction($realVotePrice, "buy", $asInt);
         return $realVotePrice;
@@ -133,7 +133,7 @@ class parent_item
     {
         $realBuyPrice = ($this->price * BUY_POINTS);
         if ($dontShowReduction == true) {
-            return $realBuyPrice;
+            return intval($realBuyPrice);
         }
         $realBuyPrice = $this->getReduction($realBuyPrice, "buy", $asInt);
         return $realBuyPrice;

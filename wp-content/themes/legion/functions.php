@@ -31,6 +31,12 @@ if (!isset($_SESSION["shop"]) OR $_SESSION["shop"] == null) {
     $_SESSION["shop"] = new shop();
 }
 
+if (!isset($_SESSION["map"]) OR $_SESSION["map"] == null) {
+    $_SESSION["map"] = new map();
+    $_SESSION["map"]->url = 'http://wow.zamimg.com/images/wow/maps/enus/zoom/-4.jpg?25550';
+    $_SESSION["map"]->name = 'Cosmic Map';
+}
+
 require_once 'class/wp_bootstrap_navwalker.php';
 
 // Database settings

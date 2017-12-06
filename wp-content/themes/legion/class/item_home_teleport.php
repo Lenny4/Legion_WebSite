@@ -33,39 +33,40 @@ class item_home_teleport extends item_home
         $return = "<div class='col-sm-9 col-xs-12'>";
         $allCharacters = $this->getCharacters();
         $return .= $this->displayAllCharacters($allCharacters);
+        $return .= '<div style="display: inline-block; position: relative" id="display-maps">' . $_SESSION["map"]->display() . '</div>';
         if (isWowAdmin()) {
-            $return .= '<hr/><p>Add map <a href="http://www.wowhead.com/maps">All Maps</a></p><p id="result-add-teleport"></p>
+            $return .= '<hr/><p>Add map <a href="http://www.wowhead.com/maps">All Maps</a></p>
  <form method="post" id="addMapTeleportation">
  <div class="form-group col-sm-6">
     <label for="previous_id">Parent map id</label>
-    <input type="number" min="1" class="form-control" id="previous_id">
+    <input name="previous_id" type="number" min="1" class="form-control" id="previous_id">
   </div>
   <div class="form-group col-sm-6">
     <label for="name">Name (optionnal if cannot tp on it)</label>
-    <input type="text" class="form-control" id="name">
+    <input name="name" type="text" class="form-control" id="name">
   </div>
   <div class="form-group col-sm-6">
     <label for="image">Url of the image of the map</label>
-    <input type="text" class="form-control" id="image">
+    <input name="image" type="text" class="form-control" id="image">
   </div>
   <div class="form-group col-sm-6">
       <label for="city">Is it a city</label>
-      <select class="form-control" id="city">
+      <select name="city" class="form-control" id="city">
         <option selected value="0">No</option>
         <option value="1">Yes</option>
       </select>
   </div> 
   <div class="form-group col-sm-6">
     <label for="min_level">Min level</label>
-    <input type="number" min="1" max="110" class="form-control" id="min_level">
+    <input name="min_level" type="number" min="1" max="110" class="form-control" id="min_level">
   </div>
   <div class="form-group col-sm-6">
     <label for="max_level">Max level</label>
-    <input type="number" min="1" max="110" class="form-control" id="max_level">
+    <input name="max_level" type="number" min="1" max="110" class="form-control" id="max_level">
   </div>
   <div class="form-group col-sm-6">
       <label for="can_tp">Can teleport here</label>
-      <select class="form-control" id="can_tp">
+      <select name="can_tp" class="form-control" id="can_tp">
         <option selected value="0">No</option>
         <option value="1">Yes</option>
       </select>

@@ -850,6 +850,9 @@ if ($_POST["id"] == "deleteMessageHeader") {
 
 if ($_POST["id"] == "showMoreItemHome") {
     $phpClass = $_POST["phpClass"];
+    if ($phpClass == 'item_home_teleport') {
+        $_SESSION["map"]->reloadMap();
+    }
     $item_home = new $phpClass();
     echo $item_home->show();
 }
@@ -1073,10 +1076,10 @@ if ($_POST["id"] == "buyAllCart") {
 //SHOP TELEPORT======================================================
 if ($_POST["id"] == "addMapTeleportation") {
     $newMap = new map();
-//    $newMap->createMapWithForm($_POST);
-//    $newMap->saveMapBdd();
-//    Create $_SESSION["map'] if isn't isset (is a map object) -> $_SESSION["map']=new map()
-//    $_SESSION["map']->reloadAllMap();
-//    call $_SESSION["map']->reloadAllMap(); each time item_home_teleport is call
+    $newMap->createMapWithForm($_POST);//no link beetween map are created
+    $newMap->saveMapBdd();
+    $_SESSION["map"]->reloadMap();
+    echo $_SESSION["map"]->display(12);
 }
+
 //SHOP TELEPORT======================================================

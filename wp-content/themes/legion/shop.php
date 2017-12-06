@@ -546,6 +546,10 @@
             });
     }
 
+    function displayOneMap($id) {
+        alert($id);
+    }
+
     $(document).ready(function () {
         $("a.subItemClasse").click(function (e) {
             $currentPosition = null;
@@ -656,7 +660,7 @@
                     hideAjaxLoaderShop();
                     hideAllHeaderShop();
                     if ($(event.target).attr("id") === "addMapTeleportation") {
-                        $("#result-add-teleport").html(data);
+                        $("#display-maps").html(data);
                     } else {
                         if (data !== 'Error !' && data !== 'No Result !') {
                             $("#shopDisplayItems").html(data);
