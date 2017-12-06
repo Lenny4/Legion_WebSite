@@ -547,7 +547,20 @@
     }
 
     function displayOneMap($id) {
-        alert($id);
+        $("*").addClass("progressWait");
+        hideCategoryIfOnPhone();
+        showAjaxLoaderShop();
+        $.post("/api/shop/shop.php",
+            {
+                id: "showMap",
+                map_id: $id
+            },
+            function (data, status) {
+                $("*").removeClass("progressWait");
+                hideAllHeaderShop();
+                hideAjaxLoaderShop();
+                $("#display-maps").html(data);
+            });
     }
 
     $(document).ready(function () {
