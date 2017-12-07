@@ -368,7 +368,7 @@
         setTimeout(function () {
             sameHeight();
             return false;
-        }, 800);
+        }, 3000);
     }
 
     function showMoreItemGlobal($subClassId, $classId, $lastItemId) {
