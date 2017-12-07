@@ -1083,6 +1083,9 @@ if ($_POST["id"] == "changeCharacterItemHome") {
 //SHOP ITEM HOME======================================================
 
 //SHOP TELEPORT======================================================
+if ($_POST["id"] == "changePriceTeleport") {
+    $GLOBALS["dbh"]->query("UPDATE `item_home` SET `price`=" . $_POST['price'] . " WHERE `phpclasse`='item_home_teleport'");
+}
 if ($_POST["id"] == "addMapTeleportation") {
     $newMap = new map();
     $newMap->createMapWithForm($_POST);//no link beetween map are created

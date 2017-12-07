@@ -32,14 +32,14 @@ class SOAPTeleportation
         if ($characterIsOk == true) {
             $map = $_SESSION["map"]->search($_SESSION["map"], $map_id);
             if ($map->getId() > 0) {
+                $command = 'tele name ' . $character["name"] . ' ' . $map->name;
                 if (($character["level"] < 110 AND $map->isCity == 1) OR ($character["level"] >= $map->minLevel AND $character["level"] <= $map->maxLevel)) {
                     $this->soapConnect();
-                    $command = 'tele name ' . $character["name"] . ' ' . $map->name;
                     $this->soapCommand($command);
                     if (isWowAdmin()) {
-                        $req = 'INSERT INTO `log_sells`(`item_id`, `item_set_id`, `item_home`, `vote_points`, `buy_points`, `date`, `user_id`, `quantity`, `command`, `admin`) VALUES (null,null,null,null,null,NOW(),' . get_current_user_id() . ',1,null,1)';
+                        $req = 'INSERT INTO `log_sells`(`item_id`, `item_set_id`, `item_home`, `vote_points`, `buy_points`, `date`, `user_id`, `quantity`, `command`, `admin`) VALUES (null,null,null,null,null,NOW(),' . get_current_user_id() . ',1,' . json_encode($command) . ',1)';
                     } else {
-                        $req = 'INSERT INTO `log_sells`(`item_id`, `item_set_id`, `item_home`, `vote_points`, `buy_points`, `date`, `user_id`, `quantity`, `command`, `admin`) VALUES (null,null,null,null,null,NOW(),' . get_current_user_id() . ',1,null,0)';
+                        $req = 'INSERT INTO `log_sells`(`item_id`, `item_set_id`, `item_home`, `vote_points`, `buy_points`, `date`, `user_id`, `quantity`, `command`, `admin`) VALUES (null,null,null,null,null,NOW(),' . get_current_user_id() . ',1,' . json_encode($command) . ',0)';
                     }
                     $GLOBALS["dbh"]->query($req);
                 } else {
@@ -49,15 +49,14 @@ class SOAPTeleportation
                         $currentBuyPoints = get_user_meta(get_current_user_id(), 'buy_points');
                         if ($currentBuyPoints >= $priceBuy) {
                             $this->soapConnect();
-                            $command = 'tele name ' . $character["name"] . ' ' . $map->name;
                             $this->soapCommand($command);
                             if (!isWowAdmin()) {
                                 removeBuyPoint(get_current_user_id(), $priceBuy);
                             }
-                            $req = 'INSERT INTO `log_sells`(`item_id`, `item_set_id`, `item_home`, `vote_points`, `buy_points`, `date`, `user_id`, `quantity`, `command`, `admin`) VALUES (null,null,null,null,' . $priceBuy . ',NOW(),' . get_current_user_id() . ',1,null,0)';
+                            $req = 'INSERT INTO `log_sells`(`item_id`, `item_set_id`, `item_home`, `vote_points`, `buy_points`, `date`, `user_id`, `quantity`, `command`, `admin`) VALUES (null,null,null,null,' . $priceBuy . ',NOW(),' . get_current_user_id() . ',1,' . json_encode($command) . ',0)';
                         }
                         if (isWowAdmin()) {
-                            $req = 'INSERT INTO `log_sells`(`item_id`, `item_set_id`, `item_home`, `vote_points`, `buy_points`, `date`, `user_id`, `quantity`, `command`, `admin`) VALUES (null,null,null,null,null,NOW(),' . get_current_user_id() . ',1,null,1)';
+                            $req = 'INSERT INTO `log_sells`(`item_id`, `item_set_id`, `item_home`, `vote_points`, `buy_points`, `date`, `user_id`, `quantity`, `command`, `admin`) VALUES (null,null,null,null,null,NOW(),' . get_current_user_id() . ',1,' . json_encode($command) . ',1)';
                         }
                         $GLOBALS["dbh"]->query($req);
                     } elseif ($currency == "vote") {
@@ -65,15 +64,14 @@ class SOAPTeleportation
                         $currentVotePoints = get_user_meta(get_current_user_id(), 'vote_points');
                         if ($currentVotePoints >= $priceVote) {
                             $this->soapConnect();
-                            $command = 'tele name ' . $character["name"] . ' ' . $map->name;
                             $this->soapCommand($command);
                             if (!isWowAdmin()) {
                                 removeVotePoint(get_current_user_id(), $priceVote);
                             }
-                            $req = 'INSERT INTO `log_sells`(`item_id`, `item_set_id`, `item_home`, `vote_points`, `buy_points`, `date`, `user_id`, `quantity`, `command`, `admin`) VALUES (null,null,null,' . $priceVote . ',null,NOW(),' . get_current_user_id() . ',1,null,0)';
+                            $req = 'INSERT INTO `log_sells`(`item_id`, `item_set_id`, `item_home`, `vote_points`, `buy_points`, `date`, `user_id`, `quantity`, `command`, `admin`) VALUES (null,null,null,' . $priceVote . ',null,NOW(),' . get_current_user_id() . ',1,' . json_encode($command) . ',0)';
                         }
                         if (isWowAdmin()) {
-                            $req = 'INSERT INTO `log_sells`(`item_id`, `item_set_id`, `item_home`, `vote_points`, `buy_points`, `date`, `user_id`, `quantity`, `command`, `admin`) VALUES (null,null,null,null,null,NOW(),' . get_current_user_id() . ',1,null,1)';
+                            $req = 'INSERT INTO `log_sells`(`item_id`, `item_set_id`, `item_home`, `vote_points`, `buy_points`, `date`, `user_id`, `quantity`, `command`, `admin`) VALUES (null,null,null,null,null,NOW(),' . get_current_user_id() . ',1,' . json_encode($command) . ',1)';
                         }
                         $GLOBALS["dbh"]->query($req);
                     } else {

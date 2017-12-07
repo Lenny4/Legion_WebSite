@@ -31,6 +31,23 @@ class item_home_teleport extends item_home
     public function show()
     {
         $return = "<div class='col-sm-9 col-xs-12'>";
+        if (isWowAdmin()) {
+            $req = $GLOBALS["dbh"]->query("SELECT * FROM `item_home` WHERE `phpclasse`='" . get_class($this) . "'");
+            while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+                $currentTeleportPrice = $data["price"];
+            }
+            $return .= '<form id="changePriceTeleport" method="post">
+  <div class="form-group">
+    <label for="price">Current teleportation price</label>
+    <input name="price" type="number" value="' . $currentTeleportPrice . '" class="form-control" id="price">
+  </div>
+  <button type="submit" class="btn btn-default">Change</button>
+</form> ';
+        }
+        $return .= '<div class="alert alert-success alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>' . get_field("message_teleportation", $GLOBALS["shop_page_id"]) . '</strong>
+</div>';
         $return .= '<div style="display: inline-block; position: relative" id="display-maps">' . $_SESSION["map"]->display(null, 'map') . '</div>';
         $return .= '<div style="display: inline-block; width: 100%;" id="display-maps-option">' . $_SESSION["map"]->display(null, 'option') . '</div>';
         if (isWowAdmin()) {

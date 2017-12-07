@@ -76,8 +76,8 @@ class parent_item
 
     public function getCharacters()
     {
+        $characters = array();
         if (get_current_user_id() != 0) {
-            $characters = array();
             $accountId = get_user_meta(get_current_user_id(), 'account_id')[0];
             $req = $GLOBALS["dbh"]->query("SELECT * FROM characters.characters WHERE account=" . $accountId);
             while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
@@ -85,9 +85,8 @@ class parent_item
                 $character["level"] = $data["level"];
                 array_push($characters, $character);
             }
-            return $characters;
         }
-        return array();
+        return $characters;
     }
 
     function getReduction($point, $type, $asInt)

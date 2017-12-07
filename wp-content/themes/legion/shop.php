@@ -722,7 +722,9 @@
                     $dontExecuteHeightShop = false;
                     hideAjaxLoaderShop();
                     hideAllHeaderShop();
-                    if ($(event.target).attr("id") === "addMapTeleportation") {
+                    if ($(event.target).attr("id") === "changePriceTeleport") {
+
+                    } else if ($(event.target).attr("id") === "addMapTeleportation") {
                         $("#display-maps").html(data);
                     } else if ($(event.target).attr("id") === "teleportThisCharacter") {
                         $("#teleportThisCharacter").prepend(data);
