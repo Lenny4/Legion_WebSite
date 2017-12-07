@@ -330,7 +330,7 @@
                             if ($($element3).height() > newHeight) {
                                 newHeight = $($element3).height();
                             }
-                            if ($($element1).height() !== $($element2).height() || $($element1).height() !== $($element).height() || $($element1).height() !== $($element2).height()) {
+                            if ($($element1).height() !== $($element2).height() || $($element1).height() !== $($element3).height() || $($element2).height() !== $($element3).height()) {
                                 $($element1).height(newHeight);
                                 $($element2).height(newHeight);
                                 $($element3).height(newHeight);
