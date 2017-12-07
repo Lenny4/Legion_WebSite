@@ -27,9 +27,4 @@ class item_home_character extends item_home
         return $return;
     }
 
-    public function show()
-    {
-        $allCharacters = $this->getCharacters();
-        var_dump($allCharacters);
-    }
 }

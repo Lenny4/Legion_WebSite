@@ -53,7 +53,9 @@ class item_home extends parent_item
 
     public function show()
     {
-        return "Coming soon !";
+        return '<div class="col-sm-9 col-xs-12 alert alert-success">
+  <strong>Coming soon!</strong>
+</div>';
     }
 
     public function displayAllCharacters($allCharacters, $selectedCharacter = null)

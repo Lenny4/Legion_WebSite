@@ -278,7 +278,7 @@
     }
 
     function loadHomePageShop() {
-        showMoreItemHome("item_home_teleport");
+        showMoreItemHome("item_home_level");
         return;
         $("*").addClass("progressWait");
         hideCategoryIfOnPhone();
