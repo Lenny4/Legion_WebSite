@@ -278,8 +278,6 @@
     }
 
     function loadHomePageShop() {
-        showMoreItemHome("item_home_level");
-        return;
         $("*").addClass("progressWait");
         hideCategoryIfOnPhone();
         showAjaxLoaderShop();
@@ -593,16 +591,37 @@
             });
     }
 
+    function changeLevelItemHomeLevel($this) {
+        var $value = $($this).val();
+        var $name = $("#select_character_item_home").val();
+        $.post("/api/shop/shop.php",
+            {
+                id: 'getPriceCharacterLevel',
+                value: $value,
+                name: $name
+            },
+            function (data, status) {
+                $("#action_item_home_level").html(data);
+            });
+    }
+
     $(document).ready(function () {
         $('body').on('change', '#select_character_item_home', function (event) {
             var $select = event.target;
             var $phpClass = $($select).attr('data-phpclass');
             var characterName = $($select).val();
-            var mapId = $select;
-            while (!$(mapId).attr('data-map') > 0) {
-                mapId = $(mapId).parent();
+            if ($phpClass === 'item_home_teleport') {
+                var mapId = $select;
+                while (!$(mapId).attr('data-map') > 0) {
+                    mapId = $(mapId).parent();
+                }
+                mapId = $(mapId).attr('data-map');
             }
-            mapId = $(mapId).attr('data-map');
+            if ($phpClass === 'item_home_level') {
+                $("*").addClass("progressWait");
+                hideCategoryIfOnPhone();
+                showAjaxLoaderShop();
+            }
             $.post("/api/shop/shop.php",
                 {
                     id: 'changeCharacterItemHome',
@@ -610,10 +629,17 @@
                     value: characterName
                 },
                 function (data, status) {
-                    displayOneMap(mapId);
+                    if ($phpClass === 'item_home_teleport') {
+                        displayOneMap(mapId);
+                    }
+                    if ($phpClass === 'item_home_level') {
+                        $("*").removeClass("progressWait");
+                        hideAllHeaderShop();
+                        hideAjaxLoaderShop();
+                        $("#changeLevelCharacterFormContent").html(data);
+                    }
                 });
         });
-
         $("a.subItemClasse").click(function (e) {
             $currentPosition = null;
             $element1 = null;

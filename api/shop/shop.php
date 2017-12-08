@@ -1079,6 +1079,21 @@ if ($_POST["id"] == "changeCharacterItemHome") {
     if ($phpClass == 'item_home_teleport') {
         $_SESSION["map"]->characterSelected = $_POST["value"];
     }
+    if ($phpClass == 'item_home_level') {
+        echo '
+<div class="form-group">
+     <div class="form-group">
+      <label for="level_item_home_level">Level:</label>
+      <select name="level" onchange="changeLevelItemHomeLevel(this)" class="form-control" id="level_item_home_level">';
+        for ($i = 1; $i <= 110; $i++) {
+            echo '<option value="' . $i . '">' . $i . '</option>';
+        }
+        echo '</select>
+    </div> 
+  </div>
+  <div id="action_item_home_level"></div>
+';
+    }
 }
 //SHOP ITEM HOME======================================================
 
@@ -1112,3 +1127,84 @@ if ($_POST["id"] == "teleportThisCharacter") {
     }
 }
 //SHOP TELEPORT======================================================
+
+//SHOP LEVEL======================================================
+if ($_POST["id"] == "getPriceCharacterLevel") {
+    $character = $_POST["name"];
+    $level = 0;
+    $wantLevel = intval($_POST["value"]);
+    $item_home = new item_home();
+    $characters = $item_home->getCharacters();
+    foreach ($characters as $my_character) {
+        if ($my_character["name"] == $character) {
+            $level = $my_character["level"];
+        }
+    }
+    if ($level == 0) {
+        echo '<div class="alert alert-warning">
+  <strong>Error ! Please reload the page</strong>
+</div>';
+        return;
+    }
+    if ($wantLevel < 1 OR $wantLevel > 110) {
+        echo '<div class="alert alert-warning">
+  <strong>You must select a level between 1 and 110</strong>
+</div>';
+        return;
+    }
+    if ($wantLevel <= $level) {
+        echo '<div class="alert alert-warning">
+  <strong>You must select a level higher than the level of you character</strong>
+</div>';
+        return;
+    }
+    $prices = getPriceCharacterLevelUp($level, $wantLevel);
+    ?>
+    <div class="radio col-sm-2 col-sm-offset-2 col-xs-6 text-center" style="margin-top: 0px">
+        <?= wp_get_attachment_image(168, 'thumbnail', true, ["class" => "img-responsive"]); ?>
+        <label>
+            <input checked="checked" value="buy" name="optradio_item_home_level" type="radio">
+            <span><?= $prices["buy"]; ?></span>
+        </label>
+    </div>
+    <div class="radio col-sm-2 col-sm-offset-4 col-xs-6 text-center" style="margin-top: 0px">
+        <?= wp_get_attachment_image(169, 'thumbnail', true, ["class" => "img-responsive"]); ?>
+        <label>
+            <input value="buy" name="optradio_item_home_level" type="radio">
+            <span><?= $prices["vote"]; ?></span>
+        </label>
+    </div>
+    <button type="submit" class="btn btn-primary btn-block">Level up !</button>
+    <?php
+}
+
+if ($_POST["id"] == "changeLevelCharacterForm") {
+    $character = $_POST["character_selected"];
+    $level = 0;
+    $wantLevel = intval($_POST["level"]);
+    $currency = $_POST["optradio_item_home_level"];
+    $item_home = new item_home();
+    $characters = $item_home->getCharacters();
+    foreach ($characters as $my_character) {
+        if ($my_character["name"] == $character) {
+            $level = $my_character["level"];
+        }
+    }
+    if (($level == 0) OR ($wantLevel < 1 OR $wantLevel > 110) OR ($wantLevel <= $level)) {
+        echo '<div class="col-sm-9 col-xs-12"><div class="alert alert-warning">
+  <strong>Error ! Please reload the page</strong>
+</div></div>';
+        return;
+    }
+    $prices = getPriceCharacterLevelUp($level, $wantLevel);
+    $soapLevelUp = new SOAPLevelUp($character, $wantLevel, $prices, $currency);
+    if ($soapLevelUp->message == '') {
+        echo '<div class="col-sm-9 col-xs-12"><div style="display: inline-block;width: 100%;" class="alert alert-success alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>' . $_POST["character_selected"] . ' has been level up !</strong>
+</div></div>';
+    } else {
+        echo '<div class="col-sm-9 col-xs-12">' . $soapLevelUp->message . '</div>';
+    }
+}
+//SHOP LEVEL======================================================

@@ -13,9 +13,9 @@ class SOAPSendItem
         $this->message = "";
         $this->soapConnect();
         if ($type == 'item') {
-            $command = 'send items ' . $character . ' "Shop" "Shop" ' . $item . ':' . $quantity;
-            $this->soapCommand($command);
             if ($this->online == true) {//command has been execute
+                $command = 'send items ' . $character . ' "Shop" "Shop" ' . $item . ':' . $quantity;
+                $this->soapCommand($command);
                 $req = "";
                 if (!isWowAdmin()) {
                     if ($point_vote == null) {

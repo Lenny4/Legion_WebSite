@@ -823,4 +823,29 @@ function removeBuyPoint($id, $amount)
     update_user_meta($id, 'buy_points', $newBuyPoint);
 }
 
+function getPriceCharacterLevelUp($characterLevel, $newLevel)
+{
+    $price_for_level_max_level = 20;
+    $max_level = 110;
+    $arrayPrice = array();
+    $finalPrice = 0;
+    for ($i = 1; $i <= 110; $i++) {
+        $arrayPrice[$i] = ($i * $i) / ($max_level * $max_level / $price_for_level_max_level);
+    }
+    foreach ($arrayPrice as $key => $price) {
+        if ($key <= $characterLevel OR $key > $newLevel) {
+            unset($arrayPrice[$key]);
+        } else {
+            $finalPrice += $arrayPrice[$key];
+        }
+    }
+    $finalPrice = intval($finalPrice);
+    if ($finalPrice == 0) {
+        $finalPrice = 1;
+    }
+    $return["vote"] = intval($finalPrice * VOTE_POINTS);
+    $return["buy"] = intval($finalPrice * BUY_POINTS);
+    return $return;
+}
+
 ?>

@@ -26,4 +26,11 @@ class item_home_level extends item_home
         $return .= '</div></li></a>';
         return $return;
     }
+
+    public function show()
+    {
+        echo "<div class='col-sm-9 col-xs-12'>";
+        echo '<form id="changeLevelCharacterForm">' . $this->displayAllCharacters($this->getCharacters()) . '<div id="changeLevelCharacterFormContent"></div></form>';
+        echo "</div>";
+    }
 }
