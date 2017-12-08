@@ -58,9 +58,19 @@ class item_home extends parent_item
 </div>';
     }
 
-    public function displayAllCharacters($allCharacters, $selectedCharacter = null)
+    public function displayAllCharacters($allCharacters, $selectedCharacter = null, $notThisLevel = null)
     {
         $return = "";
+        $notThisLevel = intval($notThisLevel);
+        $characterRemoved = false;
+        if (!empty($allCharacters) AND $notThisLevel != null) {
+            foreach ($allCharacters as $key => $character) {
+                if ($character["level"] == $notThisLevel) {
+                    unset($allCharacters[$key]);
+                    $characterRemoved = true;
+                }
+            }
+        }
         if (!empty($allCharacters)) {
             $return .= ' <div class="form-group">
   <label for="select_character_' . get_class($this) . '">Select a character:</label>
@@ -79,9 +89,15 @@ class item_home extends parent_item
             }
             $return .= '</select></div>';
         } else {
-            $return .= '<div class="alert alert-danger">
-  <strong>You must create at least one character to use the teleport</strong>
+            if ($characterRemoved == true) {
+                $return .= '<div class="alert alert-danger">
+  <strong>You must create at least one character under lvl ' . $notThisLevel . '</strong>
 </div>';
+            } else {
+                $return .= '<div class="alert alert-danger">
+  <strong>You must create at least one character</strong>
+</div>';
+            }
         }
         return $return;
     }

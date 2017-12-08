@@ -848,4 +848,25 @@ function getPriceCharacterLevelUp($characterLevel, $newLevel)
     return $return;
 }
 
+function getCharacterClassNameWithId($id)
+{
+    $id = intval($id);
+    if ($id < 1 OR $id > 12) {
+        return null;
+    }
+    $array[1] = "Warrior";
+    $array[2] = "Paladin";
+    $array[3] = "Hunter";
+    $array[4] = "Rogue";
+    $array[5] = "Priest";
+    $array[6] = "Death Knight";
+    $array[7] = "Shaman";
+    $array[8] = "Mage";
+    $array[9] = "Warlock";
+    $array[10] = "Monk";
+    $array[11] = "Druid";
+    $array[12] = "Demon Hunter";
+    return $array[$id];
+}
+
 ?>

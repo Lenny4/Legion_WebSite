@@ -83,13 +83,14 @@ class parent_item
             while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
                 $character["name"] = $data["name"];
                 $character["level"] = $data["level"];
+                $character["class"] = getCharacterClassNameWithId($data["class"]);
                 array_push($characters, $character);
             }
         }
         return $characters;
     }
 
-    function getReduction($point, $type, $asInt)
+    function getReduction($point, $type, $asInt, $showAsFree = false)
     {
         if ($this->promotion > 100 OR $this->promotion < 0) {
             $this->promotion = 0;
@@ -105,36 +106,44 @@ class parent_item
             $PriceReduction = $realPrice - ($realPrice * $this->promotion / 100);
         }
         if (is_a($this, 'item_set')) {
-            $PriceReduction = $PriceReduction * 0.8;
+            $PriceReduction = $PriceReduction * 0.7;
         }
         if ($asInt == true) {
             return intval($PriceReduction);
         } else {
             if ($PriceReduction != $realPrice) {
-                return '<del>' . formatNumber(intval($realPrice)) . '</del> ' . formatNumber(intval($PriceReduction));
+                if ($showAsFree == true) {
+                    return '<del>' . formatNumber(intval($realPrice)) . '</del> ' . formatNumber(0);
+                } else {
+                    return '<del>' . formatNumber(intval($realPrice)) . '</del> ' . formatNumber(intval($PriceReduction));
+                }
             } else {
-                return formatNumber(intval($realPrice));
+                if ($showAsFree == true) {
+                    return formatNumber(0);
+                } else {
+                    return formatNumber(intval($realPrice));
+                }
             }
         }
     }
 
-    public function getVotePoint($dontShowReduction = false, $asInt = false)
+    public function getVotePoint($dontShowReduction = false, $asInt = false, $showAsFree = false)
     {
         $realVotePrice = ($this->price * VOTE_POINTS);
         if ($dontShowReduction == true) {
             return intval($realVotePrice);
         }
-        $realVotePrice = $this->getReduction($realVotePrice, "buy", $asInt);
+        $realVotePrice = $this->getReduction($realVotePrice, "buy", $asInt, $showAsFree);
         return $realVotePrice;
     }
 
-    public function getBuyPoint($dontShowReduction = false, $asInt = false)
+    public function getBuyPoint($dontShowReduction = false, $asInt = false, $showAsFree = false)
     {
         $realBuyPrice = ($this->price * BUY_POINTS);
         if ($dontShowReduction == true) {
             return intval($realBuyPrice);
         }
-        $realBuyPrice = $this->getReduction($realBuyPrice, "buy", $asInt);
+        $realBuyPrice = $this->getReduction($realBuyPrice, "buy", $asInt, $showAsFree);
         return $realBuyPrice;
     }
 }

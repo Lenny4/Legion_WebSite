@@ -278,6 +278,8 @@
     }
 
     function loadHomePageShop() {
+        showMoreItemHome('item_home_character');
+        return;
         $("*").addClass("progressWait");
         hideCategoryIfOnPhone();
         showAjaxLoaderShop();
@@ -637,6 +639,12 @@
                         hideAllHeaderShop();
                         hideAjaxLoaderShop();
                         $("#changeLevelCharacterFormContent").html(data);
+                    }
+                    if ($phpClass === 'item_home_character') {
+                        $("*").removeClass("progressWait");
+                        hideAllHeaderShop();
+                        hideAjaxLoaderShop();
+                        $("#formContentCharacter").html(data);
                     }
                 });
         });

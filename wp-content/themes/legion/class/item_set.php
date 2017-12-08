@@ -68,7 +68,7 @@ class item_set extends parent_item
             }
             $return = $return . "<div style='display: inline-block;float: left;margin-left:15px; position: relative; width:90px'>";
             $return = $return . wp_get_attachment_image(222, 'thumbnail', true, array('class' => 'img-responsive'));
-            $return = $return . "<span style='top: inherit;right: inherit;transform: inherit;left: 25px;bottom: 20px;' class='promo'>-20%</span>";
+            $return = $return . "<span style='top: inherit;right: inherit;transform: inherit;left: 25px;bottom: 20px;' class='promo'>-30%</span>";
             $return = $return . "</div>";
             $return = $return . "</div>";
         }
@@ -96,20 +96,29 @@ class item_set extends parent_item
         return $return;
     }
 
-    function smallDisplay($showBuy = false)
+    function smallDisplay($showBuy = false, $directBuy = false, $selectThisDirectBuy = false, $requiredLevel = null)
     {
         $return = '';
         $allInfos = $this->getAllItemInfoOfTheSet($this->items);
-        if ($allInfos == null) {
-
-        } elseif ($allInfos == false) {
+        $canDisplayThisItem = true;
+        foreach ($allInfos["requiredLevel"] as $level) {
+            if ($level != $requiredLevel) {
+                $canDisplayThisItem = false;
+                break;
+            }
+        }
+        if ($allInfos == null OR $allInfos == false OR $canDisplayThisItem == false) {
 
         } else {
             $dataShow["value"] = $this->item_set_id;
             $dataShow["id"] = "previewItemSet";
             $json = json_encode($dataShow);
             $globalItemLevel = intval(array_sum($allInfos["itemLevel"]) / sizeof($allInfos["itemLevel"]));
-            $return = $return . "<a class='pinterest' data-show='" . $json . "' onclick='showMoreShop(this)'><li class='list-group-item col-sm-4 col-xs-12'><div class='display_item display_item_small'>";
+            if ($directBuy == true) {
+                $return = $return . "<div class='col-xs-12 noPadding' style='margin-bottom: 20px;'><a class='pinterest' data-show='" . $json . "' onclick='showMoreShop(this)'><li class='list-group-item col-sm-11 col-xs-12 noPadding'><div class='display_item display_item_small radius-right-no'>";
+            } else {
+                $return = $return . "<a class='pinterest' data-show='" . $json . "' onclick='showMoreShop(this)'><li class='list-group-item col-sm-4 col-xs-12'><div class='display_item display_item_small'>";
+            }
             if ($this->promotion > 0 AND $this->promotion <= 100 AND $this->time_promotion > time()) {
                 $return = $return . wp_get_attachment_image(209, 'thumbnail', true, array('class' => 'img-responsive promo'));
                 $return = $return . "<span class='promo'>-" . $this->promotion . "%</span>";
@@ -119,8 +128,13 @@ class item_set extends parent_item
             }
             $return = $return . '<p class="name"><span class="name">Name </span><span class="value">"' . $this->name . '"</span></p>';
             $return = $return . '<p class="itemLevel"><span class="itemLevel">Average Item Level </span><span class="value">' . $globalItemLevel . '</span></p>';
-            $votePoints = $this->getVotePoint();
-            $buyPoints = $this->getBuyPoint();
+            if ($directBuy == true) {
+                $votePoints = $this->getVotePoint(false, false, true);
+                $buyPoints = $this->getBuyPoint(false, false, true);
+            } else {
+                $votePoints = $this->getVotePoint();
+                $buyPoints = $this->getBuyPoint();
+            }
             $return = $return . '<div class="display_price"><p class="price_buy_points"><span class="price_buy_points">' . ucfirst('price_buy_points') . ' </span><span class="value">' . $buyPoints . wp_get_attachment_image(168, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p>';
             if ($this->vote == 1) {
                 $return = $return . '<p style="margin-right: 10px;" class="price_vote_points"><span class="price_vote_points">' . ucfirst('price_vote_points') . ' </span><span class="value">' . $votePoints . wp_get_attachment_image(169, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p></div>';
@@ -177,7 +191,26 @@ class item_set extends parent_item
                     $return .= '</div>';
                 }
             }
-            $return = $return . '</li ></a > ';
+            $return = $return . '</li></a>';
+            if ($directBuy == true) {
+                $return = $return . '<div class="col-sm-1 col-xs-12 noPadding displayRadioDirectBuy">';
+                if ($selectThisDirectBuy == true) {
+                    $return .= '<div class="col-xs-12 noPadding">
+			<label class="btn btn-success active">
+				<input class="hidden" type="radio" name="item_set_for_item_home_character" value="' . $this->item_set_id . '" autocomplete="off" checked>
+				<span class="glyphicon glyphicon-ok"></span>
+			</label>
+			</div>';
+                } else {
+                    $return .= '<div class="col-xs-12 noPadding">
+			<label class="btn btn-success">
+				<input class="hidden" type="radio" name="item_set_for_item_home_character" value="' . $this->item_set_id . '" autocomplete="off">
+				<span class="glyphicon glyphicon-ok"></span>
+			</label>
+			</div>';
+                }
+                $return .= '</div></div>';
+            }
         }
         return $return;
     }
@@ -202,6 +235,7 @@ class item_set extends parent_item
                 $i++;
                 $result['itemLevel'][$i] = $data["itemLevel"];
                 $result['icon'][$i] = $data["icon"];
+                $result['requiredLevel'][$i] = $data["requiredLevel"];
                 $i++;
             }
             return $result;

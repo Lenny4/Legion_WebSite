@@ -295,8 +295,9 @@ function viewItems($subClassId, $classId, $lastItemId = 0)
     }
 }
 
-function viewItemSets($searchClass)
+function viewItemSets($searchClass, $directBuy = false)
 {
+    $checkThisItemSet = true;
     $result = getItemSetByClass($searchClass);
     if ($result == null AND sizeof($result) > 0) {
         echo 'Error !';
@@ -304,7 +305,10 @@ function viewItemSets($searchClass)
         echo 'No Result !';
     } else {
         foreach ($result as $itemSet) {
-            echo($itemSet->smallDisplay());
+            echo($itemSet->smallDisplay(false, $directBuy, $checkThisItemSet, 110));
+            if ($checkThisItemSet == true) {
+                $checkThisItemSet = false;
+            }
         }
     }
 }
@@ -1093,6 +1097,17 @@ if ($_POST["id"] == "changeCharacterItemHome") {
   </div>
   <div id="action_item_home_level"></div>
 ';
+    }
+    if ($phpClass == 'item_home_character') {
+        $character = $_POST["value"];
+        $all_characters = new item_home();
+        $all_characters = $all_characters->getCharacters();
+        foreach ($all_characters as $characters) {
+            if ($characters["name"] == $character) {
+                $character = $characters;
+            }
+        }
+        viewItemSets($character["class"], true);
     }
 }
 //SHOP ITEM HOME======================================================

@@ -27,4 +27,12 @@ class item_home_character extends item_home
         return $return;
     }
 
+    function show()
+    {
+        echo "<div class='col-sm-9 col-xs-12'><form method='post'>";
+        $all_characters = $this->getCharacters();
+        echo $this->displayAllCharacters($all_characters, null, 110);
+        echo "<div id='formContentCharacter' data-toggle=\"buttons\"></div>";
+        echo "</form></div>";
+    }
 }

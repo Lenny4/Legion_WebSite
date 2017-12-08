@@ -938,3 +938,41 @@ div.helpAddNewItems, div.helpAddNewItems ol, div.helpAddNewItems ol div {
 .checkbox + .checkbox, .radio + .radio {
     margin-top: 10px;
 }
+
+.btn span.glyphicon {
+    opacity: 0;
+}
+
+.btn.active span.glyphicon {
+    opacity: 1;
+}
+
+.displayRadioDirectBuy label.btn {
+    height: 128px;
+    border-radius: 0px 5px 5px 0px;
+}
+
+.displayRadioDirectBuy label.btn span {
+    position: relative;
+    top: 40%;
+}
+
+div.radius-right-no {
+    border-radius: 5px 0px 0px 5px;
+}
+
+@media (max-width: 768px) {
+    .displayRadioDirectBuy label.btn {
+        width: 100%;
+        top: 0%;
+        border-radius: 0px 0px 5px 5px;
+    }
+
+    .displayRadioDirectBuy label.btn {
+        height: inherit;
+    }
+
+    div.radius-right-no {
+        border-radius: 5px 5px 0px 0px;
+    }
+}
