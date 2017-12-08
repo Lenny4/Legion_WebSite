@@ -1102,12 +1102,24 @@ if ($_POST["id"] == "changeCharacterItemHome") {
         $character = $_POST["value"];
         $all_characters = new item_home();
         $all_characters = $all_characters->getCharacters();
+        echo '<label>Select a item set:</label>';
         foreach ($all_characters as $characters) {
             if ($characters["name"] == $character) {
                 $character = $characters;
             }
         }
         viewItemSets($character["class"], true);
+        $item_home_character = new item_home_character();
+        $vote_points = $item_home_character->getVotePoint();
+        $buy_points = $item_home_character->getBuyPoint();
+        echo '<div class="col-xs-6 noMargin text-center radio"><div style="display: inline-block">
+  <label style="float: left"><input type="radio" value="buy" name="optionBuyCharacter">' . $buy_points . '</label>
+  ' . wp_get_attachment_image(168, 'thumbnail', true, ["class" => "img-responsive center-block", "style" => "width:20px;float: left;margin-left: 10px;"]) . '
+</div></div>
+<div class="col-xs-6 noMargin text-center radio"><div style="display: inline-block">
+  <label style="float: left"><input checked="checked" type="radio" value="vote" name="optionBuyCharacter">' . $vote_points . '</label>
+  ' . wp_get_attachment_image(169, 'thumbnail', true, ["class" => "img-responsive center-block", "style" => "width:20px;float: left;margin-left: 10px;"]) . '
+</div></div>';
     }
 }
 //SHOP ITEM HOME======================================================
@@ -1116,6 +1128,7 @@ if ($_POST["id"] == "changeCharacterItemHome") {
 if ($_POST["id"] == "changePriceTeleport") {
     $GLOBALS["dbh"]->query("UPDATE `item_home` SET `price`=" . $_POST['price'] . " WHERE `phpclasse`='item_home_teleport'");
 }
+
 if ($_POST["id"] == "addMapTeleportation") {
     $newMap = new map();
     $newMap->createMapWithForm($_POST);//no link beetween map are created
@@ -1123,9 +1136,11 @@ if ($_POST["id"] == "addMapTeleportation") {
     $_SESSION["map"]->reloadMap();
     echo $_SESSION["map"]->display();
 }
+
 if ($_POST["id"] == "showMap") {
     echo $_SESSION["map"]->display($_POST["map_id"], $_POST["type"]);
 }
+
 if ($_POST["id"] == "teleportThisCharacter") {
     if (isset($_POST["optionBuyTeleport"])) {
         $soapTeleporation = new SOAPTeleportation($_POST["map_id"], $_POST["character_selected"], $_POST["optionBuyTeleport"]);
@@ -1223,3 +1238,17 @@ if ($_POST["id"] == "changeLevelCharacterForm") {
     }
 }
 //SHOP LEVEL======================================================
+
+//SHOP CHARACTER 110======================================================
+if ($_POST["id"] == "buy_character") {
+    $soapBuyCharacter = new SOAPCharacter($_POST["character_selected"], $_POST["item_set_for_item_home_character"], $_POST["optionBuyCharacter"]);
+    if ($soapBuyCharacter->message == '') {
+        echo '<div class="col-sm-9 col-xs-12"><div style="display: inline-block;width: 100%;" class="alert alert-success alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>' . $_POST["character_selected"] . ' has been level up and get the item set !</strong>
+</div></div>';
+    } else {
+        echo '<div class="col-sm-9 col-xs-12">' . $soapBuyCharacter->message . '</div>';
+    }
+}
+//SHOP CHARACTER 110======================================================

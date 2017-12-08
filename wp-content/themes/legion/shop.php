@@ -278,8 +278,6 @@
     }
 
     function loadHomePageShop() {
-        showMoreItemHome('item_home_character');
-        return;
         $("*").addClass("progressWait");
         hideCategoryIfOnPhone();
         showAjaxLoaderShop();
@@ -645,6 +643,7 @@
                         hideAllHeaderShop();
                         hideAjaxLoaderShop();
                         $("#formContentCharacter").html(data);
+                        $('#buy_character button.btn-block').show();
                     }
                 });
         });
@@ -762,6 +761,10 @@
                         $("#display-maps").html(data);
                     } else if ($(event.target).attr("id") === "teleportThisCharacter") {
                         $("#teleportThisCharacter").prepend(data);
+                        hideAjaxLoaderShop();
+                        hideAllHeaderShop();
+                    } else if ($(event.target).attr("id") === "buy_character") {
+                        $("#resultBuyCharacter").html(data);
                         hideAjaxLoaderShop();
                         hideAllHeaderShop();
                     } else {

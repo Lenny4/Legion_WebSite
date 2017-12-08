@@ -28,6 +28,16 @@ class item_home extends parent_item
     public $image = null;
     public $rank = 0;
 
+    function __construct()
+    {
+        if (isset($GLOBALS["dbh"])) {
+            $req = $GLOBALS["dbh"]->query("SELECT * FROM `item_home` WHERE `phpclasse`='" . get_class($this) . "'");
+            while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+                $this->price = $data["price"];
+            }
+        }
+    }
+
     public function display()
     {
         $return = "";

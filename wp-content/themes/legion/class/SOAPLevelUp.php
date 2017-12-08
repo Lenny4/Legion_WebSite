@@ -20,21 +20,40 @@ class SOAPLevelUp
         }
         if ($this->online == true) {
             $command = 'character level ' . $character . ' ' . $level;
-            $this->soapCommand($command);
             $req = "";
             if ($currency == "buy") {
                 if (isWowAdmin()) {
+                    $this->soapCommand($command);
                     $req = 'INSERT INTO `log_sells`(`item_id`, `item_set_id`, `item_home`, `vote_points`, `buy_points`, `date`, `user_id`, `quantity`, `command`, `admin`) VALUES (null,null,\'item_home_level\',null,null,NOW(),' . get_current_user_id() . ',1,' . json_encode($command) . ',1)';
                 } else {
-                    removeBuyPoint(get_current_user_id(), $price["buy"]);
-                    $req = 'INSERT INTO `log_sells`(`item_id`, `item_set_id`, `item_home`, `vote_points`, `buy_points`, `date`, `user_id`, `quantity`, `command`, `admin`) VALUES (null,null,\'item_home_level\',null,' . $price["buy"] . ',NOW(),' . get_current_user_id() . ',1,' . json_encode($command) . ',0)';
+                    $currentBuyPoints = get_user_meta(get_current_user_id(), 'buy_points');
+                    if ($currentBuyPoints >= $price["buy"]) {
+                        $this->soapCommand($command);
+                        removeBuyPoint(get_current_user_id(), $price["buy"]);
+                        $req = 'INSERT INTO `log_sells`(`item_id`, `item_set_id`, `item_home`, `vote_points`, `buy_points`, `date`, `user_id`, `quantity`, `command`, `admin`) VALUES (null,null,\'item_home_level\',null,' . $price["buy"] . ',NOW(),' . get_current_user_id() . ',1,' . json_encode($command) . ',0)';
+                    } else {
+                        $this->message = '<div style="display: inline-block;width: 100%;" class="alert alert-danger alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>You don\'t have enought points</strong>
+</div>';
+                    }
                 }
             } elseif ($currency == "vote") {
                 if (isWowAdmin()) {
+                    $this->soapCommand($command);
                     $req = 'INSERT INTO `log_sells`(`item_id`, `item_set_id`, `item_home`, `vote_points`, `buy_points`, `date`, `user_id`, `quantity`, `command`, `admin`) VALUES (null,null,\'item_home_level\',null,null,NOW(),' . get_current_user_id() . ',1,' . json_encode($command) . ',1)';
                 } else {
-                    removeVotePoint(get_current_user_id(), $price["vote"]);
-                    $req = 'INSERT INTO `log_sells`(`item_id`, `item_set_id`, `item_home`, `vote_points`, `buy_points`, `date`, `user_id`, `quantity`, `command`, `admin`) VALUES (null,null,\'item_home_level\',' . $price["vote"] . ',null,NOW(),' . get_current_user_id() . ',1,' . json_encode($command) . ',0)';
+                    $currentVotePoints = get_user_meta(get_current_user_id(), 'vote_points');
+                    if ($currentVotePoints >= $price["vote"]) {
+                        $this->soapCommand($command);
+                        removeVotePoint(get_current_user_id(), $price["vote"]);
+                        $req = 'INSERT INTO `log_sells`(`item_id`, `item_set_id`, `item_home`, `vote_points`, `buy_points`, `date`, `user_id`, `quantity`, `command`, `admin`) VALUES (null,null,\'item_home_level\',' . $price["vote"] . ',null,NOW(),' . get_current_user_id() . ',1,' . json_encode($command) . ',0)';
+                    } else {
+                        $this->message = '<div style="display: inline-block;width: 100%;" class="alert alert-danger alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>You don\'t have enought points</strong>
+</div>';
+                    }
                 }
             } else {
                 $this->message = '<div style="display: inline-block;width: 100%;" class="alert alert-danger alert-dismissable">

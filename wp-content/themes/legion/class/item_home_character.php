@@ -29,10 +29,11 @@ class item_home_character extends item_home
 
     function show()
     {
-        echo "<div class='col-sm-9 col-xs-12'><form method='post'>";
+        echo "<div class='col-sm-9 col-xs-12'><form id='buy_character' method='post'>";
         $all_characters = $this->getCharacters();
         echo $this->displayAllCharacters($all_characters, null, 110);
         echo "<div id='formContentCharacter' data-toggle=\"buttons\"></div>";
-        echo "</form></div>";
+        echo "<button style='display: none' type=\"submit\" class=\"btn btn-primary btn-block\">Buy !</button></form>
+<div id='resultBuyCharacter'></div></div>";
     }
 }

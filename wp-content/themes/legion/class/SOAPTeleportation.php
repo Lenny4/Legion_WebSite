@@ -29,12 +29,12 @@ class SOAPTeleportation
                 $character = $thisCharacter;
             }
         }
-        if ($characterIsOk == true) {
+        $this->soapConnect();
+        if ($characterIsOk == true AND $this->online == true) {
             $map = $_SESSION["map"]->search($_SESSION["map"], $map_id);
             if ($map->getId() > 0) {
                 $command = 'tele name ' . $character["name"] . ' ' . $map->name;
                 if (($character["level"] < 110 AND $map->isCity == 1) OR ($character["level"] >= $map->minLevel AND $character["level"] <= $map->maxLevel)) {
-                    $this->soapConnect();
                     $this->soapCommand($command);
                     if (isWowAdmin()) {
                         $req = 'INSERT INTO `log_sells`(`item_id`, `item_set_id`, `item_home`, `vote_points`, `buy_points`, `date`, `user_id`, `quantity`, `command`, `admin`) VALUES (null,null,\'item_home_teleport\',null,null,NOW(),' . get_current_user_id() . ',1,' . json_encode($command) . ',1)';
@@ -48,30 +48,36 @@ class SOAPTeleportation
                         $priceBuy = $map->getPrice("buy");
                         $currentBuyPoints = get_user_meta(get_current_user_id(), 'buy_points');
                         if ($currentBuyPoints >= $priceBuy) {
-                            $this->soapConnect();
                             $this->soapCommand($command);
                             if (!isWowAdmin()) {
                                 removeBuyPoint(get_current_user_id(), $priceBuy);
                             }
                             $req = 'INSERT INTO `log_sells`(`item_id`, `item_set_id`, `item_home`, `vote_points`, `buy_points`, `date`, `user_id`, `quantity`, `command`, `admin`) VALUES (null,null,\'item_home_teleport\',null,' . $priceBuy . ',NOW(),' . get_current_user_id() . ',1,' . json_encode($command) . ',0)';
-                        }
-                        if (isWowAdmin()) {
+                        } elseif (isWowAdmin()) {
                             $req = 'INSERT INTO `log_sells`(`item_id`, `item_set_id`, `item_home`, `vote_points`, `buy_points`, `date`, `user_id`, `quantity`, `command`, `admin`) VALUES (null,null,\'item_home_teleport\',null,null,NOW(),' . get_current_user_id() . ',1,' . json_encode($command) . ',1)';
+                        } else {
+                            $this->message = '<div style="display: inline-block;width: 100%;" class="alert alert-danger alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>You don\'t have enought points</strong>
+</div>';
                         }
                         $GLOBALS["dbh"]->query($req);
                     } elseif ($currency == "vote") {
                         $priceVote = $map->getPrice("vote");
                         $currentVotePoints = get_user_meta(get_current_user_id(), 'vote_points');
                         if ($currentVotePoints >= $priceVote) {
-                            $this->soapConnect();
                             $this->soapCommand($command);
                             if (!isWowAdmin()) {
                                 removeVotePoint(get_current_user_id(), $priceVote);
                             }
                             $req = 'INSERT INTO `log_sells`(`item_id`, `item_set_id`, `item_home`, `vote_points`, `buy_points`, `date`, `user_id`, `quantity`, `command`, `admin`) VALUES (null,null,\'item_home_teleport\',' . $priceVote . ',null,NOW(),' . get_current_user_id() . ',1,' . json_encode($command) . ',0)';
-                        }
-                        if (isWowAdmin()) {
+                        } elseif (isWowAdmin()) {
                             $req = 'INSERT INTO `log_sells`(`item_id`, `item_set_id`, `item_home`, `vote_points`, `buy_points`, `date`, `user_id`, `quantity`, `command`, `admin`) VALUES (null,null,\'item_home_teleport\',null,null,NOW(),' . get_current_user_id() . ',1,' . json_encode($command) . ',1)';
+                        } else {
+                            $this->message = '<div style="display: inline-block;width: 100%;" class="alert alert-danger alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>You don\'t have enought points</strong>
+</div>';
                         }
                         $GLOBALS["dbh"]->query($req);
                     } else {
@@ -90,7 +96,7 @@ class SOAPTeleportation
         } else {
             $this->message = '<div style="display: inline-block;width: 100%;" class="alert alert-danger alert-dismissable">
   <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
-  <strong>Error of character please reload the page</strong>
+  <strong>Error ! Please reload the page</strong>
 </div>';
         }
     }
