@@ -935,6 +935,10 @@ div.helpAddNewItems, div.helpAddNewItems ol, div.helpAddNewItems ol div {
     cursor: pointer;
 }
 
+.map:hover {
+    border: white solid 1px;
+}
+
 .checkbox + .checkbox, .radio + .radio {
     margin-top: 10px;
 }

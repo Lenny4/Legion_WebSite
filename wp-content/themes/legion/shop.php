@@ -278,6 +278,8 @@
     }
 
     function loadHomePageShop() {
+        showMoreItemHome('item_home_teleport');
+        return;
         $("*").addClass("progressWait");
         hideCategoryIfOnPhone();
         showAjaxLoaderShop();
