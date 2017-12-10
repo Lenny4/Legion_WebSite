@@ -278,8 +278,8 @@
     }
 
     function loadHomePageShop() {
-        showMoreItemHome('item_home_teleport');
-        return;
+//        showMoreItemHome('item_home_character');
+//        return;
         $("*").addClass("progressWait");
         hideCategoryIfOnPhone();
         showAjaxLoaderShop();
@@ -649,6 +649,7 @@
                     }
                 });
         });
+
         $("a.subItemClasse").click(function (e) {
             $currentPosition = null;
             $element1 = null;

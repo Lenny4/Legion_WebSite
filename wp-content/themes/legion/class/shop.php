@@ -35,11 +35,11 @@ class shop
         foreach ($this->array as $key => $item) {
             if ($type == "item") {
                 if (is_a($item, $type) AND $item->item_id == $id) {
-                    return $this->array["$key"]->displayCart();
+                    return $this->array[$key]->displayCart();
                 }
             } elseif ($type = "item_set") {
                 if (is_a($item, $type) AND $item->item_set_id == $id) {
-                    return $this->array["$key"]->displayCart();
+                    return $this->array[$key]->displayCart();
                 }
             }
         }
@@ -194,6 +194,8 @@ class shop
                 if ($item->item_id == $id AND is_a($item, 'item')) {
                     if ($currency == "vote" AND $item->vote == 1) {
                         $item->currency = $currency;
+                    } elseif ($currency == "buy") {
+                        $item->currency = $currency;
                     }
                     break;
                 }
@@ -201,11 +203,14 @@ class shop
                 if ($item->item_set_id == $id AND is_a($item, 'item_set')) {
                     if ($currency == "vote" AND $item->vote == 1) {
                         $item->currency = $currency;
+                    } elseif ($currency == "buy") {
+                        $item->currency = $currency;
                     }
                     break;
                 }
             }
         }
+        return $id;
     }
 
     public function loadBuy()

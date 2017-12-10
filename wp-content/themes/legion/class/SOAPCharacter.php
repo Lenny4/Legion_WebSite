@@ -6,14 +6,60 @@ class SOAPCharacter
     protected $online;
     public $message;
 
-    public function __construct($character_selected, $item_set_id, $currency)
+    public function __construct($character_selected, $item_set_id, $currency, $item_home_character)
     {
         $this->online = true;
         $this->message = "";
-        //faire vérif
+        $item_home = new item_home();
+        $character_is_ok = false;
+        $allCharacters = $item_home->getCharacters();
+        foreach ($allCharacters as $character) {
+            if ($character["name"] == $character_selected) {
+                $character_is_ok = true;
+                break;
+            }
+        }
+        $item_set = getItemSetInBdd($item_set_id);
+        if (($character_is_ok == false) AND ($item_set->item_set_id == null) AND ($currency != "buy" OR $currency != "vote")) {
+            $this->message = '<div class="col-xs-12"><div style="display: inline-block;width: 100%;" class="alert alert-danger alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>Error ! Please reload the page</strong>
+</div></div>';
+            return;
+        }
+        $haveEnoughtPoints = false;
+        $votePoint = get_user_meta(get_current_user_id(), 'vote_points');
+        $buyPoint = get_user_meta(get_current_user_id(), 'buy_points');
+        $priceVote = $item_home_character->price * VOTE_POINTS;
+        $priceBuy = $item_home_character->price * BUY_POINTS;
+        if ($currency == "buy") {
+            if ($buyPoint >= $priceBuy) {
+                $haveEnoughtPoints = true;
+            }
+        } elseif ($currency == "vote") {
+            if ($votePoint >= $priceVote) {
+                $haveEnoughtPoints = true;
+            }
+        }
+        if ($haveEnoughtPoints == false) {
+            $this->message = '<div class="col-xs-12"><div style="display: inline-block;width: 100%;" class="alert alert-danger alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>You don\'t have enought points</strong>
+</div></div>';
+            return;
+        }
         $this->soapConnect();
         if ($this->online) {
-            //utiliser les différents soap sans enlever le prix en l'enregistrant dans les logs comme ietm_home character
+            $allCommand = array();
+            $command = 'character level ' . $character_selected . ' 110';
+            array_push($allCommand, $command);
+            $this->soapCommand($command);
+            foreach ($item_set->items as $item) {
+                $command = 'send items ' . $character_selected . ' "Shop" "Shop" ' . $item . ':1';
+                array_push($allCommand, $command);
+                $this->soapCommand($command);
+            }
+            $req = "";
         }
     }
 

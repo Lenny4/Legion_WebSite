@@ -1057,7 +1057,7 @@ if ($_POST["id"] == "changeCurrency") {
     $type = $_POST["type"];
     $id = intval($_POST["item_id"]);
     if (($type == "item" OR $type == "item_set") AND ($currency == "vote" OR $currency == "buy")) {
-        $_SESSION["shop"]->changeCurrency($id, $type, $currency);
+        echo $_SESSION["shop"]->changeCurrency($id, $type, $currency);
     }
 }
 //SHOP CART======================================================
@@ -1241,14 +1241,15 @@ if ($_POST["id"] == "changeLevelCharacterForm") {
 
 //SHOP CHARACTER 110======================================================
 if ($_POST["id"] == "buy_character") {
-    $soapBuyCharacter = new SOAPCharacter($_POST["character_selected"], $_POST["item_set_for_item_home_character"], $_POST["optionBuyCharacter"]);
+    $item_home_character = new item_home_character();
+    $soapBuyCharacter = new SOAPCharacter($_POST["character_selected"], $_POST["item_set_for_item_home_character"], $_POST["optionBuyCharacter"], $item_home_character);
     if ($soapBuyCharacter->message == '') {
-        echo '<div class="col-sm-9 col-xs-12"><div style="display: inline-block;width: 100%;" class="alert alert-success alert-dismissable">
+        echo '<div class="col-xs-12"><div style="display: inline-block;width: 100%;" class="alert alert-success alert-dismissable">
   <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
   <strong>' . $_POST["character_selected"] . ' has been level up and get the item set !</strong>
 </div></div>';
     } else {
-        echo '<div class="col-sm-9 col-xs-12">' . $soapBuyCharacter->message . '</div>';
+        echo '<div class="col-xs-12">' . $soapBuyCharacter->message . '</div>';
     }
 }
 //SHOP CHARACTER 110======================================================

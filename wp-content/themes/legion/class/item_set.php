@@ -102,7 +102,7 @@ class item_set extends parent_item
         $allInfos = $this->getAllItemInfoOfTheSet($this->items);
         $canDisplayThisItem = true;
         foreach ($allInfos["requiredLevel"] as $level) {
-            if ($level != $requiredLevel) {
+            if ($level != $requiredLevel AND $requiredLevel != null) {
                 $canDisplayThisItem = false;
                 break;
             }
@@ -245,14 +245,14 @@ class item_set extends parent_item
     public function displayCart()
     {
         $allInfos = $this->getAllItemInfoOfTheSet($this->items);
-        $return = "<div class='col - xs - 12 noPadding cartItem' style='margin: 5px 0px'>
+        $return = "<div class='col-xs-12 noPadding cartItem' style='margin: 5px 0px'>
         <div class='removeItem'><i onclick=\"removeItemCart(this," . $this->item_set_id . ",'item_set')\" class=\"fa fa-times\" aria-hidden=\"true\"></i></div>
         ";
         foreach ($allInfos["icon"] as $oneImage) {
             $return = $return . ' <img style = "float: left;width: 30px;" src = "https://wow.zamimg.com/images/wow/icons/large/' . $oneImage . '.jpg" alt = "' . $oneImage . '" > ';
         }
         $return .= "<p>" . $this->name . "</p>";
-        $return = $return . "<div class='col - xs - 12'><hr style='width: 100 %;margin: 0 auto;'/></div>";
+        $return = $return . "<div class='col-xs-12'><hr style='width: 100 %;margin: 0 auto;'/></div>";
         $return = $return . "</div>";
         return $return;
     }
