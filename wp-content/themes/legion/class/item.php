@@ -365,7 +365,7 @@ class item extends parent_item
                                 $return = $return . '<div class="display_price"><p class="' . $key . '_buy_points"><span class="' . $key . '_buy_points">' . ucfirst($key . '_buy_points') . ' </span><span class="value">' . $this->getBuyPoint($dontShowReduction) . wp_get_attachment_image(168, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p>';
                                 if ($this->vote == 1) {
                                     $return = $return . '<p style="margin-right: 10px;" class="' . $key . '_vote_points"><span class="' . $key . '_vote_points">' . ucfirst($key . '_vote_points') . ' </span><span class="value">' . $this->getVotePoint($dontShowReduction) . wp_get_attachment_image(169, 'thumbnail', true, ["class" => "img-responsive", "style" => "width:20px;float:right;"]) . '</span></p></div>';
-                                }else{
+                                } else {
                                     $return = $return . '</div>';
                                 }
                             } elseif ($key == "containerSlots") {
@@ -454,10 +454,11 @@ class item extends parent_item
                 }
             }
             $return .= '</select>';
-            $return .= '<div class="form-group">
-                          <label>Quantity</label>
-                          <input id="' . $this->item_id . '" type="number" min=1 max=100 value=' . $this->count . ' class="form-control quantity item" >
-                        </div>';
+            $return .= '<div class="form-group"><label>Quantity</label><select class="form-control quantity item" id="item_' . $this->item_id . '">';
+            for ($i = 1; $i <= 100; $i++) {
+                $return .= '<option value="' . $i . '">' . $i . '</option>';
+            }
+            $return .= '</select></div>';
             $return .= '<div class="radio col-sm-4 col-sm-offset-1 col-xs-6 text-center" style="margin-top: 0px">';
             $return .= wp_get_attachment_image(168, 'thumbnail', true, ["class" => "img-responsive"]);
             if ($this->currency == "buy") {

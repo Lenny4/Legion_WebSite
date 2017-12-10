@@ -126,7 +126,9 @@
                     });
             }
         });
-        $("input.quantity").change(function () {
+        $("select.quantity").change(function () {
+            var $item_id = $(this).attr("id").replace(/[^\d.]/g, '');
+            $item_id = parseInt($item_id, 10);
             var $type = "";
             var input = this;
             if ($(this).hasClass("item")) {
@@ -139,7 +141,7 @@
                     id: "changeQuantity",
                     quantity: this.value,
                     type: $type,
-                    item_id: $(this).attr("id")
+                    item_id: $item_id
                 },
                 function (data, status) {
                     $(input).val(data);

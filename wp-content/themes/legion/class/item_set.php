@@ -168,10 +168,11 @@ class item_set extends parent_item
                     }
                 }
                 $return .= '</select>';
-                $return .= '<div class="form-group">
-                          <label>Quantity</label>
-                          <input id="' . $this->item_set_id . '" type="number" min=1 max=100 value=' . $this->count . ' class="form-control quantity item_set" >
-                        </div>';
+                $return .= '<div class="form-group"><label>Quantity</label><select class="form-control quantity item_set" id="item_set_' . $this->item_set_id . '">';
+                for ($i = 1; $i <= 100; $i++) {
+                    $return .= '<option value="' . $i . '">' . $i . '</option>';
+                }
+                $return .= '</select></div>';
                 $return .= '<div class="radio col-sm-4 col-sm-offset-1 col-xs-6 text-center" style="margin-top: 0px">';
                 $return .= wp_get_attachment_image(168, 'thumbnail', true, ["class" => "img-responsive"]);
                 if ($this->currency == "buy") {
