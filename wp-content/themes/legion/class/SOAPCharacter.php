@@ -52,6 +52,7 @@ class SOAPCharacter
         if ($this->online) {
             $allCommand = array();
             $command = 'character level ' . $character_selected . ' 110';
+            $req = "";
             array_push($allCommand, $command);
             $this->soapCommand($command);
             foreach ($item_set->items as $item) {
@@ -59,7 +60,18 @@ class SOAPCharacter
                 array_push($allCommand, $command);
                 $this->soapCommand($command);
             }
-            $req = "";
+            if (!isWowAdmin()) {
+                $req = 'INSERT INTO `log_sells`(`item_id`, `item_set_id`, `item_home`, `vote_points`, `buy_points`, `date`, `user_id`, `quantity`, `command`, `admin`) VALUES (null,null,\'item_home_character\',null,null,NOW(),' . get_current_user_id() . ',1,\'' . json_encode($allCommand) . '\',1)';
+            } else {
+                if ($currency == "vote") {
+                    removeVotePoint(get_current_user_id(), $priceVote);
+                    $req = 'INSERT INTO `log_sells`(`item_id`, `item_set_id`, `item_home`, `vote_points`, `buy_points`, `date`, `user_id`, `quantity`, `command`, `admin`) VALUES (null,null,\'item_home_character\',' . $priceVote . ',null,NOW(),' . get_current_user_id() . ',1,\'' . json_encode($allCommand) . '\',0)';
+                } elseif ($currency == "buy") {
+                    removeBuyPoint(get_current_user_id(), $priceBuy);
+                    $req = 'INSERT INTO `log_sells`(`item_id`, `item_set_id`, `item_home`, `vote_points`, `buy_points`, `date`, `user_id`, `quantity`, `command`, `admin`) VALUES (null,null,\'item_home_character\',null,' . $priceBuy . ',NOW(),' . get_current_user_id() . ',1,\'' . json_encode($allCommand) . '\',0)';
+                }
+            }
+            $GLOBALS["dbh"]->query($req);
         }
     }
 
