@@ -26,6 +26,10 @@ class item extends parent_item
     public $equippable = null;
     public $isAuctionable = null;
     public $containerSlots = null;
+    public $minFactionId = null;
+    public $minReputation = null;
+    public $requiredSkill = null;
+    public $requiredSkillRank = null;
     public $itemSet = null;
     public $sellPrice = null;
     public $price = 0;
@@ -203,6 +207,18 @@ class item extends parent_item
         }
         if (isset($data->weaponInfo)) {
             $this->damage = $data->weaponInfo->dps;
+        }
+        if (isset($data->minFactionId)) {
+            $this->minFactionId = $data->minFactionId;
+        }
+        if (isset($data->minReputation)) {
+            $this->minReputation = $data->minReputation;
+        }
+        if (isset($data->requiredSkill)) {
+            $this->requiredSkill = $data->requiredSkill;
+        }
+        if (isset($data->requiredSkillRank)) {
+            $this->requiredSkillRank = $data->requiredSkillRank;
         }
     }
 
