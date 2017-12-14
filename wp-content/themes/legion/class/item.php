@@ -396,6 +396,113 @@ class item extends parent_item
 
                             } elseif ($key == "item_id") {
                                 $return = $return . '<p class="' . $key . '"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value"><a target="_blank" href="http://www.wowhead.com/item=' . $this->item_id . '">' . $value . ' <i class="fa fa-info-circle" aria-hidden="true"></i></a></span></p>';
+                            } elseif ($key == "minFactionId") {
+                                $array[0] = "Hated";
+                                $array[1] = "Hostile";
+                                $array[2] = "Unfriendly";
+                                $array[3] = "Neutral";
+                                $array[4] = "Friendly";
+                                $array[5] = "Honored";
+                                $array[6] = "Revered";
+                                $array[7] = "Exalted";
+                                if ($this->minFactionId > 0) {
+                                    $return = $return . '<p class="' . $key . '"><span>Requires reputation <a target="_blank" href="http://www.wowhead.com/faction=' . $this->minFactionId . '">' . $this->minFactionId . '</a> "' . $array[$this->minReputation] . '"</span></p>';
+                                }
+                            } elseif ($key == "minReputation") {
+                            } elseif ($key == "requiredSkill") {
+                                $array[165] = "Leatherworking";
+                                $array[171] = "Alchemy";
+                                $array[934] = "All - Specializations";
+                                $array[981] = "Apprentice Cooking";
+                                $array[794] = "Archaeology";
+                                $array[44] = "Axes";
+                                $array[164] = "Blacksmithing";
+                                $array[45] = "Bows";
+                                $array[415] = "Cloth";
+                                $array[98] = "Common";
+                                $array[778] = "Companions";
+                                $array[185] = "Cooking";
+                                $array[226] = "Crossbows";
+                                $array[173] = "Daggers";
+                                $array[113] = "Darnassian";
+                                $array[1848] = "Demon Hunter";
+                                $array[759] = "Draenei";
+                                $array[111] = "Dwarven";
+                                $array[333] = "Enchanting";
+                                $array[202] = "Engineering";
+                                $array[129] = "First Aid";
+                                $array[356] = "Fishing";
+                                $array[473] = "Fist Weapons";
+                                $array[673] = "Forsaken";
+                                $array[791] = "Gilnean";
+                                $array[313] = "Gnomish";
+                                $array[792] = "Goblin";
+                                $array[46] = "Guns";
+                                $array[182] = "Herbalism";
+                                $array[773] = "Inscription";
+                                $array[755] = "Jewelcrafting";
+                                $array[982] = "Journeyman Cookbook";
+                                $array[414] = "Leather";
+                                $array[1945] = "Logging";
+                                $array[54] = "Maces";
+                                $array[904] = "Mage";
+                                $array[186] = "Mining";
+                                $array[829] = "Monk";
+                                $array[777] = "Mounts";
+                                $array[999] = "NO PLAYERS";
+                                $array[930] = "Observer";
+                                $array[109] = "Orcish";
+                                $array[905] = "Pandaren Neutral";
+                                $array[2216] = "Pet - Abomination";
+                                $array[2361] = "Pet - Feathermane";
+                                $array[2189] = "Pet - Mechanical";
+                                $array[2279] = "Pet - Oxen";
+                                $array[2280] = "Pet - Scalehide";
+                                $array[1777] = "Pet - Water Elemental Minor Talent Version";
+                                $array[293] = "Plate Mail";
+                                $array[229] = "Polearms";
+                                $array[756] = "Racial - Blood Elf";
+                                $array[760] = "Racial - Draenei";
+                                $array[101] = "Racial - Dwarf";
+                                $array[753] = "Racial - Gnome";
+                                $array[790] = "Racial - Goblin";
+                                $array[754] = "Racial - Human";
+                                $array[126] = "Racial - Night Elf";
+                                $array[125] = "Racial - Orc";
+                                $array[899] = "Racial - Pandaren";
+                                $array[124] = "Racial - Tauren";
+                                $array[733] = "Racial - Troll";
+                                $array[220] = "Racial - Undead";
+                                $array[789] = "Racial - Worgen";
+                                $array[762] = "Riding";
+                                $array[921] = "Rogue";
+                                $array[960] = "Runeforging";
+                                $array[924] = "Shaman";
+                                $array[433] = "Shield";
+                                $array[393] = "Skinning";
+                                $array[136] = "Staves";
+                                $array[43] = "Swords";
+                                $array[197] = "Tailoring";
+                                $array[115] = "Taurahe";
+                                $array[137] = "Thalassian";
+                                $array[2000] = "Trading Post";
+                                $array[315] = "Troll";
+                                $array[172] = "Two-Handed Axes";
+                                $array[160] = "Two-Handed Maces";
+                                $array[55] = "Two-Handed Swords";
+                                $array[1830] = "Unused";
+                                $array[228] = "Wands";
+                                $array[2152] = "Warglaives";
+                                $array[849] = "Warlock";
+                                $array[840] = "Warrior";
+                                if ($this->requiredSkill > 0) {
+                                    if (isset($array[$this->requiredSkill])) {
+                                        $return = $return . '<p class="' . $key . '"><span>Requires <a target="_blank" href="http://www.wowhead.com/?skill=' . $this->requiredSkill . '">' . $array[$this->requiredSkill] . '</a> (' . $this->requiredSkillRank . ')</span></p>';
+                                    } else {
+                                        $return = $return . '<p class="' . $key . '"><span>Requires <a target="_blank" href="http://www.wowhead.com/?skill=' . $this->requiredSkill . '">' . $this->requiredSkill . '</a> (' . $this->requiredSkillRank . ')</span></p>';
+                                    }
+                                }
+                            } elseif ($key == "requiredSkillRank") {
                             } else {
                                 $return = $return . '<p class="' . $key . '"><span class="' . $key . '">' . ucfirst($key) . ' </span><span class="value">' . $value . '</span></p>';
                             }
