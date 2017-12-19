@@ -46,8 +46,8 @@ define('API_KEY', 'x3bqkbc8n7e7hcmnkcq9p2cpkzb364rg');
 // Soap settings
 define('SOAP_IP', '127.0.0.1');
 define('SOAP_PORT', '7878');
-define('SOAP_USER', '12#1');
-define('SOAP_PASS', 'Computer210496,');
+define('SOAP_USER', '1#1');
+define('SOAP_PASS', 'password');
 
 $dsn = 'mysql:dbname=' . DB_NAME . ';host=' . DB_HOST;
 $user = DB_USER;
@@ -296,6 +296,9 @@ function html5blank_styles()
 
     wp_register_style('html5blank', get_template_directory_uri() . '/style.css', array(), '1.0', 'all');
     wp_enqueue_style('html5blank'); // Enqueue it!
+
+    wp_register_style('forum', get_template_directory_uri() . '/forum.css', array(), '1.0', 'all');
+    wp_enqueue_style('forum'); // Enqueue it!
 }
 
 // Register HTML5 Blank Navigation

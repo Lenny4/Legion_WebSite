@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 4.9.x - Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-11-27 06:06:25+0000\n"
+"PO-Revision-Date: 2017-12-14 07:37:17+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -302,7 +302,7 @@ msgid ""
 "All at ###SITENAME###\n"
 "###SITEURL###"
 msgstr ""
-"Cher ###USERNAME###,\n"
+"Bonjour ###USERNAME###,\n"
 "\n"
 "Vous avez récemment demandé à modifier l’adresse de messagerie de l’administration de votre compte.\n"
 "\n"
@@ -1920,7 +1920,7 @@ msgctxt "New site notification email subject"
 msgid "[%1$s] Activate %2$s"
 msgstr "[%1$s] Activation de %2$s"
 
-#: wp-includes/widgets.php:1395 wp-includes/widgets.php:1504
+#: wp-includes/widgets.php:1398 wp-includes/widgets.php:1507
 msgid "RSS Error:"
 msgstr "Erreur RSS :"
 
@@ -4283,14 +4283,14 @@ msgstr "https://codex.wordpress.org/Debugging_a_WordPress_Network"
 msgid "Read the <a href=\"%s\" target=\"_blank\">bug report</a> page. Some of the guidelines there may help you figure out what went wrong."
 msgstr "Lisez la <a href=\"%s\" target=\"_blank\">page des rapports de bug</a>. Elle contient des bonnes pratiques qui peuvent vous permettre de comprendre ce qui ne marche pas."
 
-#: wp-includes/functions.php:4143
-msgid "https://codex.wordpress.org/Debugging_in_WordPress"
-msgstr "https://codex.wordpress.org/Debugging_in_WordPress"
-
 #. translators: %s: Codex URL
 #: wp-includes/functions.php:4142
 msgid "Please see <a href=\"%s\">Debugging in WordPress</a> for more information."
-msgstr "Veuillez lire <a href=\"%s\">Débugger dans WordPress</a> (en) pour plus d’informations."
+msgstr "Veuillez lire <a href=\"%s\">Débogage dans WordPress</a> (en) pour plus d’informations."
+
+#: wp-includes/functions.php:4143
+msgid "https://codex.wordpress.org/Debugging_in_WordPress"
+msgstr "https://codex.wordpress.org/fr:Débogage_dans_WordPress"
 
 #. translators: 1: $table_prefix 2: wp-config.php
 #: wp-includes/load.php:438
@@ -5960,11 +5960,6 @@ msgctxt "translations"
 msgid "Available"
 msgstr "Disponible"
 
-#: wp-includes/l10n.php:1195
-msgctxt "translations"
-msgid "Installed"
-msgstr "Installé"
-
 #. translators: 1: Trackback/pingback/comment author URL
 #: wp-includes/pluggable.php:1474 wp-includes/pluggable.php:1485
 #: wp-includes/pluggable.php:1496 wp-includes/pluggable.php:1636
@@ -5989,6 +5984,11 @@ msgstr "Vous pouvez voir tous les pings de cet article ici :"
 #: wp-includes/pluggable.php:1498
 msgid "You can see all comments on this post here:"
 msgstr "Vous pouvez lire tous les commentaires de cet article ici :"
+
+#: wp-includes/l10n.php:1195
+msgctxt "translations"
+msgid "Installed"
+msgstr "Installée"
 
 #: wp-includes/general-template.php:1502
 msgctxt "post format archive title"
@@ -7375,7 +7375,7 @@ msgstr "Menu"
 
 #: wp-includes/update.php:629
 msgid "Translation Updates"
-msgstr "Mises à jour des traductions"
+msgstr "Mettre à jour les traductions"
 
 #: wp-includes/class-wp-theme.php:229
 msgid "The theme directory \"%s\" does not exist."
@@ -9852,7 +9852,7 @@ msgctxt "widgets"
 msgid "%1$s on %2$s"
 msgstr "%1$s dans %2$s"
 
-#: wp-includes/widgets.php:1426
+#: wp-includes/widgets.php:1429
 msgid "Untitled"
 msgstr "Sans titre"
 
@@ -10451,7 +10451,7 @@ msgstr "Yahoo Messenger"
 msgid "Jabber / Google Talk"
 msgstr "Jabber / Google Talk"
 
-#: wp-includes/rss.php:917 wp-includes/widgets.php:1410
+#: wp-includes/rss.php:917 wp-includes/widgets.php:1413
 msgid "An error has occurred, which probably means the feed is down. Try again later."
 msgstr "Une erreur est survenue, le flux est probablement indisponible. Veuillez réessayer plus tard."
 
@@ -11045,23 +11045,23 @@ msgstr "Afficher le nombre d’articles"
 msgid "Number of posts to show:"
 msgstr "Nombre d’articles à afficher :"
 
-#: wp-includes/widgets.php:1513
+#: wp-includes/widgets.php:1516
 msgid "Give the feed a title (optional):"
 msgstr "Donnez un titre au flux (facultatif) :"
 
-#: wp-includes/widgets.php:1516
+#: wp-includes/widgets.php:1519
 msgid "How many items would you like to display?"
 msgstr "Combien d’entrées souhaitez-vous afficher ?"
 
-#: wp-includes/widgets.php:1526
+#: wp-includes/widgets.php:1529
 msgid "Display item content?"
 msgstr "Afficher le contenu de l’élément ?"
 
-#: wp-includes/widgets.php:1529
+#: wp-includes/widgets.php:1532
 msgid "Display item author if available?"
 msgstr "Afficher l’auteur de l’élément si disponible ?"
 
-#: wp-includes/widgets.php:1532
+#: wp-includes/widgets.php:1535
 msgid "Display item date?"
 msgstr "Afficher la date de l’élément ?"
 
@@ -11109,7 +11109,7 @@ msgstr "Si vous n’activez pas votre compte sous deux jours, vous devrez vous r
 msgid "WordPress &rsaquo; Error"
 msgstr "WordPress » Erreur"
 
-#: wp-includes/widgets.php:1510
+#: wp-includes/widgets.php:1513
 msgid "Enter the RSS feed URL here:"
 msgstr "Saisissez l’URL du flux RSS ici :"
 
@@ -11550,7 +11550,7 @@ msgstr "Votre commentaire est en attente de modération."
 msgid "For some strange yet very annoying reason, this post could not be edited."
 msgstr "Pour une étrange et très ennuyeuse raison, cet article n’a pas pu être modifié."
 
-#: wp-includes/category-template.php:1139
+#: wp-includes/category-template.php:1131
 msgid "Tags: "
 msgstr "Étiquettes : "
 
