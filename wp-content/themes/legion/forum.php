@@ -17,7 +17,6 @@
                 <p> Automatic translation :</p><?php echo do_shortcode('[gtranslate]'); ?>
                 <div class="col-xs-12">
                     <?php the_content(); ?>
-                    <?= do_shortcode("[bbp-forum-index]"); ?>
                 </div>
 
                 <?php comments_template('', true); // Remove if you don't want comments ?>
