@@ -148,7 +148,7 @@ body .bbp-pagination-links span.current, .page-numbers.current {
     box-shadow: 1px 1px 8px rgba(9, 106, 161, 0.7);
 }
 
-#bbpress-forums button, #bbpress-forums html input[type="button"], input[type="reset"], input[type="submit"] {
+#bbpress-forums button, #bbpress-forums input[type="button"], #bbpress-forums input[type="reset"], #bbpress-forums input[type="submit"] {
     font-size: 12px;
     padding: 11px 20px !important;
     transition: all .35s ease-in-out;
@@ -248,6 +248,10 @@ div.bbp-template-notice.info {
     border: 1px solid #000;
     background-color: #1A1D1F;
     border-radius: 0px;
+}
+
+#bbpress-forums div.bbp-the-content-wrapper input {
+    padding: 5px !important;
 }
 
 div.bbp-template-notice, div.indicator-hint {
