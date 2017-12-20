@@ -302,7 +302,6 @@ $(document).ready(function () {
         deleteMessageHeader($(this).attr('id'));
     });
     new PerfectScrollbar('#my_sidebar');
-
 });
 
 $(window).resize(function () {
