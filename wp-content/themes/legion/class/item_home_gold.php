@@ -26,4 +26,22 @@ class item_home_gold extends item_home
         $return .= '</div></li></a>';
         return $return;
     }
+
+    function show()
+    {
+        echo "<div class='col-sm-9 col-xs-12'><form id='buy_gold' method='post'>";
+        $all_characters = $this->getCharacters();
+        echo $this->displayAllCharacters($all_characters);
+        ?>
+        <div id="displayInfoBuyGold">
+
+        </div>
+        <div class="form-group">
+            <input name="amountOfGold" id="amountOfGold" type="text" data-slider-min="1000" data-slider-max="100000" data-slider-step="100" data-slider-value="2000"/>
+            <span>Current Slider Value: <span id="amountOfGoldInfo">2000</span></span>
+        </div>
+        <button type="submit" class="btn btn-default">Submit</button>
+        <?php
+        echo "</form></div>";
+    }
 }

@@ -456,6 +456,9 @@
                 hideAllHeaderShop();
                 hideAjaxLoaderShop();
                 $("#shopDisplayItems").html(data);
+                if ($phpClasse === 'item_home_gold') {
+                    displayInfoBuyGold();
+                }
             });
     }
 
@@ -607,8 +610,18 @@
             });
     }
 
+    function displayInfoBuyGold() {
+        $("#amountOfGold").slider();
+        $("#amountOfGold").on("slide", function(slideEvt) {
+            $("#amountOfGoldInfo").text(slideEvt.value);
+        });
+    }
+
     $(document).ready(function () {
         $('body').on('change', '#select_character_item_home', function (event) {
+            if ($phpClass === 'item_home_gold') {
+                return;
+            }
             var $select = event.target;
             var $phpClass = $($select).attr('data-phpclass');
             var characterName = $($select).val();
@@ -780,6 +793,7 @@
                 }
             });
         });
+
         loadHomePageShop();
         sameHeight();
         filterShop();

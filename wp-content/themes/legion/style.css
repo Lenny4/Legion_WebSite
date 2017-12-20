@@ -980,3 +980,7 @@ div.radius-right-no {
         border-radius: 5px 5px 0px 0px;
     }
 }
+
+.slider.slider-horizontal{
+    width: 100%;
+}

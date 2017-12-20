@@ -24,6 +24,10 @@
     <script src="<?php echo get_template_directory_uri(); ?>/fonts/bootstrap-3.3.7-dist/js/bootstrap.min.js"></script>
     <script src="<?php echo get_template_directory_uri(); ?>/library/scrollbar/perfect-scrollbar.min.js"></script>
 
+    <link rel="stylesheet"
+          href="<?php echo get_template_directory_uri(); ?>/library/range-slider/bootstrap-slider.min.css">
+    <script src="<?php echo get_template_directory_uri(); ?>/library/range-slider/bootstrap-slider.min.js"></script>
+
     <?php wp_head(); ?>
 </head>
 <body id="body" <?php body_class(); ?>>
