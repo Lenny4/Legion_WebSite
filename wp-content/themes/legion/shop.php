@@ -278,8 +278,8 @@
     }
 
     function loadHomePageShop() {
-//        showMoreItemHome('item_home_character');
-//        return;
+        showMoreItemHome('item_home_gold');
+        return;
         $("*").addClass("progressWait");
         hideCategoryIfOnPhone();
         showAjaxLoaderShop();
@@ -611,10 +611,32 @@
     }
 
     function displayInfoBuyGold() {
-        $("#amountOfGold").slider();
-        $("#amountOfGold").on("slide", function(slideEvt) {
-            $("#amountOfGoldInfo").text(slideEvt.value);
+        var mySlider = $("#amountOfGold").slider();
+        $("#amountOfGold").on("slide", function (slideEvt) {
+            updateGold(slideEvt.value)
         });
+        updateGold(mySlider.slider('getValue'));
+    }
+
+    function updateGold(valueOfGold) {
+        var ratioGold =<?= RATIO_GOLD; ?>;
+        var realMoney =<?= REAL_MONEY; ?>;
+        var ratioVotePoint = <?= VOTE_POINTS; ?>;
+        var ratioBuyPoint = <?= BUY_POINTS; ?>;
+        var maxReduction = 0.7;
+        var pointAx = <?= MIN_AMOUNT_OF_GOLD_BUY; ?>;
+        var pointAy = pointAx * ( realMoney / ratioGold) / 100;
+        var pointBx = <?= MAX_AMOUNT_OF_GOLD_BUY; ?>;
+        var pointBy = (pointBx * ( realMoney / ratioGold) / 100) * maxReduction;
+        var coeffA = (pointBy - pointAy) / (pointBx - pointAx);
+        var coeffB = pointAy - coeffA * pointAx;
+        var realValue = coeffA * valueOfGold + coeffB;
+        var value = valueOfGold.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+        var buyPoint = parseInt(realValue * ratioBuyPoint);
+        var votePoint = parseInt(realValue * ratioVotePoint);
+        $("#amountOfGoldInfo").text(value);
+        $("#linkGoldBuyPoint").text(buyPoint.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " "));
+        $("#linkGoldVotePoint").text(votePoint.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " "));
     }
 
     $(document).ready(function () {

@@ -33,14 +33,19 @@ class item_home_gold extends item_home
         $all_characters = $this->getCharacters();
         echo $this->displayAllCharacters($all_characters);
         ?>
-        <div id="displayInfoBuyGold">
-
-        </div>
         <div class="form-group">
-            <input name="amountOfGold" id="amountOfGold" type="text" data-slider-min="1000" data-slider-max="100000" data-slider-step="100" data-slider-value="2000"/>
-            <span>Current Slider Value: <span id="amountOfGoldInfo">2000</span></span>
+            <input name="amountOfGold" id="amountOfGold" type="text" data-slider-min="<?= MIN_AMOUNT_OF_GOLD_BUY; ?>"
+                   data-slider-max="<?= MAX_AMOUNT_OF_GOLD_BUY; ?>"
+                   data-slider-step="100" data-slider-value="<?= MIN_AMOUNT_OF_GOLD_BUY; ?>"/>
+            <div class="row" style="margin: 15px 0px">
+                <div class="center-block" style="display: table">
+                    <?= wp_get_attachment_image(119, 'full', false, ["class" => "img-responsive", "style" => "float:left;position: relative;top: 4px;"]) ?>
+                    <span id="amountOfGoldInfo" style="margin-left: 10px"></span>
+                    <span id="linkGoldBuyPoint" style="margin-left: 10px"></span>
+                    <span id="linkGoldVotePoint" style="margin-left: 10px"></span>
+                </div>
+            </div>
         </div>
-        <button type="submit" class="btn btn-default">Submit</button>
         <?php
         echo "</form></div>";
     }
