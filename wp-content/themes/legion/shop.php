@@ -619,24 +619,43 @@
     }
 
     function updateGold(valueOfGold) {
+        if (valueOfGold <<?= MIN_AMOUNT_OF_GOLD_BUY; ?> || valueOfGold ><?= MAX_AMOUNT_OF_GOLD_BUY; ?>) {
+            var mySlider = $("#amountOfGold").slider();
+            mySlider.slider('setValue', <?= MIN_AMOUNT_OF_GOLD_BUY; ?>);
+            updateGold(<?= MIN_AMOUNT_OF_GOLD_BUY; ?>);
+            return;
+        }
         var ratioGold =<?= RATIO_GOLD; ?>;
         var realMoney =<?= REAL_MONEY; ?>;
         var ratioVotePoint = <?= VOTE_POINTS; ?>;
         var ratioBuyPoint = <?= BUY_POINTS; ?>;
-        var maxReduction = 0.7;
-        var pointAx = <?= MIN_AMOUNT_OF_GOLD_BUY; ?>;
-        var pointAy = pointAx * ( realMoney / ratioGold) / 100;
-        var pointBx = <?= MAX_AMOUNT_OF_GOLD_BUY; ?>;
-        var pointBy = (pointBx * ( realMoney / ratioGold) / 100) * maxReduction;
-        var coeffA = (pointBy - pointAy) / (pointBx - pointAx);
-        var coeffB = pointAy - coeffA * pointAx;
-        var realValue = coeffA * valueOfGold + coeffB;
+        var maxReduction = 30;//%
         var value = valueOfGold.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+        var minGoldAmount =<?= MIN_AMOUNT_OF_GOLD_BUY; ?>;
+        var maxGoldAmount =<?= MAX_AMOUNT_OF_GOLD_BUY; ?>;
+        var domaine = maxGoldAmount - minGoldAmount;
+        var pourcentage = (valueOfGold - minGoldAmount) / domaine;
+        pourcentage = (maxReduction * pourcentage) / 100;
+        var realValue = valueOfGold * ( realMoney / ratioGold) / 100;
+        var realValueReduction = realValue * (1 - pourcentage);
         var buyPoint = parseInt(realValue * ratioBuyPoint);
         var votePoint = parseInt(realValue * ratioVotePoint);
+        var buyPointReduction = parseInt(realValueReduction * ratioBuyPoint);
+        var votePointReduction = parseInt(realValueReduction * ratioVotePoint);
         $("#amountOfGoldInfo").text(value);
-        $("#linkGoldBuyPoint").text(buyPoint.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " "));
-        $("#linkGoldVotePoint").text(votePoint.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " "));
+        $("#linkGoldBuyPoint").text(buyPointReduction.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " "));
+        $("#linkGoldVotePoint").text(votePointReduction.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " "));
+        if (buyPointReduction.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") === buyPoint.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")) {
+            $("#linkGoldBuyPointDel").html("");
+        } else {
+            $("#linkGoldBuyPointDel").html("<del>" + buyPoint.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "</del>");
+        }
+        if (votePointReduction.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") === votePoint.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ")) {
+            $("#linkGoldVotePointDel").html("");
+        } else {
+            $("#linkGoldVotePointDel").html("<del>" + votePoint.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ") + "</del>");
+        }
+        $("#reductionItemHomeGold").html(parseInt(pourcentage * 100));
     }
 
     $(document).ready(function () {
@@ -797,6 +816,8 @@
 
                     } else if ($(event.target).attr("id") === "addMapTeleportation") {
                         $("#display-maps").html(data);
+                    } else if ($(event.target).attr("id") === "buy_gold") {
+                        console.log(data);
                     } else if ($(event.target).attr("id") === "teleportThisCharacter") {
                         $("#teleportThisCharacter").prepend(data);
                         hideAjaxLoaderShop();
@@ -814,6 +835,13 @@
                     }
                 }
             });
+        });
+
+        $('body').on('change', '#specificAmountOfGold', function (event) {
+            var mySlider = $("#amountOfGold").slider();
+            var value = $(event.target).val();
+            mySlider.slider('setValue', value);
+            updateGold(value)
         });
 
         loadHomePageShop();
