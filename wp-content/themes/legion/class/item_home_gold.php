@@ -32,6 +32,7 @@ class item_home_gold extends item_home
         $all_characters = $this->getCharacters();
         ?>
         <div class='col-sm-9 col-xs-12'>
+            <div id="buyGoldAlert"></div>
             <div class="form-group">
                 <label for="specificAmountOfGold">Specific amount of gold:</label>
                 <input type="number" min="<?= MIN_AMOUNT_OF_GOLD_BUY; ?>" max="<?= MIN_AMOUNT_OF_GOLD_BUY; ?>"

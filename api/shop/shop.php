@@ -1256,6 +1256,65 @@ if ($_POST["id"] == "buy_character") {
 
 //SHOP GOLD======================================================
 if ($_POST["id"] == "buy_gold") {
-    echo "send gold";
+    $selectedCharacter = $_POST["character_selected"];
+    $currency = $_POST["radio_item_home_gold"];
+    $amountOfGold = $_POST["amountOfGold"];
+    $parent_item = new parent_item();
+    $characters = $parent_item->getCharacters();
+    foreach ($characters as $character) {
+        if ($character["name"] == $selectedCharacter) {
+            $selectedCharacter = $character;
+            break;
+        }
+    }
+    if (!is_array($selectedCharacter)) {
+        echo "Error with the character !";
+        return;
+    }
+    if ($amountOfGold < MIN_AMOUNT_OF_GOLD_BUY OR $amountOfGold > MAX_AMOUNT_OF_GOLD_BUY) {
+        echo "Error amount of gold";
+        return;
+    }
+    $maxPourcentReducGold = 0;
+    $req = $GLOBALS["dbh"]->query("SELECT * FROM `item_home` WHERE `phpclasse`='item_home_gold'");
+    while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+        $maxPourcentReducGold = $data["promotion"];
+    }
+    $ratioGold = RATIO_GOLD;
+    $realMoney = REAL_MONEY;
+    $ratioVotePoint = VOTE_POINTS;
+    $ratioBuyPoint = BUY_POINTS;
+    $maxReduction = $maxPourcentReducGold;
+    $minGoldAmount = MIN_AMOUNT_OF_GOLD_BUY;
+    $maxGoldAmount = MAX_AMOUNT_OF_GOLD_BUY;
+    $domaine = $maxGoldAmount - $minGoldAmount;
+    $pourcentage = ($amountOfGold - $minGoldAmount) / $domaine;
+    $pourcentage = ($maxReduction * $pourcentage) / 100;
+    $realValue = $amountOfGold * ($realMoney / $ratioGold) / 100;
+    $realValueReduction = $realValue * (1 - $pourcentage);
+    $buyPoint = intval($realValue * $ratioBuyPoint);
+    $votePoint = intval($realValue * $ratioVotePoint);
+    $buyPointReduction = intval($realValueReduction * $ratioBuyPoint);
+    $votePointReduction = intval($realValueReduction * $ratioVotePoint);
+    $amount = 0;
+    if ($currency == "buy") {
+        $currentBuyPoint = intval(get_user_meta(get_current_user_id(), "buy_points")[0]);
+        $amount = $currentBuyPoint;
+        if ($currentBuyPoint < $buyPointReduction) {
+            echo "You don't have enought buy point";
+            return;
+        }
+    } elseif ($currency == "vote") {
+        $currentVotePoint = intval(get_user_meta(get_current_user_id(), "vote_points")[0]);
+        $amount = $currentVotePoint;
+        if ($currentVotePoint < $votePointReduction) {
+            echo "You don't have enought vote point";
+            return;
+        }
+    } else {
+        echo "Error, please reload the page";
+        return;
+    }
+    $SOAPSendMoney = new SOAPSendMoney($selectedCharacter["name"], $currency, $amount, $amountOfGold);
 }
 //SHOP GOLD======================================================

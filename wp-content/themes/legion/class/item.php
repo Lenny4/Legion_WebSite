@@ -42,6 +42,7 @@ class item extends parent_item
         if (isset($data->id)) {
             $this->item_id = $data->id;
         }
+        $this->side = 0;
         if (isset($data->allowableRaces)) {
             if (in_array(1, $data->allowableRaces)) {
                 $this->side = 1;
@@ -201,6 +202,11 @@ class item extends parent_item
         }
         if (isset($data->itemSet)) {
             $this->itemSet = $data->itemSet->id;
+            if ($this->itemSet == '') {
+                $this->itemSet = 0;
+            }
+        } else {
+            $this->itemSet = 0;
         }
         if (isset($data->stackable)) {
             $this->getStackableNumber($data->stackable);

@@ -43,6 +43,7 @@ require_once 'wp-content/themes/legion/class/SOAPSendItem.php';
 require_once 'wp-content/themes/legion/class/SOAPTeleportation.php';
 require_once 'wp-content/themes/legion/class/SOAPLevelUp.php';
 require_once 'wp-content/themes/legion/class/SOAPCharacter.php';
+require_once 'wp-content/themes/legion/class/SOAPSendMoney.php';
 
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */

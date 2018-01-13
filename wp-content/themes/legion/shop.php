@@ -278,8 +278,8 @@
     }
 
     function loadHomePageShop() {
-        showMoreItemHome('item_home_gold');
-        return;
+        //showMoreItemHome('item_home_gold');
+        //return;
         $("*").addClass("progressWait");
         hideCategoryIfOnPhone();
         showAjaxLoaderShop();
@@ -618,6 +618,13 @@
         updateGold(mySlider.slider('getValue'));
     }
 
+    <?php
+    $maxPourcentReducGold = 0;
+    $req = $GLOBALS["dbh"]->query("SELECT * FROM `item_home` WHERE `phpclasse`='item_home_gold'");
+    while ($data = $req->fetch(PDO::FETCH_ASSOC)) {
+        $maxPourcentReducGold = $data["promotion"];
+    }
+    ?>
     function updateGold(valueOfGold) {
         if (valueOfGold <<?= MIN_AMOUNT_OF_GOLD_BUY; ?> || valueOfGold ><?= MAX_AMOUNT_OF_GOLD_BUY; ?>) {
             var mySlider = $("#amountOfGold").slider();
@@ -629,7 +636,7 @@
         var realMoney =<?= REAL_MONEY; ?>;
         var ratioVotePoint = <?= VOTE_POINTS; ?>;
         var ratioBuyPoint = <?= BUY_POINTS; ?>;
-        var maxReduction = 30;//%
+        var maxReduction = <?= $maxPourcentReducGold; ?>;
         var value = valueOfGold.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
         var minGoldAmount =<?= MIN_AMOUNT_OF_GOLD_BUY; ?>;
         var maxGoldAmount =<?= MAX_AMOUNT_OF_GOLD_BUY; ?>;
@@ -817,7 +824,14 @@
                     } else if ($(event.target).attr("id") === "addMapTeleportation") {
                         $("#display-maps").html(data);
                     } else if ($(event.target).attr("id") === "buy_gold") {
-                        console.log(data);
+                        if (data !== "") {
+                            $("#buyGoldAlert").html('<div class="alert alert-warning alert-dismissable">\n' +
+                                '  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>\n' +
+                                '  <strong>' + data + '</strong>\n' +
+                                '</div>');
+                        } else {
+                            $("#buyGoldAlert").html('');
+                        }
                     } else if ($(event.target).attr("id") === "teleportThisCharacter") {
                         $("#teleportThisCharacter").prepend(data);
                         hideAjaxLoaderShop();
