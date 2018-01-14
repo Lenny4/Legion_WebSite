@@ -825,10 +825,7 @@
                         $("#display-maps").html(data);
                     } else if ($(event.target).attr("id") === "buy_gold") {
                         if (data !== "") {
-                            $("#buyGoldAlert").html('<div class="alert alert-warning alert-dismissable">\n' +
-                                '  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>\n' +
-                                '  <strong>' + data + '</strong>\n' +
-                                '</div>');
+                            $("#buyGoldAlert").html(data);
                         } else {
                             $("#buyGoldAlert").html('');
                         }

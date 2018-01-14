@@ -15,7 +15,30 @@ class SOAPSendMoney
         $this->message = "";
         $this->soapConnect();
         if ($this->online == true) {
-            $this->soapCommand('.send money ' . $character . ' "Money" "Money" ' . $gold * 10000);
+            $command = '.send money ' . $character . ' "Money" "Money" ' . $gold * 10000;
+            $this->soapCommand($command);
+            $req = "";
+            if ($currency == "buy") {
+                if (!isWowAdmin()) {
+                    removeBuyPoint(get_current_user_id(), $amount);
+                    $req = 'INSERT INTO `log_sells`(`item_id`, `item_set_id`, `item_home`, `vote_points`, `buy_points`, `date`, `user_id`, `quantity`, `command`, `admin`) VALUES (null,null,\'item_home_gold\',null,' . $amount . ',NOW(),' . get_current_user_id() . ',1,' . json_encode($command) . ',0)';
+                } else {
+                    $req = 'INSERT INTO `log_sells`(`item_id`, `item_set_id`, `item_home`, `vote_points`, `buy_points`, `date`, `user_id`, `quantity`, `command`, `admin`) VALUES (null,null,\'item_home_gold\',null,null,NOW(),' . get_current_user_id() . ',1,' . json_encode($command) . ',1)';
+                }
+            } elseif ($currency == "vote") {
+                if (!isWowAdmin()) {
+                    removeVotePoint(get_current_user_id(), $amount);
+                    $req = 'INSERT INTO `log_sells`(`item_id`, `item_set_id`, `item_home`, `vote_points`, `buy_points`, `date`, `user_id`, `quantity`, `command`, `admin`) VALUES (null,null,\'item_home_gold\',' . $amount . ',null,NOW(),' . get_current_user_id() . ',1,' . json_encode($command) . ',0)';
+                } else {
+                    $req = 'INSERT INTO `log_sells`(`item_id`, `item_set_id`, `item_home`, `vote_points`, `buy_points`, `date`, `user_id`, `quantity`, `command`, `admin`) VALUES (null,null,\'item_home_gold\',null,null,NOW(),' . get_current_user_id() . ',1,' . json_encode($command) . ',1)';
+                }
+            }
+            $GLOBALS["dbh"]->query($req);
+        } else {
+            $this->message = '<div style="display: inline-block;width: 100%;" class="alert alert-danger alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>Error ! Please reload the page</strong>
+</div>';
         }
     }
 

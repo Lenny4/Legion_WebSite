@@ -1268,11 +1268,17 @@ if ($_POST["id"] == "buy_gold") {
         }
     }
     if (!is_array($selectedCharacter)) {
-        echo "Error with the character !";
+        echo '<div style="display: inline-block;width: 100%;" class="alert alert-danger alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>Error with the character</strong>
+</div>';
         return;
     }
     if ($amountOfGold < MIN_AMOUNT_OF_GOLD_BUY OR $amountOfGold > MAX_AMOUNT_OF_GOLD_BUY) {
-        echo "Error amount of gold";
+        echo '<div style="display: inline-block;width: 100%;" class="alert alert-danger alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>Error amount of gold</strong>
+</div>';
         return;
     }
     $maxPourcentReducGold = 0;
@@ -1299,22 +1305,39 @@ if ($_POST["id"] == "buy_gold") {
     $amount = 0;
     if ($currency == "buy") {
         $currentBuyPoint = intval(get_user_meta(get_current_user_id(), "buy_points")[0]);
-        $amount = $currentBuyPoint;
+        $amount = $buyPointReduction;
         if ($currentBuyPoint < $buyPointReduction) {
-            echo "You don't have enought buy point";
+            echo '<div style="display: inline-block;width: 100%;" class="alert alert-danger alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>You don\'t have enough buy point</strong>
+</div>';
             return;
         }
     } elseif ($currency == "vote") {
         $currentVotePoint = intval(get_user_meta(get_current_user_id(), "vote_points")[0]);
-        $amount = $currentVotePoint;
+        $amount = $votePointReduction;
         if ($currentVotePoint < $votePointReduction) {
-            echo "You don't have enought vote point";
+            echo '<div style="display: inline-block;width: 100%;" class="alert alert-danger alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>You don\'t have enough vote point</strong>
+</div>';
             return;
         }
     } else {
-        echo "Error, please reload the page";
+        echo '<div style="display: inline-block;width: 100%;" class="alert alert-danger alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>Error ! Please reload the page</strong>
+</div>';
         return;
     }
     $SOAPSendMoney = new SOAPSendMoney($selectedCharacter["name"], $currency, $amount, $amountOfGold);
+    if ($SOAPSendMoney->message == '') {
+        echo '<div style="display: inline-block;width: 100%;" class="alert alert-success alert-dismissable">
+  <a href="#" class="close" data-dismiss="alert" aria-label="close">&times;</a>
+  <strong>Your money has been send to ' . $selectedCharacter["name"] . ' !</strong>
+</div>';
+    } else {
+        echo '<div class="col-xs-12">' . $SOAPSendMoney->message . '</div>';
+    }
 }
 //SHOP GOLD======================================================
