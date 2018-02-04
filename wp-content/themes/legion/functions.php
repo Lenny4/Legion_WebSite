@@ -769,14 +769,13 @@ function getOnlinePlayer()
     return $tab;
 }
 
-function getLadder()
+function getBestVoters()
 {
     $tab = array();
     for ($i = 0; $i < 5; $i++) {
         $tab[$i]["name"] = "Name";
-        $tab[$i]["win"] = "1000";
-        $tab[$i]["losses"] = "10";
-        $tab[$i]["ranking"] = "2009";
+        $tab[$i]["vote"] = "1000";
+        $tab[$i]["won"] = "10";
     }
     return $tab;
 }

@@ -291,26 +291,41 @@
             </div>
         </div>
         <div class="col-xs-12 background" style="margin-top: 20px">
-            <p class="h1">Classement</p>
-            <table>
-                <tr style="border-bottom: solid white 1px;">
-                    <td>Name</td>
-                    <td>Wins</td>
-                    <td>Losses</td>
-                    <td>Ranking</td>
-                </tr>
-                <?php
-                $tabLadder = getLadder();
-                foreach ($tabLadder as $row) {
-                    echo "<tr>";
-                    echo "<td>" . $row["name"] . "</td>";
-                    echo "<td>" . $row["win"] . "</td>";
-                    echo "<td>" . $row["losses"] . "</td>";
-                    echo "<td>" . $row["ranking"] . "</td>";
-                    echo "</tr>";
-                }
-                ?>
-            </table>
+            <p class="h1">Best voters</p>
+            <div class="col-sm-7 col-xs-12">
+                <table>
+                    <tr style="border-bottom: solid white 1px;">
+                        <td>Name</td>
+                        <td>Vote</td>
+                        <td style='text-align: center'>
+                            <div style="display: inline-block">
+                                <img style="width: 18px; float: left; position: relative; right: 4px"
+                                     src="<?= wp_get_attachment_image_src(169, "thumbnail")[0]; ?>">
+                                won
+                            </div>
+                        </td>
+                    </tr>
+                    <?php
+                    $tabVoters = getBestVoters();
+                    $i = 1;
+                    foreach ($tabVoters as $row) {
+                        echo "<tr>";
+                        echo "<td>" . $i . ":" . $row["name"] . "</td>";
+                        echo "<td>" . $row["vote"] . "</td>";
+                        echo "<td style='text-align: center'>" . $row["won"] . "</td>";
+                        echo "</tr>";
+                        $i++;
+                    }
+                    ?>
+                </table>
+            </div>
+            <div class="col-sm-5  col-xs-12 noPadding">
+                <div class="display_item" style="display: block">
+                    <?= wp_get_attachment_image(296, "thumbnail", false, array("class" => "img-responsive; center-block")); ?>
+                    <span>Monthly reward will be given to the best voters</span>
+                    <button type="button" class="btn btn-primary btn-block">See rewards !</button>
+                </div>
+            </div>
         </div>
     </div>
 </main>
