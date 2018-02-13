@@ -874,4 +874,27 @@ function getCharacterClassNameWithId($id)
     return $array[$id];
 }
 
+function newInstanceVote()
+{
+    $result = $GLOBALS["dbh"]->query("SELECT * FROM `instance_vote` ORDER BY `id` DESC LIMIT 1");
+    if ($result->rowCount() == 1) {
+        while ($data = $result->fetch(PDO::FETCH_ASSOC)) {
+            $date1 = new DateTime($data["date"]);
+            $date2 = new DateTime();
+            $month1 = intval(date("m", strtotime($date1->format('Y-m-d H:i:s'))));
+            $month2 = intval(date("m", strtotime($date2->format('Y-m-d H:i:s'))));
+            $year1 = intval(date("Y", strtotime($date1->format('Y-m-d H:i:s'))));
+            $year2 = intval(date("Y", strtotime($date2->format('Y-m-d H:i:s'))));
+            if ($month2 > $month1 OR $year2 > $year1) {
+                $GLOBALS["dbh"]->query("INSERT INTO `instance_vote`(`date`) VALUES (NOW())");
+                //remettre a zéro les votes de tous le monde
+                //donner les cadeaux si il y en a
+            }
+        }
+    } else {
+        $GLOBALS["dbh"]->query("INSERT INTO `instance_vote`(`date`) VALUES (NOW())");
+        newInstanceVote();
+    }
+}
+
 ?>

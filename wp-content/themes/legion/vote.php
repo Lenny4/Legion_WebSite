@@ -20,6 +20,7 @@
 
                 <div class="col-xs-12">
                     <?php the_content(); ?>
+                    <?php $previousUrl = wp_get_referer(); ?>
                     <div class="row">
                         <?php
                         $result = $GLOBALS["dbh"]->query('SELECT * FROM `website_vote`');
@@ -43,7 +44,7 @@
                                 </div>
                                 <?php
                                 if (true) { ?>
-                                    <button type="button" class="btn btn-primary btn-block">Vote</button>
+                                    <a href="<?= $data["url_vote"]; ?>"><button type="button" class="btn btn-primary btn-block">Vote</button></a>
                                 <?php } else { ?>
                                     <button type="button" class="btn btn-danger btn-block disabled">You can vote in 1h
                                         45min 23sec
