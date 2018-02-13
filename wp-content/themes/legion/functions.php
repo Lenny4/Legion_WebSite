@@ -887,7 +887,6 @@ function newInstanceVote()
             $year2 = intval(date("Y", strtotime($date2->format('Y-m-d H:i:s'))));
             if ($month2 > $month1 OR $year2 > $year1) {
                 $GLOBALS["dbh"]->query("INSERT INTO `instance_vote`(`date`) VALUES (NOW())");
-                //remettre a zéro les votes de tous le monde
                 //donner les cadeaux si il y en a
             }
         }
@@ -895,6 +894,18 @@ function newInstanceVote()
         $GLOBALS["dbh"]->query("INSERT INTO `instance_vote`(`date`) VALUES (NOW())");
         newInstanceVote();
     }
+}
+
+function get_the_user_ip()
+{
+    if (!empty($_SERVER['HTTP_CLIENT_IP'])) {
+        $ip = $_SERVER['HTTP_CLIENT_IP'];
+    } elseif (!empty($_SERVER['HTTP_X_FORWARDED_FOR'])) {
+        $ip = $_SERVER['HTTP_X_FORWARDED_FOR'];
+    } else {
+        $ip = $_SERVER['REMOTE_ADDR'];
+    }
+    return $ip;
 }
 
 ?>
