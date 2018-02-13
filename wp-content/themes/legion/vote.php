@@ -26,6 +26,17 @@
                         $result = $GLOBALS["dbh"]->query('SELECT * FROM `website_vote`');
                         $i = 0;
                         while ($data = $result->fetch(PDO::FETCH_ASSOC)) { ?>
+                            <?php
+                            if (!parse_url($previousUrl, PHP_URL_HOST) == parse_url($data["url_vote"], PHP_URL_HOST)) {
+                                $req = "SELECT * FROM `user_vote` WHERE `user_ip`='" . get_the_user_ip() . "' AND `website_id`=" . $data['id'] . " AND `status`='voting'";
+                                $result2 = $GLOBALS["dbh"]->query($req);
+                                while ($data2 = $result2->fetch(PDO::FETCH_ASSOC)) {
+                                    $req = "UPDATE `user_vote` SET `status`='done',`date`= NOW() WHERE id=" . $data2['id'];
+                                    $GLOBALS["dbh"]->query($req);
+                                    //give points
+                                }
+                            }
+                            ?>
                             <div class="col-sm-6 col-xs-12">
                                 <div class="col-sm-3 col-xs-6">
                                     <?= wp_get_attachment_image($data["img"], "thumbnail", false, array("class" => "img-responsive")); ?>
@@ -44,7 +55,10 @@
                                 </div>
                                 <?php
                                 if (true) { ?>
-                                    <a href="<?= $data["url_vote"]; ?>"><button type="button" class="btn btn-primary btn-block">Vote</button></a>
+                                    <button data-href="<?= $data["url_vote"]; ?>" data-websiteid="<?= $data["id"]; ?>"
+                                            type="button"
+                                            class="btn btn-primary btn-block">Vote
+                                    </button>
                                 <?php } else { ?>
                                     <button type="button" class="btn btn-danger btn-block disabled">You can vote in 1h
                                         45min 23sec
@@ -129,5 +143,34 @@
 </main>
 
 <?php get_sidebar(); ?>
+
+<script>
+    function voteSite($url, $websiteid, $btn) {
+        $.post("/api/vote/vote.php",
+            {
+                id: "vote",
+                websiteid: $websiteid
+            },
+            function (data) {
+                $($btn).button('reset');
+                if (data === "vote") {
+                    window.location.href = $url;
+                } else if (data === "is_voting") {
+                    alert("display message and redirect");
+                } else {
+                    alert("error");
+                }
+            });
+    }
+
+    $(document).ready(function () {
+        $("button[data-href]").click(function () {
+            $(this).button('loading');
+            var $url = $(this).data("href");
+            var $websiteid = $(this).data("websiteid");
+            voteSite($url, $websiteid, this);
+        });
+    });
+</script>
 
 <?php get_footer(); ?>
