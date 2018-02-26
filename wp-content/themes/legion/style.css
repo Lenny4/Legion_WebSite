@@ -657,9 +657,16 @@ section.shop a {
     cursor: pointer;
 }
 
+section.shop a.pinterest div.display_item, a.pinterest div.shopLink {
+    -webkit-transition: 0.4s all;
+    -moz-transition: 0.4s all;
+    -o-transition: 0.4s all;
+    transition: 0.4s all;
+}
+
 section.shop a.pinterest:hover div.display_item, a.pinterest:hover div.shopLink {
-    box-shadow: 1px 1px 10px rgba(255, 255, 255, 0.8);
-    bottom: 5px;
+    box-shadow: 1px 1px 20px rgba(255, 255, 255, 0.8);
+    zoom: 200%;
 }
 
 p.message {

@@ -2,7 +2,7 @@
 # This file is distributed under the same license as the WordPress - 4.9.x - Development package.
 msgid ""
 msgstr ""
-"PO-Revision-Date: 2017-11-15 18:54:48+0000\n"
+"PO-Revision-Date: 2017-12-28 20:26:30+0000\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -441,13 +441,6 @@ msgstr "Aktualisierung"
 msgid "Activate &amp; Publish"
 msgstr "Aktivieren &amp; Veröffentlichen"
 
-#. translators: %d: error count
-#: wp-includes/script-loader.php:481 wp-includes/script-loader.php:483
-msgid "There is %d error which must be fixed before you can update this file."
-msgid_plural "There are %d errors which must be fixed before you can update this file."
-msgstr[0] "Es gibt %d Fehler der korrigiert werden muss, bevor du diese Datei aktualisieren kannst."
-msgstr[1] "Es gibt %d Fehler die korrigiert werden müssen, bevor du diese Datei aktualisieren kannst."
-
 #: wp-includes/script-loader.php:445
 msgid "Yiddish"
 msgstr "Jiddisch"
@@ -520,6 +513,13 @@ msgstr "Einrichten der Live-Vorschau. Es kann einen Moment dauern."
 #: wp-includes/script-loader.php:580
 msgid "There is a more recent autosave of your changes than the one you are previewing. <a href=\"%s\">Restore the autosave</a>"
 msgstr "Es gibt eine aktuellere, automatische Speicherung deiner Änderungen als die, deren Vorschau du ansiehst. <a href=\"%s\">Automatische Speicherung wiederherstellen</a>"
+
+#. translators: %d: error count
+#: wp-includes/script-loader.php:481 wp-includes/script-loader.php:483
+msgid "There is %d error which must be fixed before you can update this file."
+msgid_plural "There are %d errors which must be fixed before you can update this file."
+msgstr[0] "Es gibt %d Fehler, der korrigiert werden muss, bevor du diese Datei aktualisieren kannst."
+msgstr[1] "Es gibt %d Fehler, die korrigiert werden müssen, bevor du diese Datei aktualisieren kannst."
 
 #: wp-includes/script-loader.php:414
 msgid "Hindi"
@@ -1918,7 +1918,7 @@ msgctxt "New user notification email subject"
 msgid "[%1$s] Activate %2$s"
 msgstr "[%1$s] Aktiviere %2$s"
 
-#: wp-includes/widgets.php:1395 wp-includes/widgets.php:1504
+#: wp-includes/widgets.php:1398 wp-includes/widgets.php:1507
 msgid "RSS Error:"
 msgstr "RSS-Fehler:"
 
@@ -3912,11 +3912,6 @@ msgstr "Du hast zum jetzigen Zeitpunkt scheinbar keine verfügbaren Plugins."
 msgid "Sorry, you are not allowed to preview drafts."
 msgstr "Du bist leider nicht berechtigt, Entwürfe anzusehen."
 
-#: wp-includes/rest-api/class-wp-rest-server.php:911
-#: wp-includes/script-loader.php:132 wp-includes/script-loader.php:643
-msgid "Sorry, you are not allowed to do that."
-msgstr "Du bist leider nicht berechtigt, dies zu tun."
-
 #: wp-includes/script-loader.php:654
 msgid ""
 "Are you sure you want to do this?\n"
@@ -3928,6 +3923,11 @@ msgstr ""
 #: wp-includes/script-loader.php:507 wp-login.php:704
 msgid "Confirm use of weak password"
 msgstr "Bestätige die Verwendung eines schwachen Passworts."
+
+#: wp-includes/rest-api/class-wp-rest-server.php:911
+#: wp-includes/script-loader.php:132 wp-includes/script-loader.php:643
+msgid "Sorry, you are not allowed to do that."
+msgstr "Tut mir leid, aber du hast keine Berechtigung das zu tun."
 
 #: wp-includes/formatting.php:4273
 msgid "https://codex.wordpress.org/Using_Permalinks#Choosing_your_permalink_structure"
@@ -4183,11 +4183,6 @@ msgctxt "comment status"
 msgid "Trash"
 msgstr "Papierkorb"
 
-#: wp-includes/comment.php:242
-msgctxt "comment status"
-msgid "Approved"
-msgstr "Genehmigt"
-
 #: wp-includes/comment.php:1158
 msgid "<strong>ERROR</strong>: your comment is too long."
 msgstr "<strong>FEHLER</strong>: Dein Kommentar ist zu lang."
@@ -4203,6 +4198,11 @@ msgstr "<strong>FEHLER</strong>: Deine E-Mail-Adresse ist zu lang."
 #: wp-includes/comment.php:1146
 msgid "<strong>ERROR</strong>: your name is too long."
 msgstr "<strong>FEHLER</strong>: Dein Name ist zu lang."
+
+#: wp-includes/comment.php:242
+msgctxt "comment status"
+msgid "Approved"
+msgstr "Freigegeben"
 
 #: wp-includes/class-wp-customize-manager.php:4890
 msgid "Logo"
@@ -4635,7 +4635,7 @@ msgstr "%1$s (ab %2$s; verwende stattdessen %3$s)"
 
 #: wp-includes/rest-api/class-wp-rest-server.php:975
 msgid "No route was found matching the URL and request method"
-msgstr "Keine Route für URL und Request-Methode gefunden"
+msgstr "Es wurde keine Route gefunden, die mit der URL und der Request-Methode identisch ist."
 
 #: wp-includes/rest-api/class-wp-rest-server.php:854
 msgid "The handler for the route is invalid"
@@ -5638,7 +5638,7 @@ msgstr "Wechseln"
 
 #: wp-includes/script-loader.php:81
 msgid "Dismiss this notice."
-msgstr "Diese Meldung verwerfen."
+msgstr "Diese Meldung ausblenden."
 
 #. translators: 1: number of comments, 2: post title
 #: wp-includes/theme-compat/comments.php:40
@@ -7665,7 +7665,7 @@ msgstr "Upload-Limit überschritten"
 
 #: wp-includes/media-template.php:264
 msgid "Dismiss Errors"
-msgstr "Fehler verwerfen"
+msgstr "Fehler ausblenden"
 
 #: wp-includes/media-template.php:263
 msgid "Uploading"
@@ -8921,10 +8921,6 @@ msgstr "Breite für große Bilder"
 msgid "Someone has requested a password reset for the following account:"
 msgstr "Jemand hat das Zurücksetzen des Passworts für folgendes Benutzerkonto angefordert:"
 
-#: wp-login.php:365
-msgid "If this was a mistake, just ignore this email and nothing will happen."
-msgstr "Falls dies nicht beabsichtigt war, ignoriere einfach diese E-Mail. Es wird dann nichts passieren."
-
 #: wp-login.php:366
 msgid "To reset your password, visit the following address:"
 msgstr "Um dein Passwort zurückzusetzen, besuche folgende Adresse:"
@@ -8956,6 +8952,10 @@ msgstr "Neues Passwort"
 #: wp-login.php:710
 msgid "Confirm new password"
 msgstr "Neues Passwort bestätigen"
+
+#: wp-login.php:365
+msgid "If this was a mistake, just ignore this email and nothing will happen."
+msgstr "Falls das nicht beabsichtigt war, ignoriere diese E-Mail einfach. Es wird dann nichts passieren."
 
 #: wp-includes/admin-bar.php:278
 msgid "Edit My Profile"
@@ -9864,10 +9864,6 @@ msgstr "Unten"
 msgid "The URL you entered seems to be an email address. Do you want to add the required mailto: prefix?"
 msgstr "Die eingegebene URL scheint eine E-Mail-Adresse zu sein. Soll \"mailto:\" vorangestellt werden?"
 
-#: wp-includes/class-wp-editor.php:1140
-msgid "The URL you entered seems to be an external link. Do you want to add the required http:// prefix?"
-msgstr "Die eingegebene URL scheint ein externer Link zu sein. Soll \"http://\" vorangestellt werden?"
-
 #: wp-includes/class-wp-editor.php:1092
 msgid "Constrain proportions"
 msgstr "Proportionen beschränken"
@@ -10519,11 +10515,11 @@ msgctxt "widgets"
 msgid "%1$s on %2$s"
 msgstr "%1$s bei %2$s"
 
-#: wp-includes/widgets.php:1510
+#: wp-includes/widgets.php:1513
 msgid "Enter the RSS feed URL here:"
 msgstr "Gib die URL des RSS-Feeds hier ein:"
 
-#: wp-includes/widgets.php:1513
+#: wp-includes/widgets.php:1516
 msgid "Give the feed a title (optional):"
 msgstr "Gib dem Feed einen Titel (optional):"
 
@@ -10849,15 +10845,15 @@ msgstr "Beitrags-Feed (<abbr title=\"Really Simple Syndication\">RSS</abbr>)"
 msgid "Number of posts to show:"
 msgstr "Anzahl der Beiträge, die angezeigt werden:"
 
-#: wp-includes/widgets.php:1526
+#: wp-includes/widgets.php:1529
 msgid "Display item content?"
 msgstr "Beitrags-Inhalt anzeigen?"
 
-#: wp-includes/widgets.php:1529
+#: wp-includes/widgets.php:1532
 msgid "Display item author if available?"
 msgstr "Beitrags-Autor anzeigen, wenn verfügbar?"
 
-#: wp-includes/widgets.php:1532
+#: wp-includes/widgets.php:1535
 msgid "Display item date?"
 msgstr "Beitrags-Datum anzeigen?"
 
@@ -10874,7 +10870,7 @@ msgstr "Letzter Beitrag"
 msgid "Once Hourly"
 msgstr "Einmal stündlich"
 
-#: wp-includes/widgets.php:1426
+#: wp-includes/widgets.php:1429
 msgid "Untitled"
 msgstr "Ohne Titel"
 
@@ -11015,7 +11011,7 @@ msgstr "Diese E-Mail-Adresse wurde bereits verwendet. Bitte schau in deinem Post
 msgid "Slow down cowboy, no need to check for new mails so often!"
 msgstr "Ruhe bewahren, es gibt keinen Grund, so oft nach neuen E-Mails zu schauen."
 
-#: wp-includes/rss.php:917 wp-includes/widgets.php:1410
+#: wp-includes/rss.php:917 wp-includes/widgets.php:1413
 msgid "An error has occurred, which probably means the feed is down. Try again later."
 msgstr "Ein Fehler ist aufgetreten – der Feed funktioniert zur Zeit nicht. Versuche es später noch einmal."
 
@@ -11128,7 +11124,7 @@ msgstr "Neue WordPress-Loop"
 msgid "Duplicate comment detected; it looks as though you&#8217;ve already said that!"
 msgstr "Doppelter Kommentar wurde entdeckt. Es sieht stark danach aus, dass du das schon einmal geschrieben hast!"
 
-#: wp-includes/widgets.php:1516
+#: wp-includes/widgets.php:1519
 msgid "How many items would you like to display?"
 msgstr "Wieviele Einträge sollen angezeigt werden?"
 
@@ -11266,6 +11262,10 @@ msgstr "Bei dem Upload ist ein Fehler aufgetreten. Bitte versuche es später noc
 #: wp-includes/widgets/class-wp-widget-archives.php:85
 msgid "Select Month"
 msgstr "Monat auswählen"
+
+#: wp-includes/class-wp-editor.php:1140
+msgid "The URL you entered seems to be an external link. Do you want to add the required http:// prefix?"
+msgstr "Die eingegebene URL scheint ein externer Link zu sein. Soll \"https://\" vorangestellt werden?"
 
 #: wp-includes/link-template.php:2302 wp-includes/link-template.php:2354
 msgid "&laquo; Previous Page"
@@ -11478,7 +11478,7 @@ msgstr "Powered by WordPress, state-of-the-art semantic personal publishing plat
 msgid "You must be <a href=\"%s\">logged in</a> to post a comment."
 msgstr "Du musst <a href=\"%s\">angemeldet</a> sein, um einen Kommentar abzugeben."
 
-#: wp-includes/category-template.php:1139
+#: wp-includes/category-template.php:1131
 msgid "Tags: "
 msgstr "Schlagwörter: "
 
@@ -11951,13 +11951,6 @@ msgstr "Neuer Beitrag"
 msgid "Unknown Feed"
 msgstr "Unbekannter Feed"
 
-#: wp-includes/class-wp-customize-manager.php:4090
-#: wp-includes/script-loader.php:146 wp-includes/script-loader.php:307
-#: wp-includes/widgets/class-wp-widget-text.php:500
-#: wp-includes/widgets/class-wp-widget-text.php:515
-msgid "Dismiss"
-msgstr "Verwerfen"
-
 #: wp-includes/admin-bar.php:854
 msgid "Header"
 msgstr "Header"
@@ -12043,6 +12036,13 @@ msgstr "Medien hinzufügen"
 #: wp-includes/class-wp-editor.php:1103
 msgid "Media"
 msgstr "Medien"
+
+#: wp-includes/class-wp-customize-manager.php:4090
+#: wp-includes/script-loader.php:146 wp-includes/script-loader.php:307
+#: wp-includes/widgets/class-wp-widget-text.php:500
+#: wp-includes/widgets/class-wp-widget-text.php:515
+msgid "Dismiss"
+msgstr "Ausblenden"
 
 #: wp-activate.php:85 wp-includes/script-loader.php:829
 #: wp-includes/script-loader.php:830

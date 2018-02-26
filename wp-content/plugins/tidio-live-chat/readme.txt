@@ -1,8 +1,8 @@
 === Tidio Live Chat ===
-Contributors: tytus-tytus
+Contributors: tytus-tytus, lucastidio
 Tags: free live chat, plugin, facebook, admin, live chat, chat, livechat, post, tidio, widget, post, posts, twitter, zendesk, mailchimp
 Requires at least: 3.0
-Tested up to: 4.8
+Tested up to: 4.9
 Stable tag: trunk
 License: GPLv2
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -14,19 +14,19 @@ Meet Tidio Live Chat - a free live chat for your website. No login or registrati
 Tidio Live Chat is a live chat service which allows you to easily communicate with your customers. It is designed specifically for the WordPress community. Once you install the plugin, you will be ready to take full advantage of the benefits our service provides; no registration required.
 
 = Features =
-* Extremely easy installation, once you install the plugin, you’re ready to go
+* Extremely easy installation - once you install the plugin, you’re ready to go
 * Keep track of who visits your website
 * Contact any customer that is currently visiting your site
-* Adjust colour scheme to your needs
-* Dedicated app for mobile and desktop devices (iOS, Android, Windows, OS X, Chrome)
-* Integrated widget supports 140 languages
-* Available in 3 outstanding designs 
+* Adjust the colour scheme to your needs
+* Use a dedicated app for mobile and desktop devices (iOS, Android, Windows, OS X, Chrome)
+* The integrated widget supports 183 languages
+* Available in 2 outstanding designs
 * Offline messages form for your visitors to send you an email, when you are not online
-* Contact your visitor via email when they leave the chat
-* Integration with Zendesk, GetResponse, SalesForce and MailChimp and many more...
+* Contact your visitors via email when they leave the chat
+* Integration with Zendesk, GetResponse, SalesForce, MailChimp, and many more…
 
 = How does it work? =
-Right after you install, open the “Tidio Chat” tab and you're ready to go! You will immediately see a list of visitors on your website, to whom you can write to anytime. Chat box will be visible on your website so your visitors will be able to contact you in real time.
+Right after you install, open the “Tidio Chat” tab and you’re ready to go! Once you access the Tidio dashboard, you can reply to any incoming chats and manage your settings. Chat box will be visible on your website so your visitors will be able to contact you in real time.
 
 [youtube https://www.youtube.com/watch?v=lL84qzWi4zQ]
 
@@ -34,10 +34,24 @@ Right after you install, open the “Tidio Chat” tab and you're ready to go! Y
 
 = Supported languages =
 * English
+* Spanish
+* Portuguese
+* Arabic
+* Chinese
+* Danish
+* Dutch
+* French
+* German
+* Hebrew
+* Hindi
+* Italian
+* Japanese
+* Korean
+* Persian
 * Polish
-* Spanish (soon)
-* German (soon)
-* French (soon)
+* Romanian
+* Russian
+* Swedish
 
 If you're lacking support of your language, please contact us on contact[at]tidio.net or visit our website www.tidiochat.com
 
@@ -103,6 +117,10 @@ Yes, simply go to your chat panel and switch the “Display” option to off.
 4. Dedicated app for mobile and desktop devices (iOS, Android, Chrome, Windows, OS X)
 
 == Changelog ==
+
+= 3.3.0 =
+* New button added to reset the account data.
+* Account data is not automatically removed while deactivating or uninstalling plugin.
 
 = 3.2.0 =
 * Remove old files, move to https api requests.

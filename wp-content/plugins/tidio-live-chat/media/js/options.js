@@ -1,4 +1,6 @@
 var TidioChatWP = {
+    apiUrl: 'https://api-v2.tidio.co',
+    chatUrl: 'https://www.tidiochat.com',
     token: null,
     setRedirectLink: function(url){
         jQuery('a[href="admin.php?page=tidio-chat"]').attr('href', url).attr('target', '_blank');
@@ -23,7 +25,7 @@ var TidioChatWP = {
         });
     },
     getProjects: function (token) {
-        jQuery.get("https://api-v2.tidio.co/project", {
+        jQuery.get(TidioChatWP.apiUrl + '/project', {
             api_token: token
         }, function (response) {
             TidioChatWP.renderProjects(response);
@@ -61,7 +63,7 @@ var TidioChatWP = {
             
             login_button.prop('disabled', true).text('Loading...');
 
-            jQuery.get("https://api-v2.tidio.co/access/getUserToken", {
+            jQuery.get(TidioChatWP.apiUrl + '/access/getUserToken', {
                 email: email,
                 password: password,
             }, function (data) {
@@ -134,14 +136,13 @@ var TidioChatWP = {
     
     accessTroughtXHR: function(_func){
         
-        var xhr_url = '//www.tidio.co/external/create?url=' + location.protocol + '//' + location.host +  '&platform=wordpress';
-        
+        var xhr_url = TidioChatWP.apiUrl + '/access/external/create?url=' + location.protocol + '//' + location.host +  '&platform=wordpress';
         jQuery.getJSON(xhr_url, {}, function(r) {
             if(!r || !r.value){
                 alert('Error occured while creating, please try again!');   
                 return false;
             }
-            _func('https://www.tidio.co/external/access?privateKey=' + r.value.private_key + '&app=chat');
+            _func(TidioChatWP.chatUrl + '/access?privateKey=' + r.value.private_key + '&app=chat');
             // save this in wordpress database
             jQuery.post(ajaxurl, {'action': 'tidio_chat_save_keys', 'public_key': r.value.public_key, 'private_key': r.value.private_key}, function(response) {
 

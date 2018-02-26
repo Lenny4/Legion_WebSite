@@ -821,10 +821,24 @@ function removeVotePoint($id, $amount)
     update_user_meta($id, 'vote_points', $newVotePoint);
 }
 
+function addVotePoint($id, $amount)
+{
+    $currentVotePoint = intval(get_user_meta($id, 'vote_points')[0]);
+    $newVotePoint = intval($currentVotePoint) + intval($amount);
+    update_user_meta($id, 'vote_points', $newVotePoint);
+}
+
 function removeBuyPoint($id, $amount)
 {
     $currentBuyPoint = intval(get_user_meta($id, 'buy_points')[0]);
     $newBuyPoint = intval($currentBuyPoint) - intval($amount);
+    update_user_meta($id, 'buy_points', $newBuyPoint);
+}
+
+function addBuyPoint($id, $amount)
+{
+    $currentBuyPoint = intval(get_user_meta($id, 'buy_points')[0]);
+    $newBuyPoint = intval($currentBuyPoint) + intval($amount);
     update_user_meta($id, 'buy_points', $newBuyPoint);
 }
 
@@ -906,6 +920,40 @@ function get_the_user_ip()
         $ip = $_SERVER['REMOTE_ADDR'];
     }
     return $ip;
+}
+
+function getPointsThisMonthServerVote($ip, $server)
+{
+    $req = "SELECT * FROM `user_vote` WHERE MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE()) AND `user_ip`='" . $ip . "' AND `website_id`=" . $server['id'] . " AND `status`='done'";
+    $result3 = $GLOBALS["dbh"]->query($req);
+    $count = $result3->rowCount();
+    $pointThisMonth = $count * $server["points"];
+    return $pointThisMonth;
+}
+
+function canVoteThisServer($ip, $server)
+{
+    $return = [];
+    $req = "SELECT * FROM `user_vote` WHERE `user_ip`='" . $ip . "' AND `website_id`=" . $server['id'] . " AND `status`='voting'";
+    $result = $GLOBALS["dbh"]->query($req);
+    if ($result->rowCount() >= 1) {
+        $return["can_vote"] = "is_voting";
+        return $return;
+    }
+
+    $req = "SELECT * FROM `user_vote` WHERE TIME_TO_SEC(TIMEDIFF(NOW(), `date`)) < " . $server['times'] . " AND `website_id`=" . $server['id'] . " AND `status`='done'";
+    $result2 = $GLOBALS["dbh"]->query($req);
+    if ($result2->rowCount() == 0) {
+        $return["can_vote"] = "can_vote";
+        return $return;
+    } else {
+        while ($data = $result2->fetch(PDO::FETCH_ASSOC)) {
+            $date = strtotime($data["date"]);
+        }
+        $return["can_vote"] = "no_vote";
+        $return["time"] = $date;
+        return $return;
+    }
 }
 
 ?>

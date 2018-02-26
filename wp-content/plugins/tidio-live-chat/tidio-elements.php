@@ -4,17 +4,18 @@
  * Plugin Name: Tidio Chat
  * Plugin URI: http://www.tidiochat.com
  * Description: Tidio Live Chat - Live chat for your website. No logging in, no signing up - integrates with your website in less than 20 seconds.
- * Version: 3.2.0
+ * Version: 3.3.0
  * Author: Tidio Ltd.
  * Author URI: http://www.tidiochat.com
  * License: GPL2
  */
-define('TIDIOCHAT_VERSION', '3.2.0');
+define('TIDIOCHAT_VERSION', '3.3.0');
 
 class TidioLiveChat {
 
     private $scriptUrl = '//code.tidio.co/';
-    private $tidioOne;
+    private static $apiUrl = 'https://api-v2.tidio.co';
+    private static $chatUrl = 'https://www.tidiochat.com';
 
     public function __construct() {
 
@@ -22,61 +23,43 @@ class TidioLiveChat {
             echo TIDIOCHAT_VERSION;
             exit;
         }
-        
+
         /* Before add link to menu - check is user trying to unninstal */
         if (is_admin() && !empty($_GET['tidio_one_clear_cache'])) {
             delete_option('tidio-one-public-key');
             delete_option('tidio-one-private-key');
         }
-        
+
         add_action('admin_menu', array($this, 'addAdminMenuLink'));
-        
+
         if(get_option('tidio-one-public-key')){
             add_action('admin_footer', array($this, 'adminJS'));
         }
 
         if (!is_admin()) {
             add_action('wp_enqueue_scripts', array($this, 'enqueueScripts'));
-        }else{            
-            add_action('admin_enqueue_scripts', array($this, 'enqueueAdminScripts'));                 
-        }       
-        
-        add_action('deactivate_' . plugin_basename(__FILE__), array($this, 'uninstall'));
+        }else{
+            add_action('admin_enqueue_scripts', array($this, 'enqueueAdminScripts'));
+        }
+
         add_action('wp_ajax_tidio_chat_save_keys', array($this, 'ajaxTidioChatSaveKeys'));
-        
+
         /* Ajax functions to set up existing tidio account  */
         add_action('wp_ajax_get_project_keys', array($this, 'ajaxGetProjectKeys'));
-        add_action('wp_ajax_get_private_key', array($this, 'ajaxGetPrivateKey'));        
+        add_action('wp_ajax_get_private_key', array($this, 'ajaxGetPrivateKey'));
 
-        // WooCommerce Hooks - Active only after activiation by user, default is off
-        if (get_option('tidio-one-woo-hooks-chat') && !class_exists('TidioOneApi')) {
-            $tidioOneLibPath = plugin_dir_path(__FILE__) . 'classes/TidioOneApi.php';
-            if (file_exists($tidioOneLibPath)) {
-                include($tidioOneLibPath);
-                $this->tidioOne = new TidioOneApi(self::getPublicKey());
-                add_action('woocommerce_checkout_order_processed', array($this, 'wooPaymentCharged'));
-                add_action('woocommerce_add_to_cart', array($this, 'wooAddToCart'), 10, 6);
-                add_action('woocommerce_cart_item_removed', array($this, 'wooRemoveFromCart'), 10, 2);
-
-                add_action('wp_head', array($this, 'wooAddScript'));
-            }
-        }
-
-        // Activation by user process, have to use private key
-
-        if (!empty($_GET['tidio_one_hooks_activiation']) && $_GET['tidio_one_hooks_activiation'] == self::getPrivateKey()) {
-            if (!get_option('tidio-one-woo-hooks')) {
-                update_option('tidio-one-woo-hooks', '1');
-                update_option('tidio-one-woo-hooks-chat', '1');
-                echo 'OK';
-                exit;
-            } else {
-                echo 'SETTED';
-                exit;
-            }
-        }
+        add_filter('plugin_action_links', array($this, 'pluginActionLinks'), 10, 2);
+        add_action('admin_post_tidio-chat-reset', array($this, 'uninstall'));
     }
-    
+
+    public function pluginActionLinks($links, $file) {
+        if (strpos($file, 'tidio-elements.php') !== false && get_option('tidio-one-private-key')) {
+            $links[] = '<a href="'.admin_url('admin-post.php').'?action=tidio-chat-reset">'.esc_html__( 'Clear Account Data' , 'tidio-live-chat').'</a>';
+        }
+
+        return $links;
+    }
+
     public function ajaxGetProjectKeys(){
         update_option('tidio-one-public-key', $_POST['public_key']);
         update_option('tidio-one-private-key', $_POST['private_key']);
@@ -87,11 +70,11 @@ class TidioLiveChat {
     // Ajax - Create an new project
 
     public function ajaxTidioChatSaveKeys() {
-        
+
         if (!is_admin()) {
             exit;
         }
-        
+
         if (empty($_POST['private_key']) || empty($_POST['public_key'])) {
             exit;
         }
@@ -102,12 +85,12 @@ class TidioLiveChat {
         echo '1';
         exit;
     }
-    
+
     // Front End Scripts
     public function enqueueScripts() {
         wp_enqueue_script('tidio-chat', $this->scriptUrl . self::getPublicKey() . '.js', array(), TIDIOCHAT_VERSION, true);
     }
-    
+
     // Admin scripts and style enquee
     public function enqueueAdminScripts(){
         wp_enqueue_script('tidio-chat-admin', plugins_url('media/js/options.js', __FILE__), array(), TIDIOCHAT_VERSION, true);
@@ -132,7 +115,7 @@ class TidioLiveChat {
 
     public function addAdminMenuLink() {
         $optionPage = add_menu_page(
-                'Tidio Chat', 'Tidio Chat', 'manage_options', 'tidio-chat', array($this, 'addAdminPage'), content_url() . '/plugins/tidio-live-chat/media/img/icon.png'
+            'Tidio Chat', 'Tidio Chat', 'manage_options', 'tidio-chat', array($this, 'addAdminPage'), content_url() . '/plugins/tidio-live-chat/media/img/icon.png'
         );
     }
 
@@ -147,19 +130,21 @@ class TidioLiveChat {
     public function uninstall() {
         delete_option('tidio-one-public-key');
         delete_option('tidio-one-private-key');
+        wp_redirect( admin_url('plugins.php') );
+        die();
     }
 
     // Get Private Key
 
     public static function getPrivateKey() {
         self::syncPrivateKey();
-        
+
         $privateKey = get_option('tidio-one-private-key');
 
         if ($privateKey) {
             return $privateKey;
         }
-        
+
         try {
             $data = self::getContent(self::getAccessUrl());
         } catch(Exception $e){
@@ -182,24 +167,24 @@ class TidioLiveChat {
 
         return $data['value']['private_key'];
     }
-    
+
     public static function getContent($url){
-        
+
         if(function_exists('curl_version')){ // load trought curl
             $ch = curl_init();
-         
+
             curl_setopt($ch, CURLOPT_HEADER, 0);
             curl_setopt($ch, CURLOPT_RETURNTRANSFER, 1);
             curl_setopt($ch, CURLOPT_URL, $url);
-         
+
             $data = curl_exec($ch);
             curl_close($ch);
-         
+
             return $data;
         } else { // load trought file get contents
             return file_get_contents($url);
         }
-            
+
     }
 
     // Sync private key with old version
@@ -207,7 +192,7 @@ class TidioLiveChat {
     public static function syncPrivateKey() {
         if (get_option('tidio-one-public-key')) {
             return false;
-        }       
+        }
 
         $publicKey = get_option('tidio-chat-external-public-key');
         $privateKey = get_option('tidio-chat-external-private-key');
@@ -228,19 +213,19 @@ class TidioLiveChat {
 
     public static function getAccessUrl() {
 
-        return 'http://www.tidio.co/external/create?url=' . urlencode(site_url()) . '&platform=wordpress&email=' . urlencode(get_option('admin_email')) . '&_ip=' . $_SERVER['REMOTE_ADDR'];
+        return self::$apiUrl . '/access/external/create?url=' . urlencode(site_url()) . '&platform=wordpress&email=' . urlencode(get_option('admin_email')) . '&_ip=' . $_SERVER['REMOTE_ADDR'];
     }
 
     public static function getRedirectUrl($privateKey) {
 
-        return 'https://www.tidio.co/external/access?privateKey=' . $privateKey . '&app=chat';
+        return self::$chatUrl . '/access?privateKey=' . $privateKey;
     }
-    
+
     public static function ajaxGetPrivateKey(){
         $privateKey = self::getPrivateKey();
         if(!$privateKey || $privateKey=='false'){
             echo 'error';
-            exit();    
+            exit();
         }
         echo self::getRedirectUrl($privateKey);
         exit();
@@ -248,7 +233,7 @@ class TidioLiveChat {
 
     // Get Public Key
 
-    public static function getPublicKey() {        
+    public static function getPublicKey() {
         $publicKey = get_option('tidio-one-public-key');
 
         if ($publicKey) {
@@ -258,96 +243,6 @@ class TidioLiveChat {
         self::getPrivateKey();
 
         return get_option('tidio-one-public-key');
-    }
-
-    // WooCommerce Hooks - Thanks to this option, chat operator can see what user do while talking with him
-    // Based on Tidio One API
-
-    public function wooPaymentCharged($orderId) {
-
-        $visitorId = $this->getVisitorId();
-
-        if (!$visitorId) {
-            return false;
-        }
-
-        $order = new WC_Order($orderId);
-        $curreny = $order->get_order_currency();
-        $amount = $order->get_total();
-        $response = $this->tidioOne->request('api/track', array(
-            'name' => 'payment charged',
-            'visitorId' => $visitorId
-        ));
-    }
-
-    public function wooAddToCart($cart_item_key, $product_id, $quantity, $variation_id, $variation, $cart_item_data) {
-
-        $visitorId = $this->getVisitorId();
-
-        if (!$visitorId) {
-            return false;
-        }
-
-        $response = $this->tidioOne->request('api/track', array(
-            'name' => 'add to cart',
-            'visitorId' => $visitorId,
-            'data' => array(
-                '_product_id' => $product_id,
-                '_product_name' => get_the_title($product_id),
-                '_product_quantity' => $quantity,
-                '_product_url' => get_permalink($product_id),
-            )
-        ));
-    }
-
-    public function wooRemoveFromCart($cart_item_key, $cart) {
-
-        $visitorId = $this->getVisitorId();
-
-        if (!$visitorId) {
-            return false;
-        }
-
-        foreach ($cart->removed_cart_contents as $key => $removed) {
-            $product_id = $removed['product_id'];
-            $quantity = $removed['quantity'];
-            $response = $this->tidioOne->request('api/track', array(
-                'name' => 'remove from cart',
-                'visitorId' => $visitorId,
-                'data' => array(
-                    '_product_id' => $product_id,
-                    '_product_quantity' => $quantity,
-                )
-            ));
-        }
-    }
-
-    public function wooAddScript() {
-        echo '<script type="text/javascript"> document.tidioOneWooTrackingInside = 1; </script>';
-    }
-
-
-    private function getVisitorId() {
-
-        if (empty($_COOKIE['_tidioOne_'])) {
-            return null;
-        }
-
-        if (!function_exists('json_decode')) {
-            return null;
-        }
-
-        $data = $_COOKIE['_tidioOne_'];
-
-        $data = str_replace('\"', '"', $data);
-
-        @$data = json_decode($data, true);
-
-        if (!$data || empty($data['tidioOneVistiorId'])) {
-            return null;
-        }
-
-        return $data['tidioOneVistiorId'][0];
     }
 
 }

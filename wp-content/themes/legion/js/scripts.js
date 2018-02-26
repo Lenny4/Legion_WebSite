@@ -292,6 +292,21 @@ function removeItemCart($this, $id, $type) {
         });
 }
 
+function countDownJs() {
+    $("span[data-countdown]").each(function () {
+        countDown(this, $(this).data("countdown"));
+    });
+}
+
+function countDown($this, $time) {
+    setInterval(function () {
+        var tempsEnMs = (parseInt(Date.now() / 1000) - $time) * -1;
+        var minutes = parseInt(tempsEnMs / 60);
+        var seconds = parseInt(tempsEnMs - (minutes * 60));
+        $($this).html(minutes + "m " + seconds + "s ");
+    }, 1000);
+}
+
 //====================== SHOP
 
 $(document).ready(function () {
@@ -302,6 +317,7 @@ $(document).ready(function () {
         deleteMessageHeader($(this).attr('id'));
     });
     new PerfectScrollbar('#my_sidebar');
+    countDownJs();
 });
 
 $(window).resize(function () {

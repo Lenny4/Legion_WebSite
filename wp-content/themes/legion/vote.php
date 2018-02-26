@@ -27,13 +27,13 @@
                         $i = 0;
                         while ($data = $result->fetch(PDO::FETCH_ASSOC)) { ?>
                             <?php
-                            if (!parse_url($previousUrl, PHP_URL_HOST) == parse_url($data["url_vote"], PHP_URL_HOST)) {
+                            if (parse_url($previousUrl, PHP_URL_HOST) != parse_url($data["url_vote"], PHP_URL_HOST)) {
                                 $req = "SELECT * FROM `user_vote` WHERE `user_ip`='" . get_the_user_ip() . "' AND `website_id`=" . $data['id'] . " AND `status`='voting'";
                                 $result2 = $GLOBALS["dbh"]->query($req);
                                 while ($data2 = $result2->fetch(PDO::FETCH_ASSOC)) {
                                     $req = "UPDATE `user_vote` SET `status`='done',`date`= NOW() WHERE id=" . $data2['id'];
                                     $GLOBALS["dbh"]->query($req);
-                                    //give points
+                                    addVotePoint(get_current_user_id(), $data["points"]);
                                 }
                             }
                             ?>
@@ -48,20 +48,31 @@
                                     </p>
                                 </div>
                                 <div class="col-sm-6 col-xs-12">
+                                    <?php
+                                    $pointThisMonth = getPointsThisMonthServerVote(get_the_user_ip(), $data);
+                                    ?>
                                     <p class="h3 noMargin">
-                                        <span style="float: left; margin-right: 1px">This month <?= $data["points"]; ?></span>
+                                        <span style="float: left; margin-right: 1px">This month <?= $pointThisMonth; ?></span>
                                         <?= wp_get_attachment_image(169, "thumbnail", false, array("class" => "img-responsive", "style" => "width:24px")); ?>
                                     </p>
                                 </div>
                                 <?php
-                                if (true) { ?>
-                                    <button data-href="<?= $data["url_vote"]; ?>" data-websiteid="<?= $data["id"]; ?>"
+                                $canVote = canVoteThisServer(get_the_user_ip(), $data);
+                                if ($canVote["can_vote"] == "can_vote") { ?>
+                                    <button data-href="<?= $data["url_vote"]; ?>"
+                                            data-websiteid="<?= $data["id"]; ?>"
                                             type="button"
                                             class="btn btn-primary btn-block">Vote
                                     </button>
+                                <?php } elseif ($canVote["can_vote"] == "is_voting") { ?>
+                                    <button data-href="<?= $data["url_vote"]; ?>"
+                                            data-websiteid="<?= $data["id"]; ?>"
+                                            type="button"
+                                            class="btn btn-warning btn-block">You're voting
+                                    </button>
                                 <?php } else { ?>
-                                    <button type="button" class="btn btn-danger btn-block disabled">You can vote in 1h
-                                        45min 23sec
+                                    <button type="button" class="btn btn-danger btn-block" disabled>
+                                        You can vote in <span data-countdown="<?= $canVote["time"]; ?>">0</span>
                                     </button>
                                 <?php } ?>
                             </div>
