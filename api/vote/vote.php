@@ -13,7 +13,6 @@ if (!isset($_POST)) {
 }
 
 if (isset($_POST["id"]) AND $_POST["id"] == "vote") {
-    //vérifier le temps
     $req = "SELECT * FROM `user_vote` WHERE `user_ip`='" . get_the_user_ip() . "' AND `website_id`=" . $_POST['websiteid'] . " AND `status`='voting'";
     $result = $GLOBALS["dbh"]->query($req);
     $count = $result->rowCount();

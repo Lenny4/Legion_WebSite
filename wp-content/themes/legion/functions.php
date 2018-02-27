@@ -769,15 +769,46 @@ function getOnlinePlayer()
     return $tab;
 }
 
-function getBestVoters()
+function getBestVoters($number)
 {
-    $tab = array();
-    for ($i = 0; $i < 5; $i++) {
-        $tab[$i]["name"] = "Name";
-        $tab[$i]["vote"] = "1000";
-        $tab[$i]["won"] = "10";
+    $return = array();
+    $req = "SELECT COUNT(*) AS vote,user_id FROM `user_vote` WHERE MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE()) AND `status`='done' GROUP BY (user_id) ORDER BY vote DESC LIMIT " . $number . ";";
+    $result = $GLOBALS['dbh']->query($req);
+    while ($data = $result->fetch(PDO::FETCH_ASSOC)) {
+        $tab["name"] = "";
+        $tab["id"] = $data["user_id"];
+        $tab["vote"] = $data["vote"];
+        $tab["won"] = "";
+        $return[$data["user_id"]] = $tab;
     }
-    return $tab;
+    $firstIteration = true;
+    $req = "SELECT * FROM `wp_users` ";
+    foreach ($return as $row) {
+        if ($firstIteration == true) {
+            $req = $req . "WHERE `ID`=" . $row["id"] . " ";
+        } else {
+            $req = $req . "OR `ID`=" . $row["id"] . " ";
+        }
+        $firstIteration = false;
+    }
+    $result2 = $GLOBALS['dbh']->query($req);
+    while ($data = $result2->fetch(PDO::FETCH_ASSOC)) {
+        $return[$data["ID"]]["name"] = $data["user_login"];
+    }
+    $req = "SELECT * FROM `website_vote`";
+    $result3 = $GLOBALS['dbh']->query($req);
+    $website = [];
+    while ($data = $result3->fetch(PDO::FETCH_ASSOC)) {
+        $website[$data["id"]] = $data;
+    }
+    foreach ($return as $key => $row) {
+        $return[$key]["won"] = 0;
+        foreach ($website as $site) {
+            $user_id = $row["id"];
+            $return[$key]["won"] += getPointsThisMonthServerVote($user_id, $site);
+        }
+    }
+    return $return;
 }
 
 function getAllItemClasses()
@@ -922,9 +953,9 @@ function get_the_user_ip()
     return $ip;
 }
 
-function getPointsThisMonthServerVote($ip, $server)
+function getPointsThisMonthServerVote($user_id, $server)
 {
-    $req = "SELECT * FROM `user_vote` WHERE MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE()) AND `user_ip`='" . $ip . "' AND `website_id`=" . $server['id'] . " AND `status`='done'";
+    $req = "SELECT * FROM `user_vote` WHERE MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE()) AND `user_id`=" . $user_id . " AND `website_id`=" . $server['id'] . " AND `status`='done'";
     $result3 = $GLOBALS["dbh"]->query($req);
     $count = $result3->rowCount();
     $pointThisMonth = $count * $server["points"];

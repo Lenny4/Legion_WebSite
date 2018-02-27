@@ -306,7 +306,7 @@
                         </td>
                     </tr>
                     <?php
-                    $tabVoters = getBestVoters();
+                    $tabVoters = getBestVoters(5);
                     $i = 1;
                     foreach ($tabVoters as $row) {
                         echo "<tr>";

@@ -27,7 +27,7 @@
                         $i = 0;
                         while ($data = $result->fetch(PDO::FETCH_ASSOC)) { ?>
                             <?php
-                            if (parse_url($previousUrl, PHP_URL_HOST) != parse_url($data["url_vote"], PHP_URL_HOST)) {
+                            if (parse_url($previousUrl, PHP_URL_HOST) == parse_url($data["url_vote"], PHP_URL_HOST)) {
                                 $req = "SELECT * FROM `user_vote` WHERE `user_ip`='" . get_the_user_ip() . "' AND `website_id`=" . $data['id'] . " AND `status`='voting'";
                                 $result2 = $GLOBALS["dbh"]->query($req);
                                 while ($data2 = $result2->fetch(PDO::FETCH_ASSOC)) {
@@ -49,7 +49,7 @@
                                 </div>
                                 <div class="col-sm-6 col-xs-12">
                                     <?php
-                                    $pointThisMonth = getPointsThisMonthServerVote(get_the_user_ip(), $data);
+                                    $pointThisMonth = getPointsThisMonthServerVote(get_current_user_id(), $data);
                                     ?>
                                     <p class="h3 noMargin">
                                         <span style="float: left; margin-right: 1px">This month <?= $pointThisMonth; ?></span>
@@ -72,7 +72,7 @@
                                     </button>
                                 <?php } else { ?>
                                     <button type="button" class="btn btn-danger btn-block" disabled>
-                                        You can vote in <span data-countdown="<?= $canVote["time"]; ?>">0</span>
+                                        You can vote in <span data-countdown="<?= $canVote["time"]; ?>">...</span>
                                     </button>
                                 <?php } ?>
                             </div>

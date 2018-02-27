@@ -301,9 +301,19 @@ function countDownJs() {
 function countDown($this, $time) {
     setInterval(function () {
         var tempsEnMs = (parseInt(Date.now() / 1000) - $time) * -1;
+        var hours = parseInt(tempsEnMs / 3600);
+        tempsEnMs = tempsEnMs - (hours * 3600);
         var minutes = parseInt(tempsEnMs / 60);
         var seconds = parseInt(tempsEnMs - (minutes * 60));
-        $($this).html(minutes + "m " + seconds + "s ");
+        if (hours > 0) {
+            $($this).html(hours + "h " + minutes + "m " + seconds + "s ");
+        } else if (minutes > 0) {
+            $($this).html(minutes + "m " + seconds + "s ");
+        } else if (seconds > 0) {
+            $($this).html(seconds + "s ");
+        } else {
+            $($this).html("Please reload the page to vote");
+        }
     }, 1000);
 }
 
