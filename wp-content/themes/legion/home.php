@@ -1,6 +1,7 @@
 <?php /* Template Name: Home Page */ ?>
 
 <?php get_header(); ?>
+<?php newInstanceVote(); ?>
 <style>
     .hovereffect {
         width: 100%;

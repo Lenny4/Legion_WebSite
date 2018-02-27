@@ -27,7 +27,7 @@
                         $i = 0;
                         while ($data = $result->fetch(PDO::FETCH_ASSOC)) { ?>
                             <?php
-                            if (parse_url($previousUrl, PHP_URL_HOST) == parse_url($data["url_vote"], PHP_URL_HOST)) {
+                            if (parse_url($previousUrl, PHP_URL_HOST) != parse_url($data["url_vote"], PHP_URL_HOST)) {
                                 $req = "SELECT * FROM `user_vote` WHERE `user_ip`='" . get_the_user_ip() . "' AND `website_id`=" . $data['id'] . " AND `status`='voting'";
                                 $result2 = $GLOBALS["dbh"]->query($req);
                                 while ($data2 = $result2->fetch(PDO::FETCH_ASSOC)) {

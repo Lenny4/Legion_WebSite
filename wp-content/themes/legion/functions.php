@@ -921,8 +921,9 @@ function getCharacterClassNameWithId($id)
 
 function newInstanceVote()
 {
+    $nbVoters = 5;
     $result = $GLOBALS["dbh"]->query("SELECT * FROM `instance_vote` ORDER BY `id` DESC LIMIT 1");
-    if ($result->rowCount() == 1) {
+    if ($result->rowCount() == 1 OR true) {
         while ($data = $result->fetch(PDO::FETCH_ASSOC)) {
             $date1 = new DateTime($data["date"]);
             $date2 = new DateTime();
@@ -930,14 +931,53 @@ function newInstanceVote()
             $month2 = intval(date("m", strtotime($date2->format('Y-m-d H:i:s'))));
             $year1 = intval(date("Y", strtotime($date1->format('Y-m-d H:i:s'))));
             $year2 = intval(date("Y", strtotime($date2->format('Y-m-d H:i:s'))));
-            if ($month2 > $month1 OR $year2 > $year1) {
-                $GLOBALS["dbh"]->query("INSERT INTO `instance_vote`(`date`) VALUES (NOW())");
-                //donner les cadeaux si il y en a
+            if ($month2 > $month1 OR $year2 > $year1 OR true) {
+//                $GLOBALS["dbh"]->query("INSERT INTO `instance_vote`(`date`) VALUES (NOW())");
+                $bestVoters = getBestVoters($nbVoters);
+                $month = intval(date("n"));
+                $req = "SELECT * FROM `user_vote` WHERE MONTH(date) = MONTH(CURRENT_DATE())-1 AND YEAR(date) = YEAR(CURRENT_DATE())";
+                if ($month == 1) {
+                    $req .= " -1  ";
+                }
+                $req .= "AND `status`='done' AND (";
+                $firstIteration = true;
+                foreach ($bestVoters as $voter) {
+                    if ($firstIteration == true) {
+                        $req .= "`user_id`=" . $voter["id"];
+                    } else {
+                        $req .= " OR `user_id`=" . $voter["id"];
+                    }
+                    $req .= "";
+                    $firstIteration = false;
+                }
+                $req .= ") ORDER BY `user_id`";
+                $website = [];
+                $result2 = $GLOBALS["dbh"]->query("SELECT * FROM `website_vote`");
+                while ($data2 = $result2->fetch(PDO::FETCH_ASSOC)) {
+                    $website[$data2["id"]] = $data2;
+                }
+                $result3 = $GLOBALS["dbh"]->query($req);
+                $final = [];
+                while ($data3 = $result3->fetch(PDO::FETCH_ASSOC)) {
+                    if (!isset($data3["user_id"])) {
+                        $final[$data3["user_id"]] = 0;
+                    }
+                    $final[$data3["user_id"]] += getPointsThisMonthServerVote($data3["user_id"], $website[$data3["website_id"]], true);
+                }
             }
         }
     } else {
         $GLOBALS["dbh"]->query("INSERT INTO `instance_vote`(`date`) VALUES (NOW())");
         newInstanceVote();
+    }
+    if (isset($final) AND sizeof($final) >= 1) {
+        $i = 1;
+        foreach ($final as $user_id => $points) {
+            $amount = intval($points / $i);
+            addVotePoint($user_id, $amount);
+            $i++;
+            //add message bdd message_header "vous avez gagné ... points en bonus
+        }
     }
 }
 
@@ -953,11 +993,23 @@ function get_the_user_ip()
     return $ip;
 }
 
-function getPointsThisMonthServerVote($user_id, $server)
+function getPointsThisMonthServerVote($user_id, $server, $previousMonth = false)
 {
-    $req = "SELECT * FROM `user_vote` WHERE MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE()) AND `user_id`=" . $user_id . " AND `website_id`=" . $server['id'] . " AND `status`='done'";
+    if ($previousMonth == true) {
+        $month = intval(date("n"));
+        if ($month == 1) {
+            $req = "SELECT * FROM `user_vote` WHERE MONTH(date) = MONTH(CURRENT_DATE())-1 AND YEAR(date) = YEAR(CURRENT_DATE())-1 AND `user_id`=" . $user_id . " AND `website_id`=" . $server['id'] . " AND `status`='done'";
+        } else {
+            $req = "SELECT * FROM `user_vote` WHERE MONTH(date) = MONTH(CURRENT_DATE())-1 AND YEAR(date) = YEAR(CURRENT_DATE()) AND `user_id`=" . $user_id . " AND `website_id`=" . $server['id'] . " AND `status`='done'";
+        }
+    } else {
+        $req = "SELECT * FROM `user_vote` WHERE MONTH(date) = MONTH(CURRENT_DATE()) AND YEAR(date) = YEAR(CURRENT_DATE()) AND `user_id`=" . $user_id . " AND `website_id`=" . $server['id'] . " AND `status`='done'";
+    }
     $result3 = $GLOBALS["dbh"]->query($req);
     $count = $result3->rowCount();
+    if ($previousMonth == true) {
+        $count = 1;
+    }
     $pointThisMonth = $count * $server["points"];
     return $pointThisMonth;
 }
