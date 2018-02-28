@@ -1,5 +1,6 @@
 <?php /* Template Name: Vote Page */ ?>
 <?php get_header(); ?>
+
 <style>
     section.background {
         padding: 20px 0px;

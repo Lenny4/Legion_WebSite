@@ -5,6 +5,33 @@
  *  Custom functions, support, custom post types and more.
  */
 
+require_once dirname(__FILE__) . '/class/SOAPRegistration.php';
+require_once dirname(__FILE__) . '/class/SOAPDeletion.php';
+require_once dirname(__FILE__) . '/class/SOAPChangePassword.php';
+require_once dirname(__FILE__) . '/class/SOAPOnline.php';
+require_once dirname(__FILE__) . '/class/parent_item.php';
+require_once dirname(__FILE__) . '/class/shop.php';
+require_once dirname(__FILE__) . '/class/item.php';
+require_once dirname(__FILE__) . '/class/item_classes.php';
+require_once dirname(__FILE__) . '/class/item_set.php';
+require_once dirname(__FILE__) . '/class/item_home.php';
+require_once dirname(__FILE__) . '/class/item_home_level.php';
+require_once dirname(__FILE__) . '/class/item_home_gold.php';
+require_once dirname(__FILE__) . '/class/item_home_character.php';
+require_once dirname(__FILE__) . '/class/item_home_manage_character.php';
+require_once dirname(__FILE__) . '/class/item_home_profession.php';
+require_once dirname(__FILE__) . '/class/item_home_best_sell.php';
+require_once dirname(__FILE__) . '/class/item_home_membership.php';
+require_once dirname(__FILE__) . '/class/item_home_promotion.php';
+require_once dirname(__FILE__) . '/class/item_home_guild.php';
+require_once dirname(__FILE__) . '/class/item_home_teleport.php';
+require_once dirname(__FILE__) . '/class/map.php';
+require_once dirname(__FILE__) . '/class/SOAPSendItem.php';
+require_once dirname(__FILE__) . '/class/SOAPTeleportation.php';
+require_once dirname(__FILE__) . '/class/SOAPLevelUp.php';
+require_once dirname(__FILE__) . '/class/SOAPCharacter.php';
+require_once dirname(__FILE__) . '/class/SOAPSendMoney.php';
+
 if (session_id() == '')
     session_start();
 
@@ -923,7 +950,7 @@ function newInstanceVote()
 {
     $nbVoters = 5;
     $result = $GLOBALS["dbh"]->query("SELECT * FROM `instance_vote` ORDER BY `id` DESC LIMIT 1");
-    if ($result->rowCount() == 1 OR true) {
+    if ($result->rowCount() == 1) {
         while ($data = $result->fetch(PDO::FETCH_ASSOC)) {
             $date1 = new DateTime($data["date"]);
             $date2 = new DateTime();
@@ -931,13 +958,14 @@ function newInstanceVote()
             $month2 = intval(date("m", strtotime($date2->format('Y-m-d H:i:s'))));
             $year1 = intval(date("Y", strtotime($date1->format('Y-m-d H:i:s'))));
             $year2 = intval(date("Y", strtotime($date2->format('Y-m-d H:i:s'))));
-            if ($month2 > $month1 OR $year2 > $year1 OR true) {
-//                $GLOBALS["dbh"]->query("INSERT INTO `instance_vote`(`date`) VALUES (NOW())");
+            if ($month2 > $month1 OR $year2 > $year1) {
+                $GLOBALS["dbh"]->query("INSERT INTO `instance_vote`(`date`) VALUES (NOW())");
                 $bestVoters = getBestVoters($nbVoters);
                 $month = intval(date("n"));
-                $req = "SELECT * FROM `user_vote` WHERE MONTH(date) = MONTH(CURRENT_DATE())-1 AND YEAR(date) = YEAR(CURRENT_DATE())";
                 if ($month == 1) {
-                    $req .= " -1  ";
+                    $req = "SELECT * FROM `user_vote` WHERE MONTH(date) = MONTH(CURRENT_DATE())+11 AND YEAR(date) = YEAR(CURRENT_DATE()) -1 ";
+                } else {
+                    $req = "SELECT * FROM `user_vote` WHERE MONTH(date) = MONTH(CURRENT_DATE())-1 AND YEAR(date) = YEAR(CURRENT_DATE()) ";
                 }
                 $req .= "AND `status`='done' AND (";
                 $firstIteration = true;
@@ -950,7 +978,7 @@ function newInstanceVote()
                     $req .= "";
                     $firstIteration = false;
                 }
-                $req .= ") ORDER BY `user_id`";
+                $req .= ") GROUP BY `user_id`,`website_id` ORDER BY `user_id`";
                 $website = [];
                 $result2 = $GLOBALS["dbh"]->query("SELECT * FROM `website_vote`");
                 while ($data2 = $result2->fetch(PDO::FETCH_ASSOC)) {
@@ -976,7 +1004,7 @@ function newInstanceVote()
             $amount = intval($points / $i);
             addVotePoint($user_id, $amount);
             $i++;
-            //add message bdd message_header "vous avez gagné ... points en bonus
+            $GLOBALS["dbh"]->query("INSERT INTO `message_header`(`message`, `user_id`, `value`) VALUES ('bonus_vote_points'," . $user_id . "," . $amount . ")");
         }
     }
 }
@@ -998,7 +1026,7 @@ function getPointsThisMonthServerVote($user_id, $server, $previousMonth = false)
     if ($previousMonth == true) {
         $month = intval(date("n"));
         if ($month == 1) {
-            $req = "SELECT * FROM `user_vote` WHERE MONTH(date) = MONTH(CURRENT_DATE())-1 AND YEAR(date) = YEAR(CURRENT_DATE())-1 AND `user_id`=" . $user_id . " AND `website_id`=" . $server['id'] . " AND `status`='done'";
+            $req = "SELECT * FROM `user_vote` WHERE MONTH(date) = MONTH(CURRENT_DATE())+11 AND YEAR(date) = YEAR(CURRENT_DATE())-1 AND `user_id`=" . $user_id . " AND `website_id`=" . $server['id'] . " AND `status`='done'";
         } else {
             $req = "SELECT * FROM `user_vote` WHERE MONTH(date) = MONTH(CURRENT_DATE())-1 AND YEAR(date) = YEAR(CURRENT_DATE()) AND `user_id`=" . $user_id . " AND `website_id`=" . $server['id'] . " AND `status`='done'";
         }
@@ -1007,9 +1035,6 @@ function getPointsThisMonthServerVote($user_id, $server, $previousMonth = false)
     }
     $result3 = $GLOBALS["dbh"]->query($req);
     $count = $result3->rowCount();
-    if ($previousMonth == true) {
-        $count = 1;
-    }
     $pointThisMonth = $count * $server["points"];
     return $pointThisMonth;
 }

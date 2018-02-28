@@ -153,6 +153,14 @@
                             </div>
                             ';
                         }
+                    } else {
+                        $message = get_field($data["message"], $GLOBALS["shop_page_id"]);
+                        echo '
+                            <div class="alert alert-success alert-dismissable">
+                              <a id="' . $data["id"] . '" href="#" class="close deleteMessageHeader" data-dismiss="alert" aria-label="close">&times;</a>
+                              <strong>' . $message . ' ' . $data["value"] . '</strong>
+                            </div>
+                            ';
                     }
                 }
                 echo '</div>';

@@ -18,33 +18,6 @@
  * @package WordPress
  */
 
-require_once 'wp-content/themes/legion/class/SOAPRegistration.php';
-require_once 'wp-content/themes/legion/class/SOAPDeletion.php';
-require_once 'wp-content/themes/legion/class/SOAPChangePassword.php';
-require_once 'wp-content/themes/legion/class/SOAPOnline.php';
-require_once 'wp-content/themes/legion/class/parent_item.php';
-require_once 'wp-content/themes/legion/class/shop.php';
-require_once 'wp-content/themes/legion/class/item.php';
-require_once 'wp-content/themes/legion/class/item_classes.php';
-require_once 'wp-content/themes/legion/class/item_set.php';
-require_once 'wp-content/themes/legion/class/item_home.php';
-require_once 'wp-content/themes/legion/class/item_home_level.php';
-require_once 'wp-content/themes/legion/class/item_home_gold.php';
-require_once 'wp-content/themes/legion/class/item_home_character.php';
-require_once 'wp-content/themes/legion/class/item_home_manage_character.php';
-require_once 'wp-content/themes/legion/class/item_home_profession.php';
-require_once 'wp-content/themes/legion/class/item_home_best_sell.php';
-require_once 'wp-content/themes/legion/class/item_home_membership.php';
-require_once 'wp-content/themes/legion/class/item_home_promotion.php';
-require_once 'wp-content/themes/legion/class/item_home_guild.php';
-require_once 'wp-content/themes/legion/class/item_home_teleport.php';
-require_once 'wp-content/themes/legion/class/map.php';
-require_once 'wp-content/themes/legion/class/SOAPSendItem.php';
-require_once 'wp-content/themes/legion/class/SOAPTeleportation.php';
-require_once 'wp-content/themes/legion/class/SOAPLevelUp.php';
-require_once 'wp-content/themes/legion/class/SOAPCharacter.php';
-require_once 'wp-content/themes/legion/class/SOAPSendMoney.php';
-
 // ** MySQL settings - You can get this info from your web host ** //
 /** The name of the database for WordPress */
 define('DB_NAME', 'website');
