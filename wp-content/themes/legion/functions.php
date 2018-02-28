@@ -948,7 +948,7 @@ function getCharacterClassNameWithId($id)
 
 function newInstanceVote()
 {
-    $nbVoters = 5;
+    $nbVoters = 10;
     $result = $GLOBALS["dbh"]->query("SELECT * FROM `instance_vote` ORDER BY `id` DESC LIMIT 1");
     if ($result->rowCount() == 1) {
         while ($data = $result->fetch(PDO::FETCH_ASSOC)) {
@@ -999,11 +999,12 @@ function newInstanceVote()
         newInstanceVote();
     }
     if (isset($final) AND sizeof($final) >= 1) {
-        $i = 1;
+        $percent = 1;
+        $remove = $percent / $nbVoters;
         foreach ($final as $user_id => $points) {
-            $amount = intval($points / $i);
+            $amount = intval($points * $percent);
             addVotePoint($user_id, $amount);
-            $i++;
+            $percent = $percent - $remove;
             $GLOBALS["dbh"]->query("INSERT INTO `message_header`(`message`, `user_id`, `value`) VALUES ('bonus_vote_points'," . $user_id . "," . $amount . ")");
         }
     }
@@ -1023,6 +1024,9 @@ function get_the_user_ip()
 
 function getPointsThisMonthServerVote($user_id, $server, $previousMonth = false)
 {
+    if ($user_id == 0) {
+        return 0;
+    }
     if ($previousMonth == true) {
         $month = intval(date("n"));
         if ($month == 1) {

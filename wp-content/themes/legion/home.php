@@ -323,7 +323,9 @@
                 <div class="display_item" style="display: block">
                     <?= wp_get_attachment_image(296, "thumbnail", false, array("class" => "img-responsive; center-block")); ?>
                     <span>Monthly reward will be given to the best voters</span>
-                    <button type="button" class="btn btn-primary btn-block">See rewards !</button>
+                    <a href="<?= get_permalink(299); ?>#monthly_rewards_tab">
+                        <button type="button" class="btn btn-primary btn-block">See rewards !</button>
+                    </a>
                 </div>
             </div>
         </div>

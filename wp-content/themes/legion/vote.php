@@ -28,7 +28,7 @@
                         $i = 0;
                         while ($data = $result->fetch(PDO::FETCH_ASSOC)) { ?>
                             <?php
-                            if (parse_url($previousUrl, PHP_URL_HOST) != parse_url($data["url_vote"], PHP_URL_HOST)) {
+                            if (parse_url($previousUrl, PHP_URL_HOST) == parse_url($data["url_vote"], PHP_URL_HOST)) {
                                 $req = "SELECT * FROM `user_vote` WHERE `user_ip`='" . get_the_user_ip() . "' AND `website_id`=" . $data['id'] . " AND `status`='voting'";
                                 $result2 = $GLOBALS["dbh"]->query($req);
                                 while ($data2 = $result2->fetch(PDO::FETCH_ASSOC)) {
@@ -82,6 +82,12 @@
                                 echo "<div class='col-xs-12 hidden-xs' style='height: 30px'></div>";
                             }
                         } ?>
+                    </div>
+                    <div class="col-xs-12">
+                        <div class="col-sm-6 col-sm-offset-3 col-xs-12">
+                            <h2 id="monthly_rewards_tab" class="text-center">Monthly rewards</h2>
+                            IZI
+                        </div>
                     </div>
                     <?php
                     if (isset($_POST["add_voting_website"]) AND isWowAdmin()) {
